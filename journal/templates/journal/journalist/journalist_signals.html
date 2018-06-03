@@ -1,0 +1,229 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+    {{ user.username }} - Videos
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'journal/css/journalist/nav-journalist.css' %}">
+    <link rel="stylesheet" href="{% static 'journal/css/journalist/journalist-articles.css' %}">
+    <style>
+        .modal h3{
+            margin-top: 10px;
+            margin-bottom: 2px;
+            font-size: 17px;
+        }
+        .modal p {
+            margin: 0 0 5px;
+        }
+        .modal b {
+            display: inline-block;
+            padding-left: 25px;
+            font-weight: 500;
+            color: #000;
+        }
+        .list-inline>li {
+            padding: 0;
+        }
+    </style>
+    <script src="{% static 'journal/js/jquery.min.js' %}"></script>
+{% endblock %}
+
+{% block script %}
+    $(".formDelete").submit(function( event ) {
+        event.preventDefault();
+        var form = $(this);
+        var type = form.attr('data-type');
+        console.log(type);
+        if(type == "comment") {
+            if (confirm("Voulez vous vraiment supprimer le commentaire ")){
+                form.off('submit').submit();
+            }
+        }
+        else if(type == "signal") {
+            if (confirm("Voulez vous vraiment supprimer le signal ")){
+                form.off('submit').submit();
+            }
+        }
+    });
+{% endblock %}
+
+{% block content %}
+
+    <!-- SECTION HEADER -->
+    <div class="section header-info">
+        <div class="container">
+            <h2>Signals</h2>
+            <!-- breadcrumb -->
+            <ul class="article-breadcrumb pull-right">
+                <li><a href="{% url 'index' %}">Accueil</a></li>
+                <li><a href="{% url 'journalist' %}">Espace Journalistes</a></li>
+                <li><a href="{% url 'journalist_signals' %}">Signals</a></li>
+            </ul>
+            <!-- /breadcrumb -->
+        </div>
+    </div>
+    <!-- /SECTION HEADER -->
+    <div class="main-panel">
+    <!-- NAV JOURNALIST -->
+    <div class="container">
+        <nav class="nav-journalist">
+            <ul class="list-inline">
+                <li><a href="{% url 'journalist_profile' %}">Profil</a></li>
+                <li><a href="{% url 'journalist_articles' %}">Articles</a></li>
+                <li><a href="{% url 'journalist_videos' %}">Vidéos</a></li>
+                <li><a href="{% url 'journalist_create_article' %}">Ajouter Article</a></li>
+                <li><a href="{% url 'journalist_create_video' %}">Ajouter Vidéo</a></li>
+            </ul>
+        </nav>
+    </div>
+    <!-- /NAV JOURNALIST -->
+    <!-- DIV ARTICLES -->
+    <div class="container">
+        <div class="card">
+            <div class="header">
+                <h4 class="title">Liste de vos signals</h4>
+                <p class="category">Total des signals : {{ count }}</p>
+            </div>
+            <div class="content table-responsive table-full-width">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Article / Vidéo</th>
+                        <th>Commentaire</th>
+                        <th>Motif signal</th>
+                        <th>Date Signal</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for signal in signals %}
+                            <tr>
+                                <td>{{ signal.id }}</td>
+                                <td>
+                                    {% if signal.type == 'comment' %}
+                                        <a target="_blank"
+                                           href="{% url 'post' signal.comment.news.category signal.comment.news.id %}">
+                                            {{ signal.comment.news.small_title }}</a>
+                                    {% else %}
+                                        <a target="_blank"
+                                            href="{% url 'post' signal.answer.comment.news.category signal.answer.comment.news.id %}">
+                                            {{ signal.answer.comment.news.small_title }}</a>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if signal.type == 'comment' %}
+                                        {{ signal.comment.message|truncatechars:150 }}
+                                    {% else %}
+                                        {{ signal.answer.message|truncatechars:150 }}
+                                    {% endif %}
+                                </td>
+                                <td>{{ signal.cause|truncatechars:150 }}</td>
+                                <td>{{ signal.date_send }}</td>
+                                <td>
+                                    <form action="{% url 'journalist_signals' %}" method="post" class="formDelete" data-type="comment">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="comment" value="{{ signal.comment.id }}{{ signal.answer.id }}">
+                                        <input type="hidden" name="method" value="comment">
+                                        <button type="submit" class="btn btn-danger" title="Supprimer commentaire">
+                                            <i class="fa fa-trash-o"></i></button>
+                                    </form>
+                                    <form action="{% url 'journalist_signals' %}" method="post" class="formDelete" data-type="signal">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="method" value="signal">
+                                        <input type="hidden" name="signal" value="{{ signal.id }}">
+                                        <button type="submit" class="btn btn-warning" title="Supprimer signal">
+                                            <i class="fa fa-trash-o"></i></button>
+                                    </form>
+                                    <a href="#" class="btn btn-info" data-toggle="modal" data-target="#modal{{ signal.id }}">
+                                        <i class="fa fa-info"></i></a>
+                                </td>
+                            </tr>
+                            <!-- Modal -->
+                            <div class="modal fade" id="modal{{ signal.id }}" role="dialog">
+                                <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title">Détails signal {{ signal.id }}</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <h3>Article</h3>
+                                            <p><b>Id :</b> {{ signal.comment.news.id }}{{ signal.answer.comment.news.id }}</p>
+                                            <p><b>Titre :</b>
+                                                {{ signal.comment.news.title }}{{ signal.answer.comment.news.title }}</p>
+                                            <h3>Commentaire</h3>
+                                            <p><b>Id :</b> {{ signal.comment.id }}{{ signal.answer.id }}</p>
+                                            <p><b>Nombre de j'aime :</b>
+                                                {{ signal.comment.number_like }}{{ signal.answer.number_like}}</p>
+                                            <p><b>Nom complet :</b>
+                                                {{ signal.comment.full_name }}{{ signal.answer.comment.full_name }}</p>
+                                            <p><b>Email :</b> {{ signal.comment.email }}{{ signal.answer.email }}</p>
+                                            <p><b>Contenu :</b> {{ signal.comment.message }}{{ signal.answer.message }}</p>
+                                            <h3>Signal</h3>
+                                            <p><b>Email :</b> {{ signal.email }}</p>
+                                            <p><b>Motif :</b> {{ signal.cause }}</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <ul class="list-inline">
+                                                <li>
+                                                    <form action="{% url 'journalist_signals' %}" method="post">
+                                                        {% csrf_token %}
+                                                        <input type="hidden" name="method" value="comment">
+                                                        <input type="hidden" name="comment" value=
+                                                                "{{ signal.comment.id }}{{ signal.answer.id }}">
+                                                        <input type="submit" class="btn btn-danger"value="Supprimer commentaire">
+                                                    </form>
+                                                </li>
+                                                <li>
+                                                    <form action="{% url 'journalist_signals' %}" method="post">
+                                                        {% csrf_token %}
+                                                        <input type="hidden" name="method" value="signal">
+                                                        <input type="hidden" name="signal" value="{{ signal.id }}">
+                                                        <input type="submit" class="btn btn-warning" value="Supprimer signal">
+                                                    </form>
+                                                </li>
+                                                <li><button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /Modal -->
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                {% if signals.has_other_pages %}
+                    <ul class="pagination">
+                        {% if signals.has_previous %}
+                            <li><a href="?page={{ signals.previous_page_number }}">&laquo;</a></li>
+                        {% else %}
+                            <li class="disabled"><span>&laquo;</span></li>
+                        {% endif %}
+                        {% for i in signals.paginator.page_range %}
+                            {% if signals.number == i %}
+                                <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                            {% else %}
+                                <li><a href="?page={{ i }}">{{ i }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                        {% if signals.has_next %}
+                            <li><a href="?page={{ signals.next_page_number }}">&raquo;</a></li>
+                        {% else %}
+                            <li class="disabled"><span>&raquo;</span></li>
+                        {% endif %}
+                    </ul>
+                    <p class="paginatorIndex">page {{ signals.number }} sur {{ signals.paginator.num_pages }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <!-- /DIV ARTICLES -->
+    </div>
+
+{% endblock %}

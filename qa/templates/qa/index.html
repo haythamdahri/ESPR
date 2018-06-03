@@ -1,0 +1,583 @@
+{% extends "base.html" %}
+
+{% block title %}Accueil{% endblock title %}
+{% block content %}
+{% load static %}
+
+<div>
+          {% include 'qa/header.html' %}
+
+
+<div class="row">
+    <div class="box col-md-9 ">
+        <div class="box-inner panel panel-default">
+           <!--  <div class="box-header well" data-original-title="">
+                <h2><i class="glyphicon glyphicon-question-sign"></i> Questions</h2>
+
+                <div class="box-icon">
+                    <a href="/qa#" class="btn btn-setting btn-round btn-default"><i class="glyphicon glyphicon-cog"></i></a>
+                    <a href="/qa#" class="btn btn-minimize btn-round btn-default"><i class="glyphicon glyphicon-chevron-up"></i></a>
+                    <a href="/qa#" class="btn btn-close btn-round btn-default"><i class="glyphicon glyphicon-remove"></i></a>
+                </div>
+            </div> -->
+           
+           <div class="box-content" style="padding: 20px;">
+                <ul class="nav nav-tabs" id="myTab">
+                    <li><a href="/qa#listQuestion" aria-controls="latest" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Dernier</a></li>
+
+                    <li><a href="/qa#unans" aria-controls="unans" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span> Sans réponse <span class="badge">{{ noans.count }}</span></a></li>
+
+                    <li ><a href="/qa#reward" aria-controls="reward" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-star" aria-hidden="true"></span> Le plus gratifiant  <span class="badge">{{ reward.count }}</span></a></li>
+
+                </ul>
+
+                <div id="myTabContent" class="tab-content" style="padding: 10px;">
+                    <div class="tab-pane active" id="listQuestion">
+                        {% if questions %}
+                        {% for question in questions %}
+                         <div class="row">
+                             <div class="box col-md-9">
+                                <h2><a href="/qa/q/{{ question.id }}/" class="question-title">{{ question.question_title|truncatechars_html:50 }}</a></h2>
+                                <p class="question-excerpt" >{{ question.question_title|truncatechars_html:50 }}</p>
+                             </div>
+
+                             <div class="box col-md-3">
+                                  
+                                  <ul class="question-statistic">
+                                    <li>
+                                    <span class="question-views green">{{ question.views }}</span>
+                                        views                </li>
+                                    <li class="active">
+                                    <span itemprop="answerCount" class="question-answers blue">{{ question.answer_set.count }}</span>
+                                        answers                </li>
+                                    <li>
+                                    <span itemprop="upvoteCount" class="question-votes yellow">
+                                        {{ question.qvoter_set.count }}    </span>
+                                        votes                </li>
+                                </ul>
+                             </div>
+                         </div>
+
+                         <div class="row">
+                             {% for tag in question.tags.all %}
+
+                                <a href="/qa/tag/{{ tag.slug|slugify }}/" class="tags_raduis" style=""><span class="label label-info"><tag>{{ tag.slug }}</span></tag></a>
+                                {% endfor %}
+
+                                <small> {{ question.pub_date}}</small>
+                         </div>
+
+                         <hr>
+                        {% endfor %}
+
+<div class="pagination center-block">
+          <span class="step-links">
+           <div class="clearfix"></div>
+            <nav aria-label="">
+              <ul class="pager">
+                {% if questions.has_previous %}
+                    <li><a href="/qa?page={{ questions.previous_page_number }}">Précédent</a></li>
+                {% endif %}
+
+                 <span class="current">
+                   {{ questions.number }} / {{ questions.paginator.num_pages }}
+                </span>
+
+                {% if questions.has_next %}
+                    <li><a href="/qa?page={{ questions.next_page_number }}">Suivant</a></li>
+                {% endif %}
+              </ul>
+            </nav>
+          </span>
+</div>
+                        {% else %}
+                            <div class="alert alert-warning" role="alert">Aucune question n'est disponible!</div>
+                        {% endif %}
+                    </div>
+<!-- ****************************************************************************************************************************************************** -->
+
+                    <div class="tab-pane" id="unans">
+                        {% if noans %}
+                        {% for question in noans %}
+                         <div class="row">
+                             <div class="box col-md-9">
+                                <h2><a href="/qa/q/{{ question.id }}/" class="question-title">{{ question.question_title|truncatechars_html:50 }}</a></h2>
+                                <p class="question-excerpt" >{{ question.question_title|truncatechars_html:50 }}</p>
+                             </div>
+
+                             <div class="box col-md-3">
+                                  
+                                  <ul class="question-statistic">
+                                    <li>
+                                    <span class="question-views green">{{ question.views }}</span>
+                                        views                </li>
+                                    <li class="active">
+                                    <span itemprop="answerCount" class="question-answers blue">{{ question.answer_set.count }}</span>
+                                        answers                </li>
+                                    <li>
+                                    <span itemprop="upvoteCount" class="question-votes yellow">
+                                        {{ question.qvoter_set.count }}    </span>
+                                        votes                </li>
+                                </ul>
+                             </div>
+                         </div>
+
+                         <div class="row">
+                             {% for tag in question.tags.all %}
+
+                                <a href="/qa/tag/{{ tag.slug|slugify }}/" class="tags_raduis" style=""><span class="label label-info"><tag>{{ tag.slug }}</span></tag></a>
+                                {% endfor %}
+
+                                <small> {{ question.pub_date}}</small>
+                         </div>
+
+                         <hr>
+                        {% endfor %}
+
+<div class="pagination center-block">
+          <span class="step-links">
+           <div class="clearfix"></div>
+            <nav aria-label="">
+              <ul class="pager">
+                {% if noans.has_previous %}
+                    <li><a href="/qa?page={{ noans.previous_page_number }}">Précédent</a></li>
+                {% endif %}
+
+                 <span class="current">
+                   {{ noans.number }} / {{ noans.paginator.num_pages }}
+                </span>
+
+                {% if noans.has_next %}
+                    <li><a href="/qa?page={{ noans.next_page_number }}">Suivant</a></li>
+                {% endif %}
+              </ul>
+            </nav>
+          </span>
+</div>
+                        {% else %}
+                            <div class="alert alert-warning" role="alert">Aucune question n'est disponible!</div>
+                        {% endif %}
+                    </div>
+
+
+<!-- ****************************************************************************************************************************************************** -->
+
+
+                    <div class="tab-pane" id="reward">
+
+                    <div class="tab-pane" id="unans">
+                        {% if reward %}
+                        {% for question in reward %}
+                         <div class="row">
+                             <div class="box col-md-9">
+                                <h2><a href="/qa/q/{{ question.id }}/" class="question-title">{{ question.question_title|truncatechars_html:50 }}</a></h2>
+                                <p class="question-excerpt" >{{ question.question_title|truncatechars_html:50 }}</p>
+                             </div>
+
+                             <div class="box col-md-3">
+                                  
+                                  <ul class="question-statistic">
+                                    <li>
+                                    <span class="question-views green">{{ question.views }}</span>
+                                        views                </li>
+                                    <li class="active">
+                                    <span itemprop="answerCount" class="question-answers blue">{{ question.answer_set.count }}</span>
+                                        answers                </li>
+                                    <li>
+                                    <span itemprop="upvoteCount" class="question-votes yellow">
+                                        {{ question.qvoter_set.count }}    </span>
+                                        votes                </li>
+                                </ul>
+                             </div>
+                         </div>
+
+                         <div class="row">
+                             {% for tag in question.tags.all %}
+
+                                <a href="/qa/tag/{{ tag.slug|slugify }}/" class="tags_raduis" style=""><span class="label label-info"><tag>{{ tag.slug }}</span></tag></a>
+                                {% endfor %}
+
+                                <small> {{ question.pub_date}}</small>
+                         </div>
+
+                         <hr>
+                        {% endfor %}
+
+<div class="pagination center-block">
+          <span class="step-links">
+           <div class="clearfix"></div>
+            <nav aria-label="">
+              <ul class="pager">
+                {% if reward.has_previous %}
+                    <li><a href="/qa?page={{ reward.previous_page_number }}">Précédent</a></li>
+                {% endif %}
+
+                 <span class="current">
+                   {{ reward.number }} / {{ reward.paginator.num_pages }}
+                </span>
+
+                {% if reward.has_next %}
+                    <li><a href="/qa?page={{ reward.next_page_number }}">Suivant</a></li>
+                {% endif %}
+              </ul>
+            </nav>
+          </span>
+</div>
+                        {% else %}
+                            <div class="alert alert-warning" role="alert">Aucune question n'est disponible!</div>
+                        {% endif %}
+                    </div>
+
+
+
+                    </div>
+
+<!-- ****************************************************************************************************************************************************** -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/span-->
+    
+      {% include 'qa/side_left.html' %}
+
+</div>
+
+<div class="row">
+    <div class="box col-md-4">
+        <div class="box-inner homepage-box">
+            <div class="box-header well">
+                <h2><i class="glyphicon glyphicon-th"></i> Tabs</h2>
+
+                <div class="box-icon">
+                    <a href="/qa#" class="btn btn-setting btn-round btn-default"><i
+                            class="glyphicon glyphicon-cog"></i></a>
+                    <a href="/qa#" class="btn btn-minimize btn-round btn-default"><i
+                            class="glyphicon glyphicon-chevron-up"></i></a>
+                    <a href="/qa#" class="btn btn-close btn-round btn-default"><i
+                            class="glyphicon glyphicon-remove"></i></a>
+                </div>
+            </div>
+            <div class="box-content">
+                <ul class="nav nav-tabs" id="myTab">
+                    <li class="active"><a href="/qa#info">Info</a></li>
+                    <li><a href="/qa#custom">Custom</a></li>
+                    <li><a href="/qa#messages">Messages</a></li>
+                </ul>
+
+                <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane active" id="info">
+                        <h3>Charisma
+                            <small>a full featured template</small>
+                        </h3>
+                        <p>It's a full featured, responsive template for your admin panel. It's optimized for tablets
+                            and mobile phones.</p>
+
+                        <p>Check how it looks on different devices:</p>
+                        <a href="/qahttp://www.responsinator.com/?url=usman.it%2Fthemes%2Fcharisma"
+                           target="_blank"><strong>Preview on iPhone size.</strong></a>
+                        <br>
+                        <a href="/qahttp://www.responsinator.com/?url=usman.it%2Fthemes%2Fcharisma"
+                           target="_blank"><strong>Preview on iPad size.</strong></a>
+                    </div>
+                    <div class="tab-pane" id="custom">
+                        <h3>Custom
+                            <small>small text</small>
+                        </h3>
+                        <p>Sample paragraph.</p>
+
+                        <p>Your custom text.</p>
+                    </div>
+                    <div class="tab-pane" id="messages">
+                        <h3>Messages
+                            <small>small text</small>
+                        </h3>
+                        <p>Sample paragraph.</p>
+
+                        <p>Your custom text.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/span-->
+
+    <div class="box col-md-4">
+        <div class="box-inner">
+            <div class="box-header well" data-original-title="">
+                <h2><i class="glyphicon glyphicon-user"></i> Member Activity</h2>
+
+                <div class="box-icon">
+                    <a href="/qa#" class="btn btn-minimize btn-round btn-default"><i
+                            class="glyphicon glyphicon-chevron-up"></i></a>
+                    <a href="/qa#" class="btn btn-close btn-round btn-default"><i
+                            class="glyphicon glyphicon-remove"></i></a>
+                </div>
+            </div>
+            <div class="box-content">
+                <div class="box-content">
+                    <ul class="dashboard-list">
+                        <li>
+                            <a href="/qa#">
+                                <img class="dashboard-avatar" alt="Usman"
+                                     src="http://www.gravatar.com/avatar/f0ea51fa1e4fae92608d8affee12f67b.png?s=50"></a>
+                            <strong>Name:</strong> <a href="/qa#">Usman
+                            </a><br>
+                            <strong>Since:</strong> 17/05/2014<br>
+                            <strong>Status:</strong> <span class="label-success label label-default">Approved</span>
+                        </li>
+                        <li>
+                            <a href="/qa#">
+                                <img class="dashboard-avatar" alt="Sheikh Heera"
+                                     src="http://www.gravatar.com/avatar/3232415a0380253cfffe19163d04acab.png?s=50"></a>
+                            <strong>Name:</strong> <a href="/qa#">Sheikh Heera
+                            </a><br>
+                            <strong>Since:</strong> 17/05/2014<br>
+                            <strong>Status:</strong> <span class="label-warning label label-default">Pending</span>
+                        </li>
+                        <li>
+                            <a href="/qa#">
+                                <img class="dashboard-avatar" alt="Abdullah"
+                                     src="http://www.gravatar.com/avatar/46056f772bde7c536e2086004e300a04.png?s=50"></a>
+                            <strong>Name:</strong> <a href="/qa#">Abdullah
+                            </a><br>
+                            <strong>Since:</strong> 25/05/2014<br>
+                            <strong>Status:</strong> <span class="label-default label label-danger">Banned</span>
+                        </li>
+                        <li>
+                            <a href="/qa#">
+                                <img class="dashboard-avatar" alt="Sana Amrin"
+                                     src="http://www.gravatar.com/avatar/hash"></a>
+                            <strong>Name:</strong> <a href="/qa#">Sana Amrin</a><br>
+                            <strong>Since:</strong> 17/05/2014<br>
+                            <strong>Status:</strong> <span class="label label-info">Updates</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/span-->
+
+    <div class="box col-md-4">
+        <div class="box-inner homepage-box">
+            <div class="box-header well" data-original-title="">
+                <h2><i class="glyphicon glyphicon-list-alt"></i> Keep in touch</h2>
+
+                <div class="box-icon">
+                    <a href="/qa#" class="btn btn-minimize btn-round btn-default"><i
+                            class="glyphicon glyphicon-chevron-up"></i></a>
+                    <a href="/qa#" class="btn btn-close btn-round btn-default"><i
+                            class="glyphicon glyphicon-remove"></i></a>
+                </div>
+            </div>
+            <div class="box-content">
+                <h3>Stay updated with my projects and blog posts</h3>
+                <!-- Begin MailChimp Signup Form -->
+                <div class="mc_embed_signup">
+                    <form action="/qa//halalit.us3.list-manage.com/subscribe/post?u=444b176aa3c39f656c66381f6&amp;id=eeb0c04e84" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+                        <div>
+                            <label>Please enter your email</label>
+                            <input type="email" value="" name="EMAIL" class="email" placeholder="Email address" required>
+
+                            <div class="power_field"><input type="text" name="b_444b176aa3c39f656c66381f6_eeb0c04e84" tabindex="-1" value=""></div>
+                            <div class="clear"><input type="submit" value="Subscribe" name="subscribe" class="button"></div>
+                        </div>
+                    </form>
+                </div>
+
+                <!--End mc_embed_signup-->
+                <br/>
+
+                <p>You may like my other open source work, check my profile on <a href="/qahttp://github.com/usmanhalalit"
+                                                                                  target="_blank">GitHub</a>.</p>
+
+            </div>
+        </div>
+    </div>
+    <!--/span-->
+</div><!--/row-->
+
+<div class="row">
+    <div class="box col-md-4">
+        <div class="box-inner">
+            <div class="box-header well" data-original-title="">
+                <h2><i class="glyphicon glyphicon-list"></i> Buttons</h2>
+
+                <div class="box-icon">
+                    <a href="/qa#" class="btn btn-setting btn-round btn-default"><i
+                            class="glyphicon glyphicon-cog"></i></a>
+                    <a href="/qa#" class="btn btn-minimize btn-round btn-default"><i
+                            class="glyphicon glyphicon-chevron-up"></i></a>
+                    <a href="/qa#" class="btn btn-close btn-round btn-default"><i
+                            class="glyphicon glyphicon-remove"></i></a>
+                </div>
+            </div>
+            <div class="box-content buttons">
+                <p class="btn-group">
+                    <button class="btn btn-default">Left</button>
+                    <button class="btn btn-default">Middle</button>
+                    <button class="btn btn-default">Right</button>
+                </p>
+                <p>
+                    <button class="btn btn-default btn-sm"><i class="glyphicon glyphicon-star"></i> Icon button</button>
+                    <button class="btn btn-primary btn-sm">Small button</button>
+                    <button class="btn btn-danger btn-sm">Small button</button>
+                </p>
+                <p>
+                    <button class="btn btn-warning btn-sm">Small button</button>
+                    <button class="btn btn-success btn-sm">Small button</button>
+                    <button class="btn btn-info btn-sm">Small button</button>
+                </p>
+                <p>
+                    <button class="btn btn-inverse btn-default btn-sm">Small button</button>
+                    <button class="btn btn-primary btn-round btn-lg">Round button</button>
+                    <button class="btn btn-round btn-default btn-lg"><i class="glyphicon glyphicon-ok"></i></button>
+                    <button class="btn btn-primary"><i class="glyphicon glyphicon-edit glyphicon-white"></i></button>
+                </p>
+                <p>
+                    <button class="btn btn-default btn-xs">Mini button</button>
+                    <button class="btn btn-primary btn-xs">Mini button</button>
+                    <button class="btn btn-danger btn-xs">Mini button</button>
+                    <button class="btn btn-warning btn-xs">Mini button</button>
+                </p>
+                <p>
+                    <button class="btn btn-info btn-xs">Mini button</button>
+                    <button class="btn btn-success btn-xs">Mini button</button>
+                    <button class="btn btn-inverse btn-default btn-xs">Mini button</button>
+                </p>
+            </div>
+        </div>
+    </div>
+    <!--/span-->
+
+    <div class="box col-md-4">
+        <div class="box-inner">
+            <div class="box-header well" data-original-title="">
+                <h2><i class="glyphicon glyphicon-list"></i> Buttons</h2>
+
+                <div class="box-icon">
+                    <a href="/qa#" class="btn btn-setting btn-round btn-default"><i
+                            class="glyphicon glyphicon-cog"></i></a>
+                    <a href="/qa#" class="btn btn-minimize btn-round btn-default"><i
+                            class="glyphicon glyphicon-chevron-up"></i></a>
+                    <a href="/qa#" class="btn btn-close btn-round btn-default"><i
+                            class="glyphicon glyphicon-remove"></i></a>
+                </div>
+            </div>
+            <div class="box-content  buttons">
+                <p>
+                    <button class="btn btn-default btn-lg">Large button</button>
+                    <button class="btn btn-primary btn-lg">Large button</button>
+                </p>
+                <p>
+                    <button class="btn btn-danger btn-lg">Large button</button>
+                    <button class="btn btn-warning btn-lg">Large button</button>
+                </p>
+                <p>
+                    <button class="btn btn-success btn-lg">Large button</button>
+                    <button class="btn btn-info btn-lg">Large button</button>
+                </p>
+                <p>
+                    <button class="btn btn-inverse btn-default btn-lg">Large button</button>
+                </p>
+                <div class="btn-group">
+                    <button class="btn btn-default btn-lg">Large Dropdown</button>
+                    <button class="btn dropdown-toggle btn-default btn-lg" data-toggle="dropdown"><span
+                            class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                        <li><a href="/qa#"><i class="glyphicon glyphicon-star"></i> Action</a></li>
+                        <li><a href="/qa#"><i class="glyphicon glyphicon-tag"></i> Another action</a></li>
+                        <li><a href="/qa#"><i class="glyphicon glyphicon-download-alt"></i> Something else here</a></li>
+                        <li class="divider"></li>
+                        <li><a href="/qa#"><i class="glyphicon glyphicon-tint"></i> Separated link</a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!--/span-->
+
+    <div class="box col-md-4">
+        <div class="box-inner">
+            <div class="box-header well" data-original-title="">
+                <h2><i class="glyphicon glyphicon-list"></i> Weekly Stat</h2>
+
+                <div class="box-icon">
+                    <a href="/qa#" class="btn btn-setting btn-round btn-default"><i
+                            class="glyphicon glyphicon-cog"></i></a>
+                    <a href="/qa#" class="btn btn-minimize btn-round btn-default"><i
+                            class="glyphicon glyphicon-chevron-up"></i></a>
+                    <a href="/qa#" class="btn btn-close btn-round btn-default"><i
+                            class="glyphicon glyphicon-remove"></i></a>
+                </div>
+            </div>
+            <div class="box-content">
+                <ul class="dashboard-list">
+                    <li>
+                        <a href="/qa#">
+                            <i class="glyphicon glyphicon-arrow-up"></i>
+                            <span class="green">92</span>
+                            New Comments
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/qa#">
+                            <i class="glyphicon glyphicon-arrow-down"></i>
+                            <span class="red">15</span>
+                            New Registrations
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/qa#">
+                            <i class="glyphicon glyphicon-minus"></i>
+                            <span class="blue">36</span>
+                            New Articles
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/qa#">
+                            <i class="glyphicon glyphicon-comment"></i>
+                            <span class="yellow">45</span>
+                            User reviews
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/qa#">
+                            <i class="glyphicon glyphicon-arrow-up"></i>
+                            <span class="green">112</span>
+                            New Comments
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/qa#">
+                            <i class="glyphicon glyphicon-arrow-down"></i>
+                            <span class="red">31</span>
+                            New Registrations
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/qa#">
+                            <i class="glyphicon glyphicon-minus"></i>
+                            <span class="blue">93</span>
+                            New Articles
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/qa#">
+                            <i class="glyphicon glyphicon-comment"></i>
+                            <span class="yellow">254</span>
+                            User reviews
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--/span-->
+</div><!--/row-->
+
+
+{% endblock content %}

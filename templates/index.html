@@ -1,0 +1,558 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from demo.mage-themes.com/template/event/event/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 23 May 2018 01:10:23 GMT -->
+<head>
+    <meta charset="utf-8">
+    <title>ESPR</title>
+
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0"/>
+
+
+    <link href="{% static 'main_app/main/main-font-awesome-4.2.0/css/font-awesome.min.css' %}" rel="stylesheet"/>
+    <link href="{% static 'main_app/main/main-scripts/jquery-ui-1.11.2/jquery-ui.min.css' %}" rel="stylesheet"/>
+    <link rel="stylesheet" href="{% static 'main_app/css/main_style.css' %}">
+    <link href="{% static 'main_app/main/animate.min.css' %} " rel="stylesheet"/>
+    <link href="{% static 'main_app/main/style.css' %}" rel="stylesheet" type="text/css"/>
+
+    <!-- Google Map -->
+    <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <script>
+        function initialize() {
+            var myLatlng = new google.maps.LatLng(51.518641, -0.168163);
+            var map_options = {
+                zoom: 16,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                center: myLatlng,
+                scrollwheel: false,
+                disableDefaultUI: true
+            }
+
+            var map = new google.maps.Map(document.getElementById('map_canvas'), map_options)
+            var myIcon = new google.maps.MarkerImage('/media/main-images/map_icon.png', null, null, null, new google.maps.Size(36, 54));
+
+            var marker = new google.maps.Marker({
+                position: myLatlng,
+                map: map,
+                icon: myIcon
+            });
+
+            /* Remove if you dont want B/W Google Map */
+            /*
+            var styles = [
+              {
+                featureType: "all",
+                stylers: [
+                  { saturation: -100 }
+                ]
+              }
+            ];
+
+            map.setOptions({styles: styles});
+            */
+        }
+
+        google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+    <!-- Google Map Ends! -->
+
+</head>
+
+<body>
+
+{% include 'top_nav.html' %}
+
+<div class="page">
+
+    <!-- header -->
+    <div class="header">
+
+        <div class="container">
+
+            <h1 style="padding-top: 50px;"><a href="#"><img src="/media/main-images/espr_mini.png" alt=""
+                                                            style="width:75px;">SPR</a></h1>
+            <p class="subtitle">Electronic service providers, <strong><a href="#">L'innovation au service de
+                l'exposition</a></strong>.</p>
+            <h2>Nos plateformes</h2>
+            <div class="when row">
+
+                <div class="col-lg-4" style="padding-right: 50px;">
+                    <a href="">
+                        <div class="icon-holder">
+                            <i class="fa fa-comments"></i>
+                        </div>
+
+                        <div>
+                            <br>
+                            <p><span>Questions et réponses</span><br/></p>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-lg-4" style="padding-right: 50px;">
+                    <div class="icon-holder">
+                        <i class="fa fa-graduation-cap"></i>
+                    </div>
+
+                    <div>
+                        <br>
+                        <p><span>Plateforme E-learning</span><br/></p>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="icon-holder">
+                        <i class="fa fa-bullhorn"></i>
+                    </div>
+
+                    <div>
+                        <br>
+                        <p><span>Appels d'offres</span><br/></p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="where row">
+
+                <div class="col-lg-4" style="padding-right: 50px; width:332px;">
+                    <div class="icon-holder">
+                        <i class="fa fa-shopping-cart"></i>
+                    </div>
+
+                    <div>
+                        <br>
+                        <p><span>E-commerce</span><br/></p>
+                    </div>
+                </div>
+
+                <div class="col-lg-4" style="padding-right: 50px; width:324px;">
+                    <div class="icon-holder">
+                        <i class="fa fa-newspaper-o"></i>
+                    </div>
+
+                    <div>
+                        <br>
+                        <p><span>News</span><br/></p>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <a href="/reseausocial/">
+                        <div class="icon-holder">
+                            <i class="fa fa-users"></i>
+                        </div>
+
+                        <div>
+                            <br>
+                            <p><span>Réseau social</span><br/></p>
+                        </div>
+                    </a>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+    <!-- header ends -->
+
+    <!-- topics -->
+    <div class="topics">
+        <div class="container">
+
+            <h3><strong>For three days,</strong><br/>creative experts making great ideas happen.</h3>
+
+            <p>Nunc commodo tellus diam, sed molestie quam fermentum varius. Etiam finibus lorem vel interdum volutpat.
+                Suspendisse potenti. Duis non sem nisi. Phasellus iaculis placerat neque id fringilla. Sed suscipit erat
+                egestas ante sollicitudin, quis tristique leo tristique.</p>
+
+            <!-- single topic -->
+            <div>
+                <i class="fa fa-code fa-2x"></i>
+                <h4>Better Coding</h4>
+                <p>Nunc commodo tellus diam, sed molestie quam fermentum varius. Etiam finibus lorem vel interdum
+                    volutpat.</p>
+            </div>
+            <!-- single topic ends! -->
+
+            <!-- single topic -->
+            <div>
+                <i class="fa fa-line-chart fa-2x"></i>
+                <h4>Secret to Succeess</h4>
+                <p>Nunc commodo tellus diam, sed molestie quam fermentum varius. Etiam finibus lorem vel interdum
+                    volutpat.</p>
+            </div>
+            <!-- single topic ends! -->
+
+            <!-- single topic -->
+            <div>
+                <i class="fa fa-lightbulb-o fa-2x"></i>
+                <h4>Make Ideas Happen</h4>
+                <p>Nunc commodo tellus diam, sed molestie quam fermentum varius. Etiam finibus lorem vel interdum
+                    volutpat.</p>
+            </div>
+            <!-- single topic ends! -->
+
+        </div>
+    </div>
+    <!-- topics ends! -->
+
+    <a id="speakers" class="anchor"></a>
+
+    <!-- speakers -->
+    <div class="speakers row">
+        <div class="container">
+
+            <h2>ESPR</h2>
+            <p class="subtitle">À propos de nous</p>
+
+            <!-- featured -->
+            <div class="featured">
+
+                <div class="image">
+                    <img src="/media/main-images/fondateur.jpg" alt=""/>
+                </div>
+
+                <div>
+                    <h3>Aissam Ouaza</h3>
+
+                    <p class="title">Fondateur</p>
+
+                    <p>
+                        Expert en Innovation et en Transformation Digitale, est l'instigateur du mouvementd'urbérisation
+                        des salons professionels, à travers la création du BTPExpo3D : Premier Salon Virtuel Interactif
+                        et Tridimensionel (3D) de l'industrie du Bâtiment et des Travaux Publics à l'echelle mondiale.
+                        Fondateur de la Startup ELECTRONIC SERVICE PROVIDERS (ESPR), Aissam OUAZA est également à
+                        l'origine de divers salons virtuels d'envergure internationale notament DocExpo: Le salon
+                        Virtual de La Veille et de la Documentation, et AExpo : Le forum Virtuel de l'Entrepreunariat et
+                        de l'Auto-Entrepreneur.
+                    </p>
+                </div>
+
+            </div>
+            <!-- featured ends! -->
+        </div>
+    </div>
+    <!-- speakers ends! -->
+
+    <a id="scheadule" class="anchor"></a>
+
+    <!-- schedule -->
+    <div class="schedule" style="margin-top: 50px;">
+        <div class="container">
+            <div class="row">
+                <h2>Nos distinctions & trophées</h2>
+                <p class="subtitle">L'imagination c'est l'innovation</p>
+
+                <div class="tabs">
+
+                    <ul>
+                        <li><a href="#tabs-1">Nos trophées</a></li>
+                        <li><a href="#tabs-2">Nos filiales</a></li>
+                        <li><a href="#tabs-3">Nos services</a></li>
+                    </ul>
+
+                    <!-- day -->
+                    <div id="tabs-1" class="day" style="text-align:center;">
+                        <img src="/media/main-images/trophees.png" alt="">
+                    </div>
+                    <!-- day ends! -->
+
+                    <!-- day -->
+                    <div id="tabs-2" class="day" style="text-align:center;">
+                        <img src="/media/main-images/filiales.png" alt="">
+                    </div>
+                    <!-- day ends! -->
+
+                    <!-- day -->
+                    <div id="tabs-3" class="day" style="text-align:center;">
+                        <img src="/media/main-images/services.png" alt="">
+                    </div>
+                    <!-- day ends! -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- schedule ends! -->
+
+    <!-- why -->
+    <div class="why">
+        <div class="container">
+
+            <div class="testimonials">
+
+                <h4>Testimonials</h4>
+
+                <div class="slides">
+
+                    <blockquote>
+                        Quisque gravida libero sodales augue luctus elementum. In tristique faucibus diam, sit amet
+                        ultrices erat porttitor ut. Phasellus sit amet lorem sit amet orci lobortis mattis. Nulla
+                        venenatis, quam vitae pellentesque sollicitudin, erat enim varius nisl, sed porta augue mi et
+                        dui.
+                        <cite>Mike Jonson<br/><span>Frontend Developer</span></cite>
+                    </blockquote>
+
+                    <blockquote>Quisque gravida libero sodales augue luctus elementum. In tristique faucibus diam, sit
+                        amet ultrices erat porttitor ut. Phasellus sit amet lorem sit amet orci lobortis mattis. Nulla
+                        venenatis, quam vitae pellentesque sollicitudin, erat enim varius nisl, sed porta augue mi et
+                        dui.
+                        <cite>Jennifer Jonson<br/><span>Frontend Developer</span></cite>
+                    </blockquote>
+
+                    <blockquote>
+                        Quisque gravida libero sodales augue luctus elementum. In tristique faucibus diam, sit amet
+                        ultrices erat porttitor ut. Phasellus sit amet lorem sit amet orci lobortis mattis. Nulla
+                        venenatis, quam vitae pellentesque sollicitudin, erat enim varius nisl, sed porta augue mi et
+                        dui.
+                        <cite>Smith Jonson<br/><span>Frontend Developer</span></cite>
+                    </blockquote>
+
+                </div>
+
+            </div>
+
+            <div class="bullets">
+
+                <h3>Nos services</h3>
+
+                <div>
+                    <h4><i class="fa fa-check"></i> Salons/Evenements virtuels en 3D</h4>
+                    <p>Nous agissons en tant qu'organisateur,organisateur délégué ou fournisseur de plateforme en mode
+                        PaaS. Notre solution est accessible depuis tout terminal connecté ( Desktop, Laptop,Smart Phone,
+                        Tablette). Nous proposons une plateforme entièrement personnalisable qui s'adapte à tout type
+                        d'événement, avec un large éventail de composantes ( salles de conférences, espace B2B, salle de
+                        réunion, galerie d'art, halls d'exposition, marketplace, bibliothque,espace de networking) et
+                        des fonctionnalités à la pointe de la technologie (Streaming live, traduction automatique
+                        instantanée, intelligence artificielle, réalité augmentée, Smart Data).</p>
+                </div>
+
+                <div>
+                    <h4><i class="fa fa-check"></i> Impréssion et publicité augmentée</h4>
+                    <p>Quisque gravida libero sodales augue luctus elementum. In tristique faucibus diam, sit amet
+                        ultrices erat porttitor ut.</p>
+                </div>
+
+                <div>
+                    <h4><i class="fa fa-check"></i> Réalité virtuelle et réalité augmentée</h4>
+                    <p>Quisque gravida libero sodales augue luctus elementum. In tristique faucibus diam, sit amet
+                        ultrices erat porttitor ut. Phasellus sit amet lorem sit amet orci lobortis mattis. Nulla
+                        venenatis, quam vitae pellentesque sollicitudin, erat enim varius nisl, sed porta augue mi et
+                        dui.</p>
+                </div>
+
+                <div>
+                    <h4><i class="fa fa-check"></i> Marketing et Growth Hacking</h4>
+                    <p>Quisque gravida libero sodales augue luctus elementum. In tristique faucibus diam, sit amet
+                        ultrices erat porttitor ut. Phasellus sit amet lorem sit amet orci lobortis mattis. Nulla
+                        venenatis, quam vitae pellentesque sollicitudin, erat enim varius nisl, sed porta augue mi et
+                        dui.</p>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <!-- why ends! -->
+
+
+    <a id="sponsors" class="anchor"></a>
+
+    <!-- sponsors -->
+    <div class="sponsors">
+        <div class="container">
+
+            <h2>Sponsors et partenaires</h2>
+            <p class="subtitle">Intéréssé pour devenir notre sponsor? <a href="#" class="open-contact-form">Contactez-nous!</a>
+            </p>
+
+            <div class="slides">
+                <ul>
+                    <li><a href="#"><img src="/media/main-images/partenaire1.png"/></a></li>
+                    <li><a href="#"><img src="/media/main-images/partenaire2.png"/></a></li>
+                    <li><a href="#"><img src="/media/main-images/partenaire3.png"/></a></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+    <!-- sponsors ends! -->
+
+    <a id="location" class="anchor"></a>
+
+    <!-- location -->
+    <div class="location">
+        <div class="container">
+
+            <h2>Location and Venue</h2>
+            <p class="subtitle">area full of great hotels and restaurants.</p>
+
+            <!-- info -->
+            <div class="info">
+
+                <div class="maps">
+
+                    <div class="images">
+                        <img src="/media/main-images/placeholder.jpg"/>
+                    </div>
+
+                    <div id="map_canvas"></div>
+
+                </div>
+
+                <div class="address">
+
+                    <h4>Spend three inspiring days in the cultural and cosmopolitan city of London. The area is full of
+                        great hotels, restaurants and galleries.</h4>
+
+                    <h5><i class="fa fa-chevron-right"></i> Venue</h5>
+
+                    <div class="venue">
+                        <p><span>Town and Country Resort & Convention Center</span></p>
+                        <p>500 Hotel Circle North</p>
+                        <p>San Diego, CA 92108</p>
+                        <a href="#">Book Online</a>
+                    </div>
+
+                    <h5><i class="fa fa-chevron-right"></i> Nearby Accomodation</h5>
+
+                    <div class="venue">
+                        <p><span>Town and Country Resort & Convention Center</span></p>
+                        <p>500 Hotel Circle North</p>
+                        <p>San Diego, CA 92108</p>
+                        <a href="#">Book Online</a>
+                    </div>
+
+                    <div class="venue">
+                        <p><span>Town and Country Resort & Convention Center</span></p>
+                        <p>500 Hotel Circle North</p>
+                        <p>San Diego, CA 92108</p>
+                        <a href="#">Book Online</a>
+                    </div>
+
+                    <div class="venue">
+                        <p><span>Town and Country Resort & Convention Center</span></p>
+                        <p>500 Hotel Circle North</p>
+                        <p>San Diego, CA 92108</p>
+                        <a href="#">Book Online</a>
+                    </div>
+
+                    <h5><i class="fa fa-chevron-right"></i> Additional details</h5>
+
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                        laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur
+                        adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+                        minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                        consequat.</p>
+
+                </div>
+
+            </div>
+            <!-- info ends! -->
+
+        </div>
+    </div>
+    <!-- location ends! -->
+
+    <!-- social -->
+    <div class="social">
+        <div class="container">
+
+            <div>
+                <h2>Restez informés!</h2>
+                <p class="subtitle">Inscrivez-vous à notre newsletter ou connectez-vous à nos réseaux.</p>
+
+                <form action="#" method="post">
+                    <input type="text" name="name" placeholder="entrez votre adresse mail"/>
+                    <button name="submit" type="submit"><i class="fa fa-arrow-circle-right"></i></button>
+                </form>
+
+                <a href="#"><i class="fa fa-facebook"></i></a>
+                <a href="#"><i class="fa fa-twitter"></i></a>
+                <a href="#"><i class="fa fa-google-plus"></i></a>
+                <a href="#"><i class="fa fa-linkedin"></i></a>
+            </div>
+
+        </div>
+    </div>
+    <!-- social ends! -->
+
+    <!-- footer -->
+    <div class="footer">
+        <div class="container">
+
+            <p>Copyright 2018 <a href="">ESPR</a></p>
+
+        </div>
+    </div>
+    <!-- footer ends! -->
+
+</div>
+
+<!-- back to top -->
+<div class="back">
+    <div class="container">
+
+        <a href="#top"><i class="fa fa-angle-up fa-3x"></i></a>
+
+    </div>
+</div>
+<!-- back to top ends! -->
+
+<!-- contact form overlay popup -->
+<div class="overlay" style="display: none;">
+
+    <div class="contact-form">
+
+        <h3>Contactez-nous</h3>
+        <p>Nous allons vous répondre dans les plus brefs délais</p>
+
+        <!-- contact form -->
+        <div class="form">
+            <form action="http://demo.mage-themes.com/template/event/event/contact.php" method="post">
+                <input type="text" name="name" placeholder="Name"/>
+                <input type="text" name="email" placeholder="Email"/>
+                <textarea name="message" placeholder="Message"></textarea>
+                <button name="submit" type="submit">Envoyer un message</button>
+
+            </form>
+        </div>
+        <!-- contact form ends! -->
+
+        <!-- Do Not Remove! -->
+        <p class="error"></p>
+        <p class="message"></p>
+        <!-- Do Not Remove! Ends! -->
+
+        <a href="#" class="close-contact-form"><i class="fa fa-times fa-lg"></i></a>
+    </div>
+
+</div>
+<!-- contact form overlay popup ends! -->
+
+<!-- scripts -->
+<script src="{% static 'main_app/main/main-scripts/jquery-1.11.0.min.js' %} "></script>
+<script src="{% static 'main_app/main/main-scripts/jquery-ui-1.11.2/jquery-ui.min.js' %} "></script>
+<script src="{% static 'main_app/main/main-scripts/flexslider/jquery.flexslider-min.js' %} "></script>
+<script src="{% static 'main_app/main/main-scripts/jquery.parallax-1.1.3.js' %} "></script>
+<script src="{% static 'main_app/main/main-scripts/jquery.inview.min.js' %} "></script>
+<script src="{% static 'main_app/main/main-scripts/form.js' %} "></script>
+<script src="{% static 'main_app/main/main-scripts/theme.js' %} "></script>
+<script src="{% static 'main_app/js/main_js.js' %}"></script>
+<script>
+    $('#acceuil').addClass("active")
+</script>
+<!-- scripts ends! -->
+
+</body>
+
+<!-- Mirrored from demo.mage-themes.com/template/event/event/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 23 May 2018 01:10:47 GMT -->
+</html>

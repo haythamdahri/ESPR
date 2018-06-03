@@ -1,0 +1,258 @@
+{% extends 'base_qa.html' %}
+ {% load static %}
+{% load i18n %}
+ {% block content %}
+
+  <!-- =-=-=-=-=-=-= HOME =-=-=-=-=-=-= -->
+  <div id="home" class="full-section parallax-home">
+    <div class="slider-caption">
+      <h1>{% trans "Cherchez-vous de l'aide" %} <!--  Are You Looking for help --> ? </h1>
+      <h2> <span>{% trans "Rejoignez notre communauté" %} <!-- Join  Our Community --></span></h2>
+      <a class="btn btn-transparent" href="/qa/main/signup"> {% trans "Inscription" %}<!-- Join Now --> </a> {% get_current_language as LANGAUGE_CODE  %} <a class="btn btn-light" href="/qa/quora/"> {% trans "Commencer à naviguer" %}<!-- Start Browsing --> </a> </div>
+      
+  </div>
+  <!-- =-=-=-=-=-=-= HOME END =-=-=-=-=-=-= -->
+  <!-- =-=-=-=-=-=-= HOME END =-=-=-=-=-=-= -->
+  <!-- =-=-=-=-=-=-= Main Area =-=-=-=-=-=-= -->
+  <div class="main-content-area">
+    <!-- =-=-=-=-=-=-= Latest Questions  =-=-=-=-=-=-= -->
+    <section class="white question-tabs padding-bottom-80" id="latest-post">
+      <div class="container">
+        <div class="row">
+          <!-- Content Area Bar -->
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+                <!-- Tabs -->
+                <hr>
+                <center><h1 style="color: black; margin-top: 10px;">{% trans "Comment ça marche" %} <!-- How  It Works --></h1></center>
+              </div>
+            </div>
+            <div class="panel-body">
+              <section id="blog" class="custom-padding white">
+                <div class="container">
+                  <!-- Row -->
+
+
+                  <div class="row">
+                    <div class="col-sm-4 col-md-4 col-xs-12  center-responsive"> <img src='{% static "qa/images/step1.png" %} ' class="img-responsive" alt="">
+                      <h4><a href="/qa#">{% trans "Créer un compte" %} <!-- Create An Account --></a></h4>
+                    </div>
+                    <div class="col-sm-4 col-md-4 col-xs-12 center-responsive get-arrow"> <img src='{% static "qa/images/step2.png" %} ' class="img-responsive" alt="">
+                      <h4><a href="/qa#">{% trans "Postez votre question" %}<!-- Post Your Question --></a></h4>
+                    </div>
+                    <div class="col-sm-4 col-md-4 col-xs-12 center-responsive get-arrow"> <img src='{% static "qa/images/step3.png" %} ' class="img-responsive" alt="">
+                      <h4><a href="/qa#"> {% trans "Trouvez votre solution" %} <!-- Find Your Solution --></a></h4>
+                    </div>
+                    <div class="clearfix"></div>
+                  </div>
+
+                  <!-- Row End -->
+                </div>
+                <!-- end container -->
+              </section>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+      <!-- end container -->
+    </section>
+    <!-- =-=-=-=-=-=-= Latest Questions  End =-=-=-=-=-=-= -->
+    <!-- =-=-=-=-=-=-= SEPARATOR Fun Facts =-=-=-=-=-=-= -->
+    <div class="parallex section-padding fun-facts-bg text-center" data-stellar-background-ratio="0.1">
+      <div class="container">
+        <div class="row">
+          <!-- countTo -->
+          <!-- end col-xs-6 col-sm-3 col-md-3 -->
+          <!-- countTo -->
+          <div class="col-xs-6 col-sm-4 col-md-4">
+            <div class="statistic-percent" data-perc="126">
+              <div class="facts-icons"> <span class="icon-trophy"></span> 
+              </div>
+              <div class="fact"> <span class="percentfactor">+{{ membres }}</span>
+                <p>{% trans "Membres" %} <!-- Membres --></p>
+              </div>
+              <!-- end fact -->
+            </div>
+            <!-- end statistic-percent -->
+          </div>
+          <!-- end col-xs-6 col-sm-3 col-md-3 -->
+          <!-- countTo -->
+          <div class="col-xs-6 col-sm-4 col-md-4">
+            <div class="statistic-percent" data-perc="274">
+              <div class="facts-icons"> <span class="icon-chat"></span> 
+              </div>
+              <div class="fact"> <span class="percentfactor">+{{count_q}}</span>
+                <p>Questions</p>
+              </div>
+              <!-- end fact -->
+            </div>
+            <!-- end statistic-percent -->
+          </div>
+          <!-- end col-xs-6 col-sm-3 col-md-3 -->
+          <!-- countTo -->
+          <div class="col-xs-6 col-sm-4 col-md-4">
+            <div class="statistic-percent" data-perc="434">
+              <div class="facts-icons"> <span class="icon-megaphone"></span> 
+              </div>
+              <div class="fact"> <span class="percentfactor">+{{ count_a }}</span>
+                <p>{% trans "Réponses" %} <!-- Answers --></p>
+              </div>
+              <!-- end fact -->
+            </div>
+            <!-- end statistic-percent -->
+          </div>
+          <!-- end col-xs-6 col-sm-3 col-md-3 -->
+        </div>
+        <!-- End row -->
+      </div>
+      <!-- end container -->
+    </div>
+    <!-- =-=-=-=-=-=-= SEPARATOR END =-=-=-=-=-=-= -->
+
+
+    <!-- ======================= list blog ======================== -->
+    <section id="blog" class="custom-padding">
+      <div class="container">
+        <!-- title-section -->
+        <div class="main-heading text-center">
+          <h2>{% trans "Derniers articles" %}</h2>
+          <div class="slices"><span class="slice"></span><span class="slice"></span><span class="slice"></span>
+          </div>
+        </div>
+        <!-- End title-section -->
+        <!-- Row -->
+        <div class="row">
+          {% for blog in listblogs %}
+          <!-- Blog Grid -->
+          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+            <div class="blog-grid">
+              <div class="blog-image">
+                <a href="/qa/blog/{{ blog.id }}">
+                  {% if  blog.photo.image.url %}
+                  <img alt="blog-image1" class="" src="{{ blog.photo.image.url }}" height="250" width="100%"> 
+                  {% else %}
+                <img  src='{% static "qa/images/blog.jpg" %}' height="250" width="100%">
+                {% endif %}
+              </a>
+              </div>
+              <div class="blog-content">
+                <h5><a href="/qa/blog/{{ blog.id }}">{{ blog.blog_title }}</a></h5>
+                <ul class="post-meta">
+                    <li>{% trans "Par" %} {{ blog.user_data.user.username }}</li>
+                    <li>{{ blog.categorie.title_categorie }}</li>
+                    <li>{{ blog.pub_date }}</li>
+                </ul>
+                 <p>{{ blog.blog_text|truncatechars_html:50| safe }}</p>
+              </div>
+              <div class="blog-footer">
+                <ul class="like-comment">
+                  <li><a href="/qa#"><i class="icon-heart"></i>{{ blog.voteblog.count }}</a>
+                  </li>
+                  <li><a href="/qa#"><i class="icon-chat"></i>{{ blog.answer_blog_set.count }}</a>
+                  </li>
+                </ul> <a href="/qa/blog/{{ blog.id }}" class="more-btn pull-right"><i class="fa fa-long-arrow-right"></i> {% trans "PLUS" %}</a> 
+              </div>
+            </div>
+          </div>
+          <!-- Blog Grid -->
+          {% endfor %}
+          <div class="clearfix"></div>
+          <div class="text-center clearfix section-padding-40"> <a href="/qa/list_blog" class="btn btn-lg btn-primary">View all Blog Post</a> 
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <!-- Row End -->
+      </div>
+      <!-- end container -->
+    </section>
+    <!-- ============================ end list blog ============================== -->
+
+
+
+        
+    <!-- =-=-=-=-=-=-= Download Apps =-=-=-=-=-=-= -->
+    <div class="parallex section-padding  our-apps text-center">
+      <div class="container">
+        <!-- title-section -->
+        <div class="main-heading text-center">
+          <h2>Download Our Apps</h2>
+          <hr class="main">
+        </div>
+        <!-- End title-section -->
+        <div class="row">
+          <div class="app-content">
+            <!-- Single download start \-->
+            <div class="col-md-4 col-sm-4">
+              <a href="/qa#" class="app-grid"> <span class="app-icon"> <img alt="#" src='{% static "qa/images/mobile.png" %}'> </span>
+                <div class="app-title">
+                  <h5>Available on the</h5>
+                  <h3>iOS App Store</h3>
+                </div>
+              </a>
+            </div>
+            <!--/ Single download end-->
+            <!-- Single download start \-->
+            <div class="col-md-4 col-sm-4">
+              <a href="/qa#" class="app-grid"> <span class="app-icon"> <img alt="#" src='{% static "qa/images/play-store.png" %}'> </span>
+                <div class="app-title">
+                  <h5>Available on the</h5>
+                  <h3>Google Store</h3>
+                </div>
+              </a>
+            </div>
+            <!--/ Single download end-->
+            <!-- Single download start \-->
+            <div class="col-md-4  col-sm-4">
+              <a href="/qa#" class="app-grid"> <span class="app-icon"> <img alt="#" src='{% static "qa/images/windows.png" %}'> </span>
+                <div class="app-title">
+                  <h5>Available on the</h5>
+                  <h3>Windows Store</h3>
+                </div>
+              </a>
+            </div>
+            <!--/ Single download end-->
+          </div>
+        </div>
+        <!-- End row -->
+      </div>
+      <!-- end container -->
+    </div>
+    <!-- =-=-=-=-=-=-= Download Apps END =-=-=-=-=-=-= -->
+        
+  </div>
+  <!-- =-=-=-=-=-=-= Main Area End =-=-=-=-=-=-= -->
+  <section id="social-media">
+    <div class="block no-padding">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="social-bar">
+            <ul>
+              <li class="social1">
+                <a title="" href="/qa#">
+                  <img alt="" src='{% static "qa/images/facebook.png" %}'> <span>Join Us On<strong>FACEBOOK</strong></span>
+                </a>
+              </li>
+              <li class="social2">
+                <a title="" href="/qa#">
+                  <img alt="" src='{% static "qa/images/twitter.png" %}'> <span>Join Us On<strong>TWIITER</strong></span>
+                </a>
+              </li>
+              <li class="social3">
+                <a title="" href="/qa#">
+                  <img alt="" src='{% static "qa/images/google-plus.png" %}'> <span>Join Us On<strong>GOOGLE PLUS</strong></span>
+                </a>
+              </li>
+              <li class="social4">
+                <a title="" href="/qa#">
+                  <img alt="" src='{% static "qa/images/linkedin.png" %}'> <span>Join Us On<strong>LINKED IN</strong></span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  {% endblock content %}

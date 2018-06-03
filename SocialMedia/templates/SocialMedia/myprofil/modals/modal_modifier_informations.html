@@ -1,0 +1,22 @@
+{% load widget_tweaks %}
+<div id="form_modifier_informations2">
+    <div class="modal fade" id="squarespaceModifierInformations" tabindex="-1" role="dialog"
+         aria-labelledby="modalLabel"
+         aria-hidden="true">
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span
+                            aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                    <h3 class="modal-title" id="lineModalLabel">Modifier mes informations</h3>
+                </div>
+
+                <div class="actualized_form_modifier_informations">
+                    {% include 'SocialMedia/myprofil/forms/form_modifier_informations.html' %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,72 @@
+{% extends 'base_ESPR.html' %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+
+{% block stylesheet %}{{ block.super }}{% endblock %}
+
+{% block title %}{{ block.super }} | Connexion{% endblock %}
+{% block header %}
+    <header class="header header-sticky header-light">
+            <nav class="navbar navbar-expand-lg yamm">
+                <div class="container">
+                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <a class="navbar-brand" href="{% url 'main_app:home' %}">
+                        <img src="{% static 'main_app/img/logo.png' %}" style="top: 14px;width: 40px;" class="img-fluid logo-dark" alt="">
+                    </a>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav ml-auto smooth-scroll">
+                        <li class="nav-item"><a class="nav-link active" href="#home"><i class="ion-home mr-2"></i> Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#about"><i class="ion-person-stalker mr-2"></i> About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#work"><i class="ion-images mr-2"></i> Portfolio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#services"><i class="ion-settings mr-2"></i> Services</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contact"><i class="ion-android-call mr-2"></i> Contact</a></li>
+
+                    </ul>
+                    </div>
+                    <div class="right-search ml-4 dropdown">
+                        <a class="icon-search" href="#!" data-toggle="dropdown">
+                            <i class="ion-ios-search-strong"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <form class="form-inline">
+                                <input type="text" placeholder="Search" class="form-control">
+                                <button type="button" class="form-search-button">
+                                    <i class="ion-ios-search-strong"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </nav><!--nav end-->
+        </header>
+{% endblock %}
+{% block content %}
+
+ <section id="content-region-3" class="padding-40 page-tree-bg">
+            <div class="container">
+                <h3 class="page-tree-text">
+                    Page non trouvée
+                </h3>
+            </div>
+        </section><!--page-tree end here-->
+        <div class="space-70"></div>
+
+      <div class="container text-center">
+            <div class="error-digit wow animated bounceIn" data-wow-delay="1s">
+                404
+            </div>
+            <div class="space-20"></div>
+            <div class="error-text">
+                <h3>la page que vous cherchez n'est pas trouvée.</h3>
+                <br>
+            </div>
+        </div>
+        
+{% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
+{% endblock %}

@@ -1,0 +1,134 @@
+{% extends 'ecommerce/base.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+	<div class="main-container container">
+		<ul class="breadcrumb">
+			<li><a href="{% url 'e_commerce:index' %}">Accueil</a></li>
+            <li><a href="{% url 'e_commerce:my_account' %}">Mon compte</a></li>
+            <li><a href="{% url 'e_commerce:order_history' %}">Historiques des Commandes</a></li>
+            <li><a href="#"><b>Commande #{{ order.pk }}</b></a></li>
+		</ul>
+		<div class="row">
+			<!--Middle Part Start-->
+			<div id="content" class="col-sm-12">
+				<h2 class="title" style="padding-bottom: 10px">Commande</h2>
+				<table class="table table-bordered table-hover">
+					<thead>
+						<tr>
+							<td colspan="2" class="text-left">Détails du Commande</td>
+                            <td class="text-left">Adresse de Facturation</td>
+							<td class="text-left">Adresse de Livraison</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="text-left">
+                                <b>ID Commande :</b> #{{ order.pk }}<br>
+								<b>Date D'ajout :</b> {{ order.date }}
+                            </td>
+							<td class="text-left">
+                                <b>Méthode de Paiement :</b> {{ order.payment_method }}<br>
+								<b>Méthode de Livraison:</b> {{ order.delivery_method }}
+                            </td>
+                            <td class="text-left">
+                                {{ order.user.user.last_name }} {{ order.user.user.first_name }}
+								{% if order.user.billingaddress.company %}
+                                <br>{{ order.user.billingaddress.company }}
+                                {% endif %}
+								<br>{{ order.user.billingaddress.address }} {{ order.user.billingaddress.city }}
+                                {{ order.user.billingaddress.region }}, {{ order.user.billingaddress.country }}
+                            </td>
+							<td class="text-left">{{ order.user.user.last_name }} {{ order.user.user.first_name }}
+								{% if order.user.shippingaddress.company %}
+                                <br>{{ order.user.shippingaddress.company }}
+                                {% endif %}
+								<br>{{ order.user.shippingaddress.address }} {{ order.user.shippingaddress.city }}
+                                {{ order.user.shippingaddress.region }}, {{ order.user.shippingaddress.country }}
+                            </td>
+						</tr>
+					</tbody>
+				</table>
+                <h2 class="title" style="padding-bottom: 10px">Liste produits</h2>
+				<div class="table-responsive">
+					<table class="table table-bordered table-hover" style="margin-bottom: 0">
+						<thead>
+							<tr>
+								<td class="text-center"></td>
+								<td class="text-center">Nom de Produit</td>
+								<td class="text-center">Marque</td>
+								<td class="text-center">Quantité</td>
+								<td class="text-center">Prix</td>
+								<td class="text-center">Total</td>
+							</tr>
+						</thead>
+						<tbody>
+                        {% for order_line in order_lines %}
+							<tr>
+								<td class="text-center">
+                                    <a href="{% url 'e_commerce:product' order_line.product.pk %}">
+                                        <img width="50px" height="50px" style="border: 0" src="{{ order_line.product.image.url }}" alt="Image {{ order_line.product.name }}" title="{{ order_line.product.name }}" class="img-thumbnail" />
+                                    </a>
+                                </td>
+                                <td class="text-center"><a href="{% url 'e_commerce:product' order_line.product.pk %}">{{ order_line.product.name }}</a></td>
+								<td class="text-center">{{ order_line.product.brand.name }}</td>
+								<td class="text-center">{{ order_line.quantity }}</td>
+								<td class="text-center">{{ order_line.price_unit|intcomma }} Dh</td>
+								<td class="text-center">{{ order_line.total|intcomma }} Dh</td>
+							</tr>
+                        {% endfor %}
+						</tbody>
+						<tfoot>
+							<tr>
+								<td colspan="5" class="text-right"><b>Sous-Total :</b></td>
+								<td class="text-right">{{ total|intcomma }} Dh</td>
+							</tr>
+							<tr>
+								<td colspan="5" class="text-right"><b>{{ order.delivery_method }} :</b></td>
+								<td class="text-right">
+                                    {% if order.delivery_method == 'Free Shipping' %}
+                                        0 Dh
+                                    {% else %}
+                                        50 Dh
+                                    {% endif %}
+                                </td>
+							</tr>
+							<tr>
+								<td colspan="5" class="text-right"><b>Total :</b></td>
+								<td class="text-right"><b>{{ order.amount|intcomma }} Dh</b></td>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+				<h2 class="title" style="padding-bottom: 10px">Status du Commande</h2>
+				<table class="table table-bordered table-hover">
+					<thead>
+						<tr>
+							<td class="text-left">Date d'ajout</td>
+							<td class="text-left">Status</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="text-left">{{ order.date }}</td>
+							<td class="text-left">Crée</td>
+						</tr>
+                        {% if order.status == 'Processing' %}
+						<tr>
+							<td class="text-left">{{ order.date_payment }}</td>
+							<td class="text-left">Payée</td>
+						</tr>
+                        {% endif %}
+                        {% if order.status == 'Shipped' %}
+						<tr>
+							<td class="text-left">{{ order.date_complete }}</td>
+							<td class="text-left">Expédiée</td>
+						</tr>
+                        {% endif %}
+					</tbody>
+				</table>
+            </div>
+			<!--Middle Part End-->
+		</div>
+	</div>
+{% endblock %}

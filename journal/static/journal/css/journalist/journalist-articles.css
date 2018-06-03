@@ -1,0 +1,183 @@
+.main-panel {
+    background-color: #f4f3ef;
+}
+
+.card {
+    border-radius: 6px;
+    box-shadow: 0 2px 2px rgba(204, 197, 185, 0.5);
+    background-color: #FFFFFF;
+    color: #252422;
+    margin: 20px 0;
+    position: relative;
+}
+
+.card .header {
+    padding: 20px 20px 0;
+}
+
+.card .title {
+    margin: 0;
+    color: #252422;
+    font-weight: 300;
+}
+h4 {
+    font-size: 1.5em;
+    line-height: 1.2em;
+}
+
+.card .category {
+    font-size: 14px;
+    font-weight: 400;
+    color: #9A9A9A;
+    margin-bottom: 0px;
+}
+
+.card .content {
+    padding: 15px 0;
+}
+
+@media screen and (max-width: 767px) {
+    .table-responsive>.table>tbody>tr>td {
+        white-space: inherit;
+    }
+}
+
+.table-striped tbody > tr:nth-of-type(2n) {
+    background-color: #fff;
+}
+
+.table-striped tbody > tr:nth-of-type(2n+1) {
+    background-color: #FFFCF5;
+}
+
+.card .table tbody td:first-child, .card .table thead th:first-child {
+    padding-left: 15px;
+}
+
+.table tbody tr td:nth-child(2) {
+    max-width: 300px
+}
+
+.table tbody tr td:nth-child(6) {
+    max-width: 200px;
+}
+
+.table tbody tr td:last-child {
+    min-width: 136px;
+}
+
+
+.table-striped > thead > tr > th, .table-striped > tbody > tr > td{
+    padding: 15px 8px;
+}
+
+.table > thead > tr > th {
+    border-bottom-width: 0;
+    font-size: 1.25em;
+    font-weight: 300;
+}
+
+.table tbody tr > td {
+    border-top: 1px solid #CCC5B9;
+}
+
+.table tbody tr td:nth-child(2) a {
+    color: #f46320;
+    transition: .3s all;
+}
+
+.table tbody tr td:nth-child(2) a:hover {
+    color: #333;
+}
+
+.table tbody tr td span {
+    background: #333;
+    color: #FFF;
+    padding: 3px 10px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-bottom: 3px;
+    font-size: 13px;
+}
+
+.table tbody tr td span.vue {
+    font-size: 10px;
+    padding: 1px 4px;
+    margin-left: 8px;
+}
+
+.table form {
+    display: inline;
+}
+
+.paginatorIndex {
+    display: inline;
+    float: right;
+    margin-top: 5px;
+    padding-right: 30px;
+}
+
+
+/* OVERRIDE */
+.pagination {
+    margin: 0 0 10px 10px;
+}
+
+.pagination>.active>a,
+.pagination>.active>a:focus,
+.pagination>.active>a:hover,
+.pagination>.active>span,
+.pagination>.active>span:focus,
+.pagination>.active>span:hover {
+    background-color: #f46320;
+    border-color: #f46320;
+}
+
+.pagination>li>a {
+    color: #f46320;
+}
+
+.pagination>li>a:focus,
+.pagination>li>a:hover,
+.pagination>li>span:focus,
+.pagination>li>span:hover {
+    color: #f46320;
+}
+
+
+
+.header div:first-child {
+
+}
+
+.header div:last-child {
+
+}
+
+
+.header div:last-child form {
+    position: relative;
+    margin-bottom: 8px;
+}
+
+.header div:last-child form input:first-child {
+    padding: 7px;
+    width: 100%;
+    position: relative;
+}
+
+.header div:last-child form input:last-child {
+    padding: 0 17px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: #000;
+    border: 0;
+    height: 100%;
+    color: #FFF;
+    transition: .5s all;
+}
+
+.header div:last-child form input:last-child:hover {
+    background: #f46320;
+}

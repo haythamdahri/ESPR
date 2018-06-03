@@ -1,0 +1,129 @@
+{% extends "SocialMedia/profil/base_profil.html" %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+
+{% block stylesheets %}
+    {{ block.super }}
+    <link href="//cdn.bootcss.com/bootstrap-datetimepicker/4.17.44/css/bootstrap-datetimepicker.min.css"
+          rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'Socialmedia/awesomecomplete/awesomplete.css' %}"/>
+    <link rel="stylesheet" href="{% static 'Socialmedia/awesomecomplete/awesomplete.base.css' %}"/>
+
+    <script src="{% static "Socialmedia/awesomecomplete/awesomplete.min.js" %}" async></script>
+{% endblock stylesheets %}
+
+
+{% block contentProfil %}
+
+
+    <!-- Profile Details Start -->
+    <div class="profile--details fs--14">
+
+
+        <!-- Profile Item Start -->
+        <div class="profile--item">
+
+            <div class="profile--heading">
+                <h3 class="h4 fw--700">
+                    <i class="ml--10 text-primary fa fa-caret-right"></i>
+                    <span class="mr--4">Experiences Professionnelles</span>
+                </h3>
+
+
+                <div class="profile--info">
+                    <div class="liste_experiences">
+                        {% include "SocialMedia/profil/informations/liste_experiences.html" %}
+                    </div>
+                </div>
+
+
+            </div>
+
+
+            <hr style="box-shadow: 0 0 3px rgba(0, 0, 0, 0.7);">
+
+            <!-- Profile Item Start -->
+            <div class="profile--item">
+
+                <div class="profile--heading">
+                    <h3 class="h4 fw--700">
+                        <i class="ml--10 text-primary fa fa-caret-right"></i>
+                        <span class="mr--4">Formation</span>
+                    </h3>
+                </div>
+
+                <div class="profile--info">
+
+                    <div class="liste_formations">
+                        {% include 'SocialMedia/profil/informations/liste_formations.html' %}
+                    </div>
+
+                </div>
+            </div>
+            <!-- Profile Item End -->
+
+            <hr style="box-shadow: 0 0 3px rgba(0, 0, 0, 0.7);">
+
+            <!-- Profile Item Start -->
+            <div class="profile--item">
+
+                <div class="profile--heading">
+                    <h3 class="h4 fw--700">
+                        <i class="ml--10 text-primary fa fa-caret-right"></i>
+                        <span class="mr--4">Actions Benevoles</span>
+                    </h3>
+                </div>
+
+                <div class="profile--info">
+                    <div class="liste_benevolats">
+
+                        {% include 'SocialMedia/profil/informations/liste_benevolat.html' %}
+
+                    </div>
+                </div>
+            </div>
+            <!-- Profile Item End -->
+
+            <hr style="box-shadow: 0 0 3px rgba(0, 0, 0, 0.7);">
+
+            <!-- Profile Item Start -->
+            <div class="profile--item divlangue">
+                <div class="profile--heading">
+                    <h3 class="h4 fw--700">
+                        <i class="ml--10 text-primary fa fa-caret-right"></i>
+                        <span class="mr--4">Langues</span>
+
+
+                    </h3>
+                </div>
+
+                <div class="profile--info">
+                    <div class="liste_langues">
+
+                        {% include 'SocialMedia/profil/informations/liste_langues.html' %}
+
+
+                    </div>
+                </div>
+            </div>
+            <!-- Profile Item End -->
+        </div>
+    </div>
+
+
+    <!-- Profile Details End -->
+
+{% endblock %}
+
+{% block scripts %}
+
+    {{ block.super }}
+<script>
+        $('.profil_links_menu li').removeClass('active');
+        $('.profil_links_menu li:eq(0)').addClass('active');
+</script>
+{% endblock %}
+
+
+
+

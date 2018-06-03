@@ -1,0 +1,21 @@
+{% for langue in langues %}
+
+    <div class="row">
+        <div class="col-xs-4 titre" style="font-weight: bold; color:darkslategray;">
+            {{ langue.langue }}
+        </div>
+        <div class="col-xs-4 description">
+            {{ langue.niveau }}
+        </div>
+        <div class="col-xs-4 liens">
+             <a href="javascript:return false">
+                <i class="fa fa-pencil float--right" style="font-size:20px;" aria-hidden="true" data-id="{{ langue.id }}" onclick="remplir_formulaire(this)" ></i>
+            </a>
+            <a href="javascript:return false">
+                <i class="fa fa-times float--right" style="font-size:20px;padding-right: 10px;" aria-hidden="true" data-id ="{{ langue.id }}" onclick="SupprimerLangue({{ langue.id }})"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- divate : titre, description, liens X / -->
+{% endfor %}

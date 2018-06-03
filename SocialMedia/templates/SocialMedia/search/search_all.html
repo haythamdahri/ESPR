@@ -1,0 +1,241 @@
+{% extends "SocialMedia/search/base_search.html" %}
+{% load staticfiles %}
+{% load humanize %}
+{% load widget_tweaks %}
+
+{% block title %}{{ block.super }} Recherche : {{ keywords }}{% endblock %}
+
+{% block searchcontent %}
+
+    <!-- Main Content Start -->
+    <div class="main--content col-md-8 pb--60" data-trigger="stickyScroll">
+        <div class="main--content-inner">
+            <!-- Title  Start -->
+            <div class="filter--nav pb--30 clearfix titre-search-custom">
+                <div class="filter--link float--left">
+                    <h2 class="h4">Contacts trouvés : {{ profils.count }}</h2>
+                </div>
+
+            </div>
+            <!-- Title  End -->
+
+            {% if profils %}
+                <!-- Member Items Start -->
+                <div class="member--items border-light-custom" style="background-color:white;">
+                    <div class="row gutter--15 AdjustRow">
+
+                        {% for profil in profils %}
+                            <div class="col-md-3 col-xs-6 col-xxs-12">
+                                <!-- Member Item Start -->
+                                <div class="member--item online">
+                                    <div class="img img-circle">
+                                        <a href="{% url 'SocialMedia:getProfil' profil.id %}" class="btn-link">
+                                            <img src="{{ profil.photo_profil.image.url }}" alt=""
+                                                 style="  height: 55px;  ">
+                                        </a>
+                                    </div>
+
+                                    <div class="name">
+                                        <h3 class="h6 fs--12">
+                                            <a href="{% url 'SocialMedia:getProfil' profil.id %}"
+                                               class="btn-link">{{ profil.user.first_name | title }} {{ profil.user.last_name | upper }}</a>
+                                        </h3>
+                                    </div>
+
+                                    <div class="activity">
+                                        <p><i class="fa mr--8 fa-clock-o"></i>Dernière activité :
+                                            <br>{% if profil.user.last_login %} {{ profil.user.last_login | date }} {% else %} - {% endif %}</p>
+                                    </div>
+
+                                    <div class="actions">
+                                        <ul class="nav">
+                                            <li>
+                                                {% if profil in friends %}
+                                                <form id="addFriend" style="float: left;padding-right: 5px;" class="" method="POST">
+                                                <input type="hidden" name="csrfmiddlewaretoken" value="bCrnsa7YEHmX48HGRBUYrNF4S9sK01iFTXZiijiNrUBfw4T9OY0xhLtfvMZFvzU3">
+                                                    <input type="hidden" name="rep" value="0">
+                                                    <button id="btFriend" class="btJoinGroupe fw--400" style="font-size: 12px;padding: 0px 10px;font-weight: normal;">
+                                                        <i class="fa fa-user-plus" aria-hidden="true"></i> Se
+                                                        connecter
+                                                    </button>
+                                                </form>
+                                                {% else %}
+                                                        <a target="_blank" href="{% url 'SocialMedia:getProfil' profil.id %}">
+                                                    <button id="btFriend" class="btJoinGroupe fw--400" style="font-size: 12px;padding: 0px 10px;font-weight: normal;"><i class="fa fa-user" aria-hidden="true"></i> Voir le profil</button>
+                                                        </a>
+
+                                                {% endif %}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- Member Item End -->
+                            </div>
+                        {% endfor %}
+
+                        <!-- Member Item End -->
+                    </div>
+
+                </div>
+            {% endif %}
+
+
+        </div>
+        <!-- Member Items End -->
+
+
+        <!-- Fin Recherche Contact -->
+
+
+        <!-- Debut Recherche Offres emploi -->
+
+        <!-- Title  Start -->
+        <div class="filter--nav pb--30 clearfix titre-search-custom">
+            <div class="filter--link float--left">
+                <h2 class="h4">Offres d'emploi trouvés : {{ offres.count }}</h2>
+            </div>
+
+        </div>
+        <!-- Title  End -->
+
+        {% if offres %}
+            <!-- Offres Items Start -->
+            <div class="member--items border-light-custom" style="background-color: white;">
+                <div class="row gutter--15 AdjustRow">
+
+                    {% for offre in offres|slice:":12" %}
+                        <div class="col-md-3 col-xs-6 col-xxs-12">
+                            <!-- Member Item Start -->
+                            <div class="member--item online">
+                                <div class="img">
+                                    <a href="{% url 'SocialMedia:getProfil' offre.id %}" class="btn-link">
+                                        <img src="{{ offre.entreprise.logo.url }}" alt=""
+                                             style="  height: 55px;  ">
+                                    </a>
+                                </div>
+
+                                <div class="name">
+                                    <h3 class="h6 fs--12">
+                                        <a href="{% url 'SocialMedia:getProfil' offre.id %}"
+                                           class="btn-link">{{ offre.nom_poste }}</a>
+                                    </h3>
+                                </div>
+
+                                <div class="activity"> {{ offre.entreprise.nom }}
+                                </div>
+                                <div class="activity">
+                                    <p><i class="fa mr--8 fa-map-marker"></i>{{ offre.ville }},{{ offre.pays }}</p>
+                                </div>
+
+                                <div class="activity">
+                                    <p><i class="fa mr--8 fa-clock-o"></i>{{ offre.date_publication | naturalday }}
+                                    </p>
+                                </div>
+
+                                <div class="actions">
+                                    <a href="ss">Voir les détails</a>
+                                </div>
+                            </div>
+                            <!-- Member Item End -->
+                        </div>
+                    {% endfor %}
+
+                    <!-- Member Item End -->
+                </div>
+
+
+                {% if offres.count > 12 %}
+                    <!-- Voir plus Start -->
+                    <div class="page--count pt--30 ">
+                        <label class="ff--primary fs--14 fw--500 text-darker " style="text-align:right;">
+                            <a href="/reseausocial/search_offers/?keywords={{ keywords }}">Voir plus</a>
+                        </label>
+                    </div>
+
+                    <!-- Voir plus End -->
+                {% endif %}
+
+            </div>
+            <!-- Offre Items End -->
+
+            <!-- Fin Recherche Offres emploi -->
+        {% endif %}
+
+        <!-- Debut Recherche Groupes -->
+
+        <!-- Title  Start -->
+        <div class="filter--nav pb--30 clearfix titre-search-custom">
+            <div class="filter--link float--left">
+                <h2 class="h4">Groupes trouvés : {{ groupes.count }}</h2>
+            </div>
+        </div>
+        <!-- Title  End -->
+
+        {% if groupes %}
+            <!-- Groupes Items Start -->
+            <div class="box--items border-light-custom" style="background-color: white;">
+                <div class="row gutter--15 AdjustRow">
+                    {% for groupe in groupes|slice:":12" %}
+                        <div class="col-md-3 col-xs-6 col-xxs-12">
+                            <!-- Box Item Start -->
+                            <div class="box--item text-center" >
+                                <a href="{{ groupe.get_absolute_url  }}" class="img" data-overlay="0.1">
+                                    <img src="{{ groupe.photo_profil.image.url }}" alt="" style="height: 100px;">
+                                </a>
+
+                                <div class="info">
+
+                                    <div class="title">
+                                        <h2 class="h6"><a href="{% url 'SocialMedia:groupe' groupe.id %}">{{ groupe.nom }}</a></h2>
+                                    </div>
+
+                                    <div class="meta">
+                                        <p><i class="fa mr--8 fa-street-view"></i>Groupe {{ groupe.statut_groupe }}
+                                        </p>
+                                        <p><i class="fa mr--8 fa-user-o"></i>{{ groupe.adherents.count }} Membres
+                                        </p>
+                                    </div>
+
+
+                                    <div class="desc text-darker">
+                                        <p>{{ groupe.description | truncatechars:30 }}</p>
+                                    </div>
+
+                                    <div class="action">
+                                        <a href="group-home.html">Détails du groupe<i
+                                                class="fa ml--10 fa-caret-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Box Item End -->
+                        </div>
+                    {% endfor %}
+                </div>
+
+
+
+
+                {% if groupes.count > 12 %}
+                    <!-- Voir plus Start -->
+                    <div class="page--count pt--30 ">
+                        <label class="ff--primary fs--14 fw--500 text-darker " style="text-align:right;">
+                            <a href="/reseausocial/search_groupes/?keywords={{ keywords }}">Voir la suite...</a>
+                        </label>
+                    </div>
+
+                    <!-- Voir plus End -->
+                {% endif %}
+
+            </div>
+            <!-- Groupes Items End -->
+        {% endif %}
+
+
+        <!-- Fin Recherche Groupes -->
+
+
+    </div>
+    <!-- Main Content End -->
+
+
+{% endblock searchcontent %}

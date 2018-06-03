@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+    À Propos
+{% endblock %}
+
+{% block style %}
+    <style>
+    .about-info {
+        padding-bottom: 7px;
+    }
+    .article-breadcrumb {
+        margin-bottom: -5px;
+    }
+    p.text-description {
+        font-size: 18px;
+        margin-bottom: 50px;
+    }
+    i.fa.fa-5x {
+        font-size: 47px;
+    }
+    #about-base-link {
+        color: #f46320;
+    }
+    </style>
+{% endblock %}
+
+{% block content %}
+
+    <!-- SECTION INFO -->
+    <div class="section about-info">
+        <div class="container">
+            <!-- breadcrumb -->
+            <ul class="article-breadcrumb">
+                <li><a href="{% url 'index' %}">Accueil</a></li>
+                <li><a href="{% url 'about' %}">À Propos</a></li>
+            </ul>
+            <!-- /breadcrumb -->
+            <!-- Title -->
+            <div class="title">
+                <h2>À Propos</h2>
+            </div>
+            <!-- /Title -->
+        </div>
+    </div>
+    <!-- /SECTION INFO -->
+    <!-- CONTENT -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7">
+                <p class="text-description">
+                    Contrairement à une opinion répandue, le Lorem Ipsum n'est pas simplement du texte aléatoire. Il trouve ses
+                    racines dans une oeuvre de la littérature latine classique datant de 45 av. J.-C., le rendant vieux de 2000
+                    ans. Un professeur du Hampden-Sydney College, en Virginie, s'est intéressé à un des mots latins les plus obscurs,
+                    consectetur, extrait d'un passage du Lorem Ipsum, et en étudiant tous les usages de ce mot dans la littérature
+                    classique, découvrit la source incontestable du Lorem Ipsum. Il provient en fait des sections 1.10.32 et 1.10.33
+                    du "De Finibus Bonorum et Malorum" (Des Suprêmes Biens et des Suprêmes Maux) de Cicéron. Cet ouvrage, très
+                    populaire pendant la Renaissance, est un traité sur la théorie de l'éthique. Les premières lignes du Lorem
+                    Ipsum, "Lorem ipsum dolor sit amet...", proviennent de la section 1.10.32.
+                    <br>
+                    L'extrait standard de Lorem Ipsum utilisé depuis le XVIè siècle est reproduit ci-dessous pour les curieux.
+                    Les sections 1.10.32 et 1.10.33 du "De Finibus Bonorum et Malorum" de Cicéron sont aussi reproduites dans leur
+                    version originale, accompagnée de la traduction anglaise de H. Rackham (1914).
+                </p>
+            </div>
+            <div class="col-md-1">
+                <div class="details">
+                    <div class="text-center">
+                        <i class="fa fa-file-text fa-5x" style="padding-top: 20px"></i>
+                        <h2 class="count">{{ nbr_articles }}</h2>
+                    </div>
+                    <div class="text-center">
+                        <i class="fa fa-comments-o fa-5x"></i>
+                        <h2 class="count">{{ nbr_comments }}</h2>
+                    </div>
+                    <div class="text-center">
+                        <i class="fa fa-eye fa-5x"></i>
+                        <h2 class="count">{{ nbr_views }}</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <!-- article widget -->
+                <div class="widget">
+                    <div class="widget-title">
+                        <h2 class="title">Les plus lus</h2>
+                    </div>
+                    <div class="top-article">
+                        <!-- owl carousel 3 -->
+                        <div id="owl-carousel-3" class="owl-carousel owl-theme center-owl-nav">
+                            {% for n in topRead %}
+                                {% if forloop.counter < 4 %}
+                                    <!-- ARTICLE -->
+                                    <article class="article">
+                                        <div class="article-img">
+                                            <a href="{% url 'post' n.category.name n.id %}">
+                                                <img src="{{ n.primary_image.image.url }}"
+                                                     alt="{{ n.primary_image.description }}">
+                                            </a>
+                                            <ul class="article-info">
+                                                <li class="article-type"><i class="fa {{ n.category.icon }}"></i></li>
+                                            </ul>
+                                        </div>
+                                        <div class="article-body">
+                                            <h4 class="article-title"><a href="{% url 'post' n.category.name n.id %}">
+                                                {{ n.small_title }}</a></h4>
+                                        </div>
+                                    </article>
+                                    <!-- /ARTICLE -->
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <!-- /owl carousel 3 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /CONTENT -->
+
+{% endblock %}
+
+{% block script %}
+
+    $('.count').each(function () {
+        $(this).prop('Counter',0).animate({
+            Counter: $(this).text()
+        }, {
+            duration: 4000,
+            easing: 'swing',
+            step: function (now) {
+                $(this).text(Math.ceil(now));
+            }
+        });
+    });
+
+{% endblock %}

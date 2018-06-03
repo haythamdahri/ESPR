@@ -1,0 +1,142 @@
+{% extends "SocialMedia/search/base_search.html" %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% load humanize %}
+{% block title %}{{ block.super }} Recherche : {{ keywords }}{% endblock %}
+
+{% block searchcontent %}
+
+    <!-- Main Content Start -->
+    <div class="main--content col-md-8 pb--60" data-trigger="stickyScroll">
+        <div class="main--content-inner">
+
+            <!-- Title  Start -->
+            <div class="filter--nav pb--30 clearfix titre-search-custom">
+                <div class="filter--link float--left">
+                    <h2 class="h4">Groupes trouvés : {{ groupes.paginator.count }}</h2>
+                </div>
+            </div>
+            <!-- Title  End -->
+        <div id="groupes">
+            {% if groupes %}
+                <!-- Groupes Items Start -->
+                <div class="box--items border-light-custom" style="background-color:white;">
+                    <div class="row gutter--15 AdjustRow">
+                        {% for groupe in groupes|slice:":12" %}
+                            <div class="col-md-3 col-xs-6 col-xxs-12">
+                                <!-- Box Item Start -->
+                                <div class="box--item text-center">
+                                    <a href="{{ groupe.get_absolute_url  }}" class="img" data-overlay="0.1">
+                                        <img src="{{ groupe.photo_profil.image.url }}" alt="" style="height: 100px;">
+                                    </a>
+
+                                    <div class="info">
+
+                                        <div class="title">
+                                            <h2 class="h6"><a href="{% url 'SocialMedia:groupe' groupe.id %}">{{ groupe.nom }}</a></h2>
+                                        </div>
+
+                                        <div class="meta">
+                                            <p><i class="fa mr--8 fa-street-view"></i>Groupe {{ groupe.statut_groupe }}
+                                            </p>
+                                            <p><i class="fa mr--8 fa-user-o"></i>{{ groupe.adherents.count }} Membres
+                                            </p>
+                                        </div>
+
+
+                                        <div class="desc text-darker">
+                                            <p>{{ groupe.description | truncatechars:30 }}</p>
+                                        </div>
+
+                                        <div class="action">
+                                            <a href="{% url 'SocialMedia:groupe' groupe.id %}">Détails du groupe<i
+                                                    class="fa ml--10 fa-caret-right"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Box Item End -->
+                            </div>
+                        {% endfor %}
+                    </div>
+
+
+                </div>
+                <!-- Groupes Items End -->
+            {% endif %}
+
+{% if groupes.paginator.count is not 0 %}
+
+<!-- Page Count Start -->
+            <div class="page--count pt--30  text-center">
+                <label class="ff--primary fs--14 fw--500 text-darker">
+                    {% if groupes.has_previous %}
+                        <button id="btfirst" href="?page=1" class="btn-link"><i class="fa fa-caret-left {% if not groupes.has_previous %}hidden{% endif %}"></i><i class="fa fa-caret-left"></i></button>
+                        <button id="btprevious" page="{{ groupes.previous_page_number }}" class="btn-link {% if not groupes.has_previous %}hidden{% endif %}"><i class="fa fa-caret-left"></i></button>
+                    {% else %}
+                        <button id="btfirst" href="1" class="btn-link"><i class="fa fa-caret-left {% if groupes.has_previous %}hidden{% endif %}"></i><i class="fa fa-caret-left"></i></button>
+                        <button id="btprevious" page="1" class="btn-link"><i class="fa fa-caret-left {% if groupes.has_previous %}hidden{% endif %}"></i></button>
+                    {% endif %}
+                        <input id="RequestsPageNum" readonly type="number" name="page-count" value="{{ groupes.number }}" class="form-control form-sm">
+                        /
+                        <span id="numPages">{{ groupes.paginator.num_pages }}</span>
+                    {% if groupes.has_next %}
+                        <button id="btnext" page="{{ groupes.next_page_number }}" class="btn-link {% if not groupes.has_next %}hidden{% endif %}"><i class="fa fa-caret-right"></i></button>
+                        <button id="btlast" page="{{ groupes.paginator.num_pages }}" class="btn-link {% if not groupes.has_next %}hidden{% endif %}"><i class="fa fa-caret-right"></i><i class="fa fa-caret-right"></i></button>
+                    {% else %}
+                        <button id="btnext" page="{{ groupes.paginator.num_pages }}" class="btn-link {% if groupes.has_next %}hidden{% endif %}"><i class="fa fa-caret-right"></i></button>
+                        <button id="btlast" page="{{ groupes.paginator.num_pages }}" class="btn-link {% if groupes.has_next %}hidden{% endif %}"><i class="fa fa-caret-right"></i><i class="fa fa-caret-right"></i></button>
+                    {% endif %}
+
+                </label>
+            </div>
+            <!-- Page Count End -->
+
+        {% endif %}
+        </div>
+
+            <!-- Fin Recherche Groupes -->
+        </div>
+    </div>
+    <!-- Main Content End -->
+
+
+{% endblock searchcontent %}
+
+
+{% block scripts %}
+    {{ block.super }}
+    <script>
+        function nextGroupes(page)
+        {
+            nextp = page;
+            groupesURL = "{% url 'SocialMedia:getNextGroupes' %}";
+            $.ajax({
+                        url: groupesURL,
+                        type: 'GET',
+                        data: {
+                            'page': nextp, 'keywords': '{{ keywords }}',
+                            },
+                            beforeSend: function (xhr, settings) {
+
+                            },
+                            success: function (response) {
+                                    $("#groupes").html(response).fadeOut(300).fadeIn(300);
+                            },
+                            error: function () {
+                            },
+                            complete: function () {
+                            },
+                            stop: function (e) {
+                                swal("Veuiller Verifier Votre Connexion Reseau Puis Ressayer", "Erreur Fatale", "error");
+                            }
+                        });
+        }
+
+
+        $("body").on('click', '#btfirst, #btprevious, #btnext, #btlast', function(event){
+        event.preventDefault();
+        pagenum=$(this).attr('page');
+        nextGroupes(pagenum);
+    });
+    </script>
+{% endblock %}

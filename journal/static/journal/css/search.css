@@ -1,0 +1,82 @@
+
+.search-section {
+
+}
+
+.search-section .top-info h1 {
+
+}
+
+.search-section .top-info h1 span{
+    color: #f46320;
+}
+
+.search-section .top-info form {
+    position: relative;
+    margin-top: 25px;
+    margin-bottom: 5px;
+}
+
+.search-section .top-info form input:first-child {
+    padding: 7px;
+    width: 100%;
+    position: relative;
+}
+
+.search-section .top-info form input:last-child {
+    padding: 0 17px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: #000;
+    border: 0;
+    height: 100%;
+    color: #FFF;
+    transition: .5s all;
+}
+
+.search-section .top-info form input:last-child:hover {
+    background: #f46320;
+}
+
+.search-section .top-info p {
+    margin-bottom: 30px;
+}
+
+.search-section .search-article {
+    margin-top: 20Px
+}
+
+.search-section .search-article img {
+    width: 100%;
+}
+
+.paginatorIndex {
+    display: inline;
+    float: right;
+    margin-top: 25px;
+    padding-right: 30px;
+}
+
+
+/* OVERRIDE */
+.pagination>.active>a,
+.pagination>.active>a:focus,
+.pagination>.active>a:hover,
+.pagination>.active>span,
+.pagination>.active>span:focus,
+.pagination>.active>span:hover {
+    background-color: #f46320;
+    border-color: #f46320;
+}
+
+.pagination>li>a {
+    color: #f46320;
+}
+
+.pagination>li>a:focus,
+.pagination>li>a:hover,
+.pagination>li>span:focus,
+.pagination>li>span:hover {
+    color: #f46320;
+}

@@ -1,0 +1,796 @@
+{% extends 'base_main.html' %}
+{% load static %}
+
+{% block title %}
+    {{ block.super }}
+    S'inscrire
+{% endblock title %}
+
+{% block stylesheets %}
+    {{ block.super }}
+    <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title> Register </title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="{% static "appelsOffres/assets/images/aa.png" %}">
+
+        <!--<link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,600,700' rel='stylesheet' type='text/css'>-->
+        <link rel="stylesheet" href="{% static "appelsOffres/assets/css/fonticons.css" %} ">
+        <link rel="stylesheet" href="{% static "appelsOffres/assets/fonts/stylesheet.css" %} ">
+        <link rel="stylesheet" href="{% static "appelsOffres/assets/css/font-awesome.min.css" %} ">
+        <link rel="stylesheet" href="{% static "appelsOffres/assets/css/bootstrap.min.css" %} ">
+        <!--        <link rel="stylesheet" href="assets/css/bootstrap-theme.min.css">-->
+
+
+        <!--For Plugins external css-->
+        <link rel="stylesheet" href="{% static "appelsOffres/assets/css/plugins.css" %} " />
+
+        <!--Theme custom css -->
+        <link rel="stylesheet" href="{% static "appelsOffres/assets/css/style.css" %} ">
+
+        <!--Theme Responsive css-->
+        <link rel="stylesheet" href="{% static "appelsOffres/assets/css/responsive.css" %} " />
+
+        <link href="{% static "appelsOffres/assets2/styles/demo_style.css" %}" rel="stylesheet" type="text/css">
+
+        <link href="{% static "appelsOffres/assets2/styles/smart_wizard.css" %}" rel="stylesheet" type="text/css">
+
+        <style>
+            #profile {
+                width: 90%;
+                margin-left: 5%;
+                margin-right: 5%;
+            }
+
+            .head {
+                padding: 5px 5px 5px 0px;
+                text-align: right;
+
+            }
+
+            .head > a {
+                display: inline;
+                padding-left: 10px;
+            }
+
+            .btn {
+                width: inherit;
+            }
+
+            .form-control {
+                width: 90%;
+            }
+
+            .btn-default:hover {
+                border: 1px solid #e84c3d;
+                color : #e84c3d;
+            }
+
+            .btn-default {
+                background-color: #0d47a1;
+                color: white;
+                border: 0px;
+            }
+
+            .btn-danger:hover{
+                color: red;
+                border: 1px solid red;
+            }
+
+            .bodyA{
+                margin-top: 20px;
+                width: 100%;
+            }
+
+            .personnelA {
+                margin-top: 10px;
+                border: 4px solid #eee;
+            }
+
+            .bo {
+                margin-top: 5%;
+                margin-left: 3%;
+                margin-right: 2%;
+                border-top: 3px solid darkorange;
+                background-color: white;
+                box-shadow: 5px 5px 5px darkgray;
+            }
+
+        </style>
+
+{% endblock stylesheets %}
+
+{% block content %}
+    {{ block.super }}
+
+     <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+		<div class='preloader'><div class='loaded'>&nbsp;</div></div>
+        <!--Home page style-->
+        <header id="main_menu" class="header">
+            <div class="main_menu_bg navbar-fixed-top" style="background-color: white;">
+                <div class="container" >
+                    <div class="row">
+                        <div class="nave_menu wow fadeInUp" data-wow-duration="1s" >
+                            <nav class="navbar navbar-default" id="navmenu" >
+                                <div class="container-fluid" >
+                                    <!-- Brand and toggle get grouped for better mobile display -->
+                                    <div class="navbar-header">
+                                        <a style="padding-left: 10px;" class="navbar-brand" href=""><img src="{% static "appelsOffres/assets/images/logo_apo.png" %}" width="250px"></a>
+                                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                                            <span class="sr-only">Toggle navigation</span>
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                        </button>
+                                    </div>
+
+                                    <!-- Collect the nav links, forms, and other content for toggling -->
+                                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+                                        <ul class="nav navbar-nav navbar-right" >
+                                            <li><a href="/appelsOffres/Accueil">Accueil</a></li>
+                                            <li><a href="/appelsOffres/aploffre">NOS APPELS D'OFFRES</a></li>
+                                            <!--
+                                            <li><a href="/appelsOffres/aboutus">À PROPOS DE NOUS</a></li>
+                                            <li><a href="/appelsOffres/contactus">CONTACTEZ NOUS</a></li>
+                                            <li><a href="/appelsOffres/login">LOGIN/REGISTER</a></li> -->
+                                        </ul>
+                                    </div>
+
+                                </div>
+                            </nav>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </header> <!--End of header -->
+
+        <section id="home" class="home" style="background: url('{% static 'assets/images/pricingbg.jpg' %}') ">
+            <div class="home-overlay-fluid" style="padding-top:10px;">
+                <div class="container" >
+                    <div class="row" >
+                        <div class="main_slider_area" >
+                            <div class="slider" >
+                                <div class="single_slider wow fadeIn" data-wow-duration="2s" >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section><!-- End of Banner Section -->
+
+        <section id="domain" class="domainsearce" style="padding: 20px 0px;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-10 col-sm-offset-1">
+						<div class="main_somainsearrce">
+							<div class="head_title text-center wow fadeInDown" data-wow-duration="1s">
+
+                                {% if messages %}
+                                          {% for message in messages %}
+                                                <div class="alert alert-{{message.tags}} {{message.tags}} alert-dismissible" role="alert">
+                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    {{ message }}
+                                                </div>
+                                          {% endfor %}
+                                    {% endif %}
+							</div>
+						</div>
+					</div>
+                </div>
+            </div>
+        </section>
+
+        <!--
+        <div class="container-fluid" style="float: none;clear: both; width: 100%;">
+            <div class="row">
+                <div class="col-md-12">
+                    <form action="/appelsOffres/inscription" method="POST">
+                        {% csrf_token %}
+                        <div id="wizard2" class="swMain" >
+                            <ul>
+                                <li><a href="#step-1">
+                                    <label class="stepNumber">1</label>
+                                    <span class="stepDesc">
+                                        Personnel
+                                    </span>
+                                </a></li>
+                                <li><a href="#step-2">
+                                    <label class="stepNumber">2</label>
+                                    <span class="stepDesc">
+                                        Entreprise
+                                    </span>
+                                </a></li>
+                            </ul>
+                            <div id="step-1">
+                                <h2 class="StepTitle"> Terminez votre inscription </h2>
+                                <div class="form-row">
+
+                                    <div class="form-group col-md-6" id="fonction">
+                                        <label for="" id="labelfonction">Fonction *</label>
+                                        <select class="form-control" name="fonction" id="fonctionInput">
+                                            <option value="">Sélectionner votre fonction </option>
+                                            {% for item in fonct %}
+                                                <option value="{{ item.fonction}}" >{{ item.fonction }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-6" id="service">
+                                        <label for="" id="labelservice">Service *</label>
+                                        <select class="form-control" name="service" id="serviceInput">
+                                            <option value="">Sélectionner votre service </option>
+                                            {% for item in service %}
+                                                <option value="{{ item.service }}">{{ item.service }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-6" id="paysProfile">
+                                        <label for="" id="labelservice">Pays *</label>
+                                        <select class="form-control" name="paysProfile" id="paysProfileInput">
+                                            <option value="">Sélectionner votre Pays </option>
+                                            <option value="Maroc">Maroc</option>
+                                            {% for item in pays %}
+                                                <option value="{{ item.id }}">{{ item.pays }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-6" id="villeProfile">
+                                        <label for="">Ville *</label>
+                                        <input type="text" name="villeProfile" id="villeProfileInput" class="form-control" placeholder="Ville " ">
+                                    </div>
+                                    <div class="form-group col-md-6" id="telephone">
+                                        <label for="" id="labeltel">Téléphone * </label>
+                                        <input type="text" name="telephone" id="telephoneInput" class="form-control" placeholder="Telephone">
+                                    </div>
+                                    <div class="form-group col-md-6" id="civilite">
+                                        <label for="" id="labelservice"> Civilite *</label>
+                                        <select class="form-control" name="civilite" id="civiliteInput">
+                                            <option value="">Sélectionner votre Civilite</option>
+                                            <option value="Homme">Homme</option>
+                                            <option value="Femme">Femme</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group " id="adresseProfile">
+                                        <label for="">Adresse *</label>
+                                        <textarea name="adresseProfile" id="adresseProfileInput" class="form-control" rows="5"></textarea>
+                                    </div>
+                                    <br>
+                                </div>
+                            </div>
+
+                            <div id="step-2">
+                                <h2 class="StepTitle">Terminez votre inscription</h2>
+                                <div class="form-row">
+
+                                    <div lass="form-group col-md-6" id="RaC">
+                                        <label for="">Raison Sociale *</label>
+                                        <input type="text" name="RaisonSociale" id="RaCInput" class="form-control" placeholder="Raison Sociale">
+                                    </div>
+                                    <div class="form-group col-md-6" id="NRC">
+                                        <label for="">N° RC *</label>
+                                        <input type="text" name="nrc" id="NRCInput" class="form-control" placeholder="N° RC" >
+                                    </div>
+                                    <div class="form-group col-md-6" id="activite">
+                                        <label for="">Activité *</label>
+                                        <input type="text" name="activite" id="activiteInput" class="form-control" placeholder="Activité">
+                                    </div>
+                                    <div class="form-group col-md-6" id="Secteur">
+                                        <label for="" id="labelservice">Secteur *</label>
+                                        <select class="form-control" name="Secteur" id="SecteurInput">
+                                            <option value=""> Sélectionner votre Secteur </option>
+                                            <option value="Public">Public</option>
+                                            <option value="Privé">Privé</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-6" id="paysEntreprise">
+                                        <label for="" id="labelservice">Pays *</label>
+                                        <select class="form-control" name="paysEntreprise" id="paysEntrepriseInput">
+                                            <option value="">Sélectionner votre Pays </option>
+                                            <option value="Maroc">Maroc</option>
+                                            {% for item in pays %}
+                                                <option value="{{ item.id }}">{{ item.pays }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-6" id="villeEntreprise">
+                                        <label for="">Ville *</label>
+                                        <input type="text" name="villeEntreprise" id="villeEntrepriseInput" class="form-control" placeholder="Ville " >
+                                    </div>
+                                    <div class="form-group col-md-6" id="emailEntreprise">
+                                        <label for="" id="labelemail">Email d'Entreprise *</label>
+                                        <input type="email" name="emailEntreprise" id="emailEntrepriseInput" class="form-control" placeholder="Email">
+                                    </div>
+                                    <div class="form-group col-md-6" id="telephoneEntreprise">
+                                        <label for="" id="labeltel">Téléphone * </label>
+                                        <input type="text" name="telephoneEntreprise" id="telephoneEntrepriseInput" class="form-control" placeholder="Telephone">
+                                    </div>
+                                    <div class="form-group " id="adresseEntreprise">
+                                        <label for="">Adresse *</label>
+                                        <textarea name="adresseEntreprise" id="adresseEntrepriseInput" class="form-control" rows="5"></textarea>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        -->
+
+        <div class="container-fluid">
+            <div class="row">
+            <form action="/appelsOffres/inscription" method="POST">
+            {% csrf_token %}
+                <div class="card col-md-11 bo" >
+                    <div class="form-row">
+                        <div class="form-group col-md-6" id="fonction">
+                                        <label for="" id="labelfonction">Fonction *</label>
+                                        <select class="form-control" name="fonction" id="fonctionInput">
+                                            <option value="">Sélectionner votre fonction </option>
+                                            {% for item in fonct %}
+                                                <option value="{{ item.fonction}}" >{{ item.fonction }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                        <div class="form-group col-md-6" id="service">
+                                        <label for="" id="labelservice">Service *</label>
+                                        <select class="form-control" name="service" id="serviceInput">
+                                            <option value="">Sélectionner votre service </option>
+                                            {% for item in service %}
+                                                <option value="{{ item.service }}">{{ item.service }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                        <div class="form-group col-md-6" id="paysProfile">
+                                        <label for="" id="labelservice">Pays *</label>
+                                        <select class="form-control" name="paysProfile" id="paysProfileInput">
+                                            <option value="">Sélectionner votre Pays </option>
+                                            <option value="Maroc">Maroc</option>
+                                            {% for item in pays %}
+                                                <option value="{{ item.id }}">{{ item.pays }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                        <div class="form-group col-md-6" id="villeProfile">
+                                        <label for="">Ville *</label>
+                                        <input type="text" name="villeProfile" id="villeProfileInput" class="form-control" placeholder="Ville " ">
+                                    </div>
+                        <div class="form-group col-md-6" id="telephone">
+                                        <label for="" id="labeltel">Téléphone * </label>
+                                        <input type="text" name="telephone" id="telephoneInput" class="form-control" placeholder="Telephone">
+                                    </div>
+                        <div class="form-group col-md-6" id="civilite">
+                                        <label for="" id="labelservice"> Civilite *</label>
+                                        <select class="form-control" name="civilite" id="civiliteInput">
+                                            <option value="">Sélectionner votre Civilite</option>
+                                            <option value="Homme">Homme</option>
+                                            <option value="Femme">Femme</option>
+                                        </select>
+                                    </div>
+                        <div class="form-group col-md-6" id="adresseProfile">
+                            <label for="">Adresse *</label>
+                            <textarea name="adresseProfile" id="adresseProfileInput" class="form-control" rows="5"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card col-md-11 bo" >
+                    <div class="form-row">
+                        <div class="form-group col-md-6" id="RaC">
+                                        <label for="">Raison Sociale *</label>
+                                        <input type="text" name="RaisonSociale" id="RaCInput" class="form-control" placeholder="Raison Sociale">
+                                    </div>
+                        <div class="form-group col-md-6" id="NRC">
+                                        <label for="">N° RC *</label>
+                                        <input type="text" name="nrc" id="NRCInput" class="form-control" placeholder="N° RC" >
+                                    </div>
+                        <div class="form-group col-md-6" id="activite">
+                                        <label for="">Activité *</label>
+                                        <input type="text" name="activite" id="activiteInput" class="form-control" placeholder="Activité">
+                                    </div>
+                        <div class="form-group col-md-6" id="Secteur">
+                                        <label for="" id="labelservice">Secteur *</label>
+                                        <select class="form-control" name="Secteur" id="SecteurInput">
+                                            <option value=""> Sélectionner votre Secteur </option>
+                                            <option value="Public">Public</option>
+                                            <option value="Privé">Privé</option>
+                                        </select>
+                                    </div>
+                        <div class="form-group col-md-6" id="paysEntreprise">
+                                        <label for="" id="labelservice">Pays *</label>
+                                        <select class="form-control" name="paysEntreprise" id="paysEntrepriseInput">
+                                            <option value="">Sélectionner votre Pays </option>
+                                            <option value="Maroc">Maroc</option>
+                                            {% for item in pays %}
+                                                <option value="{{ item.id }}">{{ item.pays }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                        <div class="form-group col-md-6" id="villeEntreprise">
+                                        <label for="">Ville *</label>
+                                        <input type="text" name="villeEntreprise" id="villeEntrepriseInput" class="form-control" placeholder="Ville " >
+                                    </div>
+                        <div class="form-group col-md-6" id="emailEntreprise">
+                                        <label for="" id="labelemail">Email d'Entreprise *</label>
+                                        <input type="email" name="emailEntreprise" id="emailEntrepriseInput" class="form-control" placeholder="Email">
+                                    </div>
+                        <div class="form-group col-md-6" id="telephoneEntreprise">
+                                        <label for="" id="labeltel">Téléphone * </label>
+                                        <input type="text" name="telephoneEntreprise" id="telephoneEntrepriseInput" class="form-control" placeholder="Telephone">
+                                    </div>
+                        <div class="form-group col-md-6" id="adresseEntreprise">
+                                        <label for="">Adresse *</label>
+                                        <textarea name="adresseEntreprise" id="adresseEntrepriseInput" class="form-control" rows="5"></textarea>
+                                    </div>
+                    </div>
+                </div>
+                <div class="col-md-11 " >
+                    <span style="float: right"><button class="btn btn-default" id="envoyer"> Terminer votre inscription </button></span>
+                </div>
+            </form>
+            </div>
+        </div>
+
+
+
+        <!-- STRAT SCROLL TO TOP -->
+
+        <div class="scrollup">
+            <a href="#"><i class="fa fa-chevron-up"></i></a>
+        </div>
+
+{% endblock content %}
+
+{% block footer %}
+    {{ block.super }}
+       <br>
+{% endblock footer %}
+
+{% block  scripts %}
+    {{ block.super }}
+    <script src="{% static "appelsOffres/assets/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js" %} "></script>
+    <script src="{% static "appelsOffres/assets/js/vendor/jquery-1.11.2.min.js" %} "></script>
+        <script src="{% static "appelsOffres/assets/js/vendor/bootstrap.min.js" %} "></script>
+        <script src="{% static "appelsOffres/assets/js/jquery.easypiechart.min.js" %} "></script>
+
+        <script src="{% static "appelsOffres/assets/js/plugins.js" %} "></script>
+        <script src="{% static "appelsOffres/assets/js/main.js " %} "></script>
+
+        <script type="text/javascript" src="{% static "appelsOffres/assets2/js/jquery-2.0.0.min.js" %} "></script>
+        <script type="text/javascript" src="{% static "appelsOffres/assets2/js/jquery.smartWizard.js" %}"></script>
+
+        <script type="text/javascript">
+
+            $(document).ready(function(){
+                //  Wizard 1
+                $('#wizard1').smartWizard({
+                    transitionEffect:'fade',
+                    onFinish:onFinishCallback,
+                    onLeaveStep  : leaveAStepCallback,
+                });
+                function leaveAStepCallback(obj, context){
+                    // To check and enable finish button if needed
+                    if (context.fromStep >= 2) {
+                        $('#wizard1').smartWizard('enableFinish', true);
+                    }
+                    return true;
+                }
+                //  Wizard 2
+              $('#wizard2').smartWizard({transitionEffect:'slide',onFinish:onFinishCallback});
+              function onFinishCallback(){
+                    return true;
+              }
+                });
+        </script>
+
+        <script type="text/javascript">
+
+
+
+            $(function () {
+                var v1 = 1;
+                var v2 = 1;
+                var v3 = 1;
+                var v4 = 1;
+                var v5 = 1;
+                var v6 = 1;
+                var v7 = 1;
+                var v8 = 1;
+                var v9 = 1;
+                var v10 = 1;
+                var v11 = 1;
+                var v12 = 1;
+                var v13 = 1;
+                var v14 = 1;
+                var v15 = 1;
+                var v16 = 1;
+                var v17 = 1;
+
+
+                $('#fonctionInput').keydown(function () {
+                        fonction=$('#fonctionInput option:selected').val();
+
+                        if( fonction == "" ) {
+                            $('#fonction').removeClass("form-control")
+                            $('#fonction').addClass("has-error")
+                            v1 = 1;
+                        }else{
+                            $('#fonction').removeClass("has-error")
+                            $('#fonction').addClass("has-success")
+                            v1 = 0;
+                        }
+                });
+
+                $('#serviceInput').keydown(function () {
+                        fonction=$('#serviceInput option:selected').val();
+
+                        if( fonction == "" ) {
+                            $('#service').removeClass("form-control")
+                            $('#service').addClass("has-error")
+                            v2 = 1;
+                        }else{
+                            $('#service').removeClass("has-error")
+                            $('#service').addClass("has-success")
+                            v2 = 0;
+                        }
+                });
+
+                $('#paysProfileInput').keydown(function () {
+                        fonction=$('#paysProfileInput option:selected').val();
+
+                        if( fonction == "" ) {
+                            $('#paysProfile').removeClass("form-control")
+                            $('#paysProfile').addClass("has-error")
+                            v3 = 1;
+                        }else{
+                            $('#paysProfile').removeClass("has-error")
+                            $('#paysProfile').addClass("has-success")
+                            v3 = 0;
+                        }
+                });
+
+                $('#villeProfileInput').keyup(function(){
+                    $('#villeProfileInput').filter(function(){
+                        nom=$('#villeProfileInput').val();
+                        nomReg = /^[a-zA-Z0-9\s]{2,}$/;
+
+                        if( !nomReg.test( nom ) ) {
+                            $('#villeProfile').removeClass("form-control")
+                            $('#villeProfile').addClass("has-error")
+                            v4 = 1;
+                        }else{
+                            $('#villeProfile').removeClass("has-error")
+                            $('#villeProfile').addClass("has-success")
+                            v4 = 0;
+                        }
+                    });
+                });
+
+
+                $('#telephoneInput').keyup(function(){
+                    $('#telephoneInput').filter(function(){
+                        tele=$('#telephoneInput').val();
+                        teleReg = /^(05|06|07)[0-9]{8}$/;
+
+                        if( !teleReg.test( tele ) ) {
+                            $('#telephone').removeClass("form-control")
+                            $('#telephone').addClass("has-error")
+                            v5 = 1;
+                        }else{
+                            $('#telephone').removeClass("has-error")
+                            $('#telephone').addClass("has-success")
+                            v5 = 0;
+                        }
+                    });
+                });
+
+
+                $('#civiliteInput').keydown(function () {
+                        fonction=$('#civiliteInput option:selected').val();
+
+                        if( fonction == "" ) {
+                            $('#civilite').removeClass("form-control")
+                            $('#civilite').addClass("has-error")
+                            v6 = 1;
+                        }else{
+                            $('#civilite').removeClass("has-error")
+                            $('#civilite').addClass("has-success")
+                            v6 = 0;
+                        }
+                });
+
+                $('#adresseProfileInput').keyup(function(){
+                    $('#adresseProfileInput').filter(function(){
+                        adresse=$('#adresseProfileInput').val();
+                        adresseReg = /^[a-zA-Z0-9~#&=;!\/:éèâäêëîïôö\s°,]{12,}$/;
+
+                        if( !adresseReg.test( adresse ) ) {
+                            $('#adresseProfile').removeClass("form-control")
+                            $('#adresseProfile').addClass("has-error")
+                            v7 = 1;
+                        }else{
+                            $('#adresseProfile').removeClass("has-error")
+                            $('#adresseProfile').addClass("has-success")
+                            v7 = 0;
+                        }
+                    });
+                });
+
+                $('#RaCInput').keyup(function(){
+                    $('#RaCInput').filter(function(){
+                        Rac=$('#RaCInput').val();
+                        RacReg = /^[a-zA-Z]([a-zA-Z0-9]|\s)*$/;
+
+                        if( !RacReg.test( Rac ) ) {
+                            $('#RaC').removeClass("form-control")
+                            $('#RaC').addClass("has-error")
+                            v8 = 1;
+                        }else{
+                            $('#RaC').removeClass("has-error")
+                            $('#RaC').addClass("has-success")
+                            v8 = 0;
+                        }
+                    });
+                });
+
+                $('#NRCInput').keyup(function(){
+                    $('#NRCInput').filter(function(){
+                        adresse=$('#NRCInput').val();
+                        adresseReg = /^[a-zA-Z0-9~#&=;!\/:éèâäêëîïôö\s°,]{6,}$/;
+
+                        if( !adresseReg.test( adresse ) ) {
+                            $('#NRC').removeClass("form-control")
+                            $('#NRC').addClass("has-error")
+                            v9 = 1;
+                        }else{
+                            $('#NRC').removeClass("has-error")
+                            $('#NRC').addClass("has-success")
+                            v9 = 0;
+                        }
+                    });
+                });
+
+                $('#activiteInput').keyup(function(){
+                    $('#activiteInput').filter(function(){
+                        Rac=$('#activiteInput').val();
+                        RacReg = /^[a-zA-Z]([a-zA-Z]|\s)*$/;
+
+                        if( !RacReg.test( Rac ) ) {
+                            $('#activite').removeClass("form-control")
+                            $('#activite').addClass("has-error")
+                            v10 = 1;
+                        }else{
+                            $('#activite').removeClass("has-error")
+                            $('#activite').addClass("has-success")
+                            v10 = 0;
+                        }
+                    });
+                });
+
+                $('#SecteurInput').keydown(function () {
+                        fonction=$('#SecteurInput option:selected').val();
+
+                        if( fonction == "" ) {
+                            $('#Secteur').removeClass("form-control")
+                            $('#Secteur').addClass("has-error")
+                            v11 = 1;
+                        }else{
+                            $('#Secteur').removeClass("has-error")
+                            $('#Secteur').addClass("has-success")
+                            v11 = 0;
+                        }
+                });
+
+                $('#paysEntrepriseInput').keydown(function () {
+                        fonction=$('#paysEntrepriseInput option:selected').val();
+
+                        if( fonction == "" ) {
+                            $('#paysEntreprise').removeClass("form-control")
+                            $('#paysEntreprise').addClass("has-error")
+                            v12 = 1;
+                        }else{
+                            $('#paysEntreprise').removeClass("has-error")
+                            $('#paysEntreprise').addClass("has-success")
+                            v12 = 0;
+                        }
+                });
+
+
+                $('#villeEntrepriseInput').keyup(function(){
+                    $('#villeEntrepriseInput').filter(function(){
+                        nom=$('#villeEntrepriseInput').val();
+                        nomReg = /^[a-zA-Z0-9\s]{2,}$/;
+
+                        if( !nomReg.test( nom ) ) {
+                            $('#villeEntreprise').removeClass("form-control")
+                            $('#villeEntreprise').addClass("has-error")
+                            v13 = 1;
+                        }else{
+                            $('#villeEntreprise').removeClass("has-error")
+                            $('#villeEntreprise').addClass("has-success")
+                            v13 = 0;
+                        }
+                    });
+                });
+
+
+                $('#emailEntrepriseInput').keyup(function(){
+                    $('#emailEntrepriseInput').filter(function(){
+                        emailEntreprise=$('#emailEntrepriseInput').val();
+                        emailEntrepriseReg = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+
+                        if( !emailEntrepriseReg.test( emailEntreprise ) ) {
+                            $('#emailEntreprise').removeClass("form-control")
+                            $('#emailEntreprise').addClass("has-error")
+                            v14 = 1;
+                        }else{
+                            $('#emailEntreprise').removeClass("has-error")
+                            $('#emailEntreprise').addClass("has-success")
+                            v14 = 0;
+                        }
+                    });
+                });
+
+                $('#telephoneEntrepriseInput').keyup(function(){
+                    $('#telephoneEntrepriseInput').filter(function(){
+                        tele=$('#telephoneEntrepriseInput').val();
+                        teleReg = /^(05|06|07)[0-9]{8}$/;
+
+                        if( !teleReg.test( tele ) ) {
+                            $('#telephoneEntreprise').removeClass("form-control")
+                            $('#telephoneEntreprise').addClass("has-error")
+                            v15 = 1;
+                        }else{
+                            $('#telephoneEntreprise').removeClass("has-error")
+                            $('#telephoneEntreprise').addClass("has-success")
+                            v15 = 0;
+                        }
+                    });
+                });
+
+
+                $('#adresseEntrepriseInput').keyup(function(){
+                    $('#adresseEntrepriseInput').filter(function(){
+                        adresse=$('#adresseEntrepriseInput').val();
+                        adresseReg = /^[a-zA-Z1-9~#&=;!\/:éèâäêëîïôö\s°,]{12,}$/;
+
+                        if( !adresseReg.test( adresse ) ) {
+                            $('#adresseEntreprise').removeClass("form-control")
+                            $('#adresseEntreprise').addClass("has-error")
+                            v16 = 1;
+                        }else{
+                            $('#adresseEntreprise').removeClass("has-error")
+                            $('#adresseEntreprise').addClass("has-success")
+                            v16 = 0;
+                        }
+                    });
+                });
+
+
+                $("#envoyer").click(function () {
+
+                    var v = (v1+v2+v3+v4+v5+v6+v7+v8+v9+v10+v11+v12+v13+v14+v15+v16);
+
+
+                    if (v == 0) {
+                        return true;
+                    }else {
+                        alert("Un ou plusieurs champs contiennent une erreur. Veuillez vérifier et essayer à nouveau.");
+                        return false;
+                    }
+
+                });
+            });
+        </script>
+
+{% endblock %}
+

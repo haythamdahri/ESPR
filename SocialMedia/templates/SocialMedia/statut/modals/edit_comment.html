@@ -1,0 +1,24 @@
+{% load staticfiles %}
+<div class="modal fade" id="editCommentModal{{ comment.id }}" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Modification commentaire</h4>
+      </div>
+      <div class="modal-body" >
+        <form onsubmit="editcomment(event, this)"  val="{{ comment.id }}">
+          <div class="form-group">
+            <label for="message-text" class="control-label">comment:</label>
+            <textarea id="textareaEditStComment{{ comment.id }}" name="contenuComment" class="form-control" style="resize: none;">{{ comment.comment }}</textarea>
+          </div>
+            <input type="hidden" name="comment" value="{{ comment.id }}" />
+              <div class="modal-footer">
+                <button type="button" class="btSub mybt" onclick="document.getElementById('dropdown-comment-{{ comment.id }}').style.display = none;" data-dismiss="modal">Annuler</button>
+                <button type="submit" id="btsaveEditComment{{ comment.id }}" class="btn btSubmitComment">Enregistrer</button>
+              </div>
+        </form>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>

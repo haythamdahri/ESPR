@@ -1,0 +1,329 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+		<title>
+            {% block title %}
+                Journal
+            {% endblock %}
+        </title>
+        <link rel="icon" type="image/png" href="{% static 'journal/img/favicon.png' %}">
+
+		<!-- Google font -->
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700%7CLato:300,400" rel="stylesheet">
+
+		<!-- Bootstrap -->
+		<link type="text/css" rel="stylesheet" href="{% static 'journal/css/bootstrap.min.css' %}"/>
+
+		<!-- Owl Carousel -->
+		<link type="text/css" rel="stylesheet" href="{% static 'journal/css/owl.carousel.css' %}" />
+		<link type="text/css" rel="stylesheet" href="{% static 'journal/css/owl.theme.default.css' %}" />
+
+		<!-- Font Awesome Icon -->
+		<link rel="stylesheet" href="{% static 'journal/css/font-awesome.min.css' %}">
+
+		<!-- Custom stlylesheet -->
+		<link type="text/css" rel="stylesheet" href="{% static 'journal/css/style.css' %}"/>
+
+        <!-- Abstract nav -->
+        <link rel="stylesheet" href="{% static 'css/main_style.css' %}">
+
+        {% block style %}{% endblock %}
+
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+
+    </head>
+	<body>
+
+        {% include 'top_nav.html' %}
+		<!-- Header -->
+		<header id="header">
+			<!-- Top Header -->
+			<div id="top-header">
+				<div class="container">
+					<div class="header-links">
+						<ul>
+                            <!--
+                            <li class="weather">
+                                <span><img src="http://openweathermap.org/img/w/{{ weather.icon }}.png" alt="Image"></span>
+                                <span>{{ weather.temperature }} <sup>°C</sup></span>
+                                <span>{{ weather.city }}</span>
+                            </li>-->
+                            <li><span id="currentDate"></span></li>
+                            {% if is_supervisor %}
+                                <li><a id="admin-space" href="{% url 'admin_approve' %}">Espace Supreviseur</a></li>
+                            {% endif %}
+                            {% if is_journalist %}
+                                <li><a id="journalist-space" href="{% url 'journalist' %}">Espace Journalistes</a></li>
+                            {% endif %}
+							<li><a id="about-base-link" href="{% url 'about' %}">à propos</a></li>
+							<li><a id="contact-base-link" href="{% url 'contact' %}">Contact</a></li>
+							<li><a id="privacy-base-link" href="{% url 'privacy' %}">Privacy</a></li>
+                            {% if not is_journalist %}
+							    <li><a id="join-base-link" href="{% url 'join_us' %}">Rejoignez nous</a></li>
+                            {% endif %}
+						</ul>
+					</div>
+					<div class="header-social">
+						<ul>
+							<li>
+                                <a href="https://www.facebook.com/" class="facebookIco" target="_blank">
+                                    <i class="fa fa-facebook"></i></a></li>
+							<li>
+                                <a href="https://twitter.com/" class="twitterIco" target="_blank">
+                                    <i class="fa fa-twitter"></i></a></li>
+							<li>
+                                <a href="https://plus.google.com" class="googleIco" target="_blank">
+                                    <i class="fa fa-google-plus"></i></a></li>
+							<li>
+                                <a href="https://www.instagram.com" class="instagramIco" target="_blank">
+                                    <i class="fa fa-instagram"></i></a></li>
+							<li>
+                                <a href="https://www.youtube.com/" class="youtubeIco" target="_blank">
+                                    <i class="fa fa-youtube"></i></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<!-- /Top Header -->
+
+			<!-- Center Header -->
+			<div id="center-header">
+				<div class="container">
+					<div class="header-logo">
+						<a href="{% url 'index' %}" class="logo">
+                            <img style="width: 273px; max-height: initial;" src="{% static 'journal/img/logo.png' %}" alt="">
+                        </a>
+					</div>
+					<div class="header-ads">
+						<img class="center-block" src="{% static 'journal/img/ad-2.jpg' %}" alt="">
+					</div>
+				</div>
+			</div>
+			<!-- /Center Header -->
+
+			<!-- Nav Header -->
+			<div id="nav-header">
+				<div class="container">
+					<nav id="main-nav">
+						<ul class="main-nav nav navbar-nav">
+                            {% for cat in cats %}
+							    <li id="nav{{ cat.name }}"><a href="{% url 'category' cat.name %}">{{ cat.displayed_text }}</a></li>
+                            {% endfor %}
+                            <li id="navvideo"><a href="{% url 'video' %}">Videos</a></li>
+						</ul>
+					</nav>
+					<div class="button-nav">
+						<button class="search-collapse-btn"><i class="fa fa-search"></i></button>
+						<button class="nav-collapse-btn"><i class="fa fa-bars"></i></button>
+						<div class="search-form">
+							<form action="{% url 'search' %}" method="get">
+								<input class="input" type="text" name="q" placeholder="Rechercher...">
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /Nav Header -->
+
+        </header>
+		<!-- /Header -->
+
+
+
+
+        {% block content %}
+
+        {% endblock %}
+
+
+
+
+
+		<!-- FOOTER -->
+		<footer id="footer">
+			<!-- Top Footer -->
+			<div id="top-footer" class="section">
+				<!-- CONTAINER -->
+				<div class="container">
+					<!-- ROW -->
+					<div class="row">
+						<!-- Column 1 -->
+						<div class="col-md-4">
+							<!-- footer about -->
+							<div class="footer-widget about-widget">
+								<div class="footer-logo">
+									<a href="#" class="logo" style="width: 250px">
+                                        <img src="{% static 'journal/img/logo.png' %}" alt="logo">
+                                    </a>
+									<p>Populo tritani laboramus ex mei, no eum iuvaret ceteros euripidis, ne alia sadipscing mei. Te inciderint cotidieque pro, ei iisque docendi qui.</p>
+								</div>
+							</div>
+							<!-- /footer about -->
+
+							<!-- footer social -->
+							<div class="footer-widget social-widget">
+								<div class="widget-title">
+									<h3 class="title">Suivez nous</h3>
+								</div>
+								<ul>
+									<li><a href="#" class="facebook"><i class="fa fa-facebook"></i></a></li>
+									<li><a href="#" class="twitter"><i class="fa fa-twitter"></i></a></li>
+									<li><a href="#" class="google"><i class="fa fa-google"></i></a></li>
+									<li><a href="#" class="instagram"><i class="fa fa-instagram"></i></a></li>
+									<li><a href="#" class="youtube"><i class="fa fa-youtube"></i></a></li>
+									<li><a href="#" class="rss"><i class="fa fa-rss"></i></a></li>
+								</ul>
+							</div>
+							<!-- /footer social -->
+
+							<!-- footer subscribe -->
+							<div class="footer-widget subscribe-widget">
+								<div class="widget-title">
+									<h2 class="title">S'abonner à la Newsletter</h2>
+								</div>
+                                <form action="{% url 'subscribe' %}" method="POST" role="form" class="formSubscribe"
+                                data-validate-username-url="{% url 'subscribe' %}">
+                                    {% csrf_token %}
+                                    {{ newsletterForm.email }}
+                                    <button class="input-btn" type="submit">S'inscrire</button>
+                                    <p class="messageNewslatter"></p>
+                                </form>
+
+							</div>
+							<!-- /footer subscribe -->
+						</div>
+						<!-- /Column 1 -->
+
+						<!-- Column 2 Les plus lus -->
+						<div class="col-md-4">
+							<!-- widget dernières vidéos -->
+                            <div class="widget">
+                                <div class="widget-title">
+                                    <h2 class="title">Les plus lus</h2>
+                                </div>
+
+                                {% for n in topRead %}
+                                {% if forloop.counter < 6 %}
+                                    <!-- ARTICLE -->
+                                    <article class="article widget-article">
+                                        <div class="article-img">
+                                            <a href="{% url 'post' n.category.name n.id %}">
+                                                <img src="{{ n.primary_image.image_thumbnail.url }}"
+                                                     alt="{{ n.primary_image.description }}">
+                                            </a>
+                                        </div>
+                                        <div class="article-body">
+                                            <h4 class="article-title"><a href="{% url 'post' n.category.name n.id %}">
+                                                {{ n.small_title }}</a></h4>
+                                            <ul class="article-meta">
+                                                <li><i class="fa fa-clock-o"></i> {{ n.date_publication|date }}</li>
+                                                <li><i class="fa fa-comments"></i> {{ n.comment_set.count }}</li>
+                                            </ul>
+                                        </div>
+                                    </article>
+                                    <!-- /ARTICLE -->
+                                {% endif %}
+                            {% endfor %}
+                            </div>
+                            <!-- /widget dernières vidéos -->
+						</div>
+						<!-- /Column 2 Les plus lus -->
+
+						<!-- Column 4 Meilleurs Commentaires -->
+                        <div class="col-md-4">
+							<div class="widget tags-widget">
+                                <div class="widget-title">
+                                    <h2 class="title">Meilleurs Tags</h2>
+                                </div>
+                                <ul>
+                                    {% for tag in top_tags %}
+                                        <li>
+                                            <a href="{% url 'tag' tag %}">{{ tag }}</a>
+                                            <span class="pull-right">{{ tag.news_count }}</span>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+						    </div>
+                        </div>
+						<!-- /Column 4 Meilleurs Commentaires -->
+					</div>
+					<!-- /ROW -->
+				</div>
+				<!-- /CONTAINER -->
+			</div>
+			<!-- /Top Footer -->
+
+			<!-- Bottom Footer -->
+			<div id="bottom-footer" class="section">
+				<!-- CONTAINER -->
+				<div class="container">
+					<!-- ROW -->
+					<div class="row">
+						<!-- footer links -->
+						<div class="col-md-6 col-md-push-6">
+							<ul class="footer-links">
+								<li><a href="{% url 'about' %}">à propos</a></li>
+							    <li><a href="{% url 'contact' %}">Contact</a></li>
+							    <li><a href="{% url 'privacy' %}">Privacy</a></li>
+							</ul>
+						</div>
+						<!-- /footer links -->
+
+						<!-- footer copyright -->
+						<div class="col-md-6 col-md-pull-6">
+							<div class="footer-copyright">
+								<span>
+                                    Copyright &copy;
+                                    <script>
+                                        document.write(new Date().getFullYear());
+                                    </script>
+                                    All rights reserved | Made by
+                                    <a href="https://www.linkedin.com/in/anass-oujri/" target="_blank">OUJRI & ELKHAOUA</a>
+                                </span>
+							</div>
+						</div>
+						<!-- /footer copyright -->
+					</div>
+					<!-- /ROW -->
+				</div>
+				<!-- /CONTAINER -->
+			</div>
+			<!-- /Bottom Footer -->
+		</footer>
+		<!-- /FOOTER -->
+
+		<!-- Back to top -->
+		<div id="back-to-top"></div>
+		<!-- Back to top -->
+
+        <!-- Time Script -->
+        <script src="{% static 'journal/js/setDate.js' %}"></script>
+
+		<!-- jQuery Plugins -->
+        {% block javascript %}
+            <script src="{% static 'journal/js/jquery.min.js' %}"></script>
+        {% endblock %}
+		<script src="{% static 'journal/js/bootstrap.min.js' %}"></script>
+		<script src="{% static 'journal/js/owl.carousel.min.js' %}"></script>
+        <script src="{% static 'journal/js/jquery-scrolltofixed-min.js' %}"></script>
+		<script src="{% static 'journal/js/main.js' %}"></script>
+        <script src="{% static 'js/nav.js' %}"></script>
+
+        <script>
+            {% block script %}
+            {% endblock %}
+        </script>
+	</body>
+</html>

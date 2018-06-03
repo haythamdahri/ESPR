@@ -1,0 +1,167 @@
+{% extends 'ecommerce/base.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+<div class="main-container container">
+    <div class="row">
+        <aside class="col-sm-4 col-md-3 content-aside" id="column-left" style="margin-top: 15px">
+            <div class="module banner-left hidden-xs ">
+                <div class="banner-sidebar banners">
+                    <div>
+                        <a title="Banner Image" href="#">
+                        <img src="{% static 'ecommerce/image/catalog/banners/home/banner-8.jpeg' %}" alt="Banner Image">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="product-simple">
+                <h3 class="modtitle">
+                    <span style="font-size: 15px;">Derniers Produits</span>
+                </h3>
+                <div class="modcontent">
+                    <div  class="so-extraslider" >
+                        <!-- Begin extraslider-inner -->
+                        <div class="yt-content-slider extraslider-inner products-list" data-rtl="yes" data-pagination="yes" data-autoplay="no" data-delay="4" data-speed="0.6" data-margin="30" data-items_column0="1" data-items_column1="1" data-items_column2="1" data-items_column3="1" data-items_column4="1" data-arrows="no" data-lazyload="yes" data-loop="no" data-buttonpage="top">
+                            <div class="item">
+                                {# ------------------------------- Item ------------------------------- #}
+                                {% for pr in latest_products %}
+                                <div class="product-layout item-inner style1 ">
+                                    <div class="item-image">
+                                        <div class="item-img-info">
+                                            <a href="{% url 'e_commerce:product' pr.id.pk %}" target="_self" title="{{ pr.id.name }}">
+                                                <img src="{{ pr.id.image.url }}" alt="Image {{ pr.id.name }}">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="item-info">
+                                        <div class="item-title">
+                                            <b><a href="{% url 'e_commerce:product' pr.id.pk %}" target="_self" title="{{ pr.id.name }}">{{ pr.id.name }}</a></b>
+                                        </div>
+                                        <div class="rating">
+                                        {% for i in "*****" %}
+                                            {% if forloop.counter <= pr.ratting %}
+                                               <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                            {% elif forloop.counter == pr.ratting|add:"1" and pr.rattingInt < pr.ratting %}
+                                                <span class="fa fa-stack">
+                                                    <i style="color: #ea4c0f" class="fa fa-star-half-empty fa-stack-2x"></i>
+                                                </span>
+                                            {% else %}
+                                                <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                            {% endif %}
+                                        {% endfor %}
+                                        </div>
+                                        <div class="content_price price">
+                                            {% if pr.sale %}
+                                                <span class="price-old">
+                                                {% if pr.id.old_price %}
+                                                    {{ pr.id.old_price|intcomma }}
+                                                {% else %}
+                                                    {{ pr.id.price|intcomma }}
+                                                {% endif %}
+                                                     Dh
+                                                </span>
+                                                <br/>
+                                                <span class="price-new" style="font-size: 19px;">
+                                                {% if pr.id.price_from %}
+                                                    <span style="font-size: 12px;">À PARTIR DE</span>
+                                                {% endif %}
+                                                    {{ pr.sale.new_price|intcomma }} Dh
+                                                </span>
+                                            {% else %}
+                                                {% if pr.id.old_price %}
+                                                    <span class="price-old">
+                                                        {{ pr.id.old_price|intcomma }} Dh
+                                                    </span>
+                                                {% endif %}
+                                                <br/>
+                                                <span class="price-new" style="font-size: 19px;">
+                                                {% if pr.id.price_from %}
+                                                    <span style="font-size: 12px;">À PARTIR DE</span>
+                                                {% endif %}
+                                                    {{ pr.id.price|intcomma }} Dh
+                                                </span>
+                                            {% endif %}&nbsp
+                                        </div>
+                                    </div>
+                                    <!-- End item-info -->
+                                    <!-- End item-wrap-inner -->
+                                </div>
+                                {% if forloop.counter|divisibleby:"5" and not forloop.last %}
+                                    </div>
+                                    <div class="item">
+                                {% endif %}
+                                {% endfor %}
+                                {# -------------------------------------------------------------------- #}
+                            </div>
+                        </div>
+                        <!--End extraslider-inner -->
+                    </div>
+                </div>
+            </div>
+        </aside>
+        <div id="content" class="col-md-9 col-sm-8">
+            <ul class="breadcrumb" style="padding-left: 9px">
+                <li><a href="{% url 'e_commerce:index' %}">Accueil</a></li>
+                <li><a href="#"><b>Toutes les catégories</b></a></li>
+            </ul>
+            {% for category in categories_2 %}
+            <div class="col-md-12 col-sm-8">
+                <div class="submit-comment module">
+                    <h3 class="modtitle2" style="margin-bottom: 0; margin-left: -6px">
+                        <a id="category{{ category.category.pk }}" href="{% url 'e_commerce:products' 'category' category.category.pk %}" class="clearfix"><span>{{ category.category.name }} ({{ category.number }})</span></a>
+                    </h3>
+                    <div class="row">
+                        {% if category.category_one %}
+                            {% for category_one in category.category_one %}
+                                <div class="col-md-12 col-sm-8" style="padding: 10px; padding-top: 0">
+                                    <div class="submit-comment module" style="margin-bottom: 0">
+                                        <h2><u><a id="category_one{{ category_one.category_one.pk }}" href="{% url 'e_commerce:products' 'category_one' category_one.category_one.pk %}" class="clearfix"><span style="font-size: 15px; font-weight: 700;">{{ category_one.category_one.name }} ({{ category_one.number }})</span></a></u></h2>
+                                        <div class="row">
+                                            {% if category_one.category_two %}
+                                                {% for category_two in category_one.category_two %}
+                                                    <div class="col-md-6 col-sm-8">
+                                                        <div>
+                                                            <h4>
+                                                                <a href="{% url 'e_commerce:products' 'category_two' category_two.category_two.pk %}" class="clearfix"><span>{{ category_two.category_two.name }} ({{ category_two.number }})</span></a>
+                                                            </h4>
+                                                            {% if category_two.sub_category %}
+                                                                {% for sub_category in category_two.sub_category %}
+                                                                    <div class="col-md-6 col-sm-8">
+                                                                        <div class="module">
+                                                                            <a href="{% url 'e_commerce:products' 'sub_category' sub_category.sub_category.pk %}" class="clearfix"><span>{{ sub_category.sub_category.name }} ({{ sub_category.number }})</span></a>
+                                                                        </div>
+                                                                    </div>
+                                                                {% endfor %}
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+    <script>
+        $(document).ready(function() {
+            $('#column-left').scrollToFixed({
+                marginTop: 20,
+                limit: function() {
+                    var limit = $('#footer-scroll').offset().top - $('#column-left').outerHeight(true) - 30;
+                    return limit;
+                },
+                zIndex: 1
+            });
+        });
+    </script>
+{% endblock %}

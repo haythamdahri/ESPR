@@ -1,0 +1,966 @@
+{% extends "SocialMedia/myprofil/base_myprofil.html" %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% block title %}{{ user.username }}{% endblock %}
+
+{% block stylesheets %}
+    {{ block.super }}
+    <link href="//cdn.bootcss.com/bootstrap-datetimepicker/4.17.44/css/bootstrap-datetimepicker.min.css"
+          rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'Socialmedia/awesomecomplete/awesomplete.css' %}"/>
+    <link rel="stylesheet" href="{% static 'Socialmedia/awesomecomplete/awesomplete.base.css' %}"/>
+
+    <script src="{% static "Socialmedia/awesomecomplete/awesomplete.min.js" %}" async></script>
+{% endblock stylesheets %}
+
+
+{% block contentProfil %}
+
+    <!-- Langues Modals -->
+
+    {% include 'SocialMedia/myprofil/modals/modal_ajouter_langue.html' %}
+
+
+    <div class="modal_form_modifier_langue">
+
+        {% include 'SocialMedia/myprofil/modals/modal_modifier_langue.html' %}
+    </div>
+
+    <!-- Experience Modals -->
+
+    <div class="modal_form_modifier_experience">
+
+        {% include 'SocialMedia/myprofil/modals/modal_modifier_experience.html' %}
+    </div>
+
+    {% include 'SocialMedia/myprofil/modals/modal_ajouter_experience.html' %}
+
+    <!-- Formation Modals -->
+
+    {% include 'SocialMedia/myprofil/modals/modal_ajouter_formation.html' %}
+
+    <div class="modal_form_modifier_formation">
+        {% include 'SocialMedia/myprofil/modals/modal_modifier_formation.html' %}
+    </div>
+
+    <!-- Benevolat Modals -->
+
+    {% include 'SocialMedia/myprofil/modals/modal_ajouter_benevolat.html' %}
+
+    <div class="modal_form_modifier_benevolat">
+        {% include 'SocialMedia/myprofil/modals/modal_modifier_benevolat.html' %}
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Profile Details Start -->
+    <div class="profile--details fs--14">
+
+
+        <!-- Profile Item Start -->
+        <div class="profile--item">
+
+            <div class="profile--heading">
+                <h3 class="h4 fw--700">
+                    <i class="ml--10 text-primary fa fa-caret-right"></i>
+                    <span class="mr--4">Experiences Professionnelles</span>
+
+                    <a href="javascript:void(0)"><i class="fa fa-plus float--right"
+                                                    style="font-size:20px;margin-right: 20px;"
+                                                    aria-hidden="true" data-toggle="modal"
+                                                    data-target="#squarespace_ajouter_experience"></i></a>
+                </h3>
+
+
+                <div class="profile--info">
+                    <div class="liste_experiences">
+                        {% include "SocialMedia/myprofil/informations/liste_experiences.html" %}
+                    </div>
+                </div>
+
+
+            </div>
+
+
+            <hr style="box-shadow: 0 0 3px rgba(0, 0, 0, 0.7);">
+
+            <!-- Profile Item Start -->
+            <div class="profile--item">
+
+                <div class="profile--heading">
+                    <h3 class="h4 fw--700">
+                        <i class="ml--10 text-primary fa fa-caret-right"></i>
+                        <span class="mr--4">Formation</span>
+                        <a href="javascript:void(0)"><i class="fa fa-plus float--right"
+                                                        style="font-size:20px;margin-right: 20px;"
+                                                        aria-hidden="true" data-toggle="modal"
+                                                        data-target="#squarespace_ajouter_formation"></i></a>
+                    </h3>
+                </div>
+
+                <div class="profile--info">
+
+                    <div class="liste_formations">
+                        {% include 'SocialMedia/myprofil/informations/liste_formations.html' %}
+                    </div>
+
+                </div>
+            </div>
+            <!-- Profile Item End -->
+
+            <hr style="box-shadow: 0 0 3px rgba(0, 0, 0, 0.7);">
+
+            <!-- Profile Item Start -->
+            <div class="profile--item">
+
+                <div class="profile--heading">
+                    <h3 class="h4 fw--700">
+                        <i class="ml--10 text-primary fa fa-caret-right"></i>
+                        <span class="mr--4">Actions Benevoles</span>
+                        <a href="javascript:void(0)"><i class="fa fa-plus float--right"
+                                                        style="font-size:20px;margin-right: 20px;"
+                                                        aria-hidden="true" data-toggle="modal"
+                                                        data-target="#squarespace_ajouter_benevolat"></i></a>
+                    </h3>
+                </div>
+
+                <div class="profile--info">
+                    <div class="liste_benevolats">
+
+                        {% include 'SocialMedia/myprofil/informations/liste_benevolat.html' %}
+
+                    </div>
+                </div>
+            </div>
+            <!-- Profile Item End -->
+
+            <hr style="box-shadow: 0 0 3px rgba(0, 0, 0, 0.7);">
+
+            <!-- Profile Item Start -->
+            <div class="profile--item divlangue">
+                <div class="profile--heading">
+                    <h3 class="h4 fw--700">
+                        <i class="ml--10 text-primary fa fa-caret-right"></i>
+                        <span class="mr--4">Langues</span>
+
+
+                        <a href="javascript:return false"><i class="fa fa-plus float--right"
+                                                             style="font-size:20px;margin-right: 20px;"
+                                                             aria-hidden="true" data-toggle="modal"
+                                                             data-target="#squarespaceAjouterLangue"></i></a>
+
+
+                    </h3>
+                </div>
+
+                <div class="profile--info">
+                    <div class="liste_langues">
+
+                        {% include 'SocialMedia/myprofil/informations/liste_langues.html' %}
+
+
+                    </div>
+                </div>
+            </div>
+            <!-- Profile Item End -->
+        </div>
+    </div>
+
+
+    <!-- Profile Details End -->
+
+{% endblock %}
+
+
+
+{% block scripts %}
+
+    {{ block.super }}
+
+    <!-- Fonctions et scripts exécutés sur cette page -->
+    <script>
+        fixForms();
+    $('.profil_links_menu li').removeClass('active');
+    $('.profil_links_menu li:eq(0)').addClass('active');
+    </script>
+
+
+    <!-- Script Ajout,modification suppression Langue avec ajax -->
+    <script>
+        /*Ajout d'une langue avec ajax */
+        $('#formAjouterLangue').on('submit', function (event) {
+
+            event.preventDefault();
+
+            var form_data = new FormData($(this)[0]);
+
+            $.ajax({
+
+                url: "{% url 'SocialMedia:ajouterLangue' %}",
+                type: 'POST',
+                processData: false,
+                contentType: false,
+                data: form_data,
+
+                beforeSend: function (xhr, settings) {
+                    var csrftoken = getCookie('csrftoken');
+                    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                    }
+                    $('#mySpinner').addClass('spinner');
+                    $("#btnAjouterLangue").prop("disabled", true);
+                },
+
+                success: function (response) {
+                    if (response.modal) {
+                        $('.actualized_form_ajouter_langue').html(response.modal);
+                        fixForms();
+                    }
+                    else {
+                        $('#squarespaceAjouterLangue').modal('hide')
+                        swal("Succes", "Les informations ont été mises à jour.", "success")
+                        $('.liste_langues').html(response.liste_langues);
+                    }
+                },
+
+                error: function () {
+                    swal('Une erreur s\'est produite.')
+                },
+
+                complete: function () {
+                    $('#mySpinner').removeClass('spinner');
+                    $("#btnAjouterLangue").prop("disabled", false);
+                },
+
+            });
+        });
+
+        /* Modification d'une langue */
+        /* 1- Remplissage du formulaire Modification d'une langue */
+        /* Envoi de l'id avec ajax et chargement du formulaire rempli */
+        function remplir_formulaire(clicked_button) {
+            id_langue = clicked_button.getAttribute('data-id')
+
+            $.ajax({
+
+
+                url: "{% url 'SocialMedia:getModifierLangue' %}",
+                type: 'GET',
+                data: {id_langue: id_langue},
+
+                success: function (response) {
+                    if (response.message_erreur != null) {
+                        swal(response.message_erreur)
+                    }
+                    else {
+                        $('.modal_form_modifier_langue').html(response);
+                    }
+
+                },
+
+                error: function () {
+                    swal('Une erreur s\'est produite.')
+                },
+
+                complete: function () {
+                    $("#squarespaceModifierLangue").modal("toggle");
+                },
+
+            });
+
+        }
+
+        /* 2-  Envoi du formulaire  Modifier Langue => Vrai modification */
+        $('.modal_form_modifier_langue').on('click', "#btnModifierLangue", function (event) {
+            event.preventDefault();
+            var form_data = new FormData($('#formModifierLangue')[0]);
+
+            $.ajax({
+
+                url: "{% url 'SocialMedia:modifierLangue' %}",
+                type: 'POST',
+                processData: false,
+                contentType: false,
+                data: form_data,
+
+                beforeSend: function (xhr, settings) {
+                    var csrftoken = getCookie('csrftoken');
+                    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                    }
+                    $('#mySpinnermodifierLangue').addClass('spinner');
+                    $("#btnModifierLangue").prop("disabled", true);
+                },
+
+                success: function (response) {
+                    if (response.modal) {
+                        $('#actualized_form_modifier_langue').html(response.modal);
+                        fixForms();
+                    }
+                    else {
+                        $('#squarespaceModifierLangue').modal('hide')
+                        swal("Succes", "Les informations ont été mises à jour.", "success")
+                        $('.liste_langues').html(response.liste_langues_profil);
+                    }
+                },
+
+                error: function () {
+                    swal('Une erreur s\'est produite.')
+                },
+
+                complete: function () {
+                    $('#mySpinnermodifierLangue').removeClass('spinner');
+                    $("#btnModifierLangue").prop("disabled", false);
+                },
+
+            });
+        });
+
+        /* Supprimer une langue */
+        function SupprimerLangue(id_langue) {
+            Swal({
+                title: 'Are you sure?',
+                text: 'You will not be able to recover this imaginary file!',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Oui',
+                cancelButtonText: 'Non'
+            }).then((result) => {
+                if (result.value) {
+                    $.ajax({
+
+                        url: "{% url 'SocialMedia:supprimerLangue' %}",
+                        type: 'GET',
+                        data: {'id_langue': id_langue},
+
+                        beforeSend: function (xhr, settings) {
+                        },
+
+                        success: function (response) {
+                            $('.liste_langues').html(response);
+
+                            Swal(
+                                '',
+                                'Supprimé!',
+                                'success'
+                            )
+                            // For more information about handling dismissals please visit
+                            // https://sweetalert2.github.io/#handling-dismissals
+
+                        },
+
+                        error: function () {
+                            swal('Une erreur s\'est produite.')
+                        },
+
+                        complete: function (response) {
+                        },
+
+                    });
+
+                }
+            })
+        }
+
+
+    </script>
+
+    <!-- Script Ajout,modification suppression Experience avec ajax -->
+    <script>
+        /* Ajout d'une experience avec ajax */
+        $('#form_ajouter_experience').on('submit', function (event) {
+
+            event.preventDefault();
+
+            var form_data = new FormData($(this)[0]);
+
+            $.ajax({
+
+
+                url: "{% url 'SocialMedia:ajouterExperience' %}",
+                type: 'POST',
+                processData: false,
+                contentType: false,
+                data: form_data,
+
+                beforeSend: function (xhr, settings) {
+                    var csrftoken = getCookie('csrftoken');
+                    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                    }
+                    $('#myAjouterExperienceSpinner').addClass('spinner');
+                    $("#btn_ajouter_experience").prop("disabled", true);
+                },
+
+                success: function (response) {
+                    if (response.modal) {
+                    $('.actualized_form_ajouter_experience').html(response.modal);
+                    fixForms();
+                    }
+                    else {
+                        $('#squarespace_ajouter_experience').modal('hide')
+                        swal("Succes", "Les informations ont été mises à jour.", "success")
+                        $('.liste_experiences').html(response.liste_experiences);
+                    }
+
+                },
+
+                error: function () {
+                    swal('Une erreur s\'est produite.')
+                },
+
+                complete: function () {
+                    $('#myAjouterExperienceSpinner').removeClass('spinner');
+                    $("#btn_ajouter_experience").prop("disabled", false);
+                },
+
+            });
+        });
+
+        /*Supprimer une experience */
+        function SupprimerExperience(id_experience) {
+            Swal({
+                title: '',
+                text: 'Êtes-vous sûr de vouloir supprimer cette expérience?',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Oui',
+                cancelButtonText: 'Non'
+            }).then((result) => {
+                if (result.value) {
+                    $.ajax({
+
+                        url: "{% url 'SocialMedia:supprimerExperience' %}",
+                        type: 'GET',
+                        data: {'id_experience': id_experience},
+
+                        beforeSend: function (xhr, settings) {
+                        },
+
+                        success: function (response) {
+                            $('.liste_experiences').html(response);
+
+                            Swal(
+                                '',
+                                'Supprimé!',
+                                'success'
+                            )
+                            // For more information about handling dismissals please visit
+                            // https://sweetalert2.github.io/#handling-dismissals
+
+                        },
+
+                        error: function () {
+                            swal('Une erreur s\'est produite.')
+                        },
+
+                        complete: function (response) {
+                        },
+
+                    });
+
+                }
+            })
+        }
+
+        /* Modification d'une experience */
+        /* 1- Remplissage du formulaire Modification d'une experience */
+        /* Envoi de l'id avec ajax et chargement du formulaire rempli */
+        function remplir_formulaire_changer_experience(clicked_button) {
+            id_experience = clicked_button.getAttribute('data-id')
+
+
+            $.ajax({
+
+                url: "{% url 'SocialMedia:getModifierExperience' %}",
+                type: 'GET',
+                data: {id_experience: id_experience},
+
+                success: function (response) {
+                    if (response.message_erreur != null) {
+                        swal(response.message_erreur)
+                    }
+                    else {
+                        $('.modal_form_modifier_experience').html(response);
+                        verify_chk_modifier_experience_actuel();
+                        fixForms();
+                        var input = document.getElementById("entreprise_suggestion_modif_form")
+                        new Awesomplete(input);
+                        var input = document.getElementById("poste_suggestion_modif_form")
+                        new Awesomplete(input);
+                    }
+                },
+
+                error: function () {
+                    swal('Une erreur s\'est produite.')
+                },
+
+                complete: function () {
+                    $("#squarespace_modifier_experience").modal("toggle");
+                },
+
+            });
+
+        }
+
+        /* 2-  Envoi du formulaire  Modifier experience => Vrai modification */
+        $('.modal_form_modifier_experience').on('click', "#btn_modifier_experience", function (event) {
+            event.preventDefault();
+            var form_data = new FormData($('#form_modifier_experience')[0]);
+
+            $.ajax({
+
+                url: "{% url 'SocialMedia:modifierExperience' %}",
+                type: 'POST',
+                processData: false,
+                contentType: false,
+                data: form_data,
+
+                beforeSend: function (xhr, settings) {
+                    var csrftoken = getCookie('csrftoken');
+                    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                    }
+                    $('#mymodifierExperienceSpinner').addClass('spinner');
+                    $("#btn_modifier_experience").prop("disabled", true);
+                },
+
+                success: function (response) {
+                    if (response.modal) {
+                        $('.actualized_form_modifier_experience').html(response.modal);
+                        fixForms();
+                    }
+                    else {
+                        $('#squarespace_modifier_experience').modal('hide')
+                        swal("Succes", "Les informations ont été mises à jour.", "success")
+                        $('.liste_experiences').html(response.liste_experiences);
+                    }
+                },
+
+                error: function () {
+                    swal('Une erreur s\'est produite.')
+                },
+
+                complete: function () {
+                    $('#mymodifierExperienceSpinner').removeClass('spinner');
+                    $("#btn_modifier_experience").prop("disabled", false);
+                },
+
+            });
+        });
+
+    </script>
+
+    <!-- Script Ajout,modification suppression Formation avec ajax -->
+    <script>
+        /* Ajout d'une formation avec ajax */
+        $('#form_ajouter_formation').on('submit', function (event) {
+
+            event.preventDefault();
+
+            var form_data = new FormData($(this)[0]);
+
+            $.ajax({
+
+
+                url: "{% url 'SocialMedia:ajouterFormation' %}",
+                type: 'POST',
+                processData: false,
+                contentType: false,
+                data: form_data,
+
+                beforeSend: function (xhr, settings) {
+                    var csrftoken = getCookie('csrftoken');
+                    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                    }
+                    $('#myAjouterFormationSpinner').addClass('spinner');
+                    $("#btn_ajouter_formation").prop("disabled", true);
+                },
+
+                success: function (response) {
+                    if (response.modal) {
+                        $('.actualized_form_ajouter_formation').html(response.modal);
+                        fixForms();
+                    }
+                    else {
+                        $('#squarespace_ajouter_formation').modal('hide')
+                        swal("Succes", "Les informations ont été mises à jour.", "success")
+                        $('.liste_formations').html(response.liste_formations);
+                    }
+                },
+
+                error: function () {
+                    swal('Une erreur s\'est produite.')
+                },
+
+                complete: function () {
+                    $('#myAjouterFormationSpinner').removeClass('spinner');
+                    $("#btn_ajouter_formation").prop("disabled", false);
+                },
+
+            });
+        });
+
+        /*Supprimer une formation */
+        function SupprimerFormation(id_formation) {
+            Swal({
+                title: '',
+                text: 'Êtes-vous sûr de vouloir supprimer cette formation?',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Oui',
+                cancelButtonText: 'Non'
+            }).then((result) => {
+                if (result.value) {
+                    $.ajax({
+
+                        url: "{% url 'SocialMedia:supprimerFormation' %}",
+                        type: 'GET',
+                        data: {'id_formation': id_formation},
+
+                        beforeSend: function (xhr, settings) {
+                        },
+
+                        success: function (response) {
+                            $('.liste_formations').html(response);
+
+                            Swal(
+                                '',
+                                'Supprimé!',
+                                'success'
+                            )
+                            // For more information about handling dismissals please visit
+                            // https://sweetalert2.github.io/#handling-dismissals
+
+                        },
+
+                        error: function () {
+                            swal('Une erreur s\'est produite.')
+                        },
+
+                        complete: function (response) {
+                        },
+
+                    });
+
+                }
+            })
+        }
+
+        /* Modification d'une formation */
+        /* 1- Remplissage du formulaire Modification d'une formation */
+        /* Envoi de l'id avec ajax et chargement du formulaire rempli */
+        function remplir_formulaire_changer_formation(clicked_button) {
+            id_formation = clicked_button.getAttribute('data-id')
+
+            $.ajax({
+
+                url: "{% url 'SocialMedia:getModifierFormation' %}",
+                type: 'GET',
+                data: {id_formation: id_formation},
+
+                success: function (response) {
+                    if (response.message_erreur != null) {
+                        swal(response.message_erreur)
+                    }
+                    else {
+                        $('.modal_form_modifier_formation').html(response);
+                        fixForms();
+                        var input = document.getElementById("ecole_suggestion_modif_form")
+                        new Awesomplete(input);
+                    }
+                },
+
+                error: function () {
+                    swal('Une erreur s\'est produite.')
+                },
+
+                complete: function () {
+                    $("#squarespace_modifier_formation").modal("toggle");
+                },
+
+            });
+
+        }
+
+        /* 2-  Envoi du formulaire  Modifier formation => Vrai modification */
+        $('.modal_form_modifier_formation').on('click', "#btn_modifier_formation", function (event) {
+            event.preventDefault();
+            var form_data = new FormData($('#form_modifier_formation')[0]);
+
+            $.ajax({
+
+                url: "{% url 'SocialMedia:modifierFormation' %}",
+                type: 'POST',
+                processData: false,
+                contentType: false,
+                data: form_data,
+
+                beforeSend: function (xhr, settings) {
+                    var csrftoken = getCookie('csrftoken');
+                    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                    }
+                    $('#mymodifierFormationSpinner').addClass('spinner');
+                    $("#btn_modifier_formation").prop("disabled", true);
+                },
+
+                success: function (response) {
+                    if (response.modal) {
+                        $('.actualized_form_modifier_formation').html(response.modal);
+                        fixForms();
+                    }
+                    else {
+                        $('#squarespace_modifier_formation').modal('hide')
+                        swal("Succes", "Les informations ont été mises à jour.", "success")
+                        $('.liste_formations').html(response.liste_formations);
+                    }
+
+                },
+
+                error: function () {
+                    swal('Une erreur s\'est produite.')
+                },
+
+                complete: function () {
+                    $('#mymodifierFormationSpinner').removeClass('spinner');
+                    $("#btn_modifier_formation").prop("disabled", false);
+                },
+
+            });
+        });
+
+    </script>
+
+    <!-- Script Ajout,modification suppression Benevolat avec ajax -->
+    <script>
+
+        /* Ajout d'une benevolat avec ajax */
+        $('#form_ajouter_benevolat').on('submit', function (event) {
+
+            event.preventDefault();
+
+            var form_data = new FormData($(this)[0]);
+
+            $.ajax({
+
+
+                url: "{% url 'SocialMedia:ajouterBenevolat' %}",
+                type: 'POST',
+                processData: false,
+                contentType: false,
+                data: form_data,
+
+                beforeSend: function (xhr, settings) {
+                    var csrftoken = getCookie('csrftoken');
+                    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                    }
+                    $('#myAjouterbenevolatSpinner').addClass('spinner');
+                    $("#btn_ajouter_benevolat").prop("disabled", true);
+                },
+
+                success: function (response) {
+                    if (response.modal) {
+                        $('.actualized_form_ajouter_benevolat').html(response.modal);
+                        fixForms();
+                    }
+                    else {
+                        $('#squarespace_ajouter_benevolat').modal('hide')
+                        swal("Succes", "Les informations ont été mises à jour.", "success")
+                        $('.liste_benevolats').html(response.liste_benevolats);
+                    }
+
+                },
+
+                error: function () {
+                    swal('Une erreur s\'est produite.')
+                },
+
+                complete: function () {
+                    $('#myAjouterbenevolatSpinner').removeClass('spinner');
+                    $("#btn_ajouter_benevolat").prop("disabled", false);
+                },
+
+            });
+        });
+
+        /*Supprimer un benevolat */
+        function Supprimerbenevolat(id_benevolat) {
+            Swal({
+                title: '',
+                text: 'Êtes-vous sûr de vouloir supprimer cette benevolat?',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Oui',
+                cancelButtonText: 'Non'
+            }).then((result) => {
+                if (result.value) {
+                    $.ajax({
+
+                        url: "{% url 'SocialMedia:supprimerBenevolat' %}",
+                        type: 'GET',
+                        data: {'id_benevolat': id_benevolat},
+
+                        beforeSend: function (xhr, settings) {
+                        },
+
+                        success: function (response) {
+                            $('.liste_benevolats').html(response);
+
+                            Swal(
+                                '',
+                                'Supprimé!',
+                                'success'
+                            )
+                            // For more inbenevolat about handling dismissals please visit
+                            // https://sweetalert2.github.io/#handling-dismissals
+
+                        },
+
+                        error: function () {
+                            swal('Une erreur s\'est produite.')
+                        },
+
+                        complete: function (response) {
+                        },
+
+                    });
+
+                }
+            })
+        }
+
+        /* Modification d'une benevolat */
+        /* 1- Remplissage du formulaire Modification d'une benevolat */
+        /* Envoi de l'id avec ajax et chargement du formulaire rempli */
+        function remplir_formulaire_changer_benevolat(clicked_button) {
+            id_benevolat = clicked_button.getAttribute('data-id')
+
+            $.ajax({
+
+                url: "{% url 'SocialMedia:getModifierBenevolat' %}",
+                type: 'GET',
+                data: {id_benevolat: id_benevolat},
+
+                success: function (response) {
+                    if (response.message_erreur != null) {
+                        swal(response.message_erreur)
+                    }
+                    else {
+                        $('.modal_form_modifier_benevolat').html(response);
+                        fixForms();
+                        var input = document.getElementById("poste_suggestion_benevolat_modif_form")
+                        new Awesomplete(input);
+                        var input = document.getElementById("organisme_suggestion_benevolat_modif_form")
+                        new Awesomplete(input);
+                    }
+                },
+
+                error: function () {
+                    swal('Une erreur s\'est produite.')
+                },
+
+                complete: function () {
+                    $("#squarespace_modifier_benevolat").modal("toggle");
+                },
+
+            });
+
+        }
+
+        /* 2-  Envoi du formulaire  Modifier benevolat => Vrai modification */
+        $('.modal_form_modifier_benevolat').on('click', "#btn_modifier_benevolat", function (event) {
+            event.preventDefault();
+            var form_data = new FormData($('#form_modifier_benevolat')[0]);
+
+            $.ajax({
+
+                url: "{% url 'SocialMedia:modifierBenevolat' %}",
+                type: 'POST',
+                processData: false,
+                contentType: false,
+                data: form_data,
+
+                beforeSend: function (xhr, settings) {
+                    var csrftoken = getCookie('csrftoken');
+                    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                    }
+                    $('#mymodifierbenevolatSpinner').addClass('spinner');
+                    $("#btn_modifier_benevolat").prop("disabled", true);
+                },
+
+                success: function (response) {
+                    if (response.modal) {
+                        $('.actualized_form_modifier_benevolat').html(response.modal);
+                        fixForms();
+                    }
+                    else {
+                        $('#squarespace_modifier_benevolat').modal('hide')
+                        swal("Succes", "Les informations ont été mises à jour.", "success")
+                        $('.liste_benevolats').html(response.liste_benevolats);
+                    }
+
+                },
+
+                error: function () {
+                    swal('Une erreur s\'est produite.')
+                },
+
+                complete: function () {
+                    $('#mymodifierbenevolatSpinner').removeClass('spinner');
+                    $("#btn_modifier_benevolat").prop("disabled", false);
+                },
+
+            });
+        });
+
+    </script>
+
+    <!-- Script qui check si le checkbox actuel est checked sur le formulaire Experience (ajout,modif) -->
+    <script>
+
+
+        /* If Poste actuel is selected then Date fin is hidden */
+
+
+        function verify_chk_modifier_experience_actuel() {
+            if (document.getElementById("chk_modifier_experience_actuel").checked) {
+                $("#modifier_experience_date_fin_div").css("display", "none");
+            }
+            else {
+
+                $("#modifier_experience_date_fin_div").css("display", "block");
+            }
+        }
+
+        function verify_chk_ajouter_experience_actuel() {
+            if (document.getElementById("chk_ajouter_experience_actuel").checked) {
+                $("#ajouter_experience_date_fin_div").css("display", "none");
+            }
+            else {
+                $("#ajouter_experience_date_fin_div").css("display", "block");
+
+            }
+        }
+    </script>
+
+
+
+
+
+{% endblock %}
+
+
+

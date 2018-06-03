@@ -1,0 +1,245 @@
+﻿{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+    Contact
+{% endblock %}
+
+{% block script %}
+    $(document).ready(function() {
+        $('#aside').scrollToFixed({
+            marginTop: $('.info').outerHeight() + 10,
+            limit: function() {
+                var limit = $('#footer').offset().top - $('#aside').outerHeight(true) - 10;
+                return limit;
+            },
+            zIndex: 1
+        });
+    });
+{% endblock %}
+
+
+{% block style %}
+    <style>
+    .info {
+        padding-bottom: 0px;
+    }
+    .title h2 {
+        margin-top: 10px;
+    }
+    .contact-description {
+        font-size: 20px;
+    }
+    .contact-description ul {
+        font-size: 18px;
+        list-style: disc;
+        margin-left: 25px;
+        margin-bottom: 25px;
+    }
+    .contact-description .row .col-md-12 .section-title {
+        margin-bottom: 15px;
+    }
+    .contact-description .row p {
+        font-size: 18px;
+    }
+    .contact-description .form-control {
+        margin-bottom: 10px;
+        border-radius: 2px;
+    }
+    .contact-description #id_message {
+        max-width: 100%;
+    }
+    .contact-description .row .col-md-12 button {
+        background: #222;
+        color: #FFF;
+        font-size: 16px;
+        border: 1px solid #222;
+        padding: 6px 20px;
+        margin-top: 10px;
+        margin-bottom: 30px;
+        text-transform: uppercase;
+        transition: .3s all;
+        font-weight: 500;
+        border-radius: 2px;
+    }
+    .contact-description .row .col-md-12 button:hover {
+        background: #FFF;
+        color: #222;
+        padding: 6px 30px;
+    }
+    .alert-danger {
+        font-size: 16px;
+    }
+    #contact-base-link {
+        color: #f46320;
+    }
+    </style>
+{% endblock %}
+
+{% block content %}
+
+    <!-- SECTION INFO -->
+    <div class="section info">
+        <div class="container">
+            <!-- breadcrumb -->
+            <ul class="article-breadcrumb">
+                <li><a href="{% url 'index' %}">Accueil</a></li>
+                <li><a href="{% url 'contact' %}">Contact</a></li>
+            </ul>
+            <!-- /breadcrumb -->
+            <!-- Title -->
+            <div class="title">
+                <h2>Contact</h2>
+            </div>
+            <!-- /Title -->
+        </div>
+    </div>
+    <!-- /SECTION INFO -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 contact-description">
+                {% if created %}
+                    <div class="alert alert-success alert-dismissible" role="alert" style="margin-bottom: 10px">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">
+                            &times;</span></button>
+                        Message envoyé avec succès
+                    </div>
+                {% endif %}
+                {% if form.errors %}
+                    <div class="form-group">
+                        <div class="alert alert-danger alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">
+                            &times;</span></button>
+                            <p style="font-size: 18px; font-weight: bold;">Veuillez corriger les erreurs ci dessous :</p>
+                            {% for field in form %}
+                                {% for error in field.errors %}
+                                    <p style="padding-left: 40px"><strong>{{ field.name }} : </strong>{{ error|escape }}</p>
+                                {% endfor %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+                <p>You are a part of the Rebel Alliance and a traitor so what do you think of her Han. But with the blast
+                    shield down even see! How am I supposed to fight need your help Luke. She needs your help getting too
+                    old for this sort of thing.Act so surprised your highness. You mercy mission this time several transmissions
+                    were beamed to this ship by Rebel spies.</p>
+                <ul>
+                    <li>You mean it controls your actions?</li>
+                    <li>But with the blast shield down can even see! How am I supposed to fight?</li>
+                    <li>I get involved got work to do not that I like the Empire</li>
+                    <li>But nothing can do about it right now such a long way from here.</li>
+                </ul>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="section-title">
+                            <h2 class="title">Détails de contact</h2>
+                        </div>
+                        <h4>BTP Newspaper Service Web</h4>
+                        <p>
+                            123 El wifaq, TEmara <br>
+                            (212) 123-9465 (téléphone) <br>
+                            (212) 123-1568 (fax)
+                        </p>
+                        <p>
+                            Email:
+                            <a href="mailto:anass.urh@outlook.fr" target="_blank" rel="noopener noreferrer">anass.urh@outlook.fr</a>
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="section-title">
+                            <h2 class="title">À Propos de nous</h2>
+                        </div>
+                        <p>
+                            <b>BTP Newspaper</b> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam, beatae debitis
+                            excepturi id maiores neque obcaecati pariatur? Ad consequatur corporis perferendis quia voluptatem.
+                            Deleniti laudantium magni modi officia optio quasi.
+                        </p>
+                    </div>
+                </div>
+                {% if not created %}
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="section-title">
+                                <h2 class="title">
+                                    Envoyez-nous un message
+                                </h2>
+                            </div>
+                            <form action="" method="post">
+                                {% csrf_token %}
+                                {{ form.media }}
+                                {{ form.email }}
+                                {{ form.name }}
+                                {{ form.website }}
+                                {{ form.message }}
+                                {{ form.captcha }}
+                                <button type="submit">Envoyer</button>
+                            </form>
+                        </div>
+                    </div>
+                {% else %}
+                    <div style="margin-bottom: 30px"></div>
+                {% endif %}
+
+            </div>
+            <div class="col-md-4" id="aside">
+                <!-- Ad widget -->
+                {% if not created %}
+                    <div class="widget center-block hidden-xs">
+                        <img class="center-block" src="{% static 'journal/img/ad.gif' %}" alt="">
+                    </div>
+                {% endif %}
+                <!-- /Ad widget -->
+                <!-- social widget -->
+                <div class="widget social-widget">
+                    <div class="widget-title">
+                        <h2 class="title">Rester connecté</h2>
+                    </div>
+                    <ul>
+                        <li><a href="http://facebook.com/" class="facebook"><i class="fa fa-facebook fa-2x"></i></a></li>
+                        <li><a href="http://twitter.com/" class="twitter"><i class="fa fa-twitter fa-2x"></i></a></li>
+                        <li><a href="https://plus.google.com/" class="google"><i class="fa fa-google fa-2x"></i></a></li>
+                        <li><a href="https://www.instagram.com/" class="instagram"><i class="fa fa-instagram fa-2x"></i></a></li>
+                        <li><a href="https://www.youtube.com/" class="youtube"><i class="fa fa-youtube fa-2x"></i></a></li>
+                        <li><a href="http://www.rssboard.org/" class="rss"><i class="fa fa-rss fa-2x"></i><br></a></li>
+                    </ul>
+                </div>
+                <!-- /social widget -->
+                <!-- article widget -->
+                <div class="widget">
+                    <div class="widget-title">
+                        <h2 class="title">Les plus lus</h2>
+                    </div>
+                    <div class="top-article">
+                        <!-- owl carousel 3 -->
+                        <div id="owl-carousel-3" class="owl-carousel owl-theme center-owl-nav">
+                            {% for n in topRead %}
+                                {% if forloop.counter < 4 %}
+                                    <!-- ARTICLE -->
+                                    <article class="article">
+                                        <div class="article-img">
+                                            <a href="{% url 'post' n.category.name n.id %}">
+                                                <img src="{{ n.primary_image.image.url }}"
+                                                     alt="{{ n.primary_image.description }}">
+                                            </a>
+                                            <ul class="article-info">
+                                                <li class="article-type"><i class="fa {{ n.category.icon }}"></i></li>
+                                            </ul>
+                                        </div>
+                                        <div class="article-body">
+                                            <h4 class="article-title"><a href="{% url 'post' n.category.name n.id %}">
+                                                {{ n.small_title }}</a></h4>
+                                        </div>
+                                    </article>
+                                    <!-- /ARTICLE -->
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <!-- /owl carousel 3 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,55 @@
+{% load widget_tweaks %}
+
+<div id="#formprofil">
+            <div class="modal fade" id="squarespaceModalprofil" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span
+                                    aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                            <h3 class="modal-title" id="lineModalLabel">Photo de profil</h3>
+                        </div>
+
+                        <form method="post" id="photoprofilform" enctype="multipart/form-data">
+                            <div class="modal-body">
+
+                                <!-- content goes here -->
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                          <span class="input-group-btn">
+                                              <span class="btn btn-default btn-file"
+                                                    style="font-weight: bold;float:right;cursor: pointer;">
+                                                  Choisissez une image…{% render_field photo_profil_form.logo class="form-control" accept='image/*' id="imgInp1" %}
+                                              </span>
+                                          </span>
+                                            <input type="text" class="form-control" readonly>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group" id="photo1">
+                                        <img id='img-upload1'/>
+                                    </div>
+
+                                <div class="panel-group uploadprogress hidden uploadp">
+                                    <h4 class="modal-title">Uploading...</h4>
+                                    <div class="progress">
+                                        <div class="progress-bar prog" role="progressbar" style="width: 0%;">0%</div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <div class="form-group text-center">
+                                    <button class="btn btn-primary"
+                                            style="float:right;">
+                                        Enregistrer
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>

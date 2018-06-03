@@ -1,0 +1,451 @@
+{%load static %}
+<!--DOCTYPE html-->
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Udema a modern educational site template">
+    <meta name="author" content="Ansonika">
+    <title>BTP-Learn | Modern Educational site template</title>
+
+    <!-- Favicons-->
+    <link rel="shortcut icon" href="{% static 'ELearning/img/favicon-1.ico' %}" type="image/x-icon">
+
+    <!-- BASE CSS -->
+    <link href="{% static 'ELearning/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'ELearning/css/style.css' %}" rel="stylesheet">
+	<link href="{% static 'ELearning/css/vendors.css' %}" rel="stylesheet">
+	<link href="{% static 'ELearning/css/icon_fonts/css/all_icons.min.css' %}" rel="stylesheet">
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+
+
+
+    <!-- YOUR CUSTOM CSS -->
+    <link href="{% static 'ELearning/css/custom.css' %}" rel="stylesheet">
+
+	<!-- Modernizr -->
+	<script src="{% static 'ELearning/js/modernizr.js' %}"></script>
+
+</head>
+
+<body>
+
+	<div id="preloader">
+		<div data-loader="circle-side"></div>
+	</div>
+	<!-- End Preload -->
+
+		<header class="header fadeInDown">
+		<div id="logo">
+			<a href="index.html"><img src="{% static 'ELearning/img/logo.png' %}" data-retina="true" alt="" width="163" height="45"></a>
+		</div>
+		<ul id="top_menu">
+			<li><a href="login.html" class="login">Se connecter</a></li>
+			<li><a href="#0" class="search-overlay-menu-btn">Rechercher</a></li>
+			<li><div class="dropdown">
+  <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Catégories</a> <!-- lien -->
+  <div class="dropdown-menu">
+	 {% for t in themes%}
+    <a class="dropdown-item" href="cours-list/{{t.id}}" style="color:black;font-size:12px;font-family:'Poppins'"><img src="{{t.theme_picture.url}}" alt="" width="20" height="20">&nbsp;{{t.libelle}}</a>
+	  {%endfor%}
+
+  </div>
+</div></li>
+			<li class="hidden_tablet"><a href="admission.html" class="btn_1 rounded">Devenir formateur</a></li>
+			<li>
+				<div class="hamburger hamburger--spin">
+					<div class="hamburger-box">
+						<div class="hamburger-inner"></div>
+					</div>
+				</div>
+			</li>
+		</ul>
+		<!-- /top_menu -->
+	</header>
+	<!-- /header -->
+
+	<div id="main_menu">
+		<div class="container">
+		<nav class="version_2">
+				<div class="row">
+					<div class="col-md-6">
+						<h3>Accueil</h3>
+						<ul>
+							<li><a href="index2">Accueil vesrion 1</a></li>
+							<li><a href="index2">Accueil vesrion 2</a></li>
+							<li><a href="index1">Accueil vesrion 3</a></li>
+						</ul>
+					</div>
+					<div class="col-md-5">
+						<h3>Cours</h3>
+						<ul>
+							<li><a href="cours-list">Liste des cours</a></li>
+
+
+						</ul>
+					</div>
+					<div class="col-md-3">
+						<h3>Pages</h3>
+						<ul>
+
+							<li><a href="about.html">A propos</a></li>
+
+						</ul>
+					</div>
+
+				</div>
+				<!-- /row -->
+			</nav>
+			<div class="follow_us">
+				<ul>
+					<li>Follow us</li>
+					<li><a href="#0"><i class="ti-facebook"></i></a></li>
+					<li><a href="#0"><i class="ti-twitter-alt"></i></a></li>
+					<li><a href="#0"><i class="ti-google"></i></a></li>
+					<li><a href="#0"><i class="ti-pinterest"></i></a></li>
+					<li><a href="#0"><i class="ti-instagram"></i></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- /main_menu -->
+
+	<main>
+		<section class="header-video">
+			<div id="hero_video">
+				<div>
+					<h3><strong>Meilleurs cours</strong><br>en BTP-Learn</h3>
+					<p>BTP-Learn <strong>Toujours à votre service</strong> </p>
+				</div>
+			</div>
+			<img src="{% static 'ELearning/img/video_fix.png' %}" alt="" class="header-video--media" data-video-src="{% static 'ELearning/video/intro'%}" data-teaser-source="{% static 'ELearning/video/intro'%}" data-provider="" data-video-width="1920" data-video-height="960">
+		</section>
+		<!-- /header-video -->
+
+		<ul id="grid_home" class="clearfix">
+			<li>
+				<a href="cours-list" class="img_container">
+					<img src="{% static 'ELearning/img/book.jpeg' %}" alt="">
+					<div class="short_info">
+						<h3><strong>BTP-Learn</strong>Cours</h3>
+						<div><span class="btn_1 rounded">Savoir plus</span></div>
+					</div>
+				</a>
+			</li>
+			<li>
+				<a href="#0" class="img_container">
+					<img src="{% static 'ELearning/img/student.jpeg' %}" alt="">
+					<div class="short_info">
+						<h3><strong>Communautés</strong>des étudiants</h3>
+						<div><span class="btn_1 rounded">Savoir plus</span></div>
+					</div>
+				</a>
+			</li>
+			<li>
+				<a href="prof" class="img_container">
+					<img src="{% static 'ELearning/img/teach.jpeg' %}" alt="">
+					<div class="short_info">
+						<h3><strong>Devenir</strong>formateur</h3>
+						<div><span class="btn_1 rounded">Submit</span></div>
+					</div>
+				</a>
+			</li>
+		</ul>
+		<!--/grid_home -->
+
+	<div class="container-fluid margin_120_0">
+			<div class="main_title_2">
+				<span><em></em></span>
+				<h2>BTP-Learn:Cours populaires</h2>
+				<p>Commencez votre formation et choississez vos cours </p>
+			</div>
+
+			<div id="reccomended" class="owl-carousel owl-theme">
+			{% for data in cours %}
+				<div class="item">
+					<div class="box_grid">
+						<figure>
+							<a href="#0" class="wish_bt"></a>
+							<a href="course-detail/{{data.id}}">
+								<div class="preview"><span>Poursuivre cours</span></div><img src="{{data.course_picture.url}}" class="img-fluid" alt="" width="800" height="533"></a>
+							{% if data.course_price|add:0 == 0.0 %}
+							<div class="price">Free</div>
+							{%else%}
+							<div class="price">{{data.course_price}}DH</div>
+                             {%endif%}
+						</figure>
+						<div class="wrapper">
+
+							<h3>{{data.course_title}}</h3>
+							<p>{{data.course_resume}}</p>
+							<div class="rating"><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i><i class="icon_star"></i> <small>(145)</small></div>
+						</div>
+						<ul>
+							<li><i class="icon_clock_alt"></i> de {{data.course_start}} à {{data.course_expire}}</li>
+
+							<li><a href="course-detail.html">Poursuivre </a></li>
+						</ul>
+					</div>
+				</div>
+			{% endfor %}
+			</div>
+			<!-- /carousel -->
+			<div class="container">
+				<p class="btn_home_align"><a href="cours-list" class="btn_1 rounded">Voir tous les cours</a></p>
+			</div>
+			<!-- /container -->
+			<hr>
+		</div>
+		<!-- /container -->
+
+		<div class="container margin_30_95">
+			<div class="main_title_2">
+				<span><em></em></span>
+				<h2>BTP-Learn:Formations prposées</h2>
+				<p>Savoir plus sur les formations qui vous correspond</p>
+			</div>
+			<div class="row">
+				<div class="col-lg-4 col-md-6 wow" data-wow-offset="150">
+					<a href="#0" class="grid_item">
+						<figure class="block-reveal">
+							<div class="block-horizzontal"></div>
+							<iframe  class="img-fluid" src="https://www.youtube.com/embed/w1k0ep3AsVU" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+							<div class="info">
+								<small><i class="ti-layers"></i>15 Programmes</small>
+							</div>
+							   <h3 style="text-align:center;font-size:30px">Devenez</h3>
+                               <h4 style="text-align:center"> Conducteur de Travaux</h4>
+						</figure>
+					</a>
+
+				</div>
+				<!-- /grid_item -->
+				<div class="col-lg-4 col-md-6 wow" data-wow-offset="150">
+					<a href="#0" class="grid_item">
+						<figure class="block-reveal">
+							<div class="block-horizzontal"></div>
+							<iframe class="img-fluid" src="https://www.youtube.com/embed/vpwFtMAsySw" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+							<div class="info">
+								<small><i class="ti-layers"></i>23 Programmes</small>
+							</div>
+							   <h3 style="text-align:center;font-size:30px">Devenez</h3>
+                               <h4 style="text-align:center"> Maçon</h4>
+						</figure>
+					</a>
+				</div>
+				<!-- /grid_item -->
+				<div class="col-lg-4 col-md-6 wow" data-wow-offset="150">
+					<a href="#0" class="grid_item">
+						<figure class="block-reveal">
+							<div class="block-horizzontal"></div>
+                              <iframe class="img-fluid"src="https://www.youtube.com/embed/EOlen9h947o" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>							<div class="info">
+								<small><i class="ti-layers"></i>23 Programmes</small>
+							</div>
+							   <h3 style="text-align:center;font-size:30px">Devenez</h3>
+                               <h4 style="text-align:center">Chef de chantier</h4>
+						</figure>
+					</a>
+				</div>
+				<!-- /grid_item -->
+				<div class="col-lg-4 col-md-6 wow" data-wow-offset="150">
+					<a href="#0" class="grid_item">
+						<figure class="block-reveal">
+							<div class="block-horizzontal"></div>
+							<iframe class="img-fluid" src="https://www.youtube.com/embed/QSXppSiOBLM" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+							<div class="info">
+								<small><i class="ti-layers"></i>23 Programmes</small>
+							</div>
+							   <h3 style="text-align:center;font-size:30px">Devenez</h3>
+                               <h4 style="text-align:center">Chef d'équipe BTP</h4>
+						</figure>
+					</a>
+				</div>
+				<!-- /grid_item -->
+				<div class="col-lg-4 col-md-6 wow" data-wow-offset="150">
+					<a href="#0" class="grid_item">
+						<figure class="block-reveal">
+							<div class="block-horizzontal"></div>
+							<iframe class="img-fluid" src="https://www.youtube.com/embed/oGY6oPDq96M" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+							<div class="info">
+								<small><i class="ti-layers"></i>23 Programmes</small>
+							</div>
+							   <h3 style="text-align:center;font-size:30px">Devenez</h3>
+                               <h4 style="text-align:center">Maître d'oeuvre</h4>
+						</figure>
+					</a>
+				</div>
+				<!-- /grid_item -->
+				<div class="col-lg-4 col-md-6 wow" data-wow-offset="150">
+					<a href="#0" class="grid_item">
+						<figure class="block-reveal">
+							<div class="block-horizzontal"></div>
+							<iframe class="img-fluid" src="https://www.youtube.com/embed/NcZ59_8pKbA" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+							<div class="info">
+								<small><i class="ti-layers"></i>23 Programmes</small>
+
+							</div>
+							   <h3 style="text-align:center;font-size:30px">Devenez</h3>
+                               <h4 style="text-align:center">Gros oeuvre</h4>
+						</figure>
+					</a>
+				</div>
+				<div class="col-lg-4 col-md-6 wow" data-wow-offset="150">
+					<a href="#0" class="grid_item">
+						<figure class="block-reveal">
+							<div class="block-horizzontal"></div>
+							<iframe class="img-fluid" src="https://www.youtube.com/embed/vlYP8gFu7vY" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+							<div class="info">
+								<small><i class="ti-layers"></i>23 Programmes</small>
+							</div>
+							   <h3 style="text-align:center;font-size:30px">Devenez</h3>
+                               <h4 style="text-align:center">Directeur de travaux</h4>
+						</figure>
+					</a>
+				</div>
+					<div class="col-lg-4 col-md-6 wow" data-wow-offset="150">
+					<a href="#0" class="grid_item">
+						<figure class="block-reveal">
+							<div class="block-horizzontal"></div>
+                              <iframe class="img-fluid"src="https://www.youtube.com/embed/6e4zjlzKUgk" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+							<div class="info">
+								<small><i class="ti-layers"></i>15 Programmes</small>
+							</div>
+							   <h3 style="text-align:center;font-size:30px">Devenez</h3>
+                               <h4 style="text-align:center">Conducteur de grue</h4>
+						</figure>
+					</a>
+				    </div>
+					<div class="col-lg-4 col-md-6 wow" data-wow-offset="150">
+					<a href="#0" class="grid_item">
+						<figure class="block-reveal">
+							<div class="block-horizzontal"></div>
+                             <iframe class="img-fluid" src="https://www.youtube.com/embed/RKE5r6jBtEI" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+							<div class="info">
+							<small><i class="ti-layers"></i>23 Programmes</small>
+							</div>
+							   <h3 style="text-align:center;font-size:30px">Devenez</h3>
+                               <h4 style="text-align:center">Ingénieure BTP</h4>
+						</figure>
+					</a>
+				    </div>
+				<!-- /grid_item -->
+			</div>
+			<!-- /row -->
+		</div>
+		<!-- /container -->
+
+
+		<!-- /bg_color_1 -->
+
+		<div class="call_section" id="formateur" style="background: url({% static 'ELearning/img/btp.jpeg' %}) center center no-repeat fixed;">
+			<div class="container clearfix">
+				<div class="col-lg-5 col-md-6 float-right wow" data-wow-offset="250">
+					<div class="block-reveal">
+						<div class="block-vertical"></div>
+						<div class="box_1">
+							<h3>Enseignez le monde entier en ligne</h3>
+							<p> Transformez vos connaissances en véritable opportunité et enseignez votre passion.<br/>BTP-Learn vous donne l'occasion et les outils pour créer un cours en ligne</p>
+							<a href="prof" class="btn_1 rounded">Devenir formateur</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--/call_section-->
+	</main>
+	<!-- /main -->
+
+	<footer>
+		<div class="container margin_120_95">
+			<div class="row">
+				<div class="col-lg-5 col-md-12 p-r-5">
+					<p><img src="{% static 'ELearning/img/logo.png' %}" width="149" height="42" data-retina="true" alt=""></p>
+					<p>BTP-Learn est une plateforme de formation en E-Learning dédiée au secteur du BTP.<br/>BTP-Learn permet à des étudiants ayant un niveau BAC ou plus,à des professionnels du BTP de se former et d'obtenir un titre professionnel.</p>
+					<div class="follow_us">
+						<ul>
+							<li>Suivez nous</li>
+							<li><a href="#0"><i class="ti-facebook"></i></a></li>
+							<li><a href="#0"><i class="ti-twitter-alt"></i></a></li>
+							<li><a href="#0"><i class="ti-google"></i></a></li>
+							<li><a href="#0"><i class="ti-pinterest"></i></a></li>
+							<li><a href="#0"><i class="ti-instagram"></i></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6 ml-lg-auto">
+					<h5>Liens utiles</h5>
+					<ul class="links">
+						<li><a href="#0">Devenir formateur</a></li>
+						<li><a href="#0">A propos</a></li>
+						<li><a href="#0">Se connecter</a></li>
+						<li><a href="#0">Inscription</a></li>
+						<li><a href="#0">Contact</a></li>
+					</ul>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<h5>Contactez-nous</h5>
+					<ul class="contacts">
+						<li><a href="tel://61280932400"><i class="ti-mobile"></i> (+212) 661 43 96 9</a></li>
+						<li><a href="mailto:info@udema.com"><i class="ti-email"></i> contact@espr.ma</a></li>
+					</ul>
+					<div id="newsletter">
+					<h6>Newsletter</h6>
+					<div id="message-newsletter"></div>
+					<form method="post" action="assets/newsletter.php" name="newsletter_form" id="newsletter_form">
+						<div class="form-group">
+							<input type="email" name="email_newsletter" id="email_newsletter" class="form-control" placeholder="Your email">
+							<input type="submit" value="Submit" id="submit-newsletter">
+						</div>
+					</form>
+					</div>
+				</div>
+			</div>
+			<!--/row-->
+			<hr>
+			<div class="row">
+				<div class="col-md-8">
+					<ul id="additional_links">
+						<li><a href="#0">Terms and conditions</a></li>
+						<li><a href="#0">Privacy</a></li>
+					</ul>
+				</div>
+				<div class="col-md-4">
+					<div id="copy">© 2017 Udema</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!--/footer-->
+
+	<!-- Search Menu -->
+	<div class="search-overlay-menu">
+		<span class="search-overlay-close"><span class="closebt"><i class="ti-close"></i></span></span>
+		<form role="search" id="searchform" method="get">
+			<input value="" name="q" type="search" placeholder="Search..." />
+			<button type="submit"><i class="icon_search"></i>
+			</button>
+		</form>
+	</div><!-- End Search Menu -->
+
+	<!-- COMMON SCRIPTS -->
+    <script src="{% static 'ELearning/js/jquery-2.2.4.min.js' %}"></script>
+    <script src="{% static 'ELearning/js/common_scripts.js' %}"></script>
+    <script src="{% static 'ELearning/js/main.js' %}"></script>
+	<script src="{% static 'ELearning/assets/validate.js' %}"></script>
+
+	<!-- SPECIFIC SCRIPTS -->
+	<script src="{% static 'ELearning/js/video_header.js' %}"></script>
+	<script>
+		HeaderVideo.init({
+			container: $('.header-video'),
+			header: $('.header-video--media'),
+			videoTrigger: $("#video-trigger"),
+			autoPlayVideo: true
+		});
+	</script>
+
+</body>
+</html>

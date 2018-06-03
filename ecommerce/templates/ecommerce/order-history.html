@@ -1,0 +1,56 @@
+{% extends 'ecommerce/base.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+<div class="main-container container">
+    <ul class="breadcrumb">
+        <li><a href="{% url 'e_commerce:index' %}">Accueil</a></li>
+        <li><a href="{% url 'e_commerce:my_account' %}">Mon compte</a></li>
+        <li><a href="#"><b>Historiques des Commandes</b></a></li>
+    </ul>
+    <div class="row">
+        <!--Middle Part Start-->
+        <div id="content" class="col-sm-12">
+            <h2 class="title" style="padding-bottom: 15px">Historiques des Commandes</h2>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <td class="text-center">ID Commande</td>
+                            <td class="text-center">Date D'ajout</td>
+                            <td class="text-center">Statut</td>
+                            <td class="text-center">Méthode de Paiement</td>
+                            <td class="text-center">Méthode de Livraison</td>
+                            <td class="text-center">Commentaire</td>
+                            <td class="text-center">Total</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for order in orders %}
+                        <tr>
+                            <td class="text-center">
+                                <a href="{% url 'e_commerce:order_information' order.pk %}">#{{ order.pk }}</a>
+                            </td>
+                            <td class="text-center">{{ order.date }}</td>
+                            <td class="text-center">
+                                {% if order.status == "Shipped" %}
+                                    Expédiée
+                                {% elif order.status == "Processing" %}
+                                    En Traitement
+                                {% endif %}
+                            </td>
+                            <td class="text-center">{{ order.payment_method }}</td>
+                            <td class="text-center">{{ order.delivery_method }}</td>
+                            <td class="text-center">{{ order.comment|truncatechars:100 }}</td>
+                            <td class="text-center">{{ order.amount|intcomma }} Dh</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <!--Middle Part End-->
+    </div>
+</div>
+{% endblock %}

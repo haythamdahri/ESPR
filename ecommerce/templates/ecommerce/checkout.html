@@ -1,0 +1,360 @@
+{% extends 'ecommerce/base.html' %}
+{% load static coma_dot humanize %}
+
+{% block style %}
+    <style>
+        .form-group {
+            margin-bottom: 0;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+<div class="main-container container">
+    <ul class="breadcrumb">
+        <li><a href="{% url 'e_commerce:index' %}">Accueil</a></li>
+        <li><a href="{% url 'e_commerce:my_account' %}">Mon compte</a></li>
+        <li><a href="#"><b>Check-out</b></a></li>
+    </ul>
+    {% if message_success %}
+        <div id="success" class="alert alert-success" role="alert" style="margin: 14px 0 0;">
+            {{ message_success }}
+        </div>
+    {% endif %}
+    {% if message_error %}
+        <div class="alert alert-danger" role="alert" style="margin: 14px 0 0;">
+            <strong>Oups !</strong> {{ message_error }}
+        </div>
+    {% endif %}
+    <div class="row">
+        <!--Middle Part Start-->
+        <div id="content" class="col-sm-12">
+            <h2 class="title" style="padding-bottom: 15px;">Check-out</h2>
+            <div class="so-onepagecheckout row">
+                <div class="col-left col-sm-3">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title" style="text-transform: uppercase; font-size: 14px">
+                                <i class="fa fa-user"></i> &nbsp;Informations personnelles</h4>
+                        </div>
+                        <div class="panel-body">
+                            <fieldset id="account">
+                                <div>
+                                    <label for="input-payment-firstname" class="control-label">Prénom : </label>
+                                    <b>{{ user.first_name }}</b>
+                                </div>
+                                <div>
+                                    <label for="input-payment-lastname" class="control-label">Nom : </label>
+                                    <b>{{ user.last_name }}</b>
+                                </div>
+                                <div>
+                                    <label for="input-payment-email" class="control-label">E-Mail : </label>
+                                    <b>{{ user.email }}</b>
+                                </div>
+                                <div>
+                                    <label for="input-payment-telephone" class="control-label">Téléphone</label>
+                                    <b>{{ user.profil.tel }}</b>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title" style="text-transform: uppercase; font-size: 14px">
+                                <i class="fa fa-book"></i> &nbsp;Adresse de livraison</h4>
+                        </div>
+                        <div class="panel-body">
+                            <fieldset id="address" class="required">
+                                {% if user.profil.shippingaddress.company %}
+                                <div>
+                                    <label for="input-payment-company" class="control-label">Compagnie : </label>
+                                    <b>{{ user.profil.shippingaddress.company }}</b>
+                                </div>
+                                {% endif %}
+                                <div>
+                                    <label for="input-payment-address-1" class="control-label">Adresse : </label>
+                                    <b>{{ user.profil.shippingaddress.address }}</b>
+                                </div>
+                                <div>
+                                    <label for="input-payment-city" class="control-label">Ville : </label>
+                                    <b>{{ user.profil.shippingaddress.city }}</b>
+                                </div>
+                                <div>
+                                    <label for="input-payment-postcode" class="control-label">Code Postal : </label>
+                                    <b>{{ user.profil.shippingaddress.post_code }}</b>
+                                </div>
+                                <div>
+                                    <label for="input-payment-country" class="control-label">Pays : </label>
+                                    <b>{{ user.profil.shippingaddress.country }}</b>
+                                </div>
+                                <div>
+                                    <label for="input-payment-zone" class="control-label">Région / Province : </label>
+                                    <b>{{ user.profil.shippingaddress.region }}</b>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title" style="text-transform: uppercase; font-size: 14px">
+                                <i class="fa fa-book"></i> &nbsp;Adresse de facturation</h4>
+                        </div>
+                        <div class="panel-body">
+                            <fieldset id="address" class="required">
+                                {% if user.profil.billingaddress.company %}
+                                <div>
+                                    <label for="input-payment-company" class="control-label">Compagnie : </label>
+                                    <b>{{ user.profil.billingaddress.company }}</b>
+                                </div>
+                                {% endif %}
+                                <div>
+                                    <label for="input-payment-address-1" class="control-label">Adresse : </label>
+                                    <b>{{ user.profil.billingaddress.address }}</b>
+                                </div>
+                                <div>
+                                    <label for="input-payment-city" class="control-label">Ville : </label>
+                                    <b>{{ user.profil.billingaddress.city }}</b>
+                                </div>
+                                <div>
+                                    <label for="input-payment-postcode" class="control-label">Code Postal : </label>
+                                    <b>{{ user.profil.billingaddress.post_code }}</b>
+                                </div>
+                                <div>
+                                    <label for="input-payment-country" class="control-label">Paus : </label>
+                                    <b>{{ user.profil.billingaddress.country }}</b>
+                                </div>
+                                <div>
+                                    <label for="input-payment-zone" class="control-label">Région / Province : </label>
+                                    <b>{{ user.profil.billingaddress.region }}</b>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title" style="text-transform: uppercase; font-size: 14px">
+                                <i class="fa fa-book"></i> &nbsp;Modifier votre profil</h4>
+                        </div>
+                        <div class="panel-body" style="padding: 11px 0 0;">
+                            <fieldset id="address" class="required">
+                                <p style="text-align: center"><a href="{% url 'e_commerce:my_account' %}"><button class="btn btn-warning" style="width: 100%; text-transform: uppercase">
+                                    Modifier Profil</button></a></p>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-right col-sm-9">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="panel panel-default no-padding" style="padding-top: 15px;">
+                                <div class="col-sm-6 checkout-shipping-methods">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title"><i class="fa fa-truck"></i> Méthode de livraison</h4>
+                                    </div>
+                                    <div class="panel-body ">
+                                        <p>Veuillez sélectionner le mode de livraison préféré à utiliser pour cette commande.</p>
+                                        <div class="radio">
+                                            <label>
+                                                <input name="shipping" type="radio" value="Free Shipping" class="shipping" onchange="shipping_method();" checked="checked">
+                                                Livraison gratuite - 0.00 Dh
+                                            </label>
+                                        </div>
+                                        <div class="radio">
+                                            <label>
+                                                <input name="shipping" type="radio" value="Flat Shipping Rate" class="shipping" onchange="shipping_method()">
+                                                Tarif d'expédition à plat - 50 Dh
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6  checkout-payment-methods">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title"><i class="fa fa-credit-card"></i> Méthode de Paiement </h4>
+                                    </div>
+                                    <div class="panel-body">
+                                        <p>Veuillez sélectionner le mode de paiement préféré à utiliser pour cette commande.</p>
+                                        <div class="radio">
+                                            <label>
+                                                <input name="payment" class="payment" type="radio" value="Cash On Delivery" checked="checked" onchange="payment_method()">
+                                                Paiement à la livraison
+                                            </label>
+                                        </div>
+                                        <div class="radio">
+                                            <label>
+                                            <input name="payment" class="payment" type="radio" value="Paypal" onchange="payment_method()">
+                                                Paypal
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title" style="text-transform: uppercase; font-size: 14px">
+                                        <i class="fa fa-shopping-cart"></i> &nbsp;Chariot</h4>
+                                </div>
+                                <div class="table-responsive form-group">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <td class="text-center">Image</td>
+                                                <td class="text-center">Nom de Produit</td>
+                                                <td class="text-center">Couleur</td>
+                                                <td class="text-center">Quantité</td>
+                                                <td class="text-center">Prix unitaire</td>
+                                                <td class="text-center">Total</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for el in cart %}
+                                            <tr>
+                                                <td class="text-center">
+                                                    <a href="{% url 'e_commerce:product' el.product.pk %}">
+                                                        <img width="50px" height="50px" style="border: 0" src="{{ el.product.image.url }}" alt="Image {{ el.product.name }}" title="{{ el.product.name }}" class="img-thumbnail" />
+                                                    </a>
+                                                </td>
+                                                <td class="text-center" style="padding-top: 15px">
+                                                    <a href="{% url 'e_commerce:product' el.product.pk %}">{{ el.product.name }}</a><br />
+                                                </td>
+                                                <td class="text-center" style="padding-top: 15px">
+                                                    {% if el.product.stock_set.exists %}
+                                                        {% if el.product.stock_set.count == 1 and el.product.stock_set.first.color.name == "None" %}
+                                                            <input type="hidden" name="option[231]" value="0">
+                                                            Original
+                                                        {% else %}
+                                                            <form method="post" action="{% url 'e_commerce:update_color_cart' %}">
+                                                            {% csrf_token %}
+                                                                <input type="hidden" name="next"     value="{{ request.path }}" style="display: inline-block;">
+                                                                <input type="hidden" name="cart"     value="{{ el.pk }}" style="display: inline-block;">
+                                                                <div class="image_option_type form-group required"  style="display: inline-block">
+                                                                    <ul class="product-options clearfix" id="input-option231">
+                                                                        {% for stock in el.product.stock_set.all %}
+                                                                            {% if stock.color.name == "None"%}
+                                                                            <li class="radio">
+                                                                                <label>{{ el.produt.stock_set.0.color.name  }}
+                                                                                    <input class="image_radio" type="radio" name="option[231]" value="{{ stock.color.pk }}"> <img width="30px" height="30px" src="{% static 'ecommerce/image/none.png' %}" data-original-title="Original" class="icon icon-color">
+                                                                                    <i class="fa fa-check"></i>
+                                                                                    <label></label>
+                                                                                </label>
+                                                                            </li>
+                                                                            {% else %}
+                                                                                {% if el.color.name == stock.color.name %}
+                                                                                    <li class="radio active">
+                                                                                        <label>
+                                                                                            <input class="image_radio" type="radio" name="option[231]" value="{{ stock.color.pk }}"> <img width="30px" height="30px" style="background-color: {{ stock.color.code_hex }}" data-original-title="{{ stock.color.name }} +{{ stock.price_sup|intcomma }} Dh" class="icon icon-color">
+                                                                                            <i style="margin-left: 3px" class="fa fa-check"></i>
+                                                                                            <label></label>
+                                                                                        </label>
+                                                                                    </li>
+                                                                                {% else %}
+                                                                                    <li class="radio">
+                                                                                        <label class="text-center">
+                                                                                            <input class="image_radio" type="radio" name="option[231]" value="{{ stock.color.pk }}"> <img width="30px" height="30px" style="background-color: {{ stock.color.code_hex }}" data-original-title="{{ stock.color.name }} +{{ stock.price_sup|intcomma }} Dh" class="icon icon-color">
+                                                                                            <i style="margin-left: 3px" class="fa fa-check"></i>
+                                                                                            <label></label>
+                                                                                        </label>
+                                                                                    </li>
+                                                                                {% endif %}
+                                                                            {% endif %}
+                                                                        {% endfor %}
+                                                                        <li class="selected-option">
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                                <button style="display: inline-block" type="submit" data-toggle="tooltip" title="Update" class="btn btn-primary">
+                                                                    <i class="fa fa-clone"></i>
+                                                                </button>
+                                                            </form>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                </td>
+                                                <td width="160px" style="padding-top: 10px">
+                                                    <div class="input-group btn-block quantity">
+                                                        <form style="display: inline-block;" action="{% url 'e_commerce:update_cart' %}" method="post">
+                                                            {% csrf_token %}
+                                                            <input type="hidden" name="next"     value="{{ request.path }}" style="display: inline-block;">
+                                                            <input type="hidden" name="cart"     value="{{ el.pk }}" style="display: inline-block;">
+                                                            <input title="quantity" type="number" name="quantity" value="{{ el.quantity }}" style="width: 60px; display: inline-block;" size="1" class="form-control" />
+                                                            <span class="input-group-btn" style="display: inline-block;" >
+                                                                <button type="submit" data-toggle="tooltip" title="Modifier" class="btn btn-primary">
+                                                                    <i class="fa fa-clone"></i>
+                                                                </button>
+                                                            </span>
+                                                        </form>
+
+                                                        <form style="display: inline-block;" action="{% url 'e_commerce:remove_from_page_cart' %}" method="post">
+                                                            {% csrf_token %}
+                                                            <input type="hidden" name="next"     value="{{ request.path }}" style="display: inline-block;">
+                                                            <input type="hidden" name="cart"     value="{{ el.pk }}" style="display: inline-block;">
+                                                            <span class="input-group-btn" style="display: inline-block;">
+                                                                <button type="submit" data-toggle="tooltip" title="Retirer" class="btn btn-danger">
+                                                                    <i class="fa fa-times-circle"></i>
+                                                                </button>
+                                                            </span>
+                                                        </form>
+                                                    </div>
+                                                </td>
+                                                <td class="text-center" style="padding-top: 15px">{{ el.product.price|intcomma }} Dh</td>
+                                                <td class="text-center" style="padding-top: 15px">{{ el.total|intcomma }} Dh</td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td class="text-right" colspan="5">
+                                                    <strong>Sous-Total :</strong>
+                                                    <input type="hidden" id="sub_total" value="{{ total_price_in_cart }}"/>
+                                                </td>
+                                                <td class="text-right">{{ total_price_in_cart|intcomma }} Dh</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-right" colspan="5" id="type_method_shipping"><strong>Livraison Gratuite :</strong></td>
+                                                <td class="text-right" id="price_method_shipping">0 Dh</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-right" colspan="5"><strong>Total :</strong></td>
+                                                <td class="text-right" id="total"><b>{{ total_price_in_cart|intcomma }} Dh</b></td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <form id="form_checkout" name="form_checkout" action="{% url 'e_commerce:checkout' %}" method="post">
+                        {% csrf_token %}
+                            <div class="col-sm-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title" style="text-transform: uppercase; font-size: 14px">
+                                            <i class="fa fa-pencil"></i> &nbsp;Laisser un commentaire à propos de votre commande</h4>
+                                    </div>
+                                    <div class="panel-body">
+                                        <textarea title="comment" rows="4" class="form-control" id="confirm_comment" name="comment"></textarea>
+                                        <br>
+                                        <label class="control-label" for="confirm_agree">
+                                            <input type="checkbox" value="1" required="" class="validate required" id="confirm_agree" name="confirm agree">
+                                            <span>J'ai lu et j'accepte les <a class="agree" href="#"><b>Termes &amp; Conditions</b></a></span>
+                                        </label>
+                                        <input type="submit" class="btn pull-right"
+                                               style="background-color: #ea4c0f; color:white;text-transform: uppercase;padding: 7px 20px;margin-top: -5px;"
+                                               id="button-confirm" value="Confirmer Commande">
+                                        <a class="btn pull-right" href="{% url 'e_commerce:cart' %}"
+                                               style="background-color: #ea4c0f; color:white;text-transform: uppercase;padding: 7px 20px;margin-top: -5px; margin-right: 5px">
+                                            Retourner au chariot
+                                        </a>
+                                        <input type="hidden" name="shipping_method" id="shipping_method" value="Free Shipping"/>
+                                        <input type="hidden" name="payment_method" id="payment_method" value="Cash On Delivery"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Middle Part End -->
+    </div>
+</div>
+{% endblock %}

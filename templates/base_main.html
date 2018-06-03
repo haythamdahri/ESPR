@@ -1,0 +1,46 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<head>
+    <title> {% block title %} {% endblock title %} </title>
+
+
+    {% block stylesheets %}
+
+    <link rel="stylesheet" href="{% static 'main_app/css/main_style.css' %}">
+
+    {% endblock stylesheets %}
+
+
+</head>
+<!--  Menu general -->
+
+<body>
+
+{% include 'top_nav.html' %}
+
+
+<!-- Fin Menu general -->
+{% block menu %}
+{% endblock menu %}
+
+
+{% block banner %}
+{% endblock banner %}
+
+{% block content %}
+{% endblock content %}
+
+
+{% block footer %}
+{% endblock footer %}
+
+
+{% block scripts %}
+<script src="{% static 'main_app/js/main_js.js' %}"></script>
+{% endblock scripts %}
+
+
+</body>
+
+
+</html>

@@ -1,0 +1,90 @@
+{% extends 'base_main.html' %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+
+
+{% block title %}
+{{ block.super }}
+{% endblock title %}
+
+
+{% block stylesheets %}
+{{ block.super }}
+
+<link rel="icon" type="image/png" href="{% static 'main_app/images/icons/favicon.ico' %}"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'main_app/vendor/bootstrap/css/bootstrap.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'main_app/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'main_app/vendor/animate/animate.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'main_app/vendor/css-hamburgers/hamburgers.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'main_app/vendor/select2/select2.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'main_app/css/util.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'main_app/css/main.css' %}">
+
+{% endblock stylesheets %}
+
+
+
+{% block content %}
+{{ block.super }}
+
+<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+
+				{% block leftimage %}
+					<div class="login100-pic js-tilt" data-tilt>
+						<img src="{% static 'main_app/images/img-01.png' %}" alt="IMG">
+					</div>
+				{% endblock leftimage %}
+
+
+				{% block form %}
+
+                {% endblock form %}
+
+			</div>
+		</div>
+	</div>
+
+
+{% endblock content %}
+
+
+
+{% block footer %}
+{{ block.super }}
+{% endblock footer %}
+
+
+
+{% block scripts %}
+{{ block.super }}
+
+<!--===============================================================================================-->
+	<script src="{% static 'main_app/vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'main_app/vendor/bootstrap/js/popper.js' %}"></script>
+	<script src="{% static 'main_app/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'main_app/vendor/select2/select2.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'main_app/vendor/tilt/tilt.jquery.min.js' %}"></script>
+	<script >
+		$('.js-tilt').tilt({
+			scale: 1.1
+		})
+	</script>
+<!--===============================================================================================-->
+	<script src="{% static 'main_app/js/main.js' %}"></script>
+
+    <script>
+        $('#acceuil').addClass("active")
+    </script>
+
+{% endblock scripts %}

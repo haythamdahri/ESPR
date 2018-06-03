@@ -1,0 +1,98 @@
+<!-- Aside Column -->
+{% load static %}
+<!-- Ad widget -->
+<div class="widget center-block hidden-xs">
+    <img class="center-block" src="{% static 'journal/img/ad.gif' %}" alt="">
+</div>
+<!-- /Ad widget -->
+<!-- social widget -->
+<div class="widget social-widget">
+    <div class="widget-title">
+        <h2 class="title">Rester connecté</h2>
+    </div>
+    <ul>
+        <li><a href="http://facebook.com/" class="facebook"><i class="fa fa-facebook fa-2x"></i></a></li>
+        <li><a href="http://twitter.com/" class="twitter"><i class="fa fa-twitter fa-2x"></i></a></li>
+        <li><a href="https://plus.google.com/" class="google"><i class="fa fa-google fa-2x"></i></a></li>
+        <li><a href="https://www.instagram.com/" class="instagram"><i class="fa fa-instagram fa-2x"></i></a></li>
+        <li><a href="https://www.youtube.com/" class="youtube"><i class="fa fa-youtube fa-2x"></i></a></li>
+        <li><a href="http://www.rssboard.org/" class="rss"><i class="fa fa-rss fa-2x"></i><br></a></li>
+    </ul>
+</div>
+<!-- /social widget -->
+<!-- subscribe widget -->
+<div class="widget subscribe-widget">
+    <div class="widget-title">
+        <h2 class="title">S'abonner à la Newsletter</h2>
+    </div>
+    <form action="{% url 'subscribe' %}" method="POST" role="form" class="formSubscribe"
+          data-validate-username-url="{% url 'subscribe' %}">
+        {% csrf_token %}
+        {{ newsletterForm.email }}
+        <button class="input-btn" type="submit">S'inscrire</button>
+    </form>
+    <p class="messageNewslatter"></p>
+</div>
+<!-- /subscribe widget -->
+<!-- article widget -->
+<div class="widget">
+    <div class="widget-title">
+        <h2 class="title">Les plus lus</h2>
+    </div>
+    <div class="top-article">
+        <!-- owl carousel 3 -->
+        <div id="owl-carousel-3" class="owl-carousel owl-theme center-owl-nav">
+            {% for n in topRead %}
+                {% if forloop.counter < 4 %}
+                    <!-- ARTICLE -->
+                    <article class="article">
+                        <div class="article-img">
+                            <a href="{% url 'post' n.category.name n.id %}">
+                                <img src="{{ n.primary_image.image.url }}"
+                                     alt="{{ n.primary_image.description }}">
+                            </a>
+                            <ul class="article-info">
+                                <li class="article-type"><i class="fa {{ n.category.icon }}"></i></li>
+                            </ul>
+                        </div>
+                        <div class="article-body">
+                            <h4 class="article-title"><a href="{% url 'post' n.category.name n.id %}">
+                                {{ n.small_title }}</a></h4>
+                            <ul class="article-meta">
+                                <li><i class="fa fa-clock-o"></i> {{ n.date_publication|date }}</li>
+                                <li><i class="fa fa-comments"></i> {{ n.comment_set.count }}</li>
+                            </ul>
+                        </div>
+                    </article>
+                    <!-- /ARTICLE -->
+                {% endif %}
+            {% endfor %}
+        </div>
+        <!-- /owl carousel 3 -->
+
+        {% for n in topRead %}
+            {% if forloop.counter > 3 %}
+                <!-- ARTICLE -->
+                <article class="article widget-article">
+                    <div class="article-img">
+                        <a href="{% url 'post' n.category.name n.id %}">
+                            <img src="{{ n.primary_image.image_thumbnail.url }}"
+                                 alt="{{ n.primary_image.description }}">
+                        </a>
+                    </div>
+                    <div class="article-body">
+                        <h4 class="article-title"><a href="{% url 'post' n.category.name n.id %}">
+                            {{ n.small_title }}</a></h4>
+                        <ul class="article-meta">
+                            <li><i class="fa fa-clock-o"></i> {{ n.date_publication|date }}</li>
+                            <li><i class="fa fa-comments"></i> {{ n.comment_set.count }}</li>
+                        </ul>
+                    </div>
+                </article>
+                <!-- /ARTICLE -->
+            {% endif %}
+        {% endfor %}
+    </div>
+    <!-- /article widget -->
+</div>
+<!-- /Aside Column -->

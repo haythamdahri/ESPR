@@ -1,0 +1,90 @@
+{% load i18n %}
+<!-- Right Sidebar -->
+					
+
+			            <!-- sidebar -->
+			         
+			            	<!-- widget -->
+				              <div class="widget ">
+				                <div class="recent-comments">
+				                  <hr class="widget-separator no-margin">
+				                  <div style="padding: 15px; ">	
+				                  	<h4>Total Questions : {{ count_q }}</h4>
+				                  	<h4>Total {% trans "réponses" %} : {{ count_a }}</h4>
+				                  </div>	
+				                </div>
+				              </div>
+				              <!-- widget end -->
+
+				         
+				              
+
+
+				          <!-- widget -->
+				          <div class="widget">
+			                <div class="recent-comments">
+			                  <h2>Questions {% trans "Populaire" %}</h2>
+			                  <hr class="widget-separator no-margin">
+			                  <ul>
+			                  	{% for top_question in top_questions %}
+			                    <li><a href="/qa/q/{{ top_question.id }}/">{{ top_question.question_title }}</a>
+			                    {% endfor %}	
+			                    </li>
+			                  </ul>
+			                </div>
+			              </div>
+				          <!-- widget end -->
+
+
+
+			              <!-- widget -->
+			              <div class="widget">
+			                <h2>Questions {% trans "Récent" %}</h2>
+			                <hr class="widget-separator no-margin">
+			                <ul>
+			                  	{% for last_question in dernier_null_list %}
+			                    <li><a href="/qa/q/{{ last_question.id }}/">{{ last_question.question_title }}</a>
+			                    {% endfor %}	
+			                    </li>
+			                  </ul>
+			              </div>
+			              <!-- widget end -->
+
+			              <!-- widget -->
+			             <!--  <div class="widget">
+			                <div class="recent-comments">
+			                  <h2>Recent Comments</h2>
+			                  <hr class="widget-separator no-margin">
+			                  <ul id="recentcomments">
+			                  		<li class="recentcomments"> <span class="comment-author-link">youssef</span> on <a href="/qa"></a> </li>
+			                  	
+			                    <li class="recentcomments"> <span class="comment-author-link">John Doe</span> on <a href="/qa">bootstrap vs foundation</a> </li>
+			                    <li class="recentcomments"> <span class="comment-author-link">Emily Copper</span> on <a href="/qa">how to get data from URL in PHP</a> </li>
+			                    <li class="recentcomments"> <span class="comment-author-link">Alex Martin</span> on <a href="/qa">My SQL PHP Multi Layer Drop Down List from Databse</a> </li>
+			                    <li class="recentcomments"> <span class="comment-author-link">Tina Martin</span> on <a href="/qa">PHP Multi Layer Drop Down List from Databse</a> </li>
+			                    <li class="recentcomments"> <span class="comment-author-link">Alex Henz</span> on <a href="/qa">Can't use custom width with Angular-Slick</a> </li>
+			                    <li class="recentcomments"> <span class="comment-author-link">Coty Embry</span> on <a href="/qa">Use Digital Ocean to create node.js server or creating website on Wordpress?</a> </li>
+			                  </ul>
+			                </div>
+			              </div> -->
+			              <!-- widget end -->
+
+
+			               <!-- widget -->
+				              <div class="widget">
+				                <div class="recent-comments">
+				                  <h2>Tags Récent</h2>
+				                  <hr class="widget-separator no-margin">
+				                  <div style="padding: 15px; ">	
+				                  	<!-- <a style="color:#FFFFFF;" class="label label-info" href="/qa#"># material</a>
+				                  	<a class="label label-info" href="/qa#">material</a> -->
+				                  	{% for t in tags %}
+				                  		<a class="label label-info" style="color:#FFFFFF;" href="/qa/tag/{{ t.slug|slugify }}/">{{ t.slug }}</a>
+				                  	{% endfor %}
+				                  </div>	
+				                </div>
+				              </div>
+				              <!-- widget end -->
+			            <!-- sidebar end -->
+			    
+					<!-- Right Sidebar End -->

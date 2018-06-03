@@ -1,0 +1,645 @@
+{% extends "SocialMedia/base_socialmedia.html" %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% block title %}{{ user.username }}{% endblock %}
+{% block content %}
+
+    {% block modals %}
+
+        <div class="modal_form_modifier_informations" data-trigger="stickyScroll">
+            {% include 'SocialMedia/myprofil/modals/modal_modifier_informations.html' %}
+        </div>
+        <div class="modal_form_modifier_informations_profil" data-trigger="stickyScroll">
+            {% include 'SocialMedia/myprofil/modals/modal_modifier_informations_profil.html' %}
+        </div>
+        <!-- line modal for cover -->
+        <div id="#formcover">
+            <div class="modal fade" id="squarespaceModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span
+                                    aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                            <h3 class="modal-title" id="lineModalLabel">Image de couverture</h3>
+                        </div>
+                        <form method="post" onsubmit="return " id="photoform" enctype="multipart/form-data">
+                            <div class="modal-body">
+
+                                <!-- content goes here -->
+
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <div class="input-group">
+                              <span class="input-group-btn">
+                                  <span class="btn btn-default btn-file" style="font-weight: 500;">
+                                      Choisissez une image…{% render_field photoform.image accept='image/*' class="form-control" style="cursor: pointer" id="imgInp" %}
+                                  </span>
+                              </span>
+                                        <input type="text" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="photo">
+                                    <img id='img-upload'/>
+                                </div>
+                                <div class="panel-group uploadprogress hidden">
+                                    <h4 class="modal-title">Uploading...</h4>
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" style="width: 0%;">0%</div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <div class="form-group text-center">
+                                    <button class="btn btn-primary btn-file"
+                                            style="float:right;">
+                                        Enregistrer
+                                    </button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- line modal for cover -->
+        <div id="#formprofil">
+            <div class="modal fade" id="squarespaceModalprofil" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span
+                                    aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                            <h3 class="modal-title" id="lineModalLabel">Photo de profil</h3>
+                        </div>
+
+                        <form method="post" onsubmit="return " id="photoprofilform" enctype="multipart/form-data">
+                            <div class="modal-body">
+
+                                <!-- content goes here -->
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                          <span class="input-group-btn">
+                                              <span class="btn btn-default btn-file"
+                                                    style="font-weight: bold;float:right;cursor: pointer;">
+                                                  Choisissez une image…{% render_field photoform.image class="form-control" accept='image/*' id="imgInp1" %}
+                                              </span>
+                                          </span>
+                                            <input type="text" class="form-control" readonly>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group" id="photo1">
+                                        <img id='img-upload1'/>
+                                    </div>
+
+                                <div class="panel-group uploadprogress hidden uploadp">
+                                    <h4 class="modal-title">Uploading...</h4>
+                                    <div class="progress">
+                                        <div class="progress-bar prog" role="progressbar" style="width: 0%;">0%</div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <div class="form-group text-center">
+                                    <button class="btn btn-primary"
+                                            style="float:right;">
+                                        Enregistrer
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {% endblock %}
+
+
+    <!-- Page Wrapper Start -->
+    <section class="page--wrapper pb--20">
+        <div class="container-fluid">
+            <div class="row  pt--40" style="padding: 20px 8%;">
+
+                <div class="col-md-8"  style="background-color: #f5f5f5;">
+
+                    <div class="row main--content"
+                         style="box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);transform: none;background-color:  white;">
+                        <button id="btcoverchange" class="btchangepic" data-toggle="modal"
+                                data-target="#squarespaceModal"><i class="fa fa-picture-o" aria-hidden="true"></i>
+                        </button>
+                        <!-- Cover Header Start -->
+                        <div id="coverpic" class="cover--header pt--80 text-center"
+                             data-bg-img="{{ user.profil.photo_couverture.image.url|default:'/media/SocialMedia/default.jpg' }}"
+                             data-overlay="0.6" data-overlay-color="white">
+                             
+
+
+                            <div style="width: auto;padding-bottom: 30px;">
+                                <div class="cover--avatar" data-overlay="0.3" data-overlay-color="primary">
+
+                                    <div class="photprofilcontainer">
+                                        <img id="profilpic" class="image "
+                                             src="{{ user.profil.photo_profil.image.url|default:'/media/SocialMedia/default.jpg' }}"
+                                             alt="">
+                                        <div class="middle">
+                                            <div class="text">
+                                                <a href="javascript:return false" title="Actualiser la photo de profil" class="btn-link"
+                                                   data-toggle="tooltip" data-placement="bottom">
+                                                    <i id="btprofilchange" class="btchangepic profilpic fa fa-camera"
+                                                       data-toggle="modal" data-target="#squarespaceModalprofil"
+                                                       aria-hidden="true"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+
+
+                                    <div class="col-xs-12 profile--info">
+                                        <a href="javascript:return false">
+                                            <i class="fa fa-pencil float--right" style="font-size:20px; padding-right: 10px;"
+                                               aria-hidden="true"
+                                               data-id="{{ benevolat.id }}"
+                                               onclick="remplir_formulaire_changer_informations_profil(this)"></i>
+                                        </a>
+                                    </div>
+                                    <div class="col-xs-12 liste_informations_profil">
+                                        {% include 'SocialMedia/myprofil/informations/liste_informations_profil.html' %}
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- Cover Header End -->
+
+                    </div>
+
+                    <!-- Main Content Start -->
+                    <div class="row main--content mt--20" data-trigger="stickyScroll" style="box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 3px; transform: none; background-color: white; position: relative; overflow: visible; box-sizing: border-box; min-height: 1px;">
+                        <div class="main--content-inner drop--shadow">
+                            <!-- Content Nav Start -->
+                            <div class="content--nav pb--30">
+                                <ul class="nav ff--primary fs--14 fw--500 bg-lighter profil_links_menu">
+                                    <li class="active"><a href="{% url 'SocialMedia:myprofil' %}">Profil</a></li>
+                                    <li><a href="{% url 'SocialMedia:MyProfilStatuts' %}">Activité</a></li>
+                                    <li><a href="{% url 'SocialMedia:demandes' %}">Demandes <span id="nbdemandeBadge"
+                                                                                                  class="badge">{{ nbdemandes }}</span></a>
+                                    </li>
+                                    <li><a href="{% url 'SocialMedia:groupes' %}">Groupes <span id="nbGroupesBadge" class="badge">{{ nbGroupes }}</span></a></li>
+                                </ul>
+                            </div>
+                            <!-- Content Nav End -->
+                            {% block contentProfil %}
+
+
+                            {% endblock %}
+                        </div>
+                    </div>
+                    <!-- Main Content End -->
+
+                </div>
+
+                {% block sideBar %}
+
+                    <!-- Main Sidebar Start -->
+                    <div class="col-md-4 main--sidebar pb--60 liste_informations" data-trigger="stickyScroll">
+                        {% include 'SocialMedia/myprofil/informations/liste_informations.html' %}
+                    </div>
+                    <!-- Main Sidebar End -->
+
+                    </div>
+
+                {% endblock %}
+
+        </div>
+    </section>
+    <!-- Page Wrapper End -->
+
+
+
+{% endblock %}
+
+
+
+
+{% block scripts %}
+    {{ block.super }}
+
+    <!-- Script settings crsf token with ajax-->
+    <script>
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie != '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                        cookieValue = decodeURIComponent(
+                            cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        function csrfSafeMethod(method) {
+            // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+
+        /*
+        $.ajaxSetup({
+            beforeSend: function (xhr, settings) {
+                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            }
+        });
+        */
+    </script>
+
+    <!-- Script de qui regle les formulaires : Width des champs Date + remplissage des suggestions pour les champs comme Entreprise,Poste -->
+    <script>
+        function fixForms() {
+
+            /* Styling Experience SelectDateWidget + autocomplete Field */
+
+            $("#id_date_debut_day").css("display", "none");
+            $("#id_date_fin_day").css("display", "none");
+
+            $("#id_date_debut_month").css({"width": "100px"});
+            $("#id_date_debut_month").addClass("col-xs-4")
+            $("#id_date_debut_year").addClass("col-xs-4")
+            $("#id_date_debut_year").css({"width": "100", "margin-left": "15px"});
+
+            $("#id_date_fin_month").css({"width": "100px"});
+            $("#id_date_fin_month").addClass("col-xs-4")
+            $("#id_date_fin_year").addClass("col-xs-4")
+            $("#id_date_fin_year").css({"width": "100", "margin-left": "15px"});
+
+            /* End Styling Experience SelectDateWidget */
+
+            /* Styling Formation SelectDateWidget */
+
+            $("[name=date_debut_day]").css("display", "none");
+            $("[name=date_fin_day]").css("display", "none");
+            $("[name=annee_fin_day]").css("display", "none");
+            $("[name=annee_debut_month]").css("display", "none");
+            $("[name=annee_fin_month]").css("display", "none");
+            $("[name=annee_debut_day]").css("display", "none");
+
+
+            $("[name=date_fin_month]").css({"width": "100px"});
+            $("[name=date_fin_year]").css({"width": "100", "margin-left": "15px"});
+            $("[name=date_fin_month]").addClass("col-xs-4")
+            $("[name=date_fin_year]").addClass("col-xs-4")
+
+            $("[name=date_debut_month]").css({"width": "100px"});
+            $("[name=date_debut_year]").css({"width": "100", "margin-left": "15px"});
+            $("[name=date_debut_month]").addClass("col-xs-4")
+            $("[name=date_debut_year]").addClass("col-xs-4")
+
+
+            $("[name=annee_debut_month]").css({"width": "100px"});
+            $("[name=annee_debut_month]").addClass("col-xs-4");
+            $("[name=annee_debut_year]").addClass("col-xs-4");
+            $("[name=annee_debut_year]").css({"width": "100",});
+
+            $("[name=annee_fin_month]").css({"width": "100px"});
+            $("[name=annee_fin_month]").addClass("col-xs-4");
+            $("[name=annee_fin_year]").addClass("col-xs-4");
+            $("[name=annee_fin_year]").css({"width": "100",});
+
+            $("[name=date_naissance_day]").css({"width": "100px"});
+            $("[name=date_naissance_month]").css({"width": "100px"});
+            $("[name=date_naissance_year]").css({"width": "100px"});
+            $("[name=date_naissance_month]").css({"width": "100", "margin-left": "15px"});
+            $("[name=date_naissance_year]").css({"width": "100", "margin-left": "15px"});
+            $("[name=date_naissance_day]").addClass("col-xs-4");
+            $("[name=date_naissance_month]").addClass("col-xs-4");
+            $("[name=date_naissance_year]").addClass("col-xs-4");
+
+
+            /* End Styling Formation SelectDateWidget */
+
+            /* Suggestions Fields */
+            $('.ecole_suggestion').attr("data-list", "{{ nom_ecoles }}")
+            $('.poste_suggestion').attr("data-list", "{{ nom_postes }}")
+            $('.entreprise_suggestion').attr("data-list", "{{ nom_entreprises }}")
+            $('.organisme_suggestion').attr("data-list", "{{ nom_organismes }}")
+            /* End Suggestion Fields */
+        }
+    </script>
+
+    <!-- Script de Submit photo profil + couverture -->
+    <script>
+        $("#photoform").on("submit", function (event) {
+            console.log($('#photoprofilform .input-group').find(':text').val());
+            if ($('#photoform .input-group').find(':text').val().length == 0) {
+                swal({
+                    type: 'error',
+                    title: '',
+                    text: 'Aucune image selectionnée.',
+                    type: 'error'
+                });
+                return false;
+            } else if ($('#photoform .input-group').find(':text').val().length > 100) {
+                swal({
+                    type: 'error',
+                    title: 'Le nombre de caractère est trop grand',
+                    text: 'Veuillez changer le nom de la photo ou en choisir une autre.'
+                });
+                return false;
+            }
+            event.preventDefault();
+            $('.modal-footer').slideToggle(1500);
+            setTimeout(function () {
+                $(".uploadprogress").removeClass('hidden');
+            }, 1000);
+            var form_data = new FormData($(this)[0]);
+            $.ajax({
+                xhr: function () {
+                    var xhr = new window.XMLHttpRequest();
+                    xhr.upload.addEventListener("progress", function (e) {
+                        var progress = parseInt(e.loaded / e.total * 100, 10);
+                        var strProgress = progress + "%";
+                        var strProgress = progress + "%";
+                        $(".progress-bar").css({"width": strProgress});
+                        $(".progress-bar").text(strProgress);
+                    }, false);
+                    xhr.addEventListener("progress", function (evt) {
+
+                    }, false);
+                    return xhr;
+                },
+                url: '{% url "SocialMedia:changephotocouverture" %}',
+                type: $(this).attr('method'),
+                processData: false,
+                contentType: false,
+                data: form_data,
+                success: function (data) {
+                    $("#squarespaceModal").modal("hide");
+                    swal("L'image de couverture a été changée avec succès.", "{{ user.username }}", "success");
+                    $("#coverpic").css("background-image", "url(" + data.url + ")");
+                    document.getElementById("coverpic").style.backgroundImage = "url(" + data.url + ")";
+                },
+                error: function () {
+                },
+                stop: function (e) {  /* 3. WHEN THE UPLOADING PROCESS FINALIZE, HIDE THE MODAL */
+                    $("#squarespaceModal").modal("hide");
+                    swal("Il semble que vous ayez des problèmes de connexion.", "Erreur fatale", "error");
+                }
+            });
+
+        });
+
+        $("#photoprofilform").on("submit", function (event) {
+            if ($('#photoprofilform .input-group').find(':text').val().length == 0) {
+                swal({
+                    type: 'error',
+                    title: '',
+                    text: 'Aucune image selectionnée.'
+                });
+                return false;
+            } else if ($('#photoprofilform .input-group').find(':text').val().length > 100) {
+                swal({
+                    type: 'error',
+                    title: 'Le nombre de caractère est trop grand',
+                    text: 'Veuillez changer le nom de la photo ou en choisir une autre.'
+                });
+                return false;
+            }
+            event.preventDefault();
+            $('.modal-footer').slideToggle(1500);
+            setTimeout(function () {
+                $(".uploadp").removeClass('hidden');
+            }, 1000);
+            var form_data = new FormData($(this)[0]);
+            $.ajax({
+                xhr: function () {
+                    var xhr = new window.XMLHttpRequest();
+                    xhr.upload.addEventListener("progress", function (e) {
+                        var progress = parseInt(e.loaded / e.total * 100, 10);
+                        var strProgress = progress + "%";
+                        var strProgress = progress + "%";
+                        $(".prog").css({"width": strProgress});
+                        $(".prog").text(strProgress);
+                    }, false);
+                    xhr.addEventListener("progress", function (evt) {
+
+                    }, false);
+                    return xhr;
+                },
+                url: '{% url "SocialMedia:changephotoprofil" %}',
+                type: $(this).attr('method'),
+                processData: false,
+                contentType: false,
+                data: form_data,
+                success: function (data) {
+                    $("#squarespaceModalprofil").modal("hide");
+                    swal("Photo De Profil A Ete Changée Avec Succé", "{{ user.username }}", "success");
+                    $("#profilpic").attr("src", data.url);
+                    document.getElementById("profilpic").src = data.url;
+                },
+                error: function () {
+                },
+                stop: function (e) {  /* 3. WHEN THE UPLOADING PROCESS FINALIZE, HIDE THE MODAL */
+                    $("#squarespaceModalprofil").modal("hide");
+                    swal("Il semble que vous ayez des problèmes de connexion.", "Erreur fatale", "error");
+                }
+            });
+
+        });
+
+    </script>
+
+    <!-- Script de Modification de la sidebar Informations -->
+    <script> /* Script de modification de la sidebar Informations */
+
+    /* Modification d'une informations */
+    /* 1- Remplissage du formulaire Modification d'une informations */
+
+    /* Envoi de l'id avec ajax et chargement du formulaire rempli */
+    function remplir_formulaire_changer_informations(clicked_button) {
+        id_informations = clicked_button.getAttribute('data-id')
+
+        $.ajax({
+
+            url: "{% url 'SocialMedia:getModifierInformations' %}",
+            type: 'GET',
+            data: {id_informations: id_informations},
+
+            success: function (response) {
+                if (response.message_erreur != null) {
+                    swal(response.message_erreur)
+                }
+                else {
+                    $('.modal_form_modifier_informations').html(response);
+                    fixForms();
+                }
+            },
+
+            error: function () {
+                swal('Une erreur s\'est produite.')
+            },
+
+            complete: function () {
+                $("#squarespaceModifierInformations").modal("toggle");
+            },
+
+        });
+
+    }
+
+    /* 2-  Envoi du formulaire  Modifier informations => Vrai modification */
+    $('.modal_form_modifier_informations').on('click', "#btn_modifier_informations", function (event) {
+        event.preventDefault();
+        var form_data = new FormData($('#form_modifier_informations')[0]);
+
+        $.ajax({
+
+            url: "{% url 'SocialMedia:modifierInformations' %}",
+            type: 'POST',
+            processData: false,
+            contentType: false,
+            data: form_data,
+
+            beforeSend: function (xhr, settings) {
+                var csrftoken = getCookie('csrftoken');
+                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+                $('#mymodifierinformationsSpinner').addClass('spinner');
+                $("#btn_modifier_informations").prop("disabled", true);
+
+            },
+
+            success: function (response) {
+                if(response.modal )
+                {
+                    $('.actualized_form_modifier_informations').html(response.modal);
+                    fixForms();
+                }
+                else
+                {
+                    $('#squarespaceModifierInformations').modal('hide')
+                    swal("Succes", "Les informations ont été mises à jour.", "success")
+                    $('.liste_informations').html(response.liste_informations);
+                }
+            },
+
+            error: function () {
+                swal('Une erreur s\'est produite.')
+            },
+
+            complete: function () {
+                $('#mymodifierinformationsSpinner').removeClass('spinner');
+                $("#btn_modifier_informations").prop("disabled", false);
+            },
+
+        });
+    });
+    </script>
+
+    <!-- Script de Modification de Informations Profil -->
+    <script> /* Script de modification de  Informations Profil */
+
+    /* Modification d'une informations */
+    /* 1- Remplissage du formulaire Modification d'une informations */
+
+    /* Envoi de l'id avec ajax et chargement du formulaire rempli */
+    function remplir_formulaire_changer_informations_profil(clicked_button) {
+        $.ajax({
+
+            url: "{% url 'SocialMedia:getModifierInformationsProfil' %}",
+            type: 'GET',
+
+            success: function (response) {
+                if (response.message_erreur != null) {
+                    swal(response.message_erreur)
+                }
+                else {
+                    $('.modal_form_modifier_informations_profil').html(response);
+                    fixForms();
+                }
+            },
+
+            error: function () {
+                swal('Une erreur s\'est produite.')
+            },
+
+            complete: function () {
+                $("#squarespace_modifier_InformationsProfil").modal("toggle");
+            },
+
+        });
+
+    }
+
+    /* 2-  Envoi du formulaire  Modifier informations => Vrai modification */
+    $('.modal_form_modifier_informations_profil').on('click', "#btn_modifier_InformationsProfil", function (event) {
+        event.preventDefault();
+        var form_data = new FormData($('#form_modifier_InformationsProfil')[0]);
+        console.log(form_data)
+        $.ajax({
+
+            url: "{% url 'SocialMedia:modifierInformationsProfil' %}",
+            type: 'POST',
+            processData: false,
+            contentType: false,
+            data: form_data,
+
+            beforeSend: function (xhr, settings) {
+                var csrftoken = getCookie('csrftoken');
+                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+                $('#mymodifierInformationsProfilSpinner').addClass('spinner');
+                $("#btn_modifier_InformationsProfil").prop("disabled", true);
+
+            },
+
+            success: function (response) {
+                if(response.modal )
+                {
+                    $('#actualized_form_modifier_informations_profil').html(response.modal);
+                    fixForms();
+                }
+                else
+                {
+                    $('#squarespace_modifier_InformationsProfil').modal('hide')
+                    swal("Succes", "Les informations ont été mises à jour.", "success")
+                    $('.liste_informations_profil').html(response.liste_informations_profil);
+                }
+            },
+
+            error: function () {
+                swal('Une erreur s\'est produite.')
+
+            },
+
+            complete: function () {
+                $('#mymodifierInformationsProfilSpinner').removeClass('spinner');
+                $("#btn_modifier_InformationsProfil").prop("disabled", false);
+            },
+
+        });
+    });
+    </script>
+
+{% endblock %}
+
+
+
+

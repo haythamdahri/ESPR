@@ -1,0 +1,136 @@
+{% extends 'base_ESPR.html' %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+
+{% block stylesheet %}{{ block.super }}{% endblock %}
+
+{% block title %}{{ block.super }} | Creer compte{% endblock %}
+{% block header %}
+    <header class="header header-sticky header-light">
+            <nav class="navbar navbar-expand-lg yamm">
+                <div class="container">
+                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <a class="navbar-brand" href="{% url 'main_app:home' %}">
+                        <img src="{% static 'main_app/img/logo.png' %}" style="top: 14px;width: 40px;" class="img-fluid logo-dark" alt="">
+                    </a>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav ml-auto smooth-scroll">
+                        <li class="nav-item"><a class="nav-link active" href="#home"><i class="ion-home mr-2"></i> Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#about"><i class="ion-person-stalker mr-2"></i> About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#work"><i class="ion-images mr-2"></i> Portfolio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#services"><i class="ion-settings mr-2"></i> Services</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contact"><i class="ion-android-call mr-2"></i> Contact</a></li>
+
+                    </ul>
+                    </div>
+                    <div class="right-search ml-4 dropdown">
+                        <a class="icon-search" href="#!" data-toggle="dropdown">
+                            <i class="ion-ios-search-strong"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <form class="form-inline">
+                                <input type="text" placeholder="Search" class="form-control">
+                                <button type="button" class="form-search-button">
+                                    <i class="ion-ios-search-strong"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </nav><!--nav end-->
+        </header>
+{% endblock %}
+{% block content %}
+    <section id="content-region-3" class="padding-40 page-tree-bg">
+            <div class="container">
+                <h3 class="page-tree-text">
+                   Creation d'un compte ESPR
+                </h3>
+            </div>
+        </section><!--page-tree end here-->
+        <div class="space-70"></div>
+
+     <div class="container">
+            <div class="row">
+                <div class="col-lg-6 ml-auto mr-auto">
+                    <div class="my-login-form">
+
+                         <form method="POST">
+                         {% csrf_token %}
+                        <h4 class="text-uppercase">Creer Compte</h4><hr>
+                         {% include "messages.html" %}
+                         {% if form_inscription.errors %}
+                             <div class="alert alert-danger" style="padding: 10px;font-size:12px;font-weight:bold;width: 100%;"  role="alert">
+                                <i class="fa fa-exclamation" aria-hidden="true"></i> Veuiller corriger vos erreurs:
+                             </div>
+                         {% endif %}
+                         <ul style="list-style-type:  none; color: #721c24;">
+                         {% for champ in form_inscription %}
+                             {% if champ.errors %}
+                                 <span class="error-block" style="color: red; font-weight: 700;">{{ champ.errors }}</span>
+                             {% endif %}
+                         {% endfor %}
+                         </ul>
+                        <div class="row">
+
+                            <div class="col-md-6 margin-btm-20">
+                                {% render_field form_inscription.username class="form-control" placeholder="Nom utilisateur.." %}
+                            </div>
+
+                            <div class="col-md-6 margin-btm-20">
+                                {% render_field form_inscription.password class="form-control" placeholder="Mot de passe.." %}
+                            </div>
+
+                            <div class="col-md-6 margin-btm-20">
+                                {% render_field form_inscription.confirmer_votre_mot_de_passe class="form-control" placeholder="Confirmer votre mot de passe.." %}
+                            </div>
+
+                            <div class="col-md-6 margin-btm-20">
+                                {% render_field form_inscription.email class="form-control" placeholder="email.." %}
+                            </div>
+
+                            <div class="col-md-6 margin-btm-20">
+                                {% render_field form_inscription.first_name class="form-control" placeholder="prenom.." %}
+                            </div>
+
+                            <div class="col-md-6 margin-btm-20">
+                                {% render_field form_inscription.last_name class="form-control" placeholder="nom.." %}
+                            </div>
+
+                            <div class="col-md-12 margin-btm-20">
+                            <table>
+                                <tr>
+                                    <td> <span class="genre">Genre:</span></td>
+                                    <td >
+                                        {% for radio in form_inscription.genre %}
+                                            <span class="genre" style="padding-left: 50px;padding-top:10px;" ></span>
+                                            {% render_field radio  %}
+                                            </span>
+                                        {% endfor %}
+
+                                    </td>
+                                </tr>
+                            </table>
+                            </div>
+
+                            <div class="col-md-12 text-right">
+                                <button type="submit" class="btn theme-btn-color">S'inscrire</button>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="form-btm-link text-center">
+                         <a href="{% url 'main_app:log_in' %}">Déjà membre ? </a>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
+{% endblock %}

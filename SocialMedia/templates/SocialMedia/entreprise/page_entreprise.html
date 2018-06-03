@@ -1,0 +1,92 @@
+{% extends "SocialMedia/entreprise/base_entreprise.html" %}
+
+{% block content_page %}
+
+
+                        <!-- Main Content Start -->
+                        <div class="row main--content mt--60" data-trigger="stickyScroll"
+                             style="box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);transform: none;background-color:  white;     margin-top: 20px;">
+                            <div class="main--content-inner drop--shadow profile--info" style="box-shadow: unset;">
+                                <!-- Content Nav Start -->
+                                <!-- Content Nav End -->
+                                {% block contentProfil %}
+
+
+                                    <!-- Profile Details Start -->
+                                    <div class="profile--details fs--14">
+
+
+                                        <!-- Profile Item Start -->
+                                        <div class="profile--item">
+
+                                            <h3 class="h4 fw--700">
+                                                <span class="mr--4">Présentation de l'entreprise</span>
+
+                                            </h3>
+
+
+                                            <div class="profile--info" style="    padding: 5px 0px 15px;">
+                                                {{ page_entreprise.presentation_entreprise }}
+                                            </div>
+
+
+                                        </div>
+
+
+                                        <!-- Profile Item Start -->
+                                        <div class="">
+
+                                            <div class="profile--heading">
+                                                <h3 class="h4 fw--700">
+                                                    <span class="mr--4">Siège social</span>
+                                                </h3>
+                                            </div>
+
+                                            <div class="profile--info" style="    padding: 5px 0px 15px;">
+
+                                                {{ page_entreprise.siege_social }}
+
+                                            </div>
+                                        </div>
+                                        <!-- Profile Item End -->
+
+                                        <!-- Profile Item Start -->
+                                        <div class="">
+
+                                            <div class="profile--heading">
+                                                <h3 class="h4 fw--700">
+                                                    <span class="mr--4">Année de création</span>
+                                                </h3>
+                                            </div>
+
+                                            <div class="profile--info" style="    padding: 5px 0px 15px;">
+
+                                                {{ page_entreprise.annee_creation }}
+
+                                            </div>
+                                        </div>
+                                        <!-- Profile Item End -->
+
+                                        <!-- Profile Item Start -->
+                                        <div class="">
+
+                                            <div class="profile--heading">
+                                                <h3 class="h4 fw--700">
+                                                    <span class="mr--4">Type de l'entreprise</span>
+                                                </h3>
+                                            </div>
+
+                                            <div class="profile--info" style="    padding: 5px 0px 15px;">
+
+                                                {{ page_entreprise.entreprise.typeEntreprise }}
+
+                                            </div>
+                                        </div>
+                                        <!-- Profile Item End -->
+                                    </div>
+                                    <!-- Profile Details End -->
+                                {% endblock %}
+                            </div>
+                        </div>
+                        <!-- Main Content End -->
+{% endblock content_page %}

@@ -1,0 +1,138 @@
+{% extends "SocialMedia/base_socialmedia.html" %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+
+
+
+{% block content %}
+    <!-- Page Wrapper Start -->
+    <section class="page--wrapper pt--10 pb--20">
+        <div class="container">
+            <div class="row">
+
+                {% if keywords !=  "all" %}
+                    <h2>Recherche avec les mots clés: '{{ keywords }}'</h2>
+                {% endif %}
+
+                {% block searchcontent %}
+                {% endblock searchcontent %}
+
+
+                {% block sidebar %}
+
+
+                    <!-- Main Sidebar Start -->
+                    <div class="main--sidebar col-md-4 pb--60" >
+
+
+                        <!-- Widget Start Contacts -->
+                        <div class="widget" style="    background-color: white;">
+                            <h2 class="h4 fw--700 widget--title">Rechercher des contacts</h2>
+
+                            <!-- Buddy Finder Widget Start -->
+                            <div class="buddy-finder--widget">
+                                <form action="/reseausocial/search_members/">
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <div class="form-group">
+                                                <label>
+                                                    <input type="text" class="form-control" placeholder="Nom ou prénom" name="keywords" required>
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xs-12">
+                                            <button type="submit" class="btn btn-primary">Chercher</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- Buddy Finder Widget End -->
+                        </div>
+                        <!-- Widget End  Contacts -->
+
+
+                        <!-- Widget Start Offres d'emploi -->
+                        <div class="widget" style="    background-color: white;">
+                            <h2 class="h4 fw--700 widget--title">Rechercher des offres d'emploi</h2>
+
+                            <div class="buddy-finder--widget">
+                                <form action="/reseausocial/search_offers/">
+                                    <div class="row">
+
+
+
+                                        <div class="col-xs-12">
+                                            <div class="form-group">
+                                                <label>
+                                                    <input type="text" class="form-control" placeholder="Offre d'emploi" name="keywords" required>
+                                                    <table class="table-search">
+                                                        <tr>
+                                                            <td><input type="radio"  name="duree" value="toutes" id="rbtntoute" required {% if request.GET.duree is None or request.GET.duree == "toutes" or request.GET.duree == "" %} checked {%  endif %}></td>
+                                                            <td><label for="rbtntoute">Toutes</label></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><input type="radio" name="duree" value="semaine" id="rbtnsemaine" required {% if request.GET.duree == "semaine"  %} checked {%  endif %}></td>
+                                                            <td><label for="rbtnsemaine">Cette semaine</label></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><input type="radio" name="duree" value="mois" id="rbtnmois" required {% if request.GET.duree == "mois"  %} checked {%  endif %}></td>
+                                                            <td><label for="mois">Ce mois</label></td>
+                                                        </tr>
+                                                    </table>
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xs-12">
+                                            <button type="submit" class="btn btn-primary">Chercher</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- Widget End Offre d'emploi-->
+
+
+                        <!-- Widget Start Groupes -->
+                        <div class="widget"style="    background-color: white;">
+                            <h2 class="h4 fw--700 widget--title">Rechercher des groupes</h2>
+
+                            <!-- Buddy Finder Widget Start -->
+                            <div class="buddy-finder--widget">
+                                <form action="/reseausocial/search_groupes/">
+                                    <div class="row">
+
+
+                                        <div class="col-xs-12">
+                                            <div class="form-group">
+                                                <label>
+                                                    <input type="text" class="form-control" placeholder="Nom du groupe" name="keywords" required>
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xs-12">
+                                            <button type="submit" class="btn btn-primary">Chercher</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- Buddy Finder Widget End -->
+                        </div>
+                        <!-- Widget End Groupes -->
+
+
+                    </div>
+                    <!-- Main Sidebar End -->
+
+                {% endblock sidebar %}
+
+
+            </div>
+        </div>
+        </div>
+    </section>
+    <!-- Page Wrapper End -->
+
+{% endblock content %}

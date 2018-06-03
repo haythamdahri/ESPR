@@ -1,0 +1,171 @@
+{% extends 'ecommerce/base.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+<div class="main-container container">
+    <ul class="breadcrumb">
+        <li><a href="{% url 'e_commerce:index' %}">Accueil</a></li>
+        <li><a href="{% url 'e_commerce:my_account' %}">Mon compte</a></li>
+        <li><a href="#"><b>Comparaison des Produits</b></a></li>
+    </ul>
+    <div class="row">
+        {% if message_error %}
+        <div class="alert alert-danger" role="alert">
+            <strong>Oups!</strong> {{ message_error }}
+        </div>
+        {% endif %}
+        <!--Middle Part Start-->
+        <div id="content" class="col-sm-12">
+            <h2 class="title" style="margin-bottom: 20px;">Produits à comparer</h2>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <td colspan="{{ count_span }}"><strong>Détails des Produits</strong></td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Produit</td>
+                            {% for el in compare_list %}
+                                <td><a href="{% url 'e_commerce:product' el.el.product.pk %}"><b>{{ el.el.product.name }}</b></a></td>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            <td>Image</td>
+                            {% for el in compare_list %}
+                                <td class="text-center"><img class="img-thumbnail" style="border: 0" title="{{ el.el.product.name }}" alt="Image {{ el.el.product.name }}" width="100px" src="{{ el.el.product.image.url }}"></td>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            <td>Prix</td>
+                            {% for el in compare_list %}
+                                <td>
+                                    {% if el.sale %}
+                                    <div class="price">
+                                        <span class="price-new">
+                                            {% if el.el.product.price_from %}
+                                                <span style="font-size: 15px;">À PARTIR DE</span>
+                                            {% endif %}
+                                            {{ el.sale.new_price|intcomma }} Dh
+                                        </span>
+                                        <span class="price-old">
+                                            {% if el.el.product.old_price %}
+                                                {{ el.el.product.old_price|intcomma }}
+                                            {% else %}
+                                                {{ el.el.product.price|intcomma }}
+                                            {% endif %} Dh
+                                        </span>
+                                    </div>
+                                    {% else %}
+                                    <div class="price">
+                                        <span class="price-new">
+                                            {% if el.el.product.price_from %}
+                                                <span style="font-size: 10px">À PARTIR DE</span>
+                                            {% endif %}
+                                            {{ el.el.product.price|intcomma }} Dh
+                                        </span>
+                                        {% if el.el.product.old_price %}
+                                            <span class="price-old">
+                                                {{ el.el.product.old_price|intcomma }} Dh
+                                            </span>
+                                        {% endif %}
+                                    </div>
+                                    {% endif %}
+                                </td>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            <td>Marque</td>
+                            {% for el in compare_list %}
+                                <td>{{ el.el.product.brand.name }}</td>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            <td>Catégorie</td>
+                            {% for el in compare_list %}
+                                <td>{{ el.el.product.cat.category_two.category_one.category.name }}</td>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            <td>Sous Catégorie</td>
+                            {% for el in compare_list %}
+                                <td>{{ el.el.product.cat.name }}</td>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            <td>Disponibilité</td>
+                            {% for el in compare_list %}
+                                <td>{{ el.stock }}</td>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            <td>Évaluation</td>
+                            {% for el in compare_list %}
+                            <td class="rating">
+                                <div class="rating-box">
+                                {% for i in "*****" %}
+                                    {% if forloop.counter <= el.ratting %}
+                                       <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                    {% elif forloop.counter == el.ratting|add:"1" and el.rattingInt < el.ratting %}
+                                        <span class="fa fa-stack">
+                                            <i style="color: #ea4c0f" class="fa fa-star-half-empty fa-stack-2x"></i>
+                                        </span>
+                                    {% else %}
+                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                    {% endif %}
+                                {% endfor %}
+                                </div>
+                            </td>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            <td>Description</td>
+                            {% for el in compare_list %}
+                                <td class="description">{% autoescape off %}{{ el.el.product.content|slice:":400" }}{% endautoescape %}</td>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            <td>Information</td>
+                            {% for el in compare_list %}
+                            <td>
+                                <ul class="list-group">
+                                    {% for info in el.el.product.commerceinformation_set.all %}
+                                    <li class="list-group-item">
+                                        {{ info.name }} : {{ info.value }}
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            <td>Action</td>
+                            {% for el in compare_list %}
+                            <td>
+                                {% if el.el.product.price_from %}
+                                <a style="text-transform: uppercase; font-size: 14px;background-color: #ea4c0f; color: white; margin-bottom: 2px" class="iframe-link btn btn-block quickview_handler visible-lg" href="{% url 'e_commerce:contact_supplier' el.el.product.pk %}" title="Contacter Fournisseur" data-fancybox-type="iframe">
+                                    <span>Contacter Fournisseur</span>
+                                </a>
+                                {% else %}
+                                    <form id="formAddCart{{ el.el.product.pk }}" method="get" action="{% url 'e_commerce:add_to_cart' %}" data-validate-url="{% url 'e_commerce:add_to_cart' %}"><input type="hidden" name="product" value="{{ el.el.product.pk }}"></form>
+                                    <input type="button" style="text-transform: uppercase; font-size: 14px;background-color: #ea4c0f; color: white;" class="btn btn-block" value="Ajouter au Chariot"  onclick="cart.add('{{ el.el.product.pk }}', '{{ user.is_authenticated }}', '{{ el.el.product.name }}', '{{ el.el.product.image.url }}', '{% url 'e_commerce:product' el.el.product.pk %}');">
+                                {% endif %}
+                                <form id="formAddWish{{ el.el.product.pk }}" method="get" action="{% url 'e_commerce:add_to_wish_list' %}" data-validate-url="{% url 'e_commerce:add_to_wish_list' %}"><input type="hidden" name="product" value="{{ el.el.product.pk }}"></form>
+                                <input style="text-transform: uppercase; font-size: 14px;margin-top: 2px" type="button" class="btn btn-primary btn-block" value="Ajouter au liste des Souhaits" onclick="wishlist.add('{{ el.el.product.pk }}', '{{ user.is_authenticated }}', '{{ el.el.product.name }}', '{{ el.el.product.image.url }}', '{% url 'e_commerce:product' el.el.product.pk %}');">
+                                <form method="post" style="text-transform: uppercase; font-size: 14px;margin-top: 2px" action="{% url 'e_commerce:remove_from_compare' %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="product" value="{{ el.el.product.pk }}">
+                                    <input type="submit" class="btn btn-danger btn-block" style="text-transform: uppercase; font-size: 14px;" value="Supprimer de la comparaison">
+                                </form>
+                            </td>
+                            {% endfor %}
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!--Middle Part End -->
+    </div>
+</div>
+{% endblock %}

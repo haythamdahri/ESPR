@@ -1,0 +1,43 @@
+{% load staticfiles %}
+
+{% for experience in experiences %}
+    <div class="row" style="padding-top:15px;">
+        <div class=" col-sm-2 col-xs-2 ">
+            <img src=" {% if experience.entreprise %}{{ experience.entreprise.logo.url }}{% else %}{% static "Socialmedia/img/entreprise-default.png" %}{% endif %}" alt="" width="100px;">
+        </div>
+
+
+        <div class="col-xs-6">
+            <span class="titre" style="font-weight: bold;color:darkslategray;">{% if experience.poste  %} {{ experience.poste.nom_poste }}{% else %} {{ experience.nom_poste  }}{% endif %}</span><br>
+            <span class="info--entreprise">{% if experience.entreprise  %} {{ experience.entreprise.nom | upper }}{% else %} {{ experience.nom_entreprise |upper }}{% endif %}</span><br>
+            <span class="info">{{ experience.date_debut | date:"M, Y" }} - {% if experience.actuel %} Aujourd'hui • {{ experience.date_debut | timesince }} {% else %}{{ experience.date_fin | date:"M, Y" }} • {{ experience.date_debut|timesince:experience.date_fin }} {% endif %} </span><br>
+            <span class="info">{{ experience.lieu }}</span>
+            <br><br>
+            <p class="description">{{ experience.description }}</p>
+        </div>
+
+        <div class="col-xs-4 liens">
+            <a href="javascript:return false">
+                <i class="fa fa-pencil float--right" style="font-size:20px;" aria-hidden="true"
+                   data-id="{{ experience.id }}"
+                   onclick="remplir_formulaire_changer_experience(this)"></i>
+            </a>
+            <a href="javascript:return false">
+                <i class="fa fa-times float--right" style="font-size:20px;padding-right: 10px;" aria-hidden="true"
+                   data-id="{{ experience.id }}" onclick="SupprimerExperience({{ experience.id }})"></i>
+            </a>
+        </div>
+
+
+        <!-- divate : titre,info--entreprise,info, liens / -->
+
+
+    </div>
+
+
+    {% if not forloop.last %}
+                        <hr width="75%"
+                            style="box-shadow: 0 0 3px rgba(0, 0, 0, 0.7);height:1px;border:none;color:#1ea1f2;background-color:#1ea1f2"
+                            ;/>
+                    {% endif %}
+{% endfor %}

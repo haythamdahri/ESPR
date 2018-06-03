@@ -1,0 +1,739 @@
+{% extends 'ecommerce/base.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+<div class="main-container container">
+    <ul class="breadcrumb">
+        <li><a href="{% url 'e_commerce:index' %}">Accueil</a></li>
+        <li>
+            <a href="{% url 'e_commerce:products' "category" category.category_one.category.pk %}">{{ category.category_one.category.name }}</a>
+        </li>
+        {% if category.category_one.category.name != category.category_one.name %}
+            <li>
+                <a href="{% url 'e_commerce:products' "category_one" category.category_one.pk %}">{{ category.category_one.name }}</a>
+            </li>
+        {% endif %}
+        {% if category.category_one.name != category.name %}
+            <li>
+                <b><a href="#"><b>{{ category.name }}</b></a></b>
+            </li>
+        {% endif %}
+    </ul>
+    <div class="row">
+        <aside class="col-sm-4 col-md-3 content-aside" id="column-left">
+            <div class="module category-style">
+                <h3 class="modtitle">Acheter Par</h3>
+                <div class="modcontent">
+                    <div class="box-category">
+                        <ul id="cat_accordion" class="list-group">
+                            {% for sous in category.commercescategory_set.all %}
+                            <li class="">
+                                <a href="{% url 'e_commerce:products' 'sub_category' sous.pk %}" class="cutom-parent">{{ sous.name }} ({{ sous.product_set.count }})</a>
+                                <span class="dcjq-icon"></span>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="module banner-left hidden-xs ">
+                <div class="banner-sidebar banners">
+                    <div>
+                        <a title="Banner Image" href="#">
+                        <img src="{% static 'ecommerce/image/catalog/banners/home/banner-8.jpeg' %}" alt="Banner Image">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="product-simple">
+                <h3 class="modtitle">
+                    <span>Derniers Produits</span>
+                </h3>
+                <div class="modcontent">
+                    <div  class="so-extraslider" >
+                        <!-- Begin extraslider-inner -->
+                        <div class="yt-content-slider extraslider-inner products-list" data-rtl="yes" data-pagination="yes" data-autoplay="no" data-delay="4" data-speed="0.6" data-margin="30" data-items_column0="1" data-items_column1="1" data-items_column2="1" data-items_column3="1" data-items_column4="1" data-arrows="no" data-lazyload="yes" data-loop="no" data-buttonpage="top">
+                            <div class="item">
+                                {# ------------------------------- Item ------------------------------- #}
+                                {% for pr in latest_products %}
+                                <div class="product-layout item-inner style1 ">
+                                    <div class="item-image">
+                                        <div class="item-img-info">
+                                            <a href="{% url 'e_commerce:product' pr.id.pk %}" target="_self" title="{{ pr.id.name }}">
+                                                <img src="{{ pr.id.image.url }}" alt="Image {{ pr.id.name }}">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="item-info">
+                                        <div class="item-title">
+                                            <b><a href="{% url 'e_commerce:product' pr.id.pk %}" target="_self" title="{{ pr.id.name }}">{{ pr.id.name }}</a></b>
+                                        </div>
+                                        <div class="rating">
+                                        {% for i in "*****" %}
+                                            {% if forloop.counter <= pr.ratting %}
+                                               <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                            {% elif forloop.counter == pr.ratting|add:"1" and pr.rattingInt < pr.ratting %}
+                                                <span class="fa fa-stack">
+                                                    <i style="color: #ea4c0f" class="fa fa-star-half-empty fa-stack-2x"></i>
+                                                </span>
+                                            {% else %}
+                                                <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                            {% endif %}
+                                        {% endfor %}
+                                        </div>
+                                        <div class="content_price price">
+                                            {% if pr.sale %}
+                                                <span class="price-old">
+                                                {% if pr.id.old_price %}
+                                                    {{ pr.id.old_price|intcomma }}
+                                                {% else %}
+                                                    {{ pr.id.price|intcomma }}
+                                                {% endif %}
+                                                     Dh
+                                                </span>
+                                                <br/>
+                                                <span class="price-new" style="font-size: 19px;">
+                                                {% if pr.id.price_from %}
+                                                    <span style="font-size: 12px;">À PARTIR DE</span>
+                                                {% endif %}
+                                                    {{ pr.sale.new_price|intcomma }} Dh
+                                                </span>
+                                            {% else %}
+                                                {% if pr.id.old_price %}
+                                                    <span class="price-old">
+                                                        {{ pr.id.old_price|intcomma }} Dh
+                                                    </span>
+                                                {% endif %}
+                                                <br/>
+                                                <span class="price-new" style="font-size: 19px;">
+                                                {% if pr.id.price_from %}
+                                                    <span style="font-size: 12px;">À PARTIR DE</span>
+                                                {% endif %}
+                                                    {{ pr.id.price|intcomma }} Dh
+                                                </span>
+                                            {% endif %}&nbsp
+                                        </div>
+                                    </div>
+                                    <!-- End item-info -->
+                                    <!-- End item-wrap-inner -->
+                                </div>
+                                {% if forloop.counter|divisibleby:"5" and not forloop.last %}
+                                    </div>
+                                    <div class="item">
+                                {% endif %}
+                                {% endfor %}
+                                {# -------------------------------------------------------------------- #}
+                            </div>
+                        </div>
+                        <!--End extraslider-inner -->
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!--Middle Part Start-->
+        <div id="content" class="col-md-9 col-sm-12">
+            <div class="products-category">
+                <div class="module">
+                    <h3 class="modtitle2">{{ message }}</h3>
+                </div>
+                {% if results %}
+                <!-- Filters -->
+                <div class="product-filter product-filter-top filters-panel">
+                    <div class="row">
+                        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12 view-mode">
+                            <div class="list-view">
+                                <button class="btn btn-default grid active" data-view="grid" data-toggle="tooltip"  data-original-title="Grid"><i class="fa fa-th"></i></button>
+                                <button class="btn btn-default list" data-view="list" data-toggle="tooltip" data-original-title="List"><i class="fa fa-th-list"></i></button>
+                            </div>
+                        </div>
+                        <div class="short-by-show form-inline text-right col-lg-5 col-md-9 col-sm-12 col-xs-12">
+                            <div class="form-group short-by">
+                            {# ------------------------------ Sort By -------------------------------------- #}
+                                <form style="display: inline;" method="post" action="{% url 'e_commerce:products' type_search id_search %}" id="form_sort_by">
+                                    {% csrf_token %}
+                                    {% if number_elements %}
+                                        <input type="hidden" name="number_elements" value="{{ number_elements }}" />
+                                    {% endif %}
+
+                                    <select title="sort" id="input-sort" class="form-control" name="sort_by">
+                                        {% if sort_by %}
+                                            {% if sort_by == "1" %}
+                                                <option value="1" selected="selected">Trier Par Défaut</option>
+                                            {% else %}
+                                                <option value="1">Trier Par Défaut</option>
+                                            {% endif %}
+                                            {% if sort_by == "2" %}
+                                                <option value="2" selected="selected">Trier Par Nom (A - Z)</option>
+                                            {% else %}
+                                                <option value="2">Trier Par Nom (A - Z)</option>
+                                            {% endif %}
+                                            {% if sort_by == "3" %}
+                                                <option value="3" selected="selected">Trier Par Nom (Z - A)</option>
+                                            {% else %}
+                                                <option value="3">Trier Par Nom (Z - A)</option>
+                                            {% endif %}
+                                            {% if sort_by == "4" %}
+                                                <option value="4" selected="selected">Trier Par Prix (Bas &gt; Elevé)</option>
+                                            {% else %}
+                                                <option value="4">Trier Par Prix (Bas &gt; Elevé)</option>
+                                            {% endif %}
+                                            {% if sort_by == "5" %}
+                                                <option value="5" selected="selected">Trier Par Prix (Elevé &gt; Bas)</option>
+                                            {% else %}
+                                                <option value="5">Trier Par Prix (Elevé &gt; Bas)</option>
+                                            {% endif %}
+                                            {% if sort_by == "6" %}
+                                                <option value="6" selected="selected">Trier Par Evaluation (Elevé)</option>
+                                            {% else %}
+                                                <option value="6">Trier Par Evaluation (Elevé)</option>
+                                            {% endif %}
+                                            {% if sort_by == "7" %}
+                                                <option value="7" selected="selected">Trier Par Evaluation (Bas)</option>
+                                            {% else %}
+                                                <option value="7">Trier Par Evaluation (Bas)</option>
+                                            {% endif %}
+                                            {% if sort_by == "8" %}
+                                                <option value="8" selected="selected">Trier Par Marque (A - Z)</option>
+                                            {% else %}
+                                                <option value="8">Trier Par Marque (A - Z)</option>
+                                            {% endif %}
+                                            {% if sort_by == "9" %}
+                                                <option value="9" selected="selected">Trier Par Marque(Z - A)</option>
+                                            {% else %}
+                                                <option value="9">Trier Par Marque (Z - A)</option>
+                                            {% endif %}
+                                            {% if sort_by == "10" %}
+                                                <option value="10" selected="selected">Trier Par Date (Nouveau)</option>
+                                            {% else %}
+                                                <option value="10">Trier Par Date (Nouveau)</option>
+                                            {% endif %}
+                                            {% if sort_by == "11" %}
+                                                <option value="11" selected="selected">Trier Par Date (Ancien)</option>
+                                            {% else %}
+                                                <option value="11">Trier Par Date (Ancien)</option>
+                                            {% endif %}
+                                        {% else %}
+                                            <option value="1" selected="selected">Trier Par Défaut</option>
+                                            <option value="2">Trier Par Nom (A - Z)</option>
+                                            <option value="3">Trier Par Nom (Z - A)</option>
+                                            <option value="4">Trier Par Prix (Bas &gt; Elevé)</option>
+                                            <option value="5">Trier Par Prix (Elevé &gt; Bas)</option>
+                                            <option value="6">Trier Par Evaluation (Elevé)</option>
+                                            <option value="7">Trier Par Evaluation (Bas)</option>
+                                            <option value="8">Trier Par Marque (A - Z)</option>
+                                            <option value="9">Trier Par Marque (Z - A)</option>
+                                            <option value="10">Trier Par Date (Nouveau)</option>
+                                            <option value="11">Trier Par Date (Ancien)</option>
+                                        {% endif %}
+                                    </select>
+                                    <button type="submit" class="btn btn-group"><i class="fa fa-long-arrow-down"></i></button>
+                                </form>
+                            {# ---------------------------------------------------------------------------- #}
+                            </div>
+                            <div class="form-group">
+                            {# ------------------------------ Number elements -------------------------------------- #}
+                                <label for="input-limit"><span class="control-label">Show:</span></label>
+                                <form style="display: inline;" method="post" action="{% url 'e_commerce:products' type_search id_search %}" id="form_number_elements">
+                                    {% csrf_token %}
+                                    {% if sort_by %}
+                                        <input type="hidden" name="sort_by" value="{{ sort_by }}" />
+                                    {% endif %}
+                                    <select id="input-limit" title="number elements" name="number_elements" class="form-control" onchange="document.getElementById('form_number_elements').submit();">
+                                        {% if number_elements %}
+                                            {% if number_elements == "15" %}
+                                                <option value="15" selected="selected">15</option>
+                                            {% else %}
+                                                <option value="15">15</option>
+                                            {% endif %}
+                                            {% if number_elements == "25" %}
+                                                <option value="25" selected="selected">25</option>
+                                            {% else %}
+                                                <option value="25">25</option>
+                                            {% endif %}
+                                            {% if number_elements == "50" %}
+                                                <option value="50" selected="selected">50</option>
+                                            {% else %}
+                                                <option value="50">50</option>
+                                            {% endif %}
+                                            {% if number_elements == "75" %}
+                                                <option value="75" selected="selected">75</option>
+                                            {% else %}
+                                                <option value="75">75</option>
+                                            {% endif %}
+                                            {% if number_elements == "100" %}
+                                                <option value="100" selected="selected">100</option>
+                                            {% else %}
+                                                <option value="100">100</option>
+                                            {% endif %}
+                                        {% else %}
+                                            <option value="15" selected="selected">15</option>
+                                            <option value="25">25</option>
+                                            <option value="50">50</option>
+                                            <option value="75">75</option>
+                                            <option value="100">100</option>
+                                        {% endif %}
+                                    </select>
+                                </form>
+                            {# ------------------------------ -------------------------------------- #}
+                            </div>
+                        </div>
+                        <div class="box-pagination col-lg-5 col-md-12 col-sm-12 col-xs-12 text-right">
+                        {# ------------------------------ Pagination -------------------------------------- #}
+                        {% if results.has_other_pages %}
+                            <div class="content-pagination-2 col-md-11">
+                                <span>Page: </span>
+                                <ul class="pagination1">
+                                    {# --------------------------------- previous -------------------------------------------- #}
+                                    {% if results.has_previous %}
+                                    <form style="display: inline"  method="post" action="{% url 'e_commerce:products' type_search id_search %}" id="form_previous1">
+                                    {% csrf_token %}
+                                    {% if sort_by %}
+                                        <input type="hidden" name="sort_by" value="{{ sort_by }}" />
+                                    {% endif %}
+                                    {% if number_elements %}
+                                        <input type="hidden" name="number_elements" value="{{ number_elements }}" />
+                                    {% endif %}
+                                    <input type="hidden" name="page" value="{{ results.previous_page_number }}">
+                                    <li><a href="javascript:" onclick="document.getElementById('form_previous1').submit();" ><i class="fa fa-caret-left"></i></a></li>
+                                    </form>
+                                    {% endif %}
+                                    {# ----------------------------------------------------------------------------- #}
+                                    {#--------------------------------- numbers ------------------------------------ #}
+                                    {% for i in page_range %}
+                                    <form style="display: inline" method="post" action="{% url 'e_commerce:products' type_search id_search %}" id="form1-{{ i }}">
+                                    {% csrf_token %}
+                                    {% if results.number == i %}
+                                        <li class="active"><span><b>{{ i }}</b><span class="sr-only">(Actuel)</span></span></li>
+                                    {% else %}
+                                        {% if sort_by %}
+                                            <input type="hidden" name="sort_by" value="{{ sort_by }}" />
+                                        {% endif %}
+
+                                        {% if number_elements %}
+                                            <input type="hidden" name="number_elements" value="{{ number_elements }}" />
+                                        {% endif %}
+                                        <input type="hidden" name="page" value="{{ i }}" />
+                                        <li><a  href="javascript:" onclick="document.getElementById('form1-{{ i }}').submit();" >{{ i }}</a></li>
+                                    {% endif %}
+                                    </form>
+                                    {% endfor %}
+                                    {# -------------------------------------------------------------------------------- #}
+                                    {# --------------------------------------- Next ----------------------------------- #}
+                                    {% if results.has_next %}
+                                    <form style="display: inline"  method="post" action="{% url 'e_commerce:products' type_search id_search %}" id="form_next1">
+                                    {% csrf_token %}
+                                    {% if sort_by %}
+                                        <input type="hidden" name="sort_by" value="{{ sort_by }}" />
+                                    {% endif %}
+
+                                    {% if number_elements %}
+                                        <input type="hidden" name="number_elements" value="{{ number_elements }}" />
+                                    {% endif %}
+                                    <input type="hidden" name="page" value="{{ results.next_page_number }}">
+                                    <li><a href="javascript:" onclick="document.getElementById('form_next1').submit();" ><i class="fa fa-caret-right"></i></a></li>
+                                    </form>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                            {% endif %}
+                        {# -------------------------------------------------------------------- #}
+                        </div>
+                    </div>
+                </div>
+                <!-- //end Filters -->
+                <!--changed listings-->
+                <div id="products-list" class="products-list row nopadding-xs so-filter-gird">
+                    {#---------------------------------------------- Product ---------------------------------------------------------------#}
+                    {% for el in results %}
+                    <div class="product-layout col-lg-15 col-md-4 col-sm-6 col-xs-12">
+                        <div class="product-item-container" style="padding-bottom: 5px;">
+                            <div class="left-block">
+                            {% if el.image %}
+                                <div class="product-image-container second_img">
+                                    <a href="{% url 'e_commerce:product' el.id.pk %}" target="_self" title="{{ el.id.name }}">
+                                    <img src="{{ el.id.image.url }}" class="img-1 img-responsive" id="product_img" alt="image {{ el.id.name }}" style="height: 300px;">
+                                    <img src="{{ el.image.url }}" class="img-2 img-responsive" id="product_img" alt="image2 {{ el.id.name }}" style="height: 300px;">
+                                    </a>
+                                </div>
+                            {% else %}
+                                <div class="product-image-container">
+                                    <a href="{% url 'e_commerce:product' el.id.pk %}" target="_self" title="{{ el.id.name }}">
+                                    <img src="{{ el.id.image.url }}" class="img-1 img-responsive" id="product_img" alt="image {{ el.id.name }}" style="height: 300px;">
+                                    </a>
+                                </div>
+                            {% endif %}
+                            {% if el.sale %}
+                                <div class="box-label"><span class="label-product label-sale"> -{{ el.sale.percentage }}%</span></div>
+                            {% endif %}
+                            {% if el.new %}
+                                <div class="box-label"><span class="label-product label-new"> New </span></div>
+                            {% endif %}
+                                <div class="button-group so-quickview cartinfo--left">
+                                {% if el.id.price_from %}
+                                    <a class="iframe-link addToCart btn-button btn-block quickview_handler visible-lg" href="{% url 'e_commerce:contact_supplier' el.id.pk %}" title="Contacter Fournisseur" data-fancybox-type="iframe">
+                                        <i class="fa fa-envelope"></i>
+                                        <span>Contacter Fournisseur</span>
+                                    </a>
+                                {% else %}
+                                    <form id="formAddCart{{ el.id.pk }}" method="get" action="{% url 'e_commerce:add_to_cart' %}" data-validate-url="{% url 'e_commerce:add_to_cart' %}"><input type="hidden" name="product" value="{{ el.id.pk }}"></form>
+                                    <button type="button" class="addToCart btn-button" title="Ajouter au Chariot" onclick="cart.add('{{ el.id.pk }}', '{{ user.is_authenticated }}', '{{ el.id.name }}', '{{ el.id.image.url }}', '{% url 'e_commerce:product' el.id.pk %}');">
+                                        <i class="fa fa-shopping-basket"></i>
+                                        <span>Ajouter au Chariot</span>
+                                    </button>
+                                {% endif %}
+                                    <form id="formAddWish{{ el.id.pk }}" method="get" action="{% url 'e_commerce:add_to_wish_list' %}" data-validate-url="{% url 'e_commerce:add_to_wish_list' %}"><input type="hidden" name="product" value="{{ el.id.pk }}"></form>
+                                    <button type="button" class="wishlist btn-button" title="Ajouter au Souhaits" onclick="wishlist.add('{{ el.id.pk }}', '{{ user.is_authenticated }}', '{{ el.id.name }}', '{{ el.id.image.url }}', '{% url 'e_commerce:product' el.id.pk %}');">
+                                        <i class="fa fa-heart"></i>
+                                        <span>Ajouter au Souhaits</span>
+                                    </button>
+
+                                    <form id="formAddCompare{{ el.id.pk }}" method="get" action="{% url 'e_commerce:add_to_compare' %}" data-validate-url="{% url 'e_commerce:add_to_compare' %}"><input type="hidden" name="product" value="{{ el.id.pk }}"></form>
+                                    <button type="button" class="compare btn-button" title="Compare this Product " onclick="compare.add('{{ el.id.pk }}', '{{ user.is_authenticated }}', '{{ el.id.name }}', '{{ el.id.image.url }}', '{% url 'e_commerce:product' el.id.pk %}');">
+                                        <i class="fa fa-refresh"></i>
+                                        <span>Comparer ce Produit</span>
+                                    </button>
+                                    <!--quickview-->
+                                    <a class="iframe-link btn-button quickview quickview_handler visible-lg" href="{% url 'e_commerce:quick_view' el.id.pk %}" title="Quick view" data-fancybox-type="iframe"><i class="fa fa-eye"></i><span>Aperçue Rapide</span></a>
+                                    <!--end quickview-->
+                                </div>
+                            </div>
+                            <div class="right-block">
+                                <div class="caption" style="padding-top: 0;">
+                                    <h4><a href="{% url 'e_commerce:product' el.id.pk %}" title="{{ el.id.name }}" target="_self" style="min-width: 120px; display: block; margin-left: auto; margin-right: auto">{{ el.id.name }}</a></h4>
+                                    <div class="rating">
+                                        {% for i in "*****" %}
+                                            {% if forloop.counter <= el.ratting %}
+                                               <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                            {% elif forloop.counter == el.ratting|add:"1" and el.rattingInt < el.ratting %}
+                                                <span class="fa fa-stack">
+                                                    <i style="color: #ea4c0f" class="fa fa-star-half-empty fa-stack-2x"></i>
+                                                </span>
+                                            {% else %}
+                                                <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                    <div class="price">
+                                        {% if el.sale %}
+                                            <span class="price-old">
+                                            {% if el.id.old_price %}
+                                                {{ el.id.old_price|intcomma }}
+                                            {% else %}
+                                                {{ el.id.price|intcomma }}
+                                            {% endif %} Dh
+                                            </span>
+                                            <br/>
+                                            <span class="price-new" style="font-size: 19px;">{{ el.sale.new_price|intcomma }} Dh</span>
+                                        {% else %}
+                                            {% if el.id.old_price %}
+                                                <span class="price-old">
+                                                    {{ el.id.old_price|intcomma }} Dh
+                                                </span>
+                                            {% endif %}
+                                            <br/>
+                                            <span class="price-new" style="font-size: 19px;">{{ el.id.price|intcomma }} Dh</span>
+                                        {% endif %}
+                                    </div>
+
+                                    <ul class="description item-desc list-group" style="margin-top: 10px;">
+                                    {% if product.quantity_min > 1 %}
+                                        <li class="list-group-item"><b>{{ el.id.quantity_min }}</b> {{ el.id.unit }} (Commande min)</li>
+                                    {% else %}
+                                        <li class="list-group-item"><b>1</b> {{ el.id.unit }} (Commande min)</li>
+                                    {% endif %}
+                                    {% for info in el.id.commerceinformation_set.all|slice:':3' %}
+                                        <li class="list-group-item"><b>{{ info.name }} : </b>{{ info.value }}</li>
+                                    {% endfor %}
+                                    </ul>
+                                </div>
+                                <div class="list-block">
+                                    {% if not el.id.price_from %}
+                                    <div class="item-available">
+                                        <div class="row">
+                                            <p class="col-xs-7 a1">Disponibilité: <b>{{ el.quantity }}</b>
+                                            </p>
+                                            <p class="col-xs-5 a2">Vendu: <b>{{ el.sold }}</b>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                    <div class="price">
+                                        {% if el.sale %}
+                                            <span class="price-old">
+                                            {% if el.id.old_price %}
+                                                {{ el.id.old_price|intcomma }}
+                                            {% else %}
+                                                {{ el.id.price|intcomma }}
+                                            {% endif %} Dh
+                                            </span>
+                                            <br/>
+                                            <span class="price-new" style="font-size: 19px;">
+                                                {% if el.id.price_from %}
+                                                    <span style="font-size: 12px;">À PARTIR DE</span><br>
+                                                {% endif %}
+                                                {{ el.sale.new_price|intcomma }} Dh
+                                            </span>
+                                        {% else %}
+                                            {% if el.id.old_price %}
+                                                <span class="price-old">
+                                                    {{ el.id.old_price|intcomma }} Dh
+                                                </span>
+                                            {% endif %}
+                                            <br/>
+                                            <span class="price-new" style="font-size: 19px;">
+                                                {% if el.id.price_from %}
+                                                    <span style="font-size: 12px;">À PARTIR DE</span><br>
+                                                {% endif %}
+                                                {{ el.id.price|intcomma }} Dh
+                                            </span>
+                                        {% endif %}
+                                    </div>
+                                {% if el.id.supplier %}
+                                    <a class="iframe-link addToCart btn-button btn-block quickview_handler visible-lg" href="{% url 'e_commerce:contact_supplier' el.id.pk %}" title="Contacter Fournisseur" data-fancybox-type="iframe">
+                                        <i class="fa fa-envelope"></i>
+                                        <span>Contacter Founisseur</span>
+                                    </a>
+                                {% else %}
+                                    <button class="addToCart btn-button btn-block" type="button" title="Ajouter au chariot" onclick="cart.add('{{ el.id.pk }}', '{{ user.is_authenticated }}', '{{ el.id.name }}', '{{ el.id.image.url }}', '{% url 'e_commerce:product' el.id.pk %}');">
+                                    <i class="fa fa-shopping-basket"></i>
+                                    <span>Ajouter au chariot</span>
+                                    </button>
+                                {% endif %}
+                                    <button class="compare btn-button btn-block" type="button" title="Ajouter au Souhaits" onclick="wishlist.add('{{ el.id.pk }}', '{{ user.is_authenticated }}', '{{ el.id.name }}', '{{ el.id.image.url }}', '{% url 'e_commerce:product' el.id.pk %}');">
+                                        <i class="fa fa-heart"></i>
+                                        <span>Ajouter au Souhaits</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {#----------------------------------------------------------------------------------------------------------------#}
+                </div>
+                <!--// End Changed listings-->
+                <!-- Filters -->
+                <div class="product-filter product-filter-top filters-panel">
+                    <div class="row">
+                        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12 view-mode">
+                            <div class="list-view">
+                                <button class="btn btn-default grid active" data-view="grid" data-toggle="tooltip"  data-original-title="Grid"><i class="fa fa-th"></i></button>
+                                <button class="btn btn-default list" data-view="list" data-toggle="tooltip" data-original-title="List"><i class="fa fa-th-list"></i></button>
+                            </div>
+                        </div>
+                        <div class="short-by-show form-inline text-right col-lg-5 col-md-9 col-sm-12 col-xs-12">
+                            <div class="form-group short-by">
+                            {# ------------------------------ Sort By -------------------------------------- #}
+                                <form style="display: inline;" method="post" action="{% url 'e_commerce:products' type_search id_search %}" id="form_sort_by2">
+                                    {% csrf_token %}
+                                    {% if number_elements %}
+                                        <input type="hidden" name="number_elements" value="{{ number_elements }}" />
+                                    {% endif %}
+
+                                    <select title="sort" id="input-sort" class="form-control" name="sort_by">
+                                        {% if sort_by %}
+                                            {% if sort_by == "1" %}
+                                                <option value="1" selected="selected">Trier Par Défaut</option>
+                                            {% else %}
+                                                <option value="1">Trier Par Défaut</option>
+                                            {% endif %}
+                                            {% if sort_by == "2" %}
+                                                <option value="2" selected="selected">Trier Par Nom (A - Z)</option>
+                                            {% else %}
+                                                <option value="2">Trier Par Nom (A - Z)</option>
+                                            {% endif %}
+                                            {% if sort_by == "3" %}
+                                                <option value="3" selected="selected">Trier Par Nom (Z - A)</option>
+                                            {% else %}
+                                                <option value="3">Trier Par Nom (Z - A)</option>
+                                            {% endif %}
+                                            {% if sort_by == "4" %}
+                                                <option value="4" selected="selected">Trier Par Prix (Bas &gt; Elevé)</option>
+                                            {% else %}
+                                                <option value="4">Trier Par Prix (Bas &gt; Elevé)</option>
+                                            {% endif %}
+                                            {% if sort_by == "5" %}
+                                                <option value="5" selected="selected">Trier Par Prix (Elevé &gt; Bas)</option>
+                                            {% else %}
+                                                <option value="5">Trier Par Prix (Elevé &gt; Bas)</option>
+                                            {% endif %}
+                                            {% if sort_by == "6" %}
+                                                <option value="6" selected="selected">Trier Par Evaluation (Elevé)</option>
+                                            {% else %}
+                                                <option value="6">Trier Par Evaluation (Elevé)</option>
+                                            {% endif %}
+                                            {% if sort_by == "7" %}
+                                                <option value="7" selected="selected">Trier Par Evaluation (Bas)</option>
+                                            {% else %}
+                                                <option value="7">Trier Par Evaluation (Bas)</option>
+                                            {% endif %}
+                                            {% if sort_by == "8" %}
+                                                <option value="8" selected="selected">Trier Par Marque (A - Z)</option>
+                                            {% else %}
+                                                <option value="8">Trier Par Marque (A - Z)</option>
+                                            {% endif %}
+                                            {% if sort_by == "9" %}
+                                                <option value="9" selected="selected">Trier Par Marque(Z - A)</option>
+                                            {% else %}
+                                                <option value="9">Trier Par Marque (Z - A)</option>
+                                            {% endif %}
+                                            {% if sort_by == "10" %}
+                                                <option value="10" selected="selected">Trier Par Date (Nouveau)</option>
+                                            {% else %}
+                                                <option value="10">Trier Par Date (Nouveau)</option>
+                                            {% endif %}
+                                            {% if sort_by == "11" %}
+                                                <option value="11" selected="selected">Trier Par Date (Ancien)</option>
+                                            {% else %}
+                                                <option value="11">Trier Par Date (Ancien)</option>
+                                            {% endif %}
+                                        {% else %}
+                                            <option value="1" selected="selected">Trier Par Défaut</option>
+                                            <option value="2">Trier Par Nom (A - Z)</option>
+                                            <option value="3">Trier Par Nom (Z - A)</option>
+                                            <option value="4">Trier Par Prix (Bas &gt; Elevé)</option>
+                                            <option value="5">Trier Par Prix (Elevé &gt; Bas)</option>
+                                            <option value="6">Trier Par Evaluation (Elevé)</option>
+                                            <option value="7">Trier Par Evaluation (Bas)</option>
+                                            <option value="8">Trier Par Marque (A - Z)</option>
+                                            <option value="9">Trier Par Marque (Z - A)</option>
+                                            <option value="10">Trier Par Date (Nouveau)</option>
+                                            <option value="11">Trier Par Date (Ancien)</option>
+                                        {% endif %}
+                                    </select>
+                                    <button type="submit" class="btn btn-group"><i class="fa fa-long-arrow-down"></i></button>
+                                </form>
+                            {# ---------------------------------------------------------------------------- #}
+                            </div>
+                            <div class="form-group">
+                            {# ------------------------------ Number elements -------------------------------------- #}
+                                <label for="input-limit"><span class="control-label">Show:</span></label>
+                                <form style="display: inline;" method="post" action="{% url 'e_commerce:products' type_search id_search %}" id="form_number_elementsZ">
+                                    {% csrf_token %}
+                                    {% if sort_by %}
+                                        <input type="hidden" name="sort_by" value="{{ sort_by }}" />
+                                    {% endif %}
+                                    <select id="input-limit" title="number elements" name="number_elements" class="form-control" onchange="document.getElementById('form_number_elements2').submit();">
+                                        {% if number_elements %}
+                                            {% if number_elements == "15" %}
+                                                <option value="15" selected="selected">15</option>
+                                            {% else %}
+                                                <option value="15">15</option>
+                                            {% endif %}
+                                            {% if number_elements == "25" %}
+                                                <option value="25" selected="selected">25</option>
+                                            {% else %}
+                                                <option value="25">25</option>
+                                            {% endif %}
+                                            {% if number_elements == "50" %}
+                                                <option value="50" selected="selected">50</option>
+                                            {% else %}
+                                                <option value="50">50</option>
+                                            {% endif %}
+                                            {% if number_elements == "75" %}
+                                                <option value="75" selected="selected">75</option>
+                                            {% else %}
+                                                <option value="75">75</option>
+                                            {% endif %}
+                                            {% if number_elements == "100" %}
+                                                <option value="100" selected="selected">100</option>
+                                            {% else %}
+                                                <option value="100">100</option>
+                                            {% endif %}
+                                        {% else %}
+                                            <option value="15" selected="selected">15</option>
+                                            <option value="25">25</option>
+                                            <option value="50">50</option>
+                                            <option value="75">75</option>
+                                            <option value="100">100</option>
+                                        {% endif %}
+                                    </select>
+                                </form>
+                            {# ------------------------------ -------------------------------------- #}
+                            </div>
+                        </div>
+                        <div class="box-pagination col-lg-5 col-md-12 col-sm-12 col-xs-12 text-right">
+                        {# ------------------------------ Pagination -------------------------------------- #}
+                        {% if results.has_other_pages %}
+                            <div class="content-pagination-2 col-md-11">
+                                <span>Page: </span>
+                                <ul class="pagination1">
+                                    {# --------------------------------- previous -------------------------------------------- #}
+                                    {% if results.has_previous %}
+                                    <form style="display: inline"  method="post" action="{% url 'e_commerce:products' type_search id_search %}" id="form_previous2">
+                                    {% csrf_token %}
+                                    {% if sort_by %}
+                                        <input type="hidden" name="sort_by" value="{{ sort_by }}" />
+                                    {% endif %}
+                                    {% if number_elements %}
+                                        <input type="hidden" name="number_elements" value="{{ number_elements }}" />
+                                    {% endif %}
+                                    <input type="hidden" name="page" value="{{ results.previous_page_number }}">
+                                    <li><a href="javascript:" onclick="document.getElementById('form_previous2').submit();" ><i class="fa fa-caret-left"></i></a></li>
+                                    </form>
+                                    {% endif %}
+                                    {# ----------------------------------------------------------------------------- #}
+                                    {#--------------------------------- numbers ------------------------------------ #}
+                                    {% for i in page_range %}
+                                    <form style="display: inline" method="post" action="{% url 'e_commerce:products' type_search id_search %}" id="form2-{{ i }}">
+                                    {% csrf_token %}
+                                    {% if results.number == i %}
+                                        <li class="active"><span><b>{{ i }}</b><span class="sr-only">(Actuel)</span></span></li>
+                                    {% else %}
+                                        {% if sort_by %}
+                                            <input type="hidden" name="sort_by" value="{{ sort_by }}" />
+                                        {% endif %}
+
+                                        {% if number_elements %}
+                                            <input type="hidden" name="number_elements" value="{{ number_elements }}" />
+                                        {% endif %}
+                                        <input type="hidden" name="page" value="{{ i }}" />
+                                        <li><a  href="javascript:" onclick="document.getElementById('form2-{{ i }}').submit();" >{{ i }}</a></li>
+                                    {% endif %}
+                                    </form>
+                                    {% endfor %}
+                                    {# -------------------------------------------------------------------------------- #}
+                                    {# --------------------------------------- Next ----------------------------------- #}
+                                    {% if results.has_next %}
+                                    <form style="display: inline"  method="post" action="{% url 'e_commerce:products' type_search id_search %}" id="form_next2">
+                                    {% csrf_token %}
+                                    {% if sort_by %}
+                                        <input type="hidden" name="sort_by" value="{{ sort_by }}" />
+                                    {% endif %}
+
+                                    {% if number_elements %}
+                                        <input type="hidden" name="number_elements" value="{{ number_elements }}" />
+                                    {% endif %}
+                                    <input type="hidden" name="page" value="{{ results.next_page_number }}">
+                                    <li><a href="javascript:" onclick="document.getElementById('form_next2').submit();" ><i class="fa fa-caret-right"></i></a></li>
+                                    </form>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                            {% endif %}
+                        {# -------------------------------------------------------------------- #}
+                        </div>
+                    </div>
+                </div>
+                <!-- //end Filters -->
+                {% endif %}
+                {% if brands %}
+                <div class="featured-brands module">
+                    <h3 class="modtitle2">Featured Brands</h3>
+                    <div class="box-brands">
+                        <div class="yt-content-slider extraslider-inner products-list" data-rtl="yes" data-pagination="no" data-autoplay="no" data-delay="4" data-speed="0.6" data-margin="30" data-items_column0="7" data-items_column1="5" data-items_column2="4" data-items_column3="3" data-items_column4="2" data-arrows="yes" data-lazyload="yes" data-loop="no" data-buttonpage="top">
+                            {% for brand in brands %}
+                            <div class="item">
+                                <a href="{% url 'e_commerce:products' 'brand' brand.id.pk %}"><img src="{{ brand.id.image.url }}" alt="Brand {{ brand.id.name }}"></a>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        <!--Middle Part End-->
+    </div>
+</div>
+{% endblock %}

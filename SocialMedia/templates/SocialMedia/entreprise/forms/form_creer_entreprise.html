@@ -1,0 +1,122 @@
+{% load widget_tweaks %}
+<form class=" form-horizontal" id="formAjouterLangue" method="post" action="/reseausocial/creer_entreprise/"
+      style="background-color:inherit" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="modal-body  "
+         style=" margin-left: 1px; background-color:white;padding: 0px 25px;">
+
+        <div class="form-group">
+            <label class="col-md-12" style="font-weight:bold;">Nom de l'entreprise *</label>
+            <div class="col-md-12 inputGroupContainer">
+                {% render_field formCreerEntreprise.nom class="form-control" %}
+            </div>
+            {% for error in formCreerEntreprise.nom.errors %}
+                <span class="error-block" style="padding-left: 15px;font-weight:bold;">{{ error }}</span><br>
+            {% endfor %}
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-12" style="font-weight:bold;">Type de l'entreprise *</label>
+            <div class="col-md-12 inputGroupContainer">
+                {% render_field formCreerEntreprise.typeEntreprise class="form-control" %}
+            </div>
+            {% for error in formCreerEntreprise.typeEntreprise.errors %}
+                <span class="error-block" style="padding-left: 15px;font-weight:bold;">{{ error }}</span><br>
+            {% endfor %}
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-12" style="font-weight:bold;">Emplacement du siège social *</label>
+            <div class="col-md-12 inputGroupContainer">
+                {% render_field formCreerPageEntreprise.siege_social class="form-control" %}
+            </div>
+            {% for error in formCreerPageEntreprise.siege_social.errors %}
+                <span class="error-block" style="padding-left: 15px;font-weight:bold;">{{ error }}</span><br>
+            {% endfor %}
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-12" style="font-weight:bold;">Année de création *</label>
+            <div class="col-md-12 inputGroupContainer">
+                {% render_field formCreerPageEntreprise.annee_creation class="form-control" %}
+            </div>
+            {% for error in formCreerPageEntreprise.annee_creation.errors %}
+                <span class="error-block" style="padding-left: 15px;font-weight:bold;">{{ error }}</span><br>
+            {% endfor %}
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-12" style="font-weight:bold;">Specialisation *</label>
+            <div class="col-md-12 inputGroupContainer">
+                {% render_field formCreerPageEntreprise.specialisation class="form-control" %}
+            </div>
+            {% for error in formCreerPageEntreprise.specialisation.errors %}
+                <span class="error-block" style="padding-left: 15px;font-weight:bold;">{{ error }}</span><br>
+            {% endfor %}
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-12 " style="font-weight:bold;">Logo *</label>
+            <div class="col-md-12 inputGroupContainer">
+                <div class="input-group">
+                    <label class="input-group-btn">
+                    <span class="btn btn-default btn-file" style="font-weight:500;">
+                        Choisissez un fichier&hellip; {% render_field formCreerEntreprise.logo  id="imgInp" class="" style="display: none;" %}
+                    </span>
+                    </label>
+                    <input type="text" class="form-control" readonly>
+                </div>
+            </div>
+            {% for error in formCreerEntreprise.logo.errors %}
+                <span class="error-block" style="padding-left: 15px;font-weight:bold;">{{ error }}</span><br>
+            {% endfor %}
+        </div>
+                        <div class="form-group" id="photo">
+                            <img id='img-upload'/>
+                        </div>
+
+        <div class="form-group">
+            <label class="col-md-12 " style="font-weight:bold;">Image de couverture</label>
+            <div class="col-md-12 inputGroupContainer">
+                <div class="input-group">
+                    <label class="input-group-btn">
+                    <span class="btn btn-default btn-file" style="font-weight:500;">
+                        Choisissez un fichier&hellip; {% render_field formCreerPageEntreprise.img_couverture id="imgInp1" class="" style="display: none;" %}
+                    </span>
+                    </label>
+                    <input type="text" class="form-control" readonly>
+                </div>
+            </div>
+            {% for error in formCreerPageEntreprise.img_couverture.errors %}
+                <span class="error-block" style="padding-left: 15px;font-weight:bold;">{{ error }}</span><br>
+            {% endfor %}
+        </div>
+                        <div class="form-group" id="photo1">
+                            <img id='img-upload1'/>
+                        </div>
+
+        <div class="form-group">
+            <label class="col-md-12" style="font-weight:bold;">Présentation de l'entreprise *</label>
+            <div class="col-md-12 inputGroupContainer">
+                {% render_field formCreerPageEntreprise.presentation_entreprise class="form-control" rows="1" %}
+            </div>
+            {% for error in formCreerPageEntreprise.presentation_entreprise.errors %}
+                <span class="error-block" style="padding-left: 15px;font-weight:bold;">{{ error }}</span><br>
+            {% endfor %}
+        </div>
+
+    </div> <!-- End Div with scroll modal body -->
+
+    <!-- Button -->
+    <div class="form-group">
+        <div class="col-md-12">
+            <button type="submit" class="btn btn-info float--right" id="btnAjouterLangue"
+                    style="margin-right:25px;; background-color: #202020;"><span
+                    id="mySpinner" style="position:relative; top: -2px;left: -15px;"></span>Créer
+            </button>
+        </div>
+
+        <label class="col-md-12 "></label>
+    </div>
+
+</form>

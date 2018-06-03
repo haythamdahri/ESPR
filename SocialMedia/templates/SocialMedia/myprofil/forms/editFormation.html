@@ -1,0 +1,62 @@
+{% extends 'SocialMedia/myprofil/forms/base_forms.html' %}
+{% load widget_tweaks %}
+{% block form %}
+    <form method="post" action="{% url 'SocialMedia:editFormation' formation %}">
+    {% csrf_token %}
+                            <div class="form-group row">
+
+                            <div class="col-sm-3">
+                                    <label for="exampleInputEmail1" class="h6 fw--600 text-darkest">Titre Formation</label>
+                                    {% render_field editForm.titre_formation class="form-control input-sm" placeholder="Enter email" %}
+                            </div>
+
+                            <div class="col-sm-3">
+                                    <label for="exampleInputEmail1" class="h6 fw--600 text-darkest">Ecole</label>
+                                    {% render_field editForm.ecole class="form-control input-sm" placeholder="Enter email" %}
+                            </div>
+
+                            <div class="col-sm-3">
+                                    <label for="exampleInputEmail1" class="h6 fw--600 text-darkest">Nom Formation</label>
+                                    {% render_field editForm.nom_formation class="form-control input-sm" placeholder="Enter email" %}
+                            </div>
+
+                            <div class="col-sm-3">
+                                    <label for="exampleInputEmail1" class="h6 fw--600 text-darkest">Domaine</label>
+                                    {% render_field editForm.domaine  class="form-control input-sm" placeholder="Enter email" %}
+                            </div>
+
+                            <div class="row">&nbsp;</div><div class="row">&nbsp;</div>
+
+                            <div class="col-sm-4">
+                                    <label for="exampleInputEmail1" class="h6 fw--600 text-darkest">Resultat Obtenu</label>
+                                    {% render_field editForm.resultat_obtenu class="form-control input-sm" placeholder="Enter email" %}
+                            </div>
+
+                            <div class="col-sm-4">
+                                    <label for="exampleInputEmail1" class="h6 fw--600 text-darkest">Activités Et Associations</label>
+                                    {% render_field editForm.activite_et_associations class="form-control input-sm" placeholder="Enter email" %}
+                            </div>
+
+                            <div class="col-sm-4">
+                                    <label for="exampleInputEmail1" class="h6 fw--600 text-darkest">Annee Debut</label>
+                                    {% render_field editForm.anneeDebut class="form-control input-sm" placeholder="Enter email" %}
+                            </div>
+
+                            <div class="col-sm-4">
+                                    <label for="exampleInputEmail1" class="h6 fw--600 text-darkest">Annee Fin</label>
+                                    {% render_field editForm.anneeFin class="form-control input-sm" placeholder="Enter email" %}
+                            </div>
+
+                                <div class="col-sm-4">
+                                    <label for="exampleInputEmail1" class="h6 fw--600 text-darkest">Annee Fin</label>
+                                    {% render_field editForm.description class="form-control input-sm" placeholder="Enter email" %}
+                            </div>
+
+
+
+                            </div>
+        <div class="row text-center">
+            <button type="submit" class="btn btn-primary" style="margin-bottom: 20px;">Modifier</button>
+        </div>
+    </form>
+{% endblock %}

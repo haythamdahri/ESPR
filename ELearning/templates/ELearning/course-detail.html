@@ -1,0 +1,250 @@
+{% extends 'ELearning/about.html' %}
+{%load static%}
+{% block content %}
+	<!-- /main_menu -->
+	
+	<main>
+		<section id="hero_in" class="courses" style="background: url({% static 'ELearning/img/cours6.jpg' %}) center center no-repeat fixed;">
+			<div class="wrapper">
+				<div class="container">
+					<h1 class="fadeInUp"><span></span>Cours en ligne:détails</h1>
+				</div>
+			</div>
+		</section>
+		<!--/hero_in-->
+
+		<div class="bg_color_1">
+			<nav class="secondary_nav sticky_horizontal">
+				<div class="container">
+					<ul class="clearfix">
+						<li><a href="#description" class="active">Description</a></li>
+						<li><a href="#lessons">Leçons</a></li>
+						<li><a href="#reviews">Commentaires</a></li>
+					</ul>
+				</div>
+			</nav>
+			<div class="container margin_60_35">
+				<figure>
+								<iframe src="{{c.video_url}}" width="200" height="200"  ></iframe>
+							</figure>
+				<div class="row">
+					<div class="col-lg-8">
+
+						<section id="description">
+							<h2>Description</h2>
+							<p>{{c.course_description}}</p>
+							<h5>Objectifs de ce cours</h5>
+
+								<p>{{c.course_goal}}</p>
+
+							<hr>
+							<p>Les avantages d'un cours en ligne</p>
+							<div class="row">
+								<div class="col-lg-6">
+									<ul class="bullets">
+										<li>Accessibilité:Une formation en ligne peut faciliter l'accès à la connaissance. Un ordinateur équipé d'une connexion à Internet suffit.</li>
+										<li>Flexibilité:Selon la formule choisie, la formation peut être suivie à n'importe quel moment, à n'importe quel rythme et depuis n'importe quel endroit.</li>
+										<li>Performances:De nombreuses études mettent en avant de meilleurs résultats de la formation en e-learning que lors d'une formation présentielle traditionnelle.</li>
+										<li>Travailler dans un environnement connu: La formation à distance devient alors une solution envisageable. En effet, Suivre une formation à domicile est « plus sécurisant et occasionne moins de stress ». </li>
+									</ul>
+								</div>
+								<div class="col-lg-6">
+									<ul class="bullets">
+										<li>Rester dans le cercle familial:Le soutien que la famille apporte pendant votre apprentissage est un privilège non négligeable. </li><br/>
+										<li>Trouver un rythme de travail:Apprendre à gérer son temps semble manifestement la clé de la réussite d'une formation à distance.</li><br/>
+										<li>Rentable:Surtout dans le cas de la formation en entreprise, la rentabilité de l'apprentissage en ligne est impressionnante. En effet, plus besoin de dépenser en frais de déplacement ou de logement pour les formateurs et les salariés, le contenu en ligne est réutilisable</li>
+									</ul>
+								</div>
+
+							</div>
+							<!-- /row -->
+						</section>
+						<!-- /section -->
+
+						<section id="lessons">
+							<div class="intro_title">
+								<h2>Leçons</h2>
+
+							</div>
+							<div id="accordion_lessons" role="tablist" class="add_bottom_45">
+								{% for data in l %}
+								<div class="card">
+									<div class="card-header" role="tab" id="headingOne">
+										<h5 class="mb-0">
+											<a data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne"><i class="indicator ti-minus"></i> {{data.lesson_title}}</a>
+										</h5>
+									</div>
+
+									<div  class="collapse show" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion_lessons">
+										<div class="card-body">
+											<div class="list_lessons">
+												<ul>
+
+													<li><a href="{{data.lesson_file.url}}" class="txt_doc">{{data.file_name}} sous format {{data.file_format}}</a><span>{{data.lesson_duration}}</span></li>
+													<li><a href="{{data.lesson_video.url}}" class="video">{{data.lesson_video_name}} sous format {{data.lesson_video_format}}</a><span>{{data.lesson_duration}}</span></li>
+
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- /card -->
+
+
+								<!-- /card -->
+							{%endfor%}
+							</div>
+							<!-- /accordion -->
+						</section>
+						<!-- /section -->
+
+						<section id="reviews">
+							<h2>Commentaires</h2>
+							<div class="reviews-container">
+								<div class="row">
+									<div class="col-lg-3">
+										<div id="review_summary">
+											<strong>4.7</strong>
+											<div class="rating">
+												<i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i>
+											</div>
+											<small>Based on 4 reviews</small>
+										</div>
+									</div>
+									<div class="col-lg-9">
+										<div class="row">
+											<div class="col-lg-10 col-9">
+												<div class="progress">
+													<div class="progress-bar" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+												</div>
+											</div>
+											<div class="col-lg-2 col-3"><small><strong>5 stars</strong></small></div>
+										</div>
+										<!-- /row -->
+										<div class="row">
+											<div class="col-lg-10 col-9">
+												<div class="progress">
+													<div class="progress-bar" role="progressbar" style="width: 95%" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
+												</div>
+											</div>
+											<div class="col-lg-2 col-3"><small><strong>4 stars</strong></small></div>
+										</div>
+										<!-- /row -->
+										<div class="row">
+											<div class="col-lg-10 col-9">
+												<div class="progress">
+													<div class="progress-bar" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+												</div>
+											</div>
+											<div class="col-lg-2 col-3"><small><strong>3 stars</strong></small></div>
+										</div>
+										<!-- /row -->
+										<div class="row">
+											<div class="col-lg-10 col-9">
+												<div class="progress">
+													<div class="progress-bar" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+												</div>
+											</div>
+											<div class="col-lg-2 col-3"><small><strong>2 stars</strong></small></div>
+										</div>
+										<!-- /row -->
+										<div class="row">
+											<div class="col-lg-10 col-9">
+												<div class="progress">
+													<div class="progress-bar" role="progressbar" style="width: 0" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+												</div>
+											</div>
+											<div class="col-lg-2 col-3"><small><strong>1 stars</strong></small></div>
+										</div>
+										<!-- /row -->
+									</div>
+								</div>
+								<!-- /row -->
+							</div>
+
+							<hr>
+
+							<div class="reviews-container">
+
+								<div class="review-box clearfix">
+									<figure class="rev-thumb"><img src="http://via.placeholder.com/150x150/ccc/fff/avatar1.jpg" alt="">
+									</figure>
+									<div class="rev-content">
+										<div class="rating">
+											<i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i>
+										</div>
+										<div class="rev-info">
+											Admin – April 03, 2016:
+										</div>
+										<div class="rev-text">
+											<p>
+												Sed eget turpis a pede tempor malesuada. Vivamus quis mi at leo pulvinar hendrerit. Cum sociis natoque penatibus et magnis dis
+											</p>
+										</div>
+									</div>
+								</div>
+								<!-- /review-box -->
+								<div class="review-box clearfix">
+									<figure class="rev-thumb"><img src="http://via.placeholder.com/150x150/ccc/fff/avatar2.jpg" alt="">
+									</figure>
+									<div class="rev-content">
+										<div class="rating">
+											<i class="icon-star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i>
+										</div>
+										<div class="rev-info">
+											Ahsan – April 01, 2016:
+										</div>
+										<div class="rev-text">
+											<p>
+												Sed eget turpis a pede tempor malesuada. Vivamus quis mi at leo pulvinar hendrerit. Cum sociis natoque penatibus et magnis dis
+											</p>
+										</div>
+									</div>
+								</div>
+								<!-- /review-box -->
+								<div class="review-box clearfix">
+									<figure class="rev-thumb"><img src="http://via.placeholder.com/150x150/ccc/fff/avatar3.jpg" alt="">
+									</figure>
+									<div class="rev-content">
+										<div class="rating">
+											<i class="icon-star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i>
+										</div>
+										<div class="rev-info">
+											Sara – March 31, 2016:
+										</div>
+										<div class="rev-text">
+											<p>
+												Sed eget turpis a pede tempor malesuada. Vivamus quis mi at leo pulvinar hendrerit. Cum sociis natoque penatibus et magnis dis
+											</p>
+										</div>
+									</div>
+								</div>
+								<!-- /review-box -->
+							</div>
+							<!-- /review-container -->
+						</section>
+						<!-- /section -->
+					</div>
+					<!-- /col -->
+
+					<aside class="col-lg-4" id="sidebar">
+						<div class="box_detail">
+
+							<div class="price">
+								{{c.course_price}}DH<span class="original_price"><em>49DH</em></span>
+							</div>
+							<a href="cart-1.html" class="btn_1 full-width">S'inscrire maintenant</a>
+							<a href="#0" class="btn_1 full-width outline"><i class="icon_heart"></i> Ajouter à la liste des favoris</a>
+
+						</div>
+					</aside>
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /bg_color_1 -->
+	</main>
+	<!--/main-->
+
+	{% endblock content %}

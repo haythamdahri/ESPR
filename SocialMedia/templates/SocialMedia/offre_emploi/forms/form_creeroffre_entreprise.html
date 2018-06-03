@@ -1,0 +1,31 @@
+{% load widget_tweaks %}
+<form class=" form-horizontal" id="formAjouterLangue" method="post" action=""
+      style="background-color:inherit">
+    {% csrf_token %}
+    <div class="modal-body "
+         style=" margin-left: 1px; background-color:white;padding:30px;">
+
+        <div class="form-group">
+            <label class="col-md-12"  style="font-weight:bold;">Nom de l'entreprise *</label>
+            <div class="col-md-12 inputGroupContainer">
+                {% render_field FormCreerEmploiEntreprise.nom class="form-control awesomplete entreprise_suggestion" data-minChars="1" %}
+            </div>
+            {% for error in FormCreerEmploiEntreprise.nom.errors %}
+                <span class="error-block" style="padding-left: 15px;font-weight:bold;">{{ error }}</span><br>
+            {% endfor %}
+        </div>
+
+    </div> <!-- End Div with scroll modal body -->
+
+    <!-- Button -->
+    <div class="form-group">
+        <div class="col-md-12">
+            <button type="submit" class="btn btn-info float--right" id="btnAjouterLangue" style="margin-right:25px;"><span
+                    id="mySpinner" style="position:relative; top: -2px;left: -15px;"></span>Suivant >
+            </button>
+        </div>
+
+        <label class="col-md-12 "></label>
+    </div>
+
+</form>

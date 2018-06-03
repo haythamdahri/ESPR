@@ -1,0 +1,29 @@
+{% load staticfiles %}
+
+{% for benevolat in benevolats %}
+
+    <div class="row" style="padding-top:15px;">
+        <div class=" col-sm-2 col-xs-2 ">
+            <img src=" {% if benevolat.organisme %}{{ benevolat.organisme.logo.url }}{% else %}{% static "Socialmedia/img/organisme-default.png" %}{% endif %}" alt="" width="100px;">
+        </div>
+
+        <div class="col-xs-6">
+            <span class="titre" style="font-weight: bold;color:darkslategray;">{% if benevolat.organisme  %} {{ benevolat.organisme.nom | upper }}{% else %} {{ benevolat.nom_organisme |upper }}{% endif %}</span><br>
+            <span class="info--entreprise">{{ benevolat.nom_poste }}</span><br>
+            <span class="info">{{ benevolat.cause }}</span><br>
+            <span class="info">{{ benevolat.date_debut | date:"M, Y" }} - {{ benevolat.date_fin | date:"M, Y" }} • {{ benevolat.date_debut|timesince:benevolat.date_fin }} </span><br>
+            <br><br>
+            <p class="description">{{ benevolat.description }}</p>
+        </div>
+
+
+
+    </div>
+
+
+    {% if not forloop.last %}
+                        <hr width="75%"
+                            style="box-shadow: 0 0 3px rgba(0, 0, 0, 0.7);height:1px;border:none;color:#1ea1f2;background-color:#1ea1f2"
+                            ;/>
+                    {% endif %}
+{% endfor %}

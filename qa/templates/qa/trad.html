@@ -1,0 +1,44 @@
+{% load i18n %}
+
+
+<h1>{% trans 'Hello' %}</h1>
+<p>{% trans 'Welcome to my site.' %}</p>
+
+<form action="{% url 'set_language' %}" method="post">
+    {% csrf_token %}
+    <h1>{% get_current_language as LANGAUGE_CODE  %} {{ LANGAUGE_CODE }}</h1>
+    <input name="next" type="hidden" value="{{ request.path }}" />
+    <select name="language">
+        {% get_current_language as LANGUAGE_CODE %}
+        {% get_available_languages as LANGUAGES %}
+        {% for lang in LANGUAGES %}
+            <option value="{{ lang.0 }}" {% if lang.0 == LANGUAGE_CODE %} selected="selected"{% endif %}>
+                {{ lang.1 }} ({{ lang.0 }})
+            </option>
+        {% endfor %}
+    </select>
+    <input type="submit" value="Go" />
+    <h1>{{ request.path }}</h1>
+</form>
+
+
+
+<form action="{% url 'set_language' %}" method="post">
+    {% csrf_token %}
+    <input name="next" type="hidden" value="{{ request.get_full_path }}" />
+    <ul class="nav navbar-nav navbar-right language menu">
+        {% get_current_language as LANGUAGE_CODE %}
+        {% get_available_languages as LANGUAGES %}
+        {% get_language_info_list for LANGUAGES as languages %}
+        {% for language in languages %}
+            <li>
+                <button type="submit"
+                        name="language"
+                        value="{{ language.code }}"
+                        class="{% if language.code == LANGUAGE_CODE %}selected{% endif %}">
+                    {{ language.name_local }}
+                </button>
+            </li>
+        {% endfor %}
+    </ul>
+</form>

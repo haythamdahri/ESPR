@@ -1,0 +1,112 @@
+<!-- Widget Start -->
+<div class="widget" style="transform: none;background-color:  white;">
+    <h2 class="h4 fw--700 widget--title col-xs-9" style="    padding-left: 0px;">Informations</h2>
+    <div class="profile--info col-xs-3" style="padding:0px;">
+        <div class="col-xs-12 liens">
+            <a href="javascript:return false">
+                <i class="fa fa-pencil float--right" style="font-size:20px;" aria-hidden="true"
+                   data-id="{{ user.profil.id }}"
+                   onclick="remplir_formulaire_changer_informations(this)"></i>
+            </a>
+        </div>
+    </div>
+
+    <div class="buddy-finder--widget ">
+        <form action="#">
+            <div class="row">
+                <div class="col-xs-12 col-xxs-12 h6">
+                    Date de naissance
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-xxs-12" style="padding-left:20px;">
+                    {{ user.profil.date_naissance | default_if_none:"-" }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-xxs-12 h6">
+                    site web
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-xxs-12 " style="padding-left:20px;">
+                    <a class=" fa--400 text-darkest" href="#">{{ user.profil.website | default_if_none:"-" }}</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-xxs-12 h6">
+                    téléphone
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-xxs-12" style="padding-left:20px;">
+                    {{ user.profil.tel | default_if_none:"-" }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-xxs-12 h6">
+                    email
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-xxs-12" style="padding-left:20px;">
+                    {{ user.email | default_if_none:"-" }}
+                </div>
+            </div>
+
+        </form>
+    </div>
+    <!-- Buddy Finder Widget End -->
+</div>
+<!-- Widget End -->
+
+<!-- Widget Start -->
+<div class="widget" style="transform: none;background-color:  white;">
+    <h2 class="h4 fw--700 widget--title">Réseaux sociaux</h2>
+
+    <!-- Text Widget Start -->
+    <div class="row">
+        {% if user.profil.facebook is not None and user.profil.facebook is not "" %}
+            <div class="col-xs-1 col-xxs-1">
+                <a href="{{ user.profil.facebook }}" target="_blank" class="btn-link"><i
+                        style="font-size:20px;color:#3b5999 ;" class="fa fa-facebook-square"
+                        aria-hidden="true"></i></a>
+            </div>
+        {% endif %}
+        {% if user.profil.youtube is not None and user.profil.youtube is not "" %}
+            <div class="col-xs-1 col-xxs-1">
+                <a href="{{ user.profil.youtube }}" target="_blank" class="btn-link"><i
+                        style="font-size:20px;color:#cd201f" class="fa fa-youtube-square"
+                        aria-hidden="true"></i></a>
+            </div>
+        {% endif %}
+        {% if user.profil.instagram is not None and user.profil.instagram is not "" %}
+            <div class="col-xs-1 col-xxs-1">
+                <a href="{{ user.profil.instagram }}" target="_blank" class="btn-link"><i
+                        style="font-size:20px;color:#e4405f" class="fa fa-instagram"
+                        aria-hidden="true"></i></a>
+            </div>
+        {% endif %}
+        {% if user.profil.linkedin is not None and user.profil.linkedin is not "" %}
+        <div class="col-xs-1 col-xxs-1">
+            <a href="{{ user.profil.linkedin }}" target="_blank" class="btn-link"><i
+                    style="font-size:20px;color:#0077B5" class="fa fa-linkedin-square"
+                    aria-hidden="true"></i></a>
+        </div>
+        {% endif %}
+        {% if user.profil.twitter is not None and user.profil.twitter is not "" %}
+            <div class="col-xs-1 col-xxs-1">
+
+                <a href="{{ user.profil.twitter }}" target="_blank" class="btn-link"><i
+                        style="font-size:20px;color:#0077B5" class="fa fa-twitter-square"
+                        aria-hidden="true"></i></a>
+            </div>
+        {% endif %}
+
+
+
+    </div>
+    <!-- Text Widget End -->
+</div>
+<!-- Widget End -->

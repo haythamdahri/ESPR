@@ -1,0 +1,63 @@
+<div class="box col-md-3 pull-right">
+        <div class="row">
+            
+            <div class="box col-md-10 pull-right">
+                <div class="box-inner panel panel-default">
+                    <!-- <div class="box-header well">
+                        <h2>Informations</h2>
+
+                        <div class="box-icon">
+                            <a href="/qa#" class="btn btn-minimize btn-round btn-default"><i class="glyphicon glyphicon-chevron-up"></i></a>
+                            <a href="/qa#" class="btn btn-close btn-round btn-default"><i class="glyphicon glyphicon-remove"></i></a>
+                        </div>
+                    </div> -->
+                    
+                    <div class="box-content">
+                        <h4>Total questions: {{ count }}</h4>
+                        <h4>Total Réponses: {{ count_a }}</h4>
+                    </div>
+                </div>
+            </div>
+            <!--/span-->
+
+            <div class="box col-md-10 pull-right">
+                <div class="box-inner">
+                    <div class="box-header well" data-original-title="">
+                        <h2>Tags Récents</h2>
+
+                        <div class="box-icon">
+                            <a href="/qa#" class="btn btn-minimize btn-round btn-default"><i class="glyphicon glyphicon-chevron-up"></i></a>
+                            <a href="/qa#" class="btn btn-close btn-round btn-default"><i class="glyphicon glyphicon-remove"></i></a>
+                        </div>
+                    </div>
+                    <div class="box-content">
+                        {% for tag in tags %}
+                          <a href="/qa/tag/{{ tag.slug|slugify }}/" class="tags_raduis"><span class="label label-info"><tag># {{ tag.slug }}</tag></span></a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <!--/span-->
+
+            <div class="box col-md-10 pull-right">
+                <div class="box-inner">
+                    <div class="box-header well" data-original-title="">
+                        <h2> RÉPONSE</h2>
+
+                        <div class="box-icon">
+                            <a href="/qa#" class="btn btn-minimize btn-round btn-default"><i class="glyphicon glyphicon-chevron-up"></i></a>
+                            <a href="/qa#" class="btn btn-close btn-round btn-default"><i class="glyphicon glyphicon-remove"></i></a>
+                        </div>
+                    </div>
+                    <div class="box-content qtext">
+                        <ul>
+                          {% for question in noans %}
+                          <li><a href="/qa/q/{{ question.id }}/">{{ question.question_text|truncatechars_html:30 }}</a></li>
+                          {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!--/span-->
+        </div>
+    </div>

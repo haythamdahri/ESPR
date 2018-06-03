@@ -1,0 +1,47 @@
+{% extends "SocialMedia/base_socialmedia.html" %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% block title %} ESPR Groupes {% endblock %}
+{% block content %}
+
+    <!-- Page Wrapper Start -->
+    <section class="page--wrapper pb--20">
+        <div class="container-fluid">
+            <div class="row text-center"
+                 style=" margin-top: -15px;height: 204px;background-position: center;background-repeat: no-repeat;background-color: #f2b234;background-size:  cover;">
+                <p style="padding-top:50px;color:whitesmoke;">
+                    <i class="fa fa-users" style="font-size:50px;"></i><br>
+                    <span style="font-weight:500; font-size:15px;">Lancez un groupe pour vous connecter avec un nouveau secteur ou une passion</span><br>
+                </p>
+            </div>
+            <div class="row  pt--40" style="adding: 20px 8%;">
+
+                <div class="col-md-12" style="transform: none;margin-top: -84px;">
+
+                    <div class="row main--content"
+                         style="width: 50%;margin:auto;box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);transform: none;background-color:  white; padding:24px;">
+                        <!-- Cover Header Start -->
+                        <div style="width: auto;padding-bottom: 30px;">
+                            <div class="col-xs-12" >
+                                <div id="actualized_form_modifier_langue">
+                                    <h2 class="text-center pb--15 mt--0">Créer un groupe ESPR</h2>
+                                    {% include 'SocialMedia/groupe/forms/form_creer_groupe.html' %}
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- Cover Header End -->
+
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+    <!-- Page Wrapper End -->
+
+
+
+{% endblock content %}

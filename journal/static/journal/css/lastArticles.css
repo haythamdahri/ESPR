@@ -1,0 +1,27 @@
+
+
+.category-info .container {
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.lastArticle {
+    padding-top: 0;
+}
+
+.lastArticle .article .article-img img {
+    height: 240px;
+}
+
+.lastArticle .paginatorIndex {
+    display: inline;
+    float: right;
+    margin-top: 25px;
+    padding-right: 30px;
+}
+

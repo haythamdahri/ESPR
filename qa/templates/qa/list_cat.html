@@ -1,0 +1,164 @@
+{% extends 'base_qa.html' %}
+{% load django_markdown %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+
+
+
+{% block content %}
+<!-- =-=-=-=-=-=-= Main Area =-=-=-=-=-=-= -->
+<div class="main-content-area">
+
+    <!-- =-=-=-=-=-=-= Page Breadcrumb =-=-=-=-=-=-= -->
+    <section class="page-title">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 col-sm-7 col-xs-12 text-left">
+            <h1>{{ user.username }}</h1>
+          </div>
+          <!-- end col -->
+          <div class="col-md-6 col-sm-5 col-xs-12 text-right">
+            <div class="bread">
+              <ol class="breadcrumb">
+                <li><a href="/qa#">Home</a>
+                </li>
+                <li><a href="/qa#">Pages</a>
+                </li>
+                <li class="active">Profile</li>
+              </ol>
+            </div>
+            <!-- end bread -->
+          </div>
+          <!-- end col -->
+        </div>
+        <!-- end row -->
+      </div>
+      <!-- end container -->
+    </section>
+
+    <!-- =-=-=-=-=-=-= Page Breadcrumb End =-=-=-=-=-=-= -->
+    
+ <!-- =-=-=-=-=-=-= User Form Settings =-=-=-=-=-=-= -->
+    <section class="section-padding-80" id="login">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-md-12">
+
+            <div class="box-panel">
+
+              <center><h1>List Categories </h1></center>
+
+              <hr>
+              <ul>
+              	{% for cat in categories %}
+                <form method="post" action="/qa/categorie/">
+                  {% csrf_token %}
+                  <input type="hidden" name="categorie" value="{{ cat.id }}" >
+              	   <li class="col-md-4" ><button class="btn btn-default btn-lg">{{ cat.title_categorie }}</button></li>
+                </form>
+              	{% endfor %}
+              </ul>
+				<br>
+              
+          </div>
+
+          <div class="clearfix"></div>
+        </div>
+      </div>
+      <!-- end container -->
+    </section>
+ <!-- =-=-=-=-=-=-= User Form Settings End =-=-=-=-=-=-= -->
+ 
+    <!-- =-=-=-=-=-=-= Our Clients =-=-=-=-=-=-= -->
+    <section class="custom-padding white" id="clients">
+      <div class="container">
+
+        <!-- Row -->
+        <div class="row">
+
+          <!-- col-md-2 client-block -->
+          <div class="col-md-2 col-xs-6 col-sm-4 client-block">
+
+            <!-- client-item client-item-style-2 -->
+            <div class="client-item client-item-style-2">
+              <a title="Client Logo" href="/qa#"> <img alt="Clients Logo" src="images/clients/client_5.png"> </a>
+            </div>
+            <!-- /client-item client-item-style-2 -->
+
+          </div>
+          <!-- /col-md-2 client-block -->
+
+          <!-- col-md-2 client-block -->
+          <div class="col-md-2 col-xs-6 col-sm-4 client-block">
+
+            <!-- client-item client-item-style-2 -->
+            <div class="client-item client-item-style-2">
+              <a title="Client Logo" href="/qa#"> <img alt="Clients Logo" src="images/clients/client_6.png"> </a>
+            </div>
+            <!-- /client-item client-item-style-2 -->
+
+          </div>
+          <!-- /col-md-2 client-block -->
+
+          <!-- col-md-2 client-block -->
+          <div class="col-md-2 col-xs-6 col-sm-4 client-block">
+
+            <!-- client-item client-item-style-2 -->
+            <div class="client-item client-item-style-2">
+              <a title="Client Logo" href="/qa#"> <img alt="Clients Logo" src="images/clients/client_7.png"> </a>
+            </div>
+            <!-- /client-item client-item-style-2 -->
+
+          </div>
+          <!-- /col-md-2 client-block -->
+
+          <!-- col-md-2 client-block -->
+          <div class="col-md-2 col-xs-6 col-sm-4 client-block">
+
+            <!-- client-item client-item-style-2 -->
+            <div class="client-item client-item-style-2">
+              <a title="Client Logo" href="/qa#"> <img alt="Clients Logo" src="images/clients/client_8.png"> </a>
+            </div>
+            <!-- /client-item client-item-style-2 -->
+
+          </div>
+          <!-- /col-md-2 client-block -->
+
+          <!-- col-md-2 client-block -->
+          <div class="col-md-2 col-xs-6 col-sm-4 client-block">
+
+            <!-- client-item client-item-style-2 -->
+            <div class="client-item client-item-style-2">
+              <a title="Client Logo" href="/qa#"> <img alt="Clients Logo" src="images/clients/client_9.png"> </a>
+            </div>
+            <!-- /client-item client-item-style-2 -->
+
+          </div>
+          <!-- /col-md-2 client-block -->
+
+          <!-- col-md-2 client-block -->
+          <div class="col-md-2 col-xs-6 col-sm-4 client-block">
+
+            <!-- client-item client-item-style-2 -->
+            <div class="client-item client-item-style-2">
+              <a title="Client Logo" href="/qa#"> <img alt="Clients Logo" src="images/clients/client_10.png"> </a>
+            </div>
+            <!-- /client-item client-item-style-2 -->
+
+          </div>
+          <!-- /col-md-2 client-block -->
+
+        </div>
+        <!-- Row End -->
+
+      </div>
+      <!-- end container -->
+    </section>
+    <!-- =-=-=-=-=-=-= Our Clients -end =-=-=-=-=-=-= -->
+
+  </div>
+<!-- =-=-=-=-=-=-= Main Area End =-=-=-=-=-=-= -->              
+
+{% endblock content %}

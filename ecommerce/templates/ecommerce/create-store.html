@@ -1,0 +1,173 @@
+{% extends 'ecommerce/base.html' %}
+
+{% load static humanize %}
+
+
+{% block style %}
+    <style>
+    select#id_cats {
+        height: 585px;
+    }
+    #intro {
+        margin-bottom: 30px;
+        font-size: 16px;
+        font-weight: 300;
+    }
+    .alert-warning {
+        display: inline-block;
+        border-radius: 4px;
+    }
+    #btn-submit {
+        padding: 15px 20px;
+        text-transform: uppercase;
+        font-weight: 500;
+        border-radius: 4px;
+        background: #ea4c0f;
+    }
+    #btn-submit:hover {
+        color: #ea4c0f;
+        background: #FFF;
+        border: 1px #ea4c0f solid;
+    }
+    </style>
+
+{% endblock %}
+
+
+{% block content %}
+    <div class="container">
+        <ul class="breadcrumb">
+            <li><a href="{% url 'e_commerce:index' %}">Accueil</a></li>
+            <li><a href="{% url 'e_commerce:my_account' %}">Mon Compte</a></li>
+            <li><b><a href="#">Devenir Exposant</a></b></li>
+        </ul>
+
+        <div class="row">
+            <!--Middle Part Start-->
+            <div class="col-sm-9" id="content">
+                <h2 class="title">Devenir Exposant</h2>
+                <p id="intro">
+                    On sait depuis longtemps que travailler avec du texte lisible et contenant du sens est source de distractions,
+                    et empêche de se concentrer sur la mise en page elle-même. L'avantage du Lorem Ipsum sur un texte générique comme
+                    'Du texte. Du texte. Du texte.' est qu'il possède une distribution de lettres plus ou moins normale, et en tout cas
+                    comparable avec celle du français standard. De nombreuses suites logicielles de mise en page ou éditeurs de sites Web
+                    ont fait du Lorem Ipsum leur faux texte par défaut, et une recherche pour 'Lorem Ipsum' vous conduira vers de nombreux
+                    sites qui n'en sont encore qu'à leur phase de construction. Plusieurs versions sont apparues avec le temps, parfois
+                    par accident, souvent intentionnellement (histoire d'y rajouter de petits clins d'oeil, voire des phrases embarassantes).
+                </p>
+                {% if form.errors %}
+                    <div class="alert alert-danger">
+                        <p style="font-size: 18px; font-weight: bold;">Veuillez corriger les erreurs ci dessous :</p>
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <p style="padding-left: 40px"><strong>{{ field.name }} : </strong>{{ error|escape }}</p>
+                            {% endfor %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                <div class="row">
+                    <form action="" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="col-sm-6">
+                            <fieldset id="personal-details">
+                                <legend>Exposant Détails</legend>
+                                <div class="form-group required">
+                                    <label class="control-label">Veuillez choisir vos secteurs d'activités </label>
+                                    <select name="cats" class="form-control" multiple="multiple" id="id_cats" required
+                                            title="Sélectionnez des Catégories...">
+                                    {% for cat in cats %}
+                                        <option value="{{ cat.id }}">{{ cat }}</option>
+                                    {% endfor %}
+                                    </select>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-sm-6">
+                            <fieldset id="personal-details required">
+                                <legend>Boutique Détails</legend>
+                                <div class="form-group required">
+                                    <label for="" class="control-label">Nom de la Boutique</label>
+                                    {{ form.name }}
+                                </div>
+                                <div class="form-group required">
+                                    <label for="" class="control-label">Adresse</label>
+                                    {{ form.address }}
+                                </div>
+                                <div class="form-group required">
+                                    <label for="" class="control-label">Téléphone</label>
+                                    {{ form.tel }}
+                                </div>
+                                <div class="form-group required">
+                                    <label for="" class="control-label">Image principale</label>
+                                    <label class="btn btn-default" for="" id="upload-file-label-p"
+                                           style="width:100%; border-radius:4px;overflow:hidden;">
+                                        Image Principale
+                                    </label>
+                                    {{ form.image_profile }}
+                                </div>
+                                <div class="form-group required">
+                                    <label for="" class="control-label">Image de couverture</label>
+                                    <label class="btn btn-default" for="" id="upload-file-label-c"
+                                           style="width:100%; border-radius:4px;overflow:hidden;">
+                                        Image de Couverture
+                                    </label>
+                                    {{ form.image_cover }}
+                                </div>
+                                <div class="form-group required">
+                                    <label for="" class="control-label">Description</label>
+                                    {{ form.description }}
+                                </div>
+                                <div class="captcha">
+                                    {{ form.captcha }}
+                                </div>
+                            </fieldset>
+                        </div>
+                    <div class="col-md-12">
+                        <div class="alert alert-warning">
+                            Veuillez noter que vous ne pouvez pas ajouter des produits à votre boutique qui n'appartient pas les secteurs d'activités
+                            sélectionnés
+                        </div>
+                        <button id="btn-submit" class="btn btn-warning pull-right" type="submit">Envoyer Demande</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!--Middle Part End-->
+            <!--Right Part Start -->
+            <aside class="col-sm-3 hidden-xs" id="column-right">
+                <h2 class="subtitle"><a href="{% url 'e_commerce:my_account' %}">Mon Compte</a></h2>
+                <div class="list-group">
+                    <ul class="list-item">
+                        <li><a href="{% url 'e_commerce:cart' %}">Chariot</a>
+                        </li>
+                        <li><a href="{% url 'e_commerce:compare' %}">Comparer</a>
+                        </li>
+                        <li><a href="{% url 'e_commerce:wish_list' %}">Liste des Souhaits</a>
+                        </li>
+                        <li><a href="{% url 'e_commerce:order_history' %}">Historique des Commandes</a>
+                        </li>
+                        <li><a href="{% url 'e_commerce:checkout' %}">Check-out</a>
+                        </li>
+                        <li><a href="{% url 'e_commerce:about-us' %}">Qui sommes nous?</a>
+                        </li>
+                        <li><a href="{% url 'e_commerce:contact-us' %}">Contacter Nous</a>
+                        </li>
+                    </ul>
+                </div>
+            </aside>
+            <!--Right Part End -->
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block script %}
+    <script>
+    $("#upload-file-label-p").click(function () {
+        $("#id_image_profile").click();
+    });
+    $("#upload-file-label-c").click(function () {
+        $("#id_image_cover").click();
+    });
+    </script>
+{% endblock %}

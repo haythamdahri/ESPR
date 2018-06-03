@@ -1,0 +1,634 @@
+{% extends "SocialMedia/base_socialmedia.html" %}
+{% load staticfiles %}
+{% load i18n %}
+{% load widget_tweaks %}
+{% block title %}{{ user.username }}{% endblock %}
+{% block content %}
+    {% block modals %}
+        <!-- line modal for cover -->
+        <div id="#formcovergroupe">
+            <div class="modal fade" id="squarespaceModalcover" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span
+                                    aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                            <h3 class="modal-title" id="lineModalLabel">Image de couverture</h3>
+                        </div>
+
+                            <form method="post" onsubmit="return " id="photoformgroupe" enctype="multipart/form-data">
+                            <div class="modal-body">
+
+                                <!-- content goes here -->
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                  <span class="input-group-btn">
+                                      <span class="btn btn-default btn-file" style="font-weight: bold;">
+                                          Choisissez une image…{% render_field photoform.image accept='image/*' class="form-control" style="cursor: pointer" id="imgInp" %}
+                                      </span>
+                                  </span>
+                                            <input type="text" class="form-control" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" id="photo">
+                                        <img id='img-upload'/>
+                                    </div>
+
+                                <div class="panel-group uploadprogress hidden">
+                                    <h4 class="modal-title">Uploading...</h4>
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" style="width: 0%;">0%</div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <div class="form-group text-center">
+                                    <button class="btn btn-primary"
+                                            style="float:right;">
+                                        Enregistrer
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- line modal for cover -->
+        <div id="#formprofilgroupe">
+            <div class="modal fade" id="squarespaceModalprofilgroupe" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span
+                                    aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                            <h3 class="modal-title" id="lineModalLabel">Photo de profil</h3>
+                        </div>
+
+                        <form method="post" onsubmit="return " id="photoprofilformgroupe" enctype="multipart/form-data">
+                            <div class="modal-body">
+
+                                <!-- content goes here -->
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                  <span class="input-group-btn">
+                                      <span class="btn btn-default btn-file1"
+                                            style="font-weight: 500;cursor: pointer;">
+                                          Choisissez une image…{% render_field photoform.image class="form-control" accept='image/*' id="imgInp1" %}
+                                      </span>
+                                  </span>
+                                            <input type="text" class="form-control" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" id="photo1">
+                                        <img id='img-upload1'/>
+                                    </div>
+                                <div class="panel-group uploadprogress hidden uploadp">
+                                    <h4 class="modal-title">Uploading...</h4>
+                                    <div class="progress">
+                                        <div class="progress-bar prog" role="progressbar" style="width: 0%;">0%</div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="modal-footer">
+
+                                    <div class="form-group text-center">
+                                        <button class="btn btn-primary"
+                                                style="float:right;">
+                                            Enregistrer
+                                        </button>
+                                    </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    {% endblock %}
+
+
+
+    <!-- Page Wrapper Start -->
+    <section class="page--wrapper pb--20">
+        <div class="container-fluid">
+            <div class="row  pt--40" style="padding: 20px 8%;">
+        {% include 'SocialMedia/messages.html' %}
+                <div class="col-md-8"  style="background-color: #f5f5f5;">
+
+                    <div class="row main--content"
+                         style="box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);">
+                    {% if user.profil in groupe.admins.all %}
+                        <button id="btcoverchange" class="btchangepic btnchangepiccouverture" data-toggle="modal"
+                                data-target="#squarespaceModalcover"><i class="fa fa-camera" aria-hidden="true"></i> Actualiser la photo de couverture
+                        </button>
+                    {% endif %}
+                        <!-- Cover Header Start -->
+                        <div id="coverpic" class="cover--header pt--80 text-center"
+                             data-bg-img="{{ groupe.photo_couverture.image.url|default:'/media/SocialMedia/default.jpg' }}"
+                             data-overlay="0.6" data-overlay-color="white" style="background-color: white;">
+                             
+
+
+                            <div style="width: auto;padding-bottom: 30px;">
+                                <div class="cover--avatar" data-overlay="0.3" data-overlay-color="primary">
+
+                                    <div class="photprofilcontainer">
+                                        <img id="profilpic" class="image "
+                                             src="{{ groupe.photo_profil.image.url|default:'/media/SocialMedia/default.jpg' }}"
+                                             alt="">
+                                        {% if user.profil in groupe.admins.all %}
+                                        <div class="middle">
+                                            <div class="text">
+                                                <a href="javascript:return false" title="Actualiser la photo de profil" class="btn-link"
+                                                   data-toggle="tooltip" data-placement="bottom">
+                                                    <i id="btprofilchange" class="btchangepic profilpic fa fa-camera"
+                                                       data-toggle="modal" data-target="#squarespaceModalprofilgroupe"
+                                                       aria-hidden="true"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        {% endif %}
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 liste_informations_profil">
+                                        {% include "SocialMedia/groupe/informations/informations_groupe.html" %}
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- Cover Header End -->
+
+                    </div>
+
+                    <!-- Main Content Start -->
+
+                    <div class="row main--content mt--20" data-trigger="stickyScroll" style="box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 3px; transform: none; background-color: white; position: relative; overflow: visible; box-sizing: border-box; min-height: 1px;">
+                        <div class="main--content-inner drop--shadow">
+                            <!-- Content Nav Start -->
+                            <div class="content--nav pb--30">
+                                <ul class="nav ff--primary fs--14 fw--500 bg-lighter profil_links_menu">
+                                {% if user.profil in groupe.admins.all or user.profil in groupe.moderators.all or user.profil in groupe.adherents.all %}
+                                    <li class="active"><a href="{% url 'SocialMedia:groupe' groupe.id %}">Activité</a></li>
+                                    {% if user.profil in groupe.admins.all %}
+                                    <li><a href="{% url 'SocialMedia:demandesGroupe' groupe.id %}">Demandes <span id="nbdemandeBadge" class="badge">{{ nbdemandes }}</span></a>
+                                    </li>
+                                    {% endif %}
+                                    <li><a href="{% url 'SocialMedia:membresGroupe' groupe.id %}">Membres <span id="nbMembersBadge" class="badge">{{ nbMembers }}</span></a></li>
+                                    {% else %}
+                                    <li><a href="{% url 'SocialMedia:groupe' groupe.id %}">Activité</a></li>
+                                {% endif %}
+                                </ul>
+                            </div>
+                            <!-- Content Nav End -->
+
+                                {% if user.profil in groupe.admins.all or user.profil in groupe.moderators.all or user.profil in groupe.adherents.all %}
+                                        {% block contentGroupe %}
+                                        {% endblock %}
+                                {% else %}
+                                    <div style="width: 100%; height: 100%;">
+                                        <div class="alert" style="background-color: transparent;    color: #555;padding: 28px;font-size: 22px;text-align:  center;" role="alert"><i class="fa fa-info-circle" aria-hidden="true"></i> Rejoignez le groupe pour pouvoir voir les publications, commenter et publier.</div>
+                                    </div>
+                                {% endif %}
+                        </div>
+                    </div>
+                    <!-- Main Content End -->
+
+                </div>
+
+                {% block sideBar %}
+
+                    <!-- Main Sidebar Start -->
+                    <div class="col-md-4 main--sidebar pb--60" data-trigger="stickyScroll">
+                        <!-- Widget Start -->
+                        <div class="widget" style="transform: none;background-color:  white;">
+                            <h2 class="h4 fw--700 widget--title">Informations Du Groupe</h2>
+
+                            <!-- Buddy Finder Widget Start -->
+                            <div class="buddy-finder--widget">
+                                <form action="#">
+                                    <div class="row">
+                                        <div class="col-xs-12 col-xxs-12 h6">
+                                            Date de creation
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-12 col-xxs-12" style="padding-left:20px;">
+                                            {{ groupe.date_creation|date }}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-12 col-xxs-12 h6">
+                                            Statut Du Groupe
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-12 col-xxs-12 " style="padding-left:20px;">
+                                            {{ groupe.statut_groupe | title}}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-12 col-xxs-12 h6">
+                                            Createur
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-12 col-xxs-12" style="padding-left:20px;">
+                                            {{ groupe.creator.user.first_name | title }} {{ groupe.creator.user.last_name | title }}
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                            <!-- Buddy Finder Widget End -->
+                        </div>
+                        <!-- Widget End -->
+
+                        <!-- Widget Start -->
+                        <div class="widget" style="transform: none;background-color:  white;">
+                            <h2 class="h4 fw--700 widget--title">Réseaux sociaux</h2>
+
+                            <!-- Text Widget Start -->
+                            <div class="row">
+                                <div class="col-xs-1 col-xxs-1">
+
+                                    <a href="{{ user.profil.facebook }}" target="_blank" class="btn-link"><i
+                                            style="font-size:20px;color:#3b5999" class="fa fa-facebook-square"
+                                            aria-hidden="true"></i></a>
+                                </div>
+                                <div class="col-xs-1 col-xxs-1">
+
+                                    <a href="{{ user.profil.youtube }}" target="_blank" class="btn-link"><i
+                                            style="font-size:20px;color:#cd201f" class="fa fa-youtube-square"
+                                            aria-hidden="true"></i></a>
+                                </div>
+                                <div class="col-xs-1 col-xxs-1">
+
+
+                                    <a href="{{ user.profil.instagram }}" target="_blank" class="btn-link"><i
+                                            style="font-size:20px;color:#e4405f" class="fa fa-instagram"
+                                            aria-hidden="true"></i></a>
+                                </div>
+                                <div class="col-xs-1 col-xxs-1">
+
+                                    <a href="{{ user.profil.linkedin }}" target="_blank" class="btn-link"><i
+                                            style="font-size:20px;color:#0077B5" class="fa fa-linkedin-square"
+                                            aria-hidden="true"></i></a>
+                                </div>
+
+                                <div class="col-xs-1 col-xxs-1">
+
+                                    <a href="{{ user.profil.twitter }}" target="_blank" class="btn-link"><i
+                                            style="font-size:20px;color:#0077B5" class="fa fa-twitter-square"
+                                            aria-hidden="true"></i></a>
+                                </div>
+
+
+                            </div>
+                            <!-- Text Widget End -->
+                        </div>
+                        <!-- Widget End -->
+
+                    </div>
+                    <!-- Main Sidebar End -->
+
+                    </div>
+
+                {% endblock %}
+
+        </div>
+        </div>
+    </section>
+    <!-- Page Wrapper End -->
+
+
+
+{% endblock %}
+
+
+
+
+{% block scripts %}
+    {{ block.super }}
+<script>
+
+        {% if messages %}
+            {% for msg in messages %}
+                swal({
+                    title: '{{ msg }}',
+                    animation: false,
+                    customClass: 'animated tada',
+                    type: '{{ msg.tags }}'
+                });
+            {% endfor %}
+        {% endif %}
+
+
+        $("#photoformgroupe").on("submit", function (event) {
+            console.log($('#photoprofilformgroupe .input-group').find(':text').val());
+            if ($('#photoformgroupe .input-group').find(':text').val().length == 0) {
+                swal({
+                    type: 'error',
+                    title: 'Aucune image selectionnée',
+                    text: 'Veuillez selectionner une image.',
+                    type: 'error'
+                });
+                return false;
+            } else if ($('#photoformgroupe .input-group').find(':text').val().length > 100) {
+                swal({
+                    type: 'error',
+                    title: 'Le nombre de caractère est trop grand',
+                    text: 'Veuillez changer le nom de la photo ou en choisir une autre.'
+                });
+                return false;
+            }
+            event.preventDefault();
+            $('.modal-footer').slideToggle(1500);
+            setTimeout(function () {
+                $(".uploadprogress").removeClass('hidden');
+            }, 1000);
+            var form_data = new FormData($(this)[0]);
+            $.ajax({
+                xhr: function () {
+                    var xhr = new window.XMLHttpRequest();
+                    xhr.upload.addEventListener("progress", function (e) {
+                        var progress = parseInt(e.loaded / e.total * 100, 10);
+                        var strProgress = progress + "%";
+                        var strProgress = progress + "%";
+                        $(".progress-bar").css({"width": strProgress});
+                        $(".progress-bar").text(strProgress);
+                    }, false);
+                    xhr.addEventListener("progress", function (evt) {
+
+                    }, false);
+                    return xhr;
+                },
+                url: '{% url "SocialMedia:changephotocouverturegroupe" groupe.id %}',
+                type: $(this).attr('method'),
+                processData: false,
+                contentType: false,
+                data: form_data,
+                success: function (data) {
+                    $("#squarespaceModalcover").modal("hide");
+                    swal("L'image de couverture a été changée avec succès.", "{{ groupe.nom }}", "success");
+                    $("#coverpic").css("background-image", "url(" + data.url + ")");
+                    document.getElementById("coverpic").style.backgroundImage = "url(" + data.url + ")";
+                },
+                error: function () {
+                },
+                stop: function (e) {  /* 3. WHEN THE UPLOADING PROCESS FINALIZE, HIDE THE MODAL */
+                    $("#squarespaceModalcover").modal("hide");
+                    swal("Il nous semble que vous ayez des problèmes de connexion.", "Erreur fatale", "error");
+                }
+            });
+
+        });
+
+        $("#photoprofilformgroupe").on("submit", function (event) {
+            if ($('#photoprofilformgroupe .input-group').find(':text').val().length == 0) {
+                swal({
+                    type: 'error',
+                    title: 'Aucune image selectionnée',
+                    text: 'Veuillez selectionner une image.'
+                });
+                return false;
+            } else if ($('#photoprofilformgroupe .input-group').find(':text').val().length > 100) {
+                swal({
+                    type: 'error',
+                    title: 'Le nombre de caractère est trop grand',
+                    text: 'Veuillez changer le nom de la photo ou en choisir une autre.'
+                });
+                return false;
+            }
+            event.preventDefault();
+            $('.modal-footer').slideToggle(1500);
+            setTimeout(function () {
+                $(".uploadp").removeClass('hidden');
+            }, 1000);
+            var form_data = new FormData($(this)[0]);
+            $.ajax({
+                xhr: function () {
+                    var xhr = new window.XMLHttpRequest();
+                    xhr.upload.addEventListener("progress", function (e) {
+                        var progress = parseInt(e.loaded / e.total * 100, 10);
+                        var strProgress = progress + "%";
+                        var strProgress = progress + "%";
+                        $(".prog").css({"width": strProgress});
+                        $(".prog").text(strProgress);
+                    }, false);
+                    xhr.addEventListener("progress", function (evt) {
+
+                    }, false);
+                    return xhr;
+                },
+                url: '{% url "SocialMedia:changephotoprofilgroupe" groupe.id %}',
+                type: $(this).attr('method'),
+                processData: false,
+                contentType: false,
+                data: form_data,
+                success: function (data) {
+                    $("#squarespaceModalprofilgroupe").modal("hide");
+                    swal("Photo du Profil groupe a été changée avec auccé", "{{ groupe.nom }}", "success");
+                    $("#profilpic").attr("src", data.url);
+                    document.getElementById("profilpic").src = data.url;
+                },
+                error: function () {
+                },
+                stop: function (e) {  /* 3. WHEN THE UPLOADING PROCESS FINALIZE, HIDE THE MODAL */
+                    $("#squarespaceModalprofilgroupe").modal("hide");
+                    swal("Il semble que vous ayez des problèmes de connexion.", "Erreur fatale", "error");
+                }
+            });
+
+        });
+
+        $("#joinGroupe, #exitGroupe, #cancelRequest").on("submit", function(e){
+            e.preventDefault();
+            if( $(this).attr('type') == 1 ){
+                var form_data = new FormData($(this)[0]);
+                $.ajax({
+                    url: '{% url "SocialMedia:joinGroupeViaAjax" groupe.id %}',
+                    type: $(this).attr('method'),
+                    processData: false,
+                    contentType: false,
+                    data: form_data,
+                    success: function (data) {
+                        if( data.statut )
+                        {
+                            $("#cancelRequest").removeClass('hidden');
+                            $("#joinGroupe").addClass('hidden');
+                            const toast = swal.mixin({
+                              toast: true,
+                              position: 'bottom-right',
+                              showConfirmButton: false,
+                              timer: 3000
+                            });
+                            toast({
+                              type: 'success',
+                              title: data.msg,
+                            });
+                        }else
+                            {
+                                const toast = swal.mixin({
+                              toast: true,
+                              position: 'bottom-right',
+                              showConfirmButton: false,
+                              timer: 3000
+                            });
+
+                            toast({
+                              type: 'error',
+                              title: data.msg,
+                            })
+                            }
+                    },
+                    error: function () {
+                    },
+                    stop: function (e) {  /* 3. WHEN THE UPLOADING PROCESS FINALIZE, HIDE THE MODAL */
+                        $("#squarespaceModal").modal("hide");
+                        swal("Veuiller Verifier Votre Connexion Reseau Puis Ressayer", "Erreur Fatale", "error");
+                    }
+                });
+            }else if( $(this).attr('type') == 0 ){
+                var form_data = new FormData($(this)[0]);
+                swal({
+                  title: 'Attention',
+                  text: "Êtes-vous sur de quitter le groupe {{ groupe.nom }}",
+                  type: 'info',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'Oui',
+                  cancelButtonText: 'non'
+                }).then((result) => {
+                  if (result.value) {
+                    $.ajax({
+                    url: '{% url "SocialMedia:joinGroupeViaAjax" groupe.id %}',
+                    type: $(this).attr('method'),
+                    processData: false,
+                    contentType: false,
+                    data: form_data,
+                    success: function (data) {
+                        if( data.statut )
+                        {
+                            $("#joinGroupe").removeClass('hidden');
+                            $("#exitGroupe").addClass('hidden');
+                            const toast = swal.mixin({
+                              toast: true,
+                              position: 'bottom-right',
+                              showConfirmButton: false,
+                              timer: 3000
+                            });
+
+                            toast({
+                              type: 'success',
+                              title: data.msg,
+                            });
+                            $(location).attr('href', "{% url 'SocialMedia:groupe' groupe.id %}");
+                        }else
+                            {
+                                const toast = swal.mixin({
+                              toast: true,
+                              position: 'bottom-right',
+                              showConfirmButton: false,
+                              timer: 3000
+                            });
+
+                            toast({
+                              type: 'error',
+                              title: data.msg,
+                            })
+                            }
+                    },
+                    error: function () {
+                    },
+                    stop: function (e) {  /* 3. WHEN THE UPLOADING PROCESS FINALIZE, HIDE THE MODAL */
+                        $("#squarespaceModal").modal("hide");
+                        swal("Veuiller Verifier Votre Connexion Reseau Puis Ressayer", "Erreur Fatale", "error");
+                    }
+                });
+                  }
+            });
+
+            }else if( $(this).attr('type') == -1 ){
+                var form_data = new FormData($(this)[0]);
+                $.ajax({
+                    url: '{% url "SocialMedia:joinGroupeViaAjax" groupe.id %}',
+                    type: $(this).attr('method'),
+                    processData: false,
+                    contentType: false,
+                    data: form_data,
+                    success: function (data) {
+                        if( data.statut )
+                        {
+                               $("#joinGroupe").removeClass('hidden');
+                               $("#cancelRequest").addClass('hidden');
+                            const toast = swal.mixin({
+                              toast: true,
+                              position: 'bottom-right',
+                              showConfirmButton: false,
+                              timer: 3000
+                            });
+
+                            toast({
+                              type: 'success',
+                              title: data.msg,
+                            })
+                        }else
+                            {
+                                const toast = swal.mixin({
+                              toast: true,
+                              position: 'bottom-right',
+                              showConfirmButton: false,
+                              timer: 3000
+                            });
+
+                            toast({
+                              type: 'error',
+                              title: data.msg,
+                            })
+                            }
+                    },
+                    error: function () {
+                    },
+                    stop: function (e) {  /* 3. WHEN THE UPLOADING PROCESS FINALIZE, HIDE THE MODAL */
+                        $("#squarespaceModal").modal("hide");
+                        swal("Veuiller Verifier Votre Connexion Reseau Puis Ressayer", "Erreur Fatale", "error");
+                    }
+                });
+            }
+        });
+
+        $("#exitGroupe").mouseenter(function(){
+           $("#groupememberBT").html('<i id="exitGRBT-span" class="fa fa-times" aria-hidden="true"></i> Quitter');
+        }).mouseout(function(){
+           $("#groupememberBT").html('<i id="groupememberBT" class="fa fa-check-circle-o" aria-hidden="true"></i> Membre');
+        });
+
+        $("#cancelRequest").mouseenter(function(){
+           $("#waitingGroupeBT").html('<i class="fa fa-times" aria-hidden="true"></i> Annuler');
+        }).mouseout(function(){
+           $("#waitingGroupeBT").html('<i class="fa fa-check-circle-o" aria-hidden="true"></i> En attente');
+        });
+
+
+    </script>
+
+{% endblock %}
+
+
+
+

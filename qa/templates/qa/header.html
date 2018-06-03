@@ -1,0 +1,44 @@
+{% load static %}
+
+<ul class="breadcrumb">
+        <li>
+            <a href="/qa#">Home</a>
+        </li>
+        <li>
+            <a href="/qa#">Dashboard</a>
+        </li>
+    </ul>
+</div>
+<div class=" row">
+    <div class="col-md-6 col-sm-6 col-xs-6">
+           <a href="/qa"> <h1><img src='{% static "qa/img/pict.png" %}' width="100px" height="70px">Simple Q&A</h1>
+        </a>
+    </div>
+
+
+
+    <div class="col-md-3 col-sm-3 col-xs-6">
+        
+    </div>
+
+    <div class="col-md-3 col-sm-3 col-xs-6">
+        <a class="well top-block" href="/qa/add/">
+            <h4>
+            <i class="glyphicon glyphicon-plus"></i>
+            <span>Ajouter Question</span>
+            </h4>
+            
+        </a>
+
+<h1>{{ cat }}</h1>
+        <form action="/qa/categorie/" method="post" >
+            {% csrf_token %}
+        <select style="width: 100%;" class="col-md-3 col-sm-3 col-xs-6" id="selectError" data-rel="chosen" name="categorie" onchange="this.form.submit();" >
+                            <option value="" disabled selected>Select Categories</option>
+                            {%for cat in categories%}
+                            <option value="{{ cat.id }}" >{{ cat }}</option>
+                            {% endfor %}
+                        </select>
+        </form>
+    </div>
+</div>

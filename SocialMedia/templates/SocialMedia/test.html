@@ -1,0 +1,54 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <div id="backToTop">
+        <a href="#" class="btn"><i class="fa fa-caret-up"></i></a>
+    </div>
+    <!-- ==== Custom Script ==== -->
+    <script src="{% static 'Socialmedia/js/plugins.min.js' %}"></script>
+    <script src="{% static 'Socialmedia/css/custom.css' %}"></script>
+    <!-- ==== Plugins Bundle ==== -->
+
+
+    <style>
+        @keyframes spinner {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .spinner:before {
+            content: '';
+            box-sizing: border-box;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            margin-top: -10px;
+            margin-left: -10px;
+            border-radius: 50%;
+            border: 2px solid #ccc;
+            border-top-color: #333;
+            animation: spinner .6s linear infinite;
+        }
+
+    </style>
+
+
+</head>
+<body>
+
+<span onclick="$('#mySpinner').removeClass('spinner');"
+      style="padding: 0 0 0 10px; cursor: pointer;">Remove spinner!</span>
+
+<button onclick="$('#mySpinner').addClass('spinner');"> <span id="mySpinner" style="position:fixed;"></span><span style="padding-left: 20px;">S'enregistrer</span></button>
+
+
+</body>
+</html>

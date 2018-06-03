@@ -1,0 +1,72 @@
+{% extends 'authentification/base_authentification.html' %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+
+{% block title} {{block.super}} S'inscrire{% endblock title}
+
+{% block leftimage %}
+
+{% endblock leftimage %}
+
+{% block form %}
+
+<form class="login100-form validate-form" method="POST"  style="margin:auto;">
+    {% csrf_token %}
+
+    <span class="login100-form-title"> Nous contacter 	</span>
+
+    {% include "messages.html" %}
+
+    {% for error in contact_form.full_name.errors %}
+        <span class="error-block">{{ error }}</span>
+    {% endfor %}
+    <div class="wrap-input100 validate-input" >
+        {% render_field contact_form.full_name class="input100" placeholder="Nom complet" %}
+        <span class="focus-input100"></span>
+        <span class="symbol-input100">
+            <i class="fa fa-address-card-o" aria-hidden="true"></i>
+        </span>
+    </div>
+
+    {% for error in contact_form.email.errors %}
+        <span class="error-block">{{ error }}</span>
+    {% endfor %}
+    <div class="wrap-input100 validate-input" >
+        {% render_field contact_form.email class="input100" placeholder="Email" %}
+        <span class="focus-input100"></span>
+        <span class="symbol-input100">
+            <i class="fa fa-envelope" aria-hidden="true"></i>
+        </span>
+    </div>
+
+    {% for error in contact_form.message.errors %}
+        <span class="error-block">{{ error }}</span>
+    {% endfor %}
+    <div class="wrap-input100 validate-input" >
+        {% render_field contact_form.message class="input100" placeholder="Votre message..." style="height:90px;" %}
+        <span class="focus-input100"></span>
+    </div>
+
+
+
+    <div class="container-login100-form-btn">
+        <button class="login100-form-btn">
+            Envoyer
+        </button>
+    </div>
+
+    <div class="text-center p-t-12">
+
+
+    </div>
+</form>
+
+{% endblock form %}
+
+{% block scripts %}
+    {{ block.super }}
+
+<script>
+    $('#acceuil').addClass("active")
+</script>
+{% endblock scripts %}

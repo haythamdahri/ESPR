@@ -1,0 +1,137 @@
+
+
+
+.videos {
+}
+
+.title h2 {
+    text-transform: uppercase;
+    display: inline;
+}
+
+.title form {
+    display: inline;
+    float: right;
+}
+
+.title form select {
+    margin-right: 25px;
+    font-size: 15px;
+    background: #212121;
+    color: #FFF;
+    font-weight: lighter;
+    text-transform: uppercase;
+    border-radius: 4px;
+}
+
+.title p {
+    font-size: 18px;
+    font-style: italic;
+    margin-top: 20px;
+    margin-bottom: 25px;
+}
+
+.title img {
+    max-width: 150px;
+    margin-top: -30px;
+}
+
+.owl-carousel .item-video{
+    height:400px;
+}
+
+.owl-carousel .owl-video-tn {
+  background-size: cover;
+  padding-bottom: 56.25%;
+	padding-top: 25px;
+}
+
+.owl-video-frame {
+	position: relative;
+	padding-bottom: 56.25%;
+	padding-top: 25px;
+	height: 0;
+}
+.owl-video-frame iframe {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.other-video {
+    padding-top: 0;
+}
+
+.other-video .col-md-8 .article .article-img img {
+    height: 202px;
+}
+
+.other-video .col-md-8 .article .article-img .article-info {
+    position: absolute;
+    bottom: 40%;
+    left: 42%;
+    z-index: 22;
+}
+
+.other-video .col-md-8 .article .article-info .article-type {
+    width: 60px;
+    height: 60px;
+    color: #FFF;
+    font-size: 30px;
+    border: 3px solid;
+    padding: 12px 19px 15px 18px;
+    border-radius: 50%;
+    background: transparent;
+}
+
+.other-video .col-md-8 .article .article-info .article-type:hover {
+    background: rgba(117, 117, 117, .7);
+}
+
+.other-video .col-md-8 .article .article-info .article-type .fa {
+    color: #FFF;
+}
+
+.other-video .col-md-8 .article .article-meta li a {
+    font-weight: bold;
+}
+
+.other-video .col-md-8 .article .article-meta li.pull-right {
+    padding-top: 2px;
+}
+
+.paginatorIndex {
+    display: inline;
+    float: right;
+    margin-top: 5px;
+    padding-right: 30px;
+}
+
+
+/* OVERRIDE */
+.pagination {
+    margin-top: 0;
+}
+
+.pagination>.active>a,
+.pagination>.active>a:focus,
+.pagination>.active>a:hover,
+.pagination>.active>span,
+.pagination>.active>span:focus,
+.pagination>.active>span:hover {
+    background-color: #f46320;
+    border-color: #f46320;
+}
+
+.pagination>li>a {
+    color: #f46320;
+}
+
+.pagination>li>a:focus,
+.pagination>li>a:hover,
+.pagination>li>span:focus,
+.pagination>li>span:hover {
+    color: #f46320;
+}

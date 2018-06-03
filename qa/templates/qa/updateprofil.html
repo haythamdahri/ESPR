@@ -1,0 +1,424 @@
+{% extends 'base.html' %}
+{% load django_markdown %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+
+
+
+
+{% block content %}
+<!-- <link href="/qa//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/qahttps://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head> -->
+
+
+<hr>
+
+<div class="container bootstrap snippet">
+    <div class="row">
+  		<div class="col-sm-10"><h1>{{ user.username }}</h1></div>
+    	<div class="col-sm-2"><a href="/qa/users" class="pull-right">
+        <!-- <img title="profile image" class="img-circle img-responsive" src="http://www.gravatar.com/avatar/28fd20ccec6865e2d5f0e1f4446eb7bf?s=100"> -->
+        <a href="/qa"> <h3><img src='{% static "qa/img/pict.png" %}' width="100px" height="70px">Simple Q&A</h3>
+      </a></div>
+    </div>
+    <div class="row">
+  		<div class="col-sm-3"><!--left col-->
+              
+
+      <div class="text-center">
+        <img src="{{ id_img.url }}" class="avatar img-circle img-thumbnail" alt="avatar">
+        <h6>Upload a different photo...</h6>
+        <!-- <input type="file" class="text-center center-block file-upload"> -->
+        {% render_field formimg.image class="form-control" %}
+      </div></hr><br>
+
+               
+          <div class="panel panel-default">
+            <div class="panel-heading">Website <i class="fa fa-link fa-1x"></i></div>
+            <div class="panel-body"><a href="/qahttp://bootnipets.com">bootnipets.com</a></div>
+          </div>
+          
+          
+          <ul class="list-group">
+            <li class="list-group-item text-muted">Activity <i class="fa fa-dashboard fa-1x"></i></li>
+            <li class="list-group-item text-right"><span class="pull-left"><strong>Questions</strong></span> {{ nbQusetion }}</li>
+            <li class="list-group-item text-right"><span class="pull-left"><strong>Réponses</strong></span> {{ nbAnswer }}</li>
+            <li class="list-group-item text-right"><span class="pull-left"><strong>Points</strong></span> {{ profil.points }}</li>
+            <li class="list-group-item text-right"><span class="pull-left"><strong>Followers</strong></span> 78</li>
+          </ul> 
+               
+          <div class="panel panel-default">
+            <div class="panel-heading">Social Media</div>
+            <div class="panel-body">
+            	<i class="fa fa-facebook fa-2x"></i> <i class="fa fa-github fa-2x"></i> <i class="fa fa-twitter fa-2x"></i> <i class="fa fa-pinterest fa-2x"></i> <i class="fa fa-google-plus fa-2x"></i>
+            </div>
+          </div>
+          
+        </div><!--/col-3-->
+    	<div class="col-sm-9">
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="/qa#home">Home</a></li>
+                <li><a data-toggle="tab" href="/qa#qst">Mes Questions</a></li>
+                <li><a data-toggle="tab" href="/qa#settings">Menu 2</a></li>
+                <li><a data-toggle="tab" href="/qa#register" >registrationForm</a></li>
+              </ul>
+
+              
+          <div class="tab-content">
+            <div class="tab-pane active" id="home">
+                <hr>
+                  <form class="form" action="/qa/updateprofil/" method="post" id="registrationForm">
+                    {% csrf_token %}
+
+                      <div class="form-group">
+                          
+                          <div class="col-xs-6">
+                              <label for="first_name"><h4>First name</h4></label>
+                              <input type="text" class="form-control" name="first_name" id="first_name" placeholder="first name" title="enter your first name if any.">
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          
+                          <div class="col-xs-6">
+                            <label for="last_name"><h4>Last name</h4></label>
+                              <input type="text" class="form-control" name="last_name" id="last_name" placeholder="last name" title="enter your last name if any.">
+                          </div>
+                      </div>
+          
+                      <div class="form-group">
+                          
+                          <div class="col-xs-6">
+                              <label for="phone"><h4>Phone</h4></label>
+                              <input type="text" class="form-control" name="phone" id="phone" placeholder="enter phone" title="enter your phone number if any.">
+                          </div>
+                      </div>
+          
+                      <div class="form-group">
+                          <div class="col-xs-6">
+                             <label for="mobile"><h4>Mobile</h4></label>
+                              <input type="text" class="form-control" name="mobile" id="mobile" placeholder="enter mobile number" title="enter your mobile number if any.">
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          
+                          <div class="col-xs-6">
+                              <label for="email"><h4>Email</h4></label>
+                              <input type="email" class="form-control" name="email" id="email" placeholder="you@email.com" title="enter your email.">
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          
+                          <div class="col-xs-6">
+                              <label for="email"><h4>Location</h4></label>
+                              <input type="email" class="form-control" id="location" placeholder="somewhere" title="enter a location">
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          
+                          <div class="col-xs-6">
+                              <label for="password"><h4>Password</h4></label>
+                              <input type="password" class="form-control" name="password" id="password" placeholder="password" title="enter your password.">
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          
+                          <div class="col-xs-6">
+                            <label for="password2"><h4>Verify</h4></label>
+                              <input type="password" class="form-control" name="password2" id="password2" placeholder="password2" title="enter your password2.">
+                          </div>
+                      </div>
+                      <div class="form-group">
+                           <div class="col-xs-12">
+                                <br>
+                              	<button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
+                               	<button class="btn btn-lg" type="reset"><i class="glyphicon glyphicon-repeat"></i> Reset</button>
+                            </div>
+                      </div>
+              	</form>
+                   <hr>
+              
+             </div><!--/tab-pane-->
+             <div class="tab-pane" id="qst">
+               
+               <h2></h2>
+               
+               <hr>
+
+               <div class="box-content">
+    
+                    <table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+                    <thead>
+                    <tr>
+                        <th>Titre</th>
+                        <th>Question</th>
+                        <th>Date de publication</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                      {% for q in  mesQusetion %}
+                    <tr>
+                        <td>{{ q.question_title|truncatechars_html:50 }}</td>
+                        <td >{{ q.question_text|truncatechars_html:50 }}</td>
+                        <td class="center">{{ q.pub_date }}</td>
+                        <td class="center">
+                            
+                               {% if q.closed == False %}
+                                <span class="label-success label label-default">Ouverte</span>
+                                {% else %}
+                                <span class="label-warning label label-default">Fermer</span>
+                                {% endif %}
+                              
+                        </td>
+                        <td class="center">
+                          <form action="/qa/q/{{ q.id }}"/>
+                            <button class="btn btn-success btn-sm"  >
+                                <i class="glyphicon glyphicon-zoom-in icon-white"></i>
+                                View
+                            </button>
+                            </form>
+                            <br>
+                            <a class="btn btn-info btn-sm" href="/qa/updateq/{{ q.id }}" style="margin-bottom: 5px; margin-top: 5px;">
+                                <i class="glyphicon glyphicon-edit icon-white"></i>
+                                Edit
+                            </a>
+                            <br>
+                            <form method="post" action="/qa/closequestion/">
+                              {% csrf_token %} 
+                              <input type="hidden" name="question_id" value="{{ q.id }}">
+                            <button class="btn btn-danger btn-sm" >
+                            {% if q.closed == False %}
+                                <input type="hidden" name="closequestion" value="True">
+
+                                <i class=" glyphicon glyphicon-remove icon-white"></i>
+                                Fermer
+                   
+                                {% else %}
+                               <input type="hidden" name="closequestion" value="False">
+                                <i class="glyphicon glyphicon-ok icon-white"></i>
+                                Open
+                           
+                                {% endif %}
+                               </button>
+                             </form>  
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                 
+                    </tbody>
+                    </table>
+               </div>
+               
+             </div><!--/tab-pane-->
+             <div class="tab-pane" id="settings">
+            		
+               	
+                  <hr>
+                  <form class="form" action="##" method="post" id="registrationForm">
+                      <div class="form-group">
+                          
+                          <div class="col-xs-6">
+                              <label for="first_name"><h4>First name</h4></label>
+                              <input type="text" class="form-control" name="first_name" id="first_name" placeholder="" title="enter your first name if any.">
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          
+                          <div class="col-xs-6">
+                            <label for="last_name"><h4>Last name</h4></label>
+                              <input type="text" class="form-control" name="last_name" id="last_name" placeholder="last name" title="enter your last name if any.">
+                          </div>
+                      </div>
+          
+                      <div class="form-group">
+                          
+                          <div class="col-xs-6">
+                              <label for="phone"><h4>Phone</h4></label>
+                              <input type="text" class="form-control" name="phone" id="phone" placeholder="enter phone" title="enter your phone number if any.">
+                          </div>
+                      </div>
+          
+                      <div class="form-group">
+                          <div class="col-xs-6">
+                             <label for="mobile"><h4>Mobile</h4></label>
+                              <input type="text" class="form-control" name="mobile" id="mobile" placeholder="enter mobile number" title="enter your mobile number if any.">
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          
+                          <div class="col-xs-6">
+                              <label for="email"><h4>Email</h4></label>
+                              <input type="email" class="form-control" name="email" id="email" placeholder="you@email.com" title="enter your email.">
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          
+                          <div class="col-xs-6">
+                              <label for="email"><h4>Location</h4></label>
+                              <input type="email" class="form-control" id="location" placeholder="somewhere" title="enter a location">
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          
+                          <div class="col-xs-6">
+                              <label for="password"><h4>Password</h4></label>
+                              <input type="password" class="form-control" name="password" id="password" placeholder="password" title="enter your password.">
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          
+                          <div class="col-xs-6">
+                            <label for="password2"><h4>Verify</h4></label>
+                              <input type="password" class="form-control" name="password2" id="password2" placeholder="password2" title="enter your password2.">
+                          </div>
+                      </div>
+                      <div class="form-group">
+                           <div class="col-xs-12">
+                                <br>
+                              	<button class="btn btn-lg btn-success pull-right" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
+                               	<!--<button class="btn btn-lg" type="reset"><i class="glyphicon glyphicon-repeat"></i> Reset</button>-->
+                            </div>
+                      </div>
+              	</form>
+              </div>
+
+
+               <div class="tab-pane" id="register" >
+                <form action="/qa/updateprofil/" method="post">
+                   {% csrf_token %}
+                                       <input type="hidden" name="user" value="{{ user.id }}">
+
+                      <h1>Fooooooo</h1>                
+
+                          <div id="div_id_date_naissance" class="form-group"> 
+                      <div class="form-group">
+                          
+                      <div class="col-xs-6">
+                              <label for="username"><h4>Username</h4></label>
+                              {% render_field formuser.username class="form-control" name="username" id="first_name" placeholder="" title="enter your first name if any." %}
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          
+                      <div class="col-xs-6">
+                              <label for="last_name"><h4>Prenom : </h4></label>
+                              {% render_field formuser.last_name class="form-control" name="last_name" id="last_name" placeholder="" title="enter your first name if any." %}
+                          </div>
+                      </div>
+                          
+                      <div class="form-group">    
+                      <div class="col-xs-6">
+                              <label for="first_name"><h4>Nom : </h4></label>
+                              {% render_field formuser.first_name class="form-control" name="first_name" id="first_name" placeholder="" title="enter your first name if any." %}
+                          </div>
+                      </div>
+                      </div>
+
+                      <div class="form-group">                          
+                      <div class="col-xs-6">
+                              <label for="email"><h4>Email : </h4></label>
+                              {% render_field formuser.email class="form-control" name="email" id="email" placeholder="" title="enter your first name if any." %}
+                          </div>
+                      </div> 
+
+
+                      <div class="form-group">
+                      <div class="col-xs-6">
+                              <label for="website"><h4>website </h4></label>
+                              {% render_field form.website class="form-control" name="website" id="website" placeholder="" title="enter your first name if any." %}
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          
+                      <div class="col-xs-6">
+                              <label for="facebook"><h4>facebook :</h4></label>
+                              {% render_field form.facebook class="form-control" name="facebook" id="facebook" placeholder="" title="enter your first name if any." %}
+                          </div>
+                      </div>
+                      
+                      <div class="form-group">    
+                      <div class="col-xs-6">
+                              <label for="youtube"><h4>youtube : </h4></label>
+                              {% render_field form.youtube class="form-control" name="youtube" id="youtube" placeholder="" title="enter your first name if any." %}
+                          </div>
+                      </div>
+                      
+
+                      <div class="form-group">    
+                      <div class="col-xs-6">
+                              <label for="instagram"><h4>instagram : </h4></label>
+                              {% render_field form.instagram class="form-control" name="instagram" id="instagram" placeholder="" title="enter your first name if any." %}
+                          </div>
+                      </div>    
+
+
+                      <div class="form-group">
+                      <div class="col-xs-6">
+                              <label for="linkedin"><h4>linkedin </h4></label>
+                              {% render_field form.linkedin class="form-control" name="linkedin" id="linkedin" placeholder="" title="enter your first name if any." %}
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          
+                      <div class="col-xs-6">
+                              <label for="tel"><h4>tel :</h4></label>
+                              {% render_field form.tel class="form-control" name="tel" id="tel" placeholder="" title="enter your first name if any." %}
+                          </div>
+                      </div>
+
+                      <div class="form-group">    
+                      <div class="col-xs-6">
+                              <label for="ville"><h4>ville : </h4></label>
+                              {% render_field form.ville class="form-control" name="ville" id="ville" placeholder="" title="enter your first name if any." %}
+                          </div>
+                      </div>
+                      
+                      <div class="form-group">    
+                      <div class="col-xs-6">
+                              <label for="pays"><h4>pays : </h4></label>
+                              {% render_field form.pays class="form-control" name="pays" id="pays" placeholder="" title="enter your first name if any." %}
+                          </div>
+                      </div> 
+
+                      <div class="form-group">
+                      <div class="col-xs-6">
+                              <label for="fonction"><h4>fonction : </h4></label>
+                              {% render_field form.fonction class="form-control" name="fonction" id="fonction" placeholder="" title="enter your first name if any." %}
+                          </div>
+                      </div> 
+
+                      <div class="form-group">
+                      <div class="col-xs-6">
+                              <label for="service"><h4>service </h4></label>
+                              {% render_field form.service class="form-control" name="service" id="service" placeholder="" title="enter your first name if any." %}
+                          </div>
+                      </div>
+                      
+                      <br><br><br><br>
+                      <hr>
+                      <button class="btn btn-lg btn-success pull-right" style="margin: 15px;" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
+                </form>
+              </div>
+
+              </div><!--/tab-pane-->
+
+
+        </div><!--/col-9-->
+    </div><!--/row-->
+                                                      
+
+{% endblock content %}

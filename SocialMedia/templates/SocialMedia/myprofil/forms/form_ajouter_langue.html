@@ -1,0 +1,44 @@
+{% load widget_tweaks %}
+<form class=" form-horizontal" onsubmit="return" id="formAjouterLangue" method="post"
+      style="background-color:inherit">
+    {% csrf_token %}
+<div class="modal-body "
+             style=" margin-left: 1px; background-color:white;padding:30px;">
+
+    <div class="form-group">
+        <label class="col-md-12">Langue *</label>
+        <div class="col-md-12 inputGroupContainer">
+            {% render_field FormAjouterLangue.langue class="form-control" %}
+        </div>
+
+        {% for error in FormAjouterLangue.langue.errors %}
+            <span class="error-block" style="padding-left: 15px; font-size: 12px;  font-weight: bold;">{{ error }}</span><br>
+        {% endfor %}
+    </div>
+
+    <!-- Select Basic -->
+
+    <div class="form-group">
+        <label class="col-md-12 ">Niveau *</label>
+        <div class="col-md-12 selectContainer">
+            {% render_field FormAjouterLangue.niveau class="form-control selectpicker" %}
+        </div>
+        {% for error in FormAjouterLangue.niveau.errors %}
+            <span class="error-block" style="padding-left: 15px; font-size: 12px;  font-weight: bold;">{{ error }}</span><br>
+        {% endfor %}
+    </div>
+
+    </div> <!-- End Div with scroll modal body -->
+
+    <!-- Button -->
+    <div class="form-group">
+        <div class="col-md-12">
+            <button type="submit" class="btn btn-info float--right" id="btnAjouterLangue"><span
+                    id="mySpinner" style="position:relative; top: -2px;left: -15px;"></span>Enregistrer
+            </button>
+        </div>
+
+        <label class="col-md-12 "></label>
+    </div>
+
+</form>

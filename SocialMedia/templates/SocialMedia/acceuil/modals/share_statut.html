@@ -1,0 +1,99 @@
+{% load staticfiles %}
+{% load nbsp %}
+<div class="modal fade" id="shareModal{{ statut.id }}" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Partage </h4>
+      </div>
+      <div class="modal-body" >
+
+<div id="statuts" class="infinite-item StatutCONTENT{{ statut.id }}" style="box-shadow: 0 0 0 1px rgba(0, 0, 0, .1), 0 2px 3px rgba(0, 0, 0, .2); ">
+
+                                <div id="ember1562" class="feed-shared-update-v2 feed-shared-update mh0 Elevation-2dp relative full-height ember-view">
+
+
+
+      <div id="ember1581" class="feed-shared-actor feed-shared-actor--with-control-menu ember-view"><a data-control-id="W1C4B5y7iMwQGAR0mwPlgw==" data-control-name="actor_picture" target="_self" href="{{ statut.publisher.photo_profil.image.url }}" id="ember1586" class="feed-shared-actor__image app-aware-link ember-view">    <span data-entity-hovercard-id="urn:li:fs_miniProfile:ACoAAA8BYqEBCGLg_vT_ca6mMEqkpp9nVffJ3hc" class="js-feed-shared-actor__avatar">
+      <div id="ember1597" class="feed-shared-actor__avatar ivm-image-view-model ember-view">
+          <div id="ember1602" class="display-flex ember-view"><!---->    <div id="ember1607" class="presence-entity presence-entity--size-3 ember-view"><div aria-label="{{ statut.publisher.user.frist_name }} {{ statut.publisher.user.last_name }}" id="ember1614" class="ivm-view-attr__img--centered feed-shared-actor__avatar-image EntityPhoto-circle-3 presence-entity__image EntityPhoto-circle-3 ember-view" style="background-image: url('{{ statut.publisher.photo_profil.image.url }}');">  <span class="visually-hidden">{{ statut.publisher.user.first_name }} {{ statut.publisher.user.last_name }</span>
+</div>
+
+<div id="ember1617" class="presence-indicator  presence-entity__indicator presence-entity__indicator--size-3 hidden presence-indicator--size-3 ember-view"></div>
+</div>
+</div>
+</div>
+    </span>
+</a>
+<div class="feed-shared-actor__meta">
+<a data-control-id="W1C4B5y7iMwQGAR0mwPlgw==" data-control-name="actor" target="_self" href="{% url 'SocialMedia:getProfil' statut.publisher.id %}" id="ember1618" class="feed-shared-actor__meta-link app-aware-link ember-view">    <h3 class="Sans-13px-black-55%">
+      <span data-entity-hovercard-id="urn:li:fs_miniProfile:ACoAAA8BYqEBCGLg_vT_ca6mMEqkpp9nVffJ3hc" class="feed-shared-actor__name Sans-15px-black-85%-semibold hoverable-link-text">
+        <span dir="ltr">{{ statut.publisher.user.first_name }} {{ statut.publisher.user.last_name }}</span>
+      </span>
+        <span class="feed-shared-actor__influencer-badge">
+          <span class="visually-hidden">
+             est un utilisateur de ReseauSocial
+          </span>
+        </span>
+
+      <span class="feed-shared-actor__description Sans-13px-black-55%">
+        {% if statut.publisher.experience_profil is not None %}{{ user.profil.experience_profil.nom_poste  }}{% else %}Libre{% endif %}, {{ statut.publisher.user.first_name }}
+      </span>
+
+      <span class="feed-shared-actor__sub-description Sans-13px-black-55%">
+        <div id="ember1629" class="feed-shared-text-view white-space-pre-wrap break-words ember-view"><span aria-hidden="false"><span id="ember1640" class="ember-view"><span>publié • {{ statut.date_statut|timesince }}</span></span></span><!----></div>
+      </span>
+</a></div>
+
+<!----></div>
+
+<div id="ember1646" class="feed-shared-update__description feed-shared-inline-show-more-text ember-view" ><div id="ember1651" class="feed-shared-update-v2__commentary Sans-15px-black-70% feed-shared-text ember-view">  <div id="ember1652" class="feed-shared-text__text-view feed-shared-text-view white-space-pre-wrap break-words ember-view" style="margin-bottom: 12px;"><span aria-hidden="false"><span id="ember1655" class="ember-view"><span id="ContenuStatut{{ statut.id }}">{{ statut.contenu_statut|nbsp_Link|linebreaksbr }}</span></span></span><!----></div>
+</div><!----></div>
+<!---->
+<!---->
+{% if statut.images.all.count == 0 and statut.videos.all.count == 0 and statut.files.all.count == 0 %}
+
+<!----><article style="display: none" id="LinkPreview{{ statut.id }}" class="mt2 feed-shared-article feed-shared-update__update-content-wrapper Elevation-0dp ember-view"><div class="feed-shared-article--with-small-image display-flex p2 relative align-items-center">
+<a target="_blank" id="url{{ statut.id }}" href="http://www.google.com" id="ember6361" class="tap-target app-aware-link ember-view">      <div id="ember6362" class="ivm-image-view-model ember-view">  <div id="ember6363" class="display-flex ivm-view-attr__img-wrapper--expanded ember-view"><!---->    <div id="image{{ statut.id }}" class="ivm-view-attr__img--centered feed-shared-article__small-image-picture mr2 b0 ember-view" ><!----></div>
+</div>
+</div>
+    </a>
+  <div class="feed-shared-article__description-container pv2 ph0 display-flex feed-shared-article__small-image-description">
+<a target="_blank" id="urlst{{ statut.id }}" href="http://www.google.com" id="ember6365" class="flex-grow-1 full-width tap-target app-aware-link ember-view">        <h2 class="feed-shared-article__title Sans-15px-black-85%-semibold mv0 mh3">
+          <span dir="ltr" id="title{{ statut.id }}">Google</span>
+        </h2>
+
+        <h3 id="description{{ statut.id }}" style="font-size: 11px; line-height: 1" class="feed-shared-article__subtitle Sans-13px-black-55% mv0 mh3">
+
+        </h3>
+
+</a>  </div>
+</div>
+</article>
+
+
+{% endif %}
+
+{% include 'SocialMedia/groupe/statuts/media_statut.html' %}
+
+<!----><!----><!---->          </div>
+      </div>
+
+
+
+        <form onsubmit="shareStatut(event, this)"  val="{{ statut.id }}">
+          <div class="form-group">
+            <input type="hidden" name="statut" value="{{ statut.id }}" />
+          </div>
+            <input type="hidden" name="reply" value="{{ reply.id }}" />
+              <div class="modal-footer">
+                <button type="button" class="btSub mybt" onclick="document.getElementById('dropdown-reply-{{ reply.id }}').style.display = none;" data-dismiss="modal">Annuler</button>
+                <button type="submit" id="btshareStatut{{ statut.id }}" class="btn btSubmitComment">Partager</button>
+              </div>
+        </form>
+
+
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+  </div></div>

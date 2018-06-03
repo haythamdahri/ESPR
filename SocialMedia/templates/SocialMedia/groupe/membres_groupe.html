@@ -1,0 +1,638 @@
+{% extends "SocialMedia/groupe/base_groupe.html" %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% block title %}{{ groupe.nom }} - Membres{% endblock %}
+{% block contentGroupe %}
+                        <!-- Filter Nav Start -->
+                            <div class="filter--nav pb--60 clearfix row">
+                                <div class="filter--options col-md-6">
+                                        <div class="form-group row">
+                                            <select id="membersfilter" class="form-control">
+                                            <option value="all" selected> Tous les membres</option>
+                                            <option value="admins"> Adminstrateurs</option>
+                                            <option value="moderators" > Moderateurs</option>
+                                            <option value="adherents" > Adherents</option>
+                                            </select>
+                                        </div>
+                                </div>
+                            </div>
+                            <!-- Filter Nav End -->
+
+                            <!-- Member Items Start -->
+                            <div class="member--items">
+                                <div id="requests" class="row">
+                        {% if nbMembers != 0 %}
+                            {% for member in members %}
+                                    <div class="col-sm-3 member{{ member.id }}">
+                                        <!-- Member Item Start -->
+                                        <div class="member--item online">
+                                            <div class="img img-circle">
+                                                <a href="{% url 'SocialMedia:getProfil' member.id %}" class="btn-link">
+                                                    <img src="{{ member.photo_profil.image.url|default:'/media/SocialMedia/default.jpg' }}" style="max-height: 55px;height: 100px;" alt="">
+                                                </a>
+                                            </div>
+
+                                            <div class="name" style="white-space: nowrap;">
+                                                <h3 class="h6 fs--12">
+                                                    <a href="{% url 'SocialMedia:getProfil' member.id %}" class="btn-link">{{ member }}</a>
+                                                </h3>
+                                            </div>
+
+                                            <div class="activity" style="white-space: nowrap;">
+                                                <p><i class="fa mr--8 fa-clock-o"></i>{{ member.user.last_login|safe|date:'M. d, y, g:i A' }}{{ member.user.last_login|default_if_none:"Non Connecté" }}</p>
+                                            </div>
+
+                                    {% if user.profil in groupe.admins.all %}
+                                            <div class="actions" style="white-space: nowrap;">
+                                                <ul class="nav">
+                                                    <li>
+                                                        <a style="padding: 0;" href="#" title="Mettre Porfil Admin" class="btn-lin" data-toggle="tooltip" data-placement="bottom">
+                                                            <form id="makeAdmin" sentence="Êtes-vous sur de mettre le profil autant qu'administrateur?" data-id="make admin" action="{% url 'SocialMedia:membresGroupe' groupe.id %}" method="POST">
+                                                                {% csrf_token %}
+                                                                    {% render_field formDemande.profil value=member.id %}
+                                                                    {% render_field formDemande.action value=3 %}
+                                                                <button type="submit" class="btn-link" ><i class="fa fa-user-circle-o" aria-hidden="true"></i></button>
+                                                            </form>
+                                                        </a>
+                                                    </li>
+
+                                                    <li>
+                                                        <a  style="padding: 0;" href="#" title="Mettre Profil Moderateur" class="btn-link" data-toggle="tooltip" data-placement="bottom">
+                                                            <form id="makeModerator" sentence="Êtes-vous sur de mettre le profil autant que moderateur?" data-id="make Moderator" action="{% url 'SocialMedia:membresGroupe' groupe.id %}" method="POST">
+                                                                {% csrf_token %}
+                                                                    {% render_field formDemande.profil value=member.id %}
+                                                                    {% render_field formDemande.action value=2 %}
+                                                                    <button type="submit" class="btn-link" ><i class="fa fa-user" aria-hidden="true"></i></button>
+                                                            </form>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a  style="padding: 0;" href="#" title="Mettre Porfil Adherent" class="btn-link" data-toggle="tooltip" data-placement="bottom">
+                                                            <form id="makeAdherent" sentence="Êtes-vous sur de mettre le profil autant qu'adherent?" data-id="make Adherent" action="{% url 'SocialMedia:membresGroupe' groupe.id %}" method="POST">
+                                                                {% csrf_token %}
+                                                                    {% render_field formDemande.profil value=member.id %}
+                                                                    {% render_field formDemande.action value=1 %}
+                                                                    <button type="submit" class="btn-link" ><i class="fa fa-user-o" aria-hidden="true"></i></button>
+                                                            </form>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a  style="padding: 0;" href="#" title="Supprimer Porfil" class="btn-link" data-toggle="tooltip" data-placement="bottom">
+                                                            <form id="deleteMember" sentence="Êtes-vous sur de supprimer le profil de la liste des utilisateurs?" data-id="delete Member" action="{% url 'SocialMedia:membresGroupe' groupe.id %}" method="POST">
+                                                                {% csrf_token %}
+                                                                    {% render_field formDemande.profil value=member.id %}
+                                                                    {% render_field formDemande.action value=0 %}
+                                                                    <button type="submit" class="btn-link" ><i class="fa fa-user-times" aria-hidden="true"></i></button>
+                                                            </form>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                    {% endif %}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                             {% else %}
+                                <h2 class="h4 fw--700 widget--title">Aucun Membre n'a été rejoindre le groupe.</h2>
+                            {% endif %}
+                                </div>
+                            </div>
+                                        <!-- Member Item End -->
+
+                                <div class="row text-center">
+                                                            <img id="loadingImage" style="display: none; width: 100%; object-fit: contain;" class="img-rounded"  src="{% static 'SocialMedia/loading.gif' %}" />
+                                </div>
+
+                            <!-- Page Count Start -->
+                            <div class="page--count pt--30">
+                                <label class="ff--primary fs--14 fw--500 text-darker">
+                                    <span>Viewing</span>
+                                    {% if members.has_previous %}
+                                        <button id="btfirst" href="?page=1" class="btn-link"><i class="fa fa-caret-left"></i><i class="fa fa-caret-left"></i></button>
+                                        <button id="btprevious" page="{{ members.previous_page_number }}" class="btn-link"><i class="fa fa-caret-left"></i></button>
+                                    {% else %}
+                                        <button id="btfirst" href="1" class="btn-link"><i class="fa fa-caret-left"></i><i class="fa fa-caret-left"></i></button>
+                                        <button id="btprevious" page="1" class="btn-link"><i class="fa fa-caret-left"></i></button>
+                                    {% endif %}
+                                        <input id="RequestsPageNum" type="number" name="page-count" value="{{ members.number }}" class="form-control form-sm">
+                                    {% if demandesAmis.has_next %}
+                                        <button id="btnext" page="{{ members.next_page_number }}" class="btn-link"><i class="fa fa-caret-right"></i></button>
+                                        <button id="btlast" page="{{ members.paginator.num_pages }}" class="btn-link"><i class="fa fa-caret-right"></i><i class="fa fa-caret-right"></i></button>
+                                    {% else %}
+                                        <button id="btnext" page="{{ members.paginator.num_pages }}" class="btn-link"><i class="fa fa-caret-right"></i></button>
+                                        <button id="btlast" page="{{ members.paginator.num_pages }}" class="btn-link"><i class="fa fa-caret-right"></i><i class="fa fa-caret-right"></i></button>
+                                    {% endif %}
+                                        <span id="numPages">{{ members.paginator.num_pages }}</span>
+
+                                </label>
+                            </div>
+                            <!-- Page Count End -->
+
+
+{% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
+<script>
+
+	$('.profil_links_menu li').removeClass('active');
+    $('.profil_links_menu li:eq(3)').addClass('active');
+
+        var getAdmins = false;
+        var getModerators = false;
+        var getAdherents = false;
+        function printRequests(memberId, results, is_admin)
+    {
+            profilURL = "{% url 'SocialMedia:getProfil' 999999 %}".replace(999999, memberId);
+            profilfield = '{% render_field formDemande.profil value=999999 %}'.replace(999999, memberId);
+            actionURL = "{% url 'SocialMedia:membresGroupe' 999999 %}".replace(999999, {{ groupe.id }});
+            csrf = "{% csrf_token %}".replace(/'/g, '"');
+            NewData = '<div class="col-sm-3 member'+memberId+'" >' +
+            '<div class="member--item online">' +
+
+                '<div class="img img-circle">' +
+                '<a href="'+profilURL+'" class="btn-link"><img src="'+results.photo_profil+'" style="max-height: 55px;height: 100px;" alt=""></a>' +
+                '</div>' +
+
+            '<div class="name" style="white-space: nowrap;">' +
+            '<h3 class="h6 fs--12">' +
+            '<a href="'+profilURL+'" class="btn-link">'+results.username+'</a></h3>' +
+            '</div>'+
+            '<div class="activity" style="white-space: nowrap;"><p><i class="fa mr--8 fa-clock-o"></i>'+results.last_login+'</p></div>';
+        if( is_admin ){
+            console.log(is_admin);
+               NewData +=     '<div class="actions" >' +
+                        '<ul class="nav"><li><a style="padding: 0;" href="#" title="Mettre Porfil Admin" class="btn-lin" data-toggle="tooltip" data-placement="bottom">' +
+                        '<form id="makeAdmin" sentence="Êtes-vous sur de mettre le profil autant qu\'administrateur?" data-id="make Admin" action="'+actionURL+'" method="POST">'+csrf+profilfield+
+                        '{% render_field formDemande.action value=3 %}'+
+                        '<button type="submit" class="btn-link" ><i class="fa fa-user-circle-o" aria-hidden="true"></i></button>' +
+                        '</form></a></li>' +
+                        '<li><a style="padding: 0;" href="#" title="Mettre Porfil Moderateur" class="btn-link" data-toggle="tooltip" data-placement="bottom">' +
+                        '<form id="makeModerator" sentence="Êtes-vous sur de mettre le profil autant que moderateur?" data-id="make Moderator" action='+actionURL+' method="POST">'+csrf+profilfield+
+                        '{% render_field formDemande.action value=2 %}'+
+                        '<button type="submit" class="btn-link" ><i class="fa fa-user" aria-hidden="true"></i></button></form></a></li>' +
+                        '<li><a style="padding: 0;" href="#" title="Mettre Porfil Adherent" class="btn-link" data-toggle="tooltip" data-placement="bottom">' +
+                        '<form id="makeAdherent" sentence="Êtes-vous sur de mettre le profil autant qu\'adherent?" data-id="make Adherent" action='+actionURL+' method="POST">'+csrf+profilfield+
+                        '{% render_field formDemande.action value=1 %}'+
+                        '<button type="submit" class="btn-link" ><i class="fa fa-user-o" aria-hidden="true"></i></button></form></a></li>' +
+                        '<li><a style="padding: 0;" href="#" title="Supprimer Profil" class="btn-link" data-toggle="tooltip" data-placement="bottom">' +
+                        '<form id="deleteMember" sentence="Êtes-vous sur de supprimer le profil de la liste des utilisateurs?" data-id="delete Member" action='+actionURL+' method="POST">'+csrf+profilfield+
+                        '{% render_field formDemande.action value=0 %}'+
+                        '<button type="submit" class="btn-link" ><i class="fa fa-user-times" aria-hidden="true"></i></button></form></a></li>' +
+                        '</ul></div></div></div>';
+
+    }
+           /* setTimeout(function(){
+                    $("#requests").text(NewData);
+                }, 1000);*/
+           $("#requests").append(NewData);
+           //console.log(demandeId);
+           //console.log(NewData);
+    }
+
+    function getUserAjax(emetteur_id, is_admin)
+    {
+        $.ajax({
+            url: '{% url "SocialMedia:AjaxUser" %}',
+            type: 'GET',
+            data : {
+                    'pid': emetteur_id
+                   },
+            dataType: 'json',
+            success: function(data) {
+                if( data.statut ) {
+                        printRequests(emetteur_id, data, is_admin);
+                }else
+                    {
+                        swal({
+                          type: 'error',
+                          title: 'Erreur',
+                          text: 'Veuiller actualiser la page puis ressayer',
+                        })
+                    }
+            },
+            error: function() {
+                swal("Veuiller Verifier Votre Connexion Reseau Puis Ressayer", "Erreur Fatale", "error");
+            },
+            stop: function (e) {  /* 3. WHEN THE UPLOADING PROCESS FINALIZE, HIDE THE MODAL */
+
+            }
+        });
+    }
+
+	$('body').on( "submit","#makeAdmin, #makeModerator, #makeAdherent, #deleteMember", function(event) {
+	event.preventDefault();
+	swal({
+          title: "Attention",
+          text: $(this).attr('sentence'),
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          cancelButtonText: 'Non',
+          confirmButtonText: 'Oui'
+        }).then((result) => {
+          if (!result.value) {
+            return false;
+          }else{
+        var form_data = new FormData($(this)[0]);
+        message = $(this).data('id');
+        $.ajax({
+            url: '{% url "SocialMedia:membresGroupe" groupe.id %}',
+            type: $(this).attr('method'),
+            processData: false,
+            contentType: false,
+            data : form_data,
+            success: function(data) {
+                var i=1;
+                if( data.statut ) {
+                        if( data.nbMembers == 0)
+                        {
+                            $("#requests").html("<h2 class='h4 fw--700 widget--title'>Aucun Membre n'a été rejoindre le groupe.</h2>");
+                            $("#RequestsPageNum").val('1');
+                            $("#nbMembersBadge").text(data.nbMembres);
+                            $("#numMem").text(data.nbMembers);
+                            const toast = swal.mixin({
+                              toast: true,
+                              position: 'bottom-right',
+                              showConfirmButton: false,
+                              timer: 3000
+                            });
+                            toast({
+                              type: 'success',
+                              title: data.message,
+                            })
+                        }else{
+                            $('.member'+data.profil).fadeOut(250, function(){
+                                /*$("#requests").fadeOut(250, function(){
+                                    $("#requests").fadeIn(250);
+                                });*/
+                                console.log(data);
+                                const toast = swal.mixin({
+                                  toast: true,
+                                  position: 'bottom-right',
+                                  showConfirmButton: false,
+                                  timer: 3000
+                            });
+                            toast({
+                              type: 'success',
+                              title: data.message,
+                            });
+                                    if(getAdmins) {
+                                        getGroupeAdmins($("#RequestsPageNum").val());
+                                    }else if(getModerators) {
+                                        getGroupeModerators($("#RequestsPageNum").val());
+                                    }else if(getAdherents) {
+                                        getGroupeAdherents($("#RequestsPageNum").val());
+                                    }else
+                                    {
+                                        getGroupeMembers($("#RequestsPageNum").val());
+                                    }
+                                $("#nbMembersBadge").text(data.nbMembres);
+                            });
+                        }
+                }else
+                    {
+                        swal({
+                          type: 'error',
+                          title: 'Erreur',
+                          text: 'Veuiller actualiser la page puis ressayer',
+                        })
+                    }
+            },
+            complete: function()
+            {
+
+            },
+            error: function() { },
+            stop: function (e) {  /* 3. WHEN THE UPLOADING PROCESS FINALIZE, HIDE THE MODAL */
+                swal("Veuiller Verifier Votre Connexion Reseau Puis Ressayer", "Erreur Fatale", "error");
+            }
+        });
+          }
+        });
+
+});
+
+    function getGroupeMembers(page)
+    {
+        $.ajax({
+        url: '{% url "SocialMedia:membresGroupeViaAjax" groupe.id %}',
+        data : {'page':page},
+        dataType: 'json',
+        success: function(data) {
+            if( data.statut ) {
+                var i=1;
+                console.log(data);
+                    if( data.nbMembers == 0)
+                    {
+                        $("#loadingImage").fadeIn(350, function(){
+                           $("#requests").html("<h2 class='h4 fw--700 widget--title'>Aucun Membre n'a été rejoindre le groupe.</h2>");
+                        });
+                        $("#RequestsPageNum").val('1');
+                        $("#nbMembersBadge").text(data.nbMembres);
+                        $("#numMem").text(data.nbMembers);
+                    }else{
+                        $("#loadingImage").fadeIn(350);
+                            $('#requests').html('');
+                            setTimeout(function () {
+                            $.each(data.membersGroupe,function(key, value){
+                                    getUserAjax(value.id, data.is_admin);
+                                    $("#NbMembres, #numMem").text(data.nbMembres);
+                            });
+                            },250);
+                            $("#nbMembersBadge").text(data.nbMembres);
+                            $("#numMem").text(data.nbMembers);
+                            $("#btprevious").attr('page', data.previous_page_number);
+                            $("#btnext").attr('page', data.next_page_number);
+                            $("#btlast").attr('page', data.num_pages);
+                            $("#RequestsPageNum").val(data.current_page);
+                            $("#numPages").text(data.num_pages);
+
+
+                            if( data.NumPagesExcessed )
+                            {
+                                $("#RequestsPageNum").text(data.num_pages);
+                            }
+
+                    }
+            }else
+                {
+                    swal({
+                      type: 'error',
+                      title: 'Erreur',
+                      text: 'Veuiller actualiser la page puis ressayer',
+                    })
+                }
+        },
+        complete: function()
+        {
+            $("#loadingImage").fadeOut(350);
+            $('html, body').animate({
+              scrollTop: $("#navTop").offset().top
+            }, 500)
+        },
+        error: function() { },
+        stop: function (e) {  /* 3. WHEN THE UPLOADING PROCESS FINALIZE, HIDE THE MODAL */
+            swal("Veuiller Verifier Votre Connexion Reseau Puis Ressayer", "Erreur Fatale", "error");
+        }
+    });
+    }
+
+    function getGroupeAdmins(page)
+    {
+        $.ajax({
+        url: '{% url "SocialMedia:membresGroupeViaAjax" groupe.id %}',
+        data : {'page':page,'admins':'admins'},
+        dataType: 'json',
+        success: function(data) {
+            if( data.statut ) {
+                var i=1;
+                    if( data.nbMembers == 0)
+                    {
+                        $("#loadingImage").fadeIn(350, function(){
+                           $("#requests").html("<h2 class='h4 fw--700 widget--title'>Aucun administateur n'a rejoindre le groupe.</h2>");
+                        });
+                        $("#RequestsPageNum").val('1');
+                        $("#nbMembersBadge").text(data.nbMembres);
+                        $("#numMem").text(data.nbMembers);
+                    }else{
+                        $("#loadingImage").fadeIn(350);
+                            $('#requests').html('');
+                            setTimeout(function () {
+                            $.each(data.membersGroupe,function(key, value){
+                                    getUserAjax(value.id, data.is_admin);
+                                    $("#NbMembres").text(data.nbMembres);
+                            });
+                            },250);
+                            $("#nbMembersBadge").text(data.nbMembres);
+                            $("#numMem").text(data.nbMembers);
+                            $("#btprevious").attr('page', data.previous_page_number);
+                            $("#btnext").attr('page', data.next_page_number);
+                            $("#btlast").attr('page', data.num_pages);
+                            $("#RequestsPageNum").val(data.current_page);
+                            $("#numPages").text(data.num_pages);
+
+
+                            if( data.NumPagesExcessed )
+                            {
+                                $("#RequestsPageNum").text(data.num_pages);
+                            }
+
+                    }
+            }else
+                {
+                    swal({
+                      type: 'error',
+                      title: 'Erreur',
+                      text: 'Veuiller actualiser la page puis ressayer',
+                    })
+                }
+        },
+        complete: function()
+        {
+            $("#loadingImage").fadeOut(350);
+            $('html, body').animate({
+              scrollTop: $("#navTop").offset().top
+            }, 500)
+        },
+        error: function() { },
+        stop: function (e) {  /* 3. WHEN THE UPLOADING PROCESS FINALIZE, HIDE THE MODAL */
+            swal("Veuiller Verifier Votre Connexion Reseau Puis Ressayer", "Erreur Fatale", "error");
+        }
+    });
+    }
+
+    function getGroupeModerators(page)
+    {
+        $.ajax({
+        url: '{% url "SocialMedia:membresGroupeViaAjax" groupe.id %}',
+        data : {'page':page, 'moderators':'moderators'},
+        dataType: 'json',
+        success: function(data) {
+            if( data.statut ) {
+                var i=1;
+                    if( data.nbMembers == 0)
+                    {
+                        $("#loadingImage").fadeIn(350, function(){
+                           $("#requests").html("<h2 class='h4 fw--700 widget--title'>Aucun moderateur n'a rejoindre le groupe.</h2>");
+                        });
+                        $("#RequestsPageNum").val('1');
+                        $("#nbMembersBadge").text(data.nbMembres);
+                        $("#numMem").text(data.nbMembers);
+                    }else{
+                        $("#loadingImage").fadeIn(350);
+                            $('#requests').html('');
+                            setTimeout(function () {
+                            $.each(data.membersGroupe,function(key, value){
+                                    getUserAjax(value.id, data.is_admin);
+                                    $("#NbMembres").text(data.nbMembres);
+                            });
+                            },250);
+                            $("#nbMembersBadge").text(data.nbMembres);
+                            $("#numMem").text(data.nbMembers);
+                            $("#btprevious").attr('page', data.previous_page_number);
+                            $("#btnext").attr('page', data.next_page_number);
+                            $("#btlast").attr('page', data.num_pages);
+                            $("#RequestsPageNum").val(data.current_page);
+                            $("#numPages").text(data.num_pages);
+
+
+                            if( data.NumPagesExcessed )
+                            {
+                                $("#RequestsPageNum").text(data.num_pages);
+                            }
+
+                    }
+            }else
+                {
+                    swal({
+                      type: 'error',
+                      title: 'Erreur',
+                      text: 'Veuiller actualiser la page puis ressayer',
+                    })
+                }
+        },
+        complete: function()
+        {
+            $("#loadingImage").fadeOut(350);
+            $('html, body').animate({
+              scrollTop: $("#navTop").offset().top
+            }, 500)
+        },
+        error: function() { },
+        stop: function (e) {  /* 3. WHEN THE UPLOADING PROCESS FINALIZE, HIDE THE MODAL */
+            swal("Veuiller Verifier Votre Connexion Reseau Puis Ressayer", "Erreur Fatale", "error");
+        }
+    });
+    }
+
+    function getGroupeAdherents(page)
+    {
+        $.ajax({
+        url: '{% url "SocialMedia:membresGroupeViaAjax" groupe.id %}',
+        data : {'page':page, 'adherents':'adherents'},
+        dataType: 'json',
+        success: function(data) {
+            if( data.statut ) {
+                var i=1;
+                    if( data.nbMembers == 0)
+                    {
+                        $("#loadingImage").fadeIn(350, function(){
+                           $("#requests").html("<h2 class='h4 fw--700 widget--title'>Aucun adherent n'a rejoindre le groupe.</h2>");
+                        });
+                        $("#RequestsPageNum").val('1');
+                        $("#nbMembersBadge").text(data.nbMembres);
+                        $("#numMem").text(data.nbMembers);
+                    }else{
+                        $("#loadingImage").fadeIn(350);
+                            $('#requests').html('');
+                            setTimeout(function () {
+                            $.each(data.membersGroupe,function(key, value){
+                                    getUserAjax(value.id, data.is_admin);
+                                    $("#NbMembres").text(data.nbMembres);
+                            });
+                            },250);
+                            $("#nbMembersBadge").text(data.nbMembres);
+                            $("#numMem").text(data.nbMembers);
+                            $("#btprevious").attr('page', data.previous_page_number);
+                            $("#btnext").attr('page', data.next_page_number);
+                            $("#btlast").attr('page', data.num_pages);
+                            $("#RequestsPageNum").val(data.current_page);
+                            $("#numPages").text(data.num_pages);
+
+
+                            if( data.NumPagesExcessed )
+                            {
+                                $("#RequestsPageNum").text(data.num_pages);
+                            }
+
+                    }
+            }else
+                {
+                    swal({
+                      type: 'error',
+                      title: 'Erreur',
+                      text: 'Veuiller actualiser la page puis ressayer',
+                    })
+                }
+        },
+        complete: function()
+        {
+            $("#loadingImage").fadeOut(350);
+            $('html, body').animate({
+              scrollTop: $("#navTop").offset().top
+            }, 500)
+        },
+        error: function() { },
+        stop: function (e) {  /* 3. WHEN THE UPLOADING PROCESS FINALIZE, HIDE THE MODAL */
+            swal("Veuiller Verifier Votre Connexion Reseau Puis Ressayer", "Erreur Fatale", "error");
+        }
+    });
+    }
+
+    $("#membersfilter").on("change", function(e){
+        e.preventDefault();
+        console.log(getAdmins);
+        console.log(getModerators);
+        console.log(getAdherents);
+        if($("#membersfilter :selected").val() == 'admins') {
+            getAdmins = true;
+            getModerators = false;
+            getAdherents = false;
+            getGroupeAdmins($("#RequestsPageNum").val());
+        }else if($("#membersfilter :selected").val() == 'moderators') {
+            getAdmins = false;
+            getModerators = true;
+            getAdmins = false;
+            getGroupeModerators($("#RequestsPageNum").val());
+        }else if($("#membersfilter :selected").val() == 'adherents') {
+            getAdmins = false;
+            getModerators = false;
+            getAdherents = true;
+            getGroupeAdherents($("#RequestsPageNum").val());
+        }else
+        {
+            getAdmins = false;
+            getModerators = false;
+            getAdherents = false;
+            getGroupeMembers($("#RequestsPageNum").val());
+        }
+    });
+
+    $("body").on('click', '#btfirst, #btprevious, #btnext, #btlast', function(event){
+        event.preventDefault();
+        pagenum=$(this).attr('page');
+        if(getAdmins){
+            getGroupeAdmins(pagenum);
+        }else if(getModerators){
+            getGroupeModerators(pagenum);
+        }else if(getAdherents){
+            getGroupeAdherents(pagenum);
+        }else{
+            getGroupeMembers(pagenum);
+        }
+    });
+
+    $('#RequestsPageNum').on('keypress', function(e) {
+        if(e.which == 13) {
+         pageNum = $(this).val();
+         if(getAdmins){
+            getGroupeAdmins(pageNum);
+        }else if(getModerators){
+            getGroupeModerators(pageNum);
+        }else if(getAdherents){
+            getGroupeAdherents(pageNum);
+        }else{
+            getGroupeMembers(pageNum);
+        }
+        }
+    });
+
+
+
+</script>
+{% endblock %}
+
+
+

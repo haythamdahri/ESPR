@@ -1,0 +1,124 @@
+
+
+.section .author {
+    margin-top: 15px;
+    border: 1px solid #E0E0E0;
+}
+
+.section .author img {
+    width: 100%;
+    margin: 40px 0;
+    border-radius: 5px;
+}
+
+.badge {
+    border-radius: 4px;
+    margin-left: 10px;
+    margin-bottom: 5px;
+    font-weight: lighter;
+    text-transform: uppercase;
+    font-size: 10px;
+}
+
+.section .author ul {
+    padding-bottom: 9px;
+}
+
+.section .author ul li a .fa-facebook:hover {
+	color:#3b5998;
+}
+
+.section .author ul li a .fa-twitter:hover {
+	color:#1da1f2;
+}
+
+.section .author ul li a .fa-google-plus:hover {
+	color: #db4437;
+}
+
+.section .author ul li a .fa-instagram:hover {
+	color:#c32aa3;
+}
+
+.section .author ul li a .fa-youtube:hover {
+	color:#ff0000;
+}
+
+.section .author ul li a .fa-linkedin:hover {
+	color:#0077B5 ;
+}
+
+.section .author p {
+    padding-bottom: 20px;
+}
+
+.articles .article .article-img img {
+    height: 200px;
+}
+
+.articles .title h2 {
+    padding-left: 20px;
+    padding-bottom: 10px;
+    font-size: 20px;
+    color: #757575;
+    text-transform: uppercase;
+}
+
+.articles .paginatorIndex {
+    display: inline;
+    float: right;
+    margin-top: 25px;
+    padding-right: 30px;
+}
+
+
+/* OVERRIDE */
+.pagination>.active>a,
+.pagination>.active>a:focus,
+.pagination>.active>a:hover,
+.pagination>.active>span,
+.pagination>.active>span:focus,
+.pagination>.active>span:hover {
+    background-color: #f46320;
+    border-color: #f46320;
+}
+
+.pagination>li>a {
+    color: #f46320;
+}
+
+.pagination>li>a:focus,
+.pagination>li>a:hover,
+.pagination>li>span:focus,
+.pagination>li>span:hover {
+    color: #f46320;
+}
+
+.article.widget-article .article-title {
+    margin-bottom: 3px;
+    padding-top: 1px;
+}
+
+.article.widget-article .article-img {
+    width: 60px;
+    margin-left: 15px;
+}
+
+.article .article-meta {
+    margin-top: 0;
+}
+
+.article .article-meta li a {
+    text-transform: none;
+    display: block;
+    overflow: hidden;
+    max-width: 255px;
+}
+
+.article .badge {
+    margin-left: 0;
+}
+
+.article .article-meta .link {
+    display: block;
+}

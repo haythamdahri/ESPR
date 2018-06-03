@@ -1,0 +1,21 @@
+{% if messages %}
+    {% for msg in messages %}
+        {% if msg.tags == "success" %}
+            <div class="alert alert-success"  role="alert">
+              <i class="fa fa-check-square" aria-hidden="true"></i>&nbsp;&nbsp;{{ msg | safe }}
+            </div>
+        {% elif msg.tags == "info" %}
+            <div class="alert alert-info"  role="alert">
+              <i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;&nbsp;{{ msg | safe }}
+            </div>
+        {% elif msg.tags == "error" %}
+            <div class="alert alert-danger"  role="alert">
+              <i class="fa fa-exclamation-circle" aria-hidden="true"></i>&nbsp;&nbsp;{{ msg | safe }}
+            </div>
+        {% else %}
+            <div class="alert alert-{{ msg.tags }}"  role="alert">
+              <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>&nbsp;{{ msg | safe }}
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}<br>

@@ -1,0 +1,35 @@
+{% for img in statut.images.all %}
+    <div style="width: 100%">
+<div class="feed-shared-image ember-view">  <div style="padding-top: 56%;" class="feed-shared-image__container">
+    <a href="{{ img.fichier.url }}" data-lightbox="{{ img.fichier.url }}" data-title="{{ img.date_telechargement }}" class="feed-shared-image__image-link">
+      <div id="ember4564" class="ivm-image-view-model ember-view">
+          <div id="ember4565" class="display-flex ivm-view-attr__img-wrapper--expanded ember-view"><!---->    <div id="ember4566" class="ivm-view-attr__img--centered feed-shared-image__image ember-view" style="background-image: url('{{ img.fichier.url }}');background-repeat: no-repeat;background-position: center;background-attachment: scroll;"><!----></div>
+</div>
+</div>
+    </a>
+  </div>
+
+<div id="ember4567" class="ember-view"><!----></div></div>
+    </div>
+{% endfor %}
+
+{% for video in statut.videos.all %}
+<div class="feed-shared-image ember-view">  <div style="padding-top: 62%;" class="feed-shared-image__container">
+    <a href="#" class="feed-shared-image__image-link">
+      <div id="ember4564" class="ivm-image-view-model ember-view">
+          <div id="ember4565" class="display-flex ivm-view-attr__img-wrapper--expanded ember-view"><!----><div style="" class="video-s-loader__video-components-container"><video src="{{ video.fichier.url }}" controls="True" style="width: 100%;" /></div>
+</div>
+</div>
+    </a>
+  </div>
+
+<div id="ember4567" class="ember-view"><!----></div></div>
+{% endfor %}
+
+{% for doc in statut.files.all %}
+<div class="feed-shared-main-content--mini-update ember-view" style="width: 90%; margin-left: auto; margin-right: auto;">
+    <div id="ember4565" class="display-flex ivm-view-attr__img-wrapper--expanded ember-view"><!----><a href="{{ doc.fichier.url }}"><span class="ml--15">{{ doc.fichier.name }}</span></a><!---->
+</div>
+
+<div id="ember4567" class="ember-view"><!----></div></div>
+{% endfor %}

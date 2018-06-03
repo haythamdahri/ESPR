@@ -1,0 +1,351 @@
+{% load staticfiles %}
+{% load nbsp %}
+
+
+
+<div id="AddedStatut">
+{% if addedStatut %}
+    <script>
+    {% if statut.images.all.count == 0 and statut.videos.all.count == 0 and statut.files.all.count == 0 %}
+
+        content = "{{ statut.contenu_statut|linebreaks }}".replace(/<[<br />]*?>/gm, " <br/>");
+        console.log(content);
+        words = content.split(" ");
+		for(var i=0; i<words.length; i++){
+            var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+              '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name and extension
+              '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+              '(\\:\\d+)?'+ // port
+              '(\\/[-a-z\\d%@_.~+&:]*)*'+ // path
+              '(\\?[;&a-z\\d%@_.,~+&:=-]*)?'+ // query string
+              '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+            textcontent = words[i].replace(/<(?:.|\n)*?>/gm, '');
+            console.log("LINKTEXT: "+textcontent);
+            if( pattern.test(textcontent)){
+                var target = textcontent;
+                var key = "5b01f41ec84ddd62e4f397395281275035b2f6d67c5b4";
+
+                $.ajax({
+                    url: "https://api.linkpreview.net",
+                    dataType: "jsonp",
+                    data: {q: target, key: key},
+                    beforeSend: function(){
+                    },
+                    success: function (response) {
+                        console.log(response);
+                        if( !response.error ) {
+                            $("#LinkPreview{{ statut.id }}").fadeIn();
+                            $("#image{{ statut.id }}").css("background-image", "url("+response.image+")");
+                            $("#title{{ statut.id }}").html(response.title);
+                            if( response.url == "" ){
+                                $("#url{{ statut.id }}").attr("href", "{% static 'SocialMedia/no-image-available.png' %}");
+                            }else {
+                                $("#url{{ statut.id }}").attr("href", response.url);
+                            }
+                            $("#description{{ statut.id }}").html(response.title);
+                            $("#urlst{{ statut.id }}").attr("href", response.url);
+                            i = words.length;
+                        }
+                    },
+                    complete: function(){
+                    }
+                });
+            }
+        }
+            {% endif %}
+    </script>
+{% endif %}
+</div>
+<div id="shareST">
+</div>
+
+                                <div id="editComment">
+                                </div>
+
+                                <div id="editReply">
+                                </div>
+
+                                        <div id="editStatut" class="infinite-item">
+                                        {% include "SocialMedia/groupe/modals/edit_statut.html" %}
+                                        </div>
+<div id="statuts" class="infinite-item StatutCONTENT{{ statut.id }}" style="margin-bottom: 50px;box-shadow: 0 0 0 1px rgba(0, 0, 0, .1), 0 2px 3px rgba(0, 0, 0, .2); ">
+
+
+
+
+                                <div id="ember1562" class="feed-shared-update-v2 feed-shared-update mh0 Elevation-2dp relative full-height ember-view">
+
+                <div id="ember1575" class="feed-shared-update-control-menu absolute text-align-right ember-view"><button onclick="toggleOptions({{ statut.id }})"  data-control-name="control_menu" class="feed-shared-update-control-menu-trigger" data-ember-action="" data-ember-action-3917="3917">
+    <span class="svg-icon-wrap"><li-icon aria-hidden="true" type="ellipsis-horizontal-icon"><svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false"><path d="M2,10H6v4H2V10Zm8,4h4V10H10v4Zm8-4v4h4V10H18Z" class="large-icon" style="fill: currentColor"></path></svg></li-icon></span>
+  </button>
+
+<div id="dropdown-{{ statut.id }}" class="DRPDW" style="display: none;">
+      <div style="border: 1px solid;" class="feed-shared-update-control-menu__options p0 absolute dropdown list-style-none Elevation-6dp">
+        <ul tabindex="-1" class="feed-shared-update-control-menu__action-menu actions-menu">
+            <li class="action-item list-style-none option-button__share-via">
+              <button onclick="copyPostLink({{ statut.id }})" data-control-name="control_menu_copy_link" data-control-id="8Wt60tMe1Bn3N1OTEbwFpA==" class="option-button full-height full-width pv1 ph4" data-ember-action="" data-ember-action-3966="3966">
+                <span class="button-content-container display-flex align-items-center">
+                  <span class="icon fl pt2 pr2 pb0 pl0 svg-icon-wrap"><li-icon aria-hidden="true" type="link-icon"><svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false"><path d="M17.29,3a3.7,3.7,0,0,0-2.62,1.09L12.09,6.67A3.7,3.7,0,0,0,11,9.29a3.65,3.65,0,0,0,.52,1.86l-0.37.37a3.66,3.66,0,0,0-4.48.56L4.09,14.67a3.71,3.71,0,1,0,5.24,5.24l2.59-2.59A3.7,3.7,0,0,0,13,14.71a3.65,3.65,0,0,0-.52-1.86l0.37-.37a3.66,3.66,0,0,0,4.48-.57l2.59-2.59A3.71,3.71,0,0,0,17.29,3ZM11.13,14.71a1.82,1.82,0,0,1-.54,1.3L8,18.59A1.83,1.83,0,0,1,5.41,16L8,13.41a1.79,1.79,0,0,1,1.74-.48L8.28,14.4A0.94,0.94,0,0,0,9.6,15.73l1.46-1.46A1.82,1.82,0,0,1,11.13,14.71ZM18.59,8L16,10.59a1.79,1.79,0,0,1-1.74.48L15.73,9.6A0.94,0.94,0,0,0,14.4,8.27L12.94,9.74A1.79,1.79,0,0,1,13.41,8L16,5.41A1.83,1.83,0,0,1,18.59,8Z" class="large-icon" style="fill: currentColor"></path></svg></li-icon></span>
+                  <span class="text-description inline-block text-align-left">
+                    <span class="headline block p0 Sans-15px-black-85%-semibold">
+                      Copier le lien vers le post
+                    </span>
+                    <span class="sub-headline block text-align-left Sans-13px-black-55%">
+
+                    </span>
+                  </span>
+                </span>
+              </button>
+            </li>
+            {% if statut.publisher != user.profil %}
+            <li class="action-item list-style-none option-button__report">
+              <button onclick="SignalerStatut({{ statut.id }})" data-control-id="C9k+EexoQvuHqyUSFLsgEQ==" class="option-button full-height full-width pv1 ph4" data-ember-action="" data-ember-action-3974="3974">
+                <span class="button-content-container display-flex align-items-center">
+                  <span class="icon fl pt2 pr2 pb0 pl0 svg-icon-wrap"><li-icon aria-hidden="true" type="flag-icon"><svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false"><path d="M13.82,5L14,4a1,1,0,0,0-1-1H5V2H3V22H5V15H9.18L9,16a1,1,0,0,0,1,1h8.87L21,5H13.82ZM5,13V5h6.94l-1.41,8H5Zm12.35,2h-6.3l1.42-8h6.29Z" class="large-icon" style="fill: currentColor"></path></svg></li-icon></span>
+                  <span class="text-description inline-block text-align-left">
+                    <span class="headline block p0 Sans-15px-black-85%-semibold">
+                      Signaler ce post
+                    </span>
+                    <span class="sub-headline block text-align-left Sans-13px-black-55%">
+                      Ce post est offensif ou le compte a été piraté
+                    </span>
+                  </span>
+                </span>
+              </button>
+            </li>
+            {% endif %}
+            {% if user.profil == statut.publisher %}
+            <li class="action-item list-style-none option-button__edit-share">
+              <button  data-toggle="modal" data-target="#editStatutModal{{ statut.id }}" class="option-button full-height full-width pv1 ph4" data-ember-action="" data-ember-action-3968="3968">
+                <span class="button-content-container display-flex align-items-center">
+                  <span class="icon fl pt2 pr2 pb0 pl0 svg-icon-wrap"><li-icon aria-hidden="true" type="pencil-icon"><svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false"><path d="M21.71,5L19,2.29a1,1,0,0,0-1.41,0L4,15.85,2,22l6.15-2L21.71,6.45A1,1,0,0,0,22,5.71,1,1,0,0,0,21.71,5ZM6.87,18.64l-1.5-1.5L15.92,6.57l1.5,1.5ZM18.09,7.41l-1.5-1.5,1.67-1.67,1.5,1.5Z" class="large-icon" style="fill: currentColor"></path></svg></li-icon></span>
+                  <span class="text-description inline-block text-align-left">
+                    <span class="headline block p0 Sans-15px-black-85%-semibold">
+                      Modifier le post
+                    </span>
+                    <span class="sub-headline block text-align-left Sans-13px-black-55%">
+
+                    </span>
+                  </span>
+                </span>
+              </button>
+            </li>
+            <li class="action-item list-style-none option-button__delete">
+              <form  onsubmit="deleteStatut(event, this)" val="{{ statut.id }}"><button type="submit" class="option-button full-height full-width pv1 ph4" data-ember-action="" data-ember-action-3969="3969">
+                <span class="button-content-container display-flex align-items-center">
+                  <span class="icon fl pt2 pr2 pb0 pl0 svg-icon-wrap"><li-icon aria-hidden="true" type="trash-icon"><svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false"><path d="M19.26,2.9A28,28,0,0,0,15,2.13V1.5A0.5,0.5,0,0,0,14.5,1h-5a0.5,0.5,0,0,0-.5.5V2.13a28,28,0,0,0-4.26.78,1,1,0,0,0-.74,1V9H5V21a1,1,0,0,0,1,1H18a1,1,0,0,0,1-1V9h1V3.88A1,1,0,0,0,19.26,2.9ZM17,20H7V9H17V20ZM18,7H6V4.59a26.35,26.35,0,0,1,6-.71,26.35,26.35,0,0,1,6,.71V7ZM11,18H10V11h1v7Zm3,0H13V11h1v7Z" class="large-icon" style="fill: currentColor"></path></svg></li-icon></span>
+                  <span class="text-description inline-block text-align-left">
+                    <span class="headline block p0 Sans-15px-black-85%-semibold">
+                      Supprimer le post
+                    </span>
+                    <span class="sub-headline block text-align-left Sans-13px-black-55%">
+                    <input type="hidden" name="statut" value="{{ statut.id }}" />
+                    </span>
+                  </span>
+                </span>
+              </button></form>
+            </li>
+        {% endif %}
+        </ul>
+      </div>
+  </div>
+
+<!---->
+<!---->
+</div>
+
+      <div id="ember1581" class="feed-shared-actor feed-shared-actor--with-control-menu ember-view"><a data-control-id="W1C4B5y7iMwQGAR0mwPlgw==" data-control-name="actor_picture" target="_self" href="{{ statut.publisher.photo_profil.image.url }}" id="ember1586" class="feed-shared-actor__image app-aware-link ember-view">    <span data-entity-hovercard-id="urn:li:fs_miniProfile:ACoAAA8BYqEBCGLg_vT_ca6mMEqkpp9nVffJ3hc" class="js-feed-shared-actor__avatar">
+      <div id="ember1597" class="feed-shared-actor__avatar ivm-image-view-model ember-view">
+          <div id="ember1602" class="display-flex ember-view"><!---->    <div id="ember1607" class="presence-entity presence-entity--size-3 ember-view"><div aria-label="{{ statut.publisher.user.frist_name }} {{ statut.publisher.user.last_name }}" id="ember1614" class="ivm-view-attr__img--centered feed-shared-actor__avatar-image EntityPhoto-circle-3 presence-entity__image EntityPhoto-circle-3 ember-view" style="background-image: url('{{ statut.publisher.photo_profil.image.url }}');">  <span class="visually-hidden">{{ statut.publisher.user.first_name }} {{ statut.publisher.user.last_name }</span>
+</div>
+
+<div id="ember1617" class="presence-indicator  presence-entity__indicator presence-entity__indicator--size-3 hidden presence-indicator--size-3 ember-view"></div>
+</div>
+</div>
+</div>
+    </span>
+</a>
+<div class="feed-shared-actor__meta">
+<a data-control-id="W1C4B5y7iMwQGAR0mwPlgw==" data-control-name="actor" target="_self" href="{% url 'SocialMedia:getProfil' statut.publisher.id %}" id="ember1618" class="feed-shared-actor__meta-link app-aware-link ember-view">    <h3 class="Sans-13px-black-55%">
+      <span data-entity-hovercard-id="urn:li:fs_miniProfile:ACoAAA8BYqEBCGLg_vT_ca6mMEqkpp9nVffJ3hc" class="feed-shared-actor__name Sans-15px-black-85%-semibold hoverable-link-text">
+        <span dir="ltr">{{ statut.publisher.user.first_name }} {{ statut.publisher.user.last_name }}</span>
+      </span>
+        <span class="feed-shared-actor__influencer-badge">
+          <span class="visually-hidden">
+             est un utilisateur de ReseauSocial
+          </span>
+        </span>
+
+      <span class="feed-shared-actor__description Sans-13px-black-55%">
+        {% if statut.publisher.experience_profil is not None %}{{ user.profil.experience_profil.nom_poste  }}{% else %}Libre{% endif %}, {{ statut.publisher.user.first_name }}
+      </span>
+
+      <span class="feed-shared-actor__sub-description Sans-13px-black-55%">
+        <div id="ember1629" class="feed-shared-text-view white-space-pre-wrap break-words ember-view"><span aria-hidden="false"><span id="ember1640" class="ember-view"><span>publié • {{ statut.date_statut|timesince }}</span></span></span><!----></div>
+      </span>
+</a></div>
+
+<!----></div>
+
+<div id="ember1646" class="feed-shared-update__description feed-shared-inline-show-more-text ember-view" ><div id="ember1651" class="feed-shared-update-v2__commentary Sans-15px-black-70% feed-shared-text ember-view">  <div id="ember1652" class="feed-shared-text__text-view feed-shared-text-view white-space-pre-wrap break-words ember-view" style="margin-bottom: 12px;"><span aria-hidden="false"><span id="ember1655" class="ember-view"><span id="ContenuStatut{{ statut.id }}">{{ statut.contenu_statut|nbsp_Link|linebreaksbr }}</span></span></span><!----></div>
+</div><!----></div>
+<!---->
+<!---->
+{% if statut.images.all.count == 0 and statut.videos.all.count == 0 and statut.files.all.count == 0 %}
+
+<!----><article style="display: none" id="LinkPreview{{ statut.id }}" class="mt2 feed-shared-article feed-shared-update__update-content-wrapper Elevation-0dp ember-view"><div class="feed-shared-article--with-small-image display-flex p2 relative align-items-center">
+<a target="_blank" id="url{{ statut.id }}" href="http://www.google.com" id="ember6361" class="tap-target app-aware-link ember-view">      <div id="ember6362" class="ivm-image-view-model ember-view">  <div id="ember6363" class="display-flex ivm-view-attr__img-wrapper--expanded ember-view"><!---->    <div id="image{{ statut.id }}" class="ivm-view-attr__img--centered feed-shared-article__small-image-picture mr2 b0 ember-view" ><!----></div>
+</div>
+</div>
+    </a>
+  <div class="feed-shared-article__description-container pv2 ph0 display-flex feed-shared-article__small-image-description">
+<a target="_blank" id="urlst{{ statut.id }}" href="http://www.google.com" id="ember6365" class="flex-grow-1 full-width tap-target app-aware-link ember-view">        <h2 class="feed-shared-article__title Sans-15px-black-85%-semibold mv0 mh3">
+          <span dir="ltr" id="title{{ statut.id }}">Google</span>
+        </h2>
+
+        <h3 id="description{{ statut.id }}" style="font-size: 11px; line-height: 1" class="feed-shared-article__subtitle Sans-13px-black-55% mv0 mh3">
+
+        </h3>
+
+</a>  </div>
+</div>
+</article>
+
+
+{% endif %}
+
+{% include 'SocialMedia/groupe/statuts/media_statut.html' %}
+
+        <ul id="ember1677" class="feed-shared-social-counts ember-view"><li class="feed-shared-social-counts__item mr1">
+    <button data-control-name="likes_count" class="feed-shared-social-counts__num-likes feed-shared-social-counts__count-value Sans-13px-black-55% hoverable-link-text" data-ember-action="" data-ember-action-1678="1678">
+      <span aria-hidden="true" onclick="showLikers({{ statut.id }}, 'statut')" id="likes{{ statut.id }}">{{ statut.likes.all.count }} j'aimes</span>
+      <span class="visually-hidden">1,495 j'aimes sur le statut de {{ statut.publisher.user.username }}</span>
+    </button>
+  </li><li class="feed-shared-social-counts__item">
+    <button data-control-name="comments_count" class="feed-shared-social-counts__num-comments feed-shared-social-counts__count-value Sans-13px-black-55% hoverable-link-text" data-ember-action="" data-ember-action-1679="1679">
+      <span aria-hidden="true" onclick="getMoreComments(this)" statutid="{{ statut.id }}" page="1" id="NbComments{{ statut.id }}">{{ statut.commentaire_set.all.count }} commentaires</span>
+      <span class="visually-hidden" id="commentaires{{ statut.id }}">
+        {{ statut.commentaire_set.all.count }} Commentaires sur le statut de {{ statut.publisher.user.username }}
+      </span>
+    </button>
+  </li><!----></ul>
+        <div id="ember1684" class="ember-view"><div id="ember1685" class="ember-view"><!----></div></div>
+<div id="ember1694" class="feed-shared-social-actions feed-shared-social-action-bar ember-view">
+
+  <div id="unlikediv{{ statut.id }}" class="{% if not user.profil in statut.likes.all %}hidden{% endif %}">
+<button id="unlike" statut="{{ statut.id }}" lk="-1" id="ember1808" class="like-button button like feed-shared-social-action-bar__action-btn social-action-btn mr5 active ember-view">  <span class="like-icon svg-icon-wrap"><li-icon aria-hidden="true" type="like-icon" size="small"><svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false"><path d="M11.6,7L9.7,3.8C9.4,3.3,9.2,2.7,9,2.1L8.8,1c0,0,0,0,0,0H7C5.9,1,5,1.9,5,3v0.4C5,4,5.1,4.7,5.3,5.3L5.5,6c0,0,0,0,0,0l-3,0C1.7,6,1,6.7,1,7.5c0,0.4,0.1,0.7,0.4,1c0,0,0,0,0,0C1.1,8.8,1,9.1,1,9.5c0,0.5,0.3,1,0.7,1.3c0,0,0,0,0,0c-0.1,0.2-0.2,0.5-0.2,0.7c0,0.8,0.6,1.4,1.3,1.5c0,0,0,0,0,0c-0.1,0.3-0.1,0.6,0,1c0.2,0.6,0.9,1,1.5,1H7c0.9,0,1.5-0.1,2.1-0.3l2.1-0.7c0,0,0,0,0,0H14c0,0,0,0,0,0V7c0,0,0,0,0,0L11.6,7C11.6,7,11.6,7,11.6,7zM3.4,10.1L3,9.6C2.9,9.4,2.8,9.2,2.9,8.9L3,8c0,0,0,0,0,0l5.1,0c0,0,0,0,0,0L7,4.7C6.9,4.3,6.9,3.8,6.9,3.4V3.1c0-0.2,0.2-0.4,0.4-0.4c0,0,0.1,0,0.1,0c0.1,0.7,0.4,1.5,0.7,2L10.7,9c0,0,0,0,0,0H12c0,0,0,0,0,0v3c0,0,0,0,0,0h-0.6c0,0,0,0,0,0l-2.5,0.8C8.5,12.9,8.1,13,7.7,13H4.9c-0.2,0-0.4-0.2-0.5-0.4l-0.1-0.5l-0.6-0.5c-0.2-0.2-0.4-0.5-0.3-0.8L3.4,10.1z" class="small-icon" style="fill-opacity: 1"></path></svg></li-icon></span>
+  <span class="unlike-icon svg-icon-wrap"><li-icon aria-hidden="true" type="like-filled-icon" size="small"><svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false"><path d="M11.64,7L9.71,3.77A6,6,0,0,1,9,2.13L8.75,1H8A2,2,0,0,0,6,3V3.15A7.81,7.81,0,0,0,6.43,5.3L6.66,6a0,0,0,0,1,0,0H2.5A1.49,1.49,0,0,0,1.38,8.49a0,0,0,0,1,0,0,1.49,1.49,0,0,0,.31,2.25,0,0,0,0,1,0,0A1.48,1.48,0,0,0,2.83,13a0,0,0,0,1,0,0,1.38,1.38,0,0,0,0,1,1.62,1.62,0,0,0,1.51,1H7a6.47,6.47,0,0,0,2.14-.31L11.25,14H14V7H11.64Z" class="small-icon" style="fill-opacity: 1"></path></svg></li-icon></span>
+
+<!---->
+<span class="visually-hidden">
+    Je n’aime plus
+</span>
+
+</button>
+  </div>
+  <div id="likediv{{ statut.id }}" class="{% if user.profil in statut.likes.all %}hidden{% endif %}">
+<button  id="like" statut="{{ statut.id }}" lk="1"  class="like-button button like feed-shared-social-action-bar__action-btn social-action-btn mr5 ember-view">  <span class="like-icon svg-icon-wrap"><li-icon aria-hidden="true" type="like-icon" size="small"><svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false"><path d="M11.6,7L9.7,3.8C9.4,3.3,9.2,2.7,9,2.1L8.8,1c0,0,0,0,0,0H7C5.9,1,5,1.9,5,3v0.4C5,4,5.1,4.7,5.3,5.3L5.5,6c0,0,0,0,0,0l-3,0C1.7,6,1,6.7,1,7.5c0,0.4,0.1,0.7,0.4,1c0,0,0,0,0,0C1.1,8.8,1,9.1,1,9.5c0,0.5,0.3,1,0.7,1.3c0,0,0,0,0,0c-0.1,0.2-0.2,0.5-0.2,0.7c0,0.8,0.6,1.4,1.3,1.5c0,0,0,0,0,0c-0.1,0.3-0.1,0.6,0,1c0.2,0.6,0.9,1,1.5,1H7c0.9,0,1.5-0.1,2.1-0.3l2.1-0.7c0,0,0,0,0,0H14c0,0,0,0,0,0V7c0,0,0,0,0,0L11.6,7C11.6,7,11.6,7,11.6,7zM3.4,10.1L3,9.6C2.9,9.4,2.8,9.2,2.9,8.9L3,8c0,0,0,0,0,0l5.1,0c0,0,0,0,0,0L7,4.7C6.9,4.3,6.9,3.8,6.9,3.4V3.1c0-0.2,0.2-0.4,0.4-0.4c0,0,0.1,0,0.1,0c0.1,0.7,0.4,1.5,0.7,2L10.7,9c0,0,0,0,0,0H12c0,0,0,0,0,0v3c0,0,0,0,0,0h-0.6c0,0,0,0,0,0l-2.5,0.8C8.5,12.9,8.1,13,7.7,13H4.9c-0.2,0-0.4-0.2-0.5-0.4l-0.1-0.5l-0.6-0.5c-0.2-0.2-0.4-0.5-0.3-0.8L3.4,10.1z" class="small-icon" style="fill-opacity: 1"></path></svg></li-icon></span>
+  <span class="unlike-icon svg-icon-wrap"><li-icon aria-hidden="true" type="like-filled-icon" size="small"><svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false"><path d="M11.64,7L9.71,3.77A6,6,0,0,1,9,2.13L8.75,1H8A2,2,0,0,0,6,3V3.15A7.81,7.81,0,0,0,6.43,5.3L6.66,6a0,0,0,0,1,0,0H2.5A1.49,1.49,0,0,0,1.38,8.49a0,0,0,0,1,0,0,1.49,1.49,0,0,0,.31,2.25,0,0,0,0,1,0,0A1.48,1.48,0,0,0,2.83,13a0,0,0,0,1,0,0,1.38,1.38,0,0,0,0,1,1.62,1.62,0,0,0,1.51,1H7a6.47,6.47,0,0,0,2.14-.31L11.25,14H14V7H11.64Z" class="small-icon" style="fill-opacity: 1"></path></svg></li-icon></span>
+
+<!---->
+<span class="visually-hidden">
+    J’aime
+</span>
+
+</button>
+  </div>
+
+
+          <button onclick="focusComment(this)" statut="{{ statut.id }}" class="button comment feed-shared-social-action-bar__action-btn social-action-btn mr5 ember-view"><span class="svg-icon-wrap"><li-icon aria-hidden="true" type="speech-bubble-icon" size="small"><svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false"><path d="M14,3H2A1,1,0,0,0,1,4v7a1,1,0,0,0,1,1h9l4,3V4A1,1,0,0,0,14,3ZM3,10V5H13v6.11L11.52,10H3ZM5,7h6V8H5V7Z" class="small-icon" style="fill-opacity: 1"></path></svg></li-icon></span><span aria-hidden="true"></span>
+
+<span class="visually-hidden">
+  Commenter
+</span>
+</button>
+            <button data-control-name="reshare" onclick="showShare(event, {{ statut.id }})" id="ember1717" class="feed-shared-social-action-bar__action-btn feed-shared-social-action-bar__reshare-button reshare-button button reshare social-action-btn ember-view"><span class="svg-icon-wrap"><span class="visually-hidden">Share</span><li-icon aria-hidden="true" type="share-linkedin-icon" size="small"><svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false"><path d="M15.7,7.3L9,1v4H7c-3.9,0-7,3.1-7,7v3h1.4c0-2.2,1.9-4,4.1-4c0,0,0.1,0,0.1,0H9v4l0,0l6.7-6.3C16.1,8.4,16.1,7.7,15.7,7.3C15.7,7.3,15.7,7.3,15.7,7.3z M11,10.6V9H5.6c-1.2,0-2.4,0.4-3.4,1.1C3.1,8.2,4.9,7,7,7h4V5.4L13.7,8L11,10.6z" class="small-icon" style="fill-opacity: 1"></path></svg></li-icon></span>
+
+<span aria-hidden="true"></span>
+
+<!----></button>
+<!---->
+</div><!----><!---->          <div class="feed-shared-update__comments-container display-flex flex-column-reverse">
+<!----><!----><!---->          </div>
+
+</div>
+
+<div id="ember3143" class="feed-shared-comment-box feed-shared-comment-box--has-avatar ember-view">  <div id="ember3144" class="feed-shared-comment-box__avatar-image ml0 feed-shared-avatar-image b0 member ember-view">  <img src="{{ user.profil.photo_profil.image.url }}" class="avatar member EntityPhoto-circle-1 ghost-person" alt="HAYTHAM DAHRI">
+</div>
+
+<div class="feed-shared-comment-box__form-container flex-grow-1" id="boxComment{{ statut.id }}">
+<!---->  <form onsubmit="addComment(event, this)" val="{{ statut.id }}" data-submit-control-name="comment_post" class="feed-shared-comment-box__form" data-ember-action="" data-ember-action-3145="3145">
+<div id="ember3154" class="feed-shared-comment-textarea ember-view"><div id="ember3159" class="feed-shared-comment-textarea__mentions-input mentions-input ember-view"><!---->
+<div class="mentions-highlighter-container" style="max-height: 31em;">
+  <pre class="mentions-highlighter" style="line-height: 16px; padding: 0px; font-style: normal; font-variant: normal; font-weight: 400; font-stretch: 100%; font-size: 12px; font-family: -apple-system, system-ui, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, &quot;Fira Sans&quot;, Ubuntu, Oxygen, &quot;Oxygen Sans&quot;, Cantarell, &quot;Droid Sans&quot;, &quot;Lucida Grande&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;;"><!----></pre>
+      <div class="feed-shared-comment-textarea__autoresized-area textareaComment{{ statut.id }}">
+    <pre class="feed-shared-comment-textarea__text-box-clone Sans-13px-black-70%"><span></span><br></pre>
+    <textarea name="cmtContent" id="TXTCMT{{ statut.id }}" data-comment  onkeyup="DISPLAYPUBLIER(this, {{ statut.id }}); resizeBox(this, {{ statut.id }})" rows="1" placeholder="Ajouter Un Commentaire…"  class="Sans-13px-black-70% feed-shared-comment-textarea__text-box textareaComment{{ statut.id }}"></textarea>
+      </div>
+        <input type="hidden" statut="{{ statut.id }}" value="{{ statut.id }}" name="statut" />
+</div>
+
+  <div id="ember3164" class="ember-view"><!----></div>
+</div>            <div id="ember3165" class="feed-shared-comment-box__camera-icon button sharing-share-action-media tap-target ember-view"><label for="ember3165-upload-photo" class="sharing-share-action-media__upload-input-label
+  ">
+
+        <span class="svg-icon-wrap"><label style="margin: 0" class="StatutFileSelect"><li-icon aria-hidden="true" type="camera-icon" class="sharing-share-action-media__upload-camera-icon" size="large"><input type="file" accept="image/*" onchange="DISPLAYIMG(this)" statut="{{ statut.id }}" id="image{{ statut.id }}" name="image" style="display: none;" /><svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false"><path d="M21,6H18L16.5,3h-9L6,6H3A1,1,0,0,0,2,7V19a1,1,0,0,0,1,1H21a1,1,0,0,0,1-1V7A1,1,0,0,0,21,6ZM7.36,8l1.5-3h6.28l1.5,3H20v2H16.58a5,5,0,0,0-9.16,0H4V8H7.36Zm7.76,4A3.13,3.13,0,1,1,12,8.88,3.13,3.13,0,0,1,15.13,12ZM4,18V11H7.1a5,5,0,1,0,9.8,0H20v7H4Z" class="large-icon" style="fill: currentColor"></path></svg></li-icon></label></span>
+
+  <span class="sharing-subaction-bar__button-text">
+    Images
+  </span>
+
+</label>
+</div>
+
+</div>
+                    <div style="text-align: center; display: none;" id="CLEARINTUSERCOMMENT{{ statut.id }}"><i onclick="clearUserInputComment({{ statut.id }})" style="font-style: normal;color: #0073b1;cursor:pointer;font-size: 24px;" class="fa fa-window-close-o" aria-hidden="true"></i></div>
+
+                                <div class="form-group text-center" id="PHOTOCOMMENT{{ statut.id }}" style="display: none">
+                                    <img id='IMAGECOMMENT{{ statut.id }}' name="image" src="" style="max-width: 70%;max-height: 400px;"/>
+                                </div>
+<!----><input type="submit" id="publishbtcomment{{ statut.id }}" class="btSubmitComment fw--400" value="Publier" style="display: none;margin-top: 4px;">
+<!---->  </form>
+
+
+
+
+</div>
+
+
+</div>
+
+
+<div id="comments" style="background-color: #f3f6f8; padding-bottom: 4px;">
+
+        <div id="NewCommentAdded{{ statut.id }}">
+            {% if addedComment %}
+        {% include "SocialMedia/groupe/comments/commentaire_groupe_ajoute.html" %}
+            {% endif %}
+        </div>
+
+{% if statut.commentaire_set.all.count > 0 and not comments %}
+                                <div style="display: inline-block;" id="first_load_more_div{{ statut.id }}" class="feed-shared-comments-list__show-previous-container">
+      <button id="show_prev" data-control-name="more_comments" class="hoverable-link-text button feed-shared-comments-list__show-previous-button Sans-13px-black-55%" data-ember-action="" data-ember-action-3134="3134">
+        <span aria-hidden="true" page="1" statutid="{{ statut.id }}" onclick="getMoreComments(this)">Afficher les commentaires</span>
+<!---->      </button>
+    </div>
+{% endif %}
+
+<div  class="comments{{ statut.id }}" >
+        {% include "SocialMedia/groupe/comments/commentaire_groupe.html" %}
+
+        <div>
+            <img id="loadingImage" style="display: none; width: 20%;height: 4%; object-fit: contain;" class="img-rounded"  src="{% static 'SocialMedia/img/YX5xG_s-200x150.gif' %}" />
+        </div>
+
+</div>
+
+
+</div>
+
+
+</div>

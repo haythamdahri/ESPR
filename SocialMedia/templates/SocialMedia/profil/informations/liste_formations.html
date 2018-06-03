@@ -1,0 +1,31 @@
+{% load staticfiles %}
+
+{% for formation in formations %}
+    <div class="row" style="padding-top:15px;">
+        <div class=" col-sm-2 col-xs-2 ">
+            <img src=" {% if formation.ecole %}{{ formation.ecole.logo.url }}{% else %}{% static "Socialmedia/img/ecole-default.png" %}{% endif %}" alt="" width="100px;">
+        </div>
+
+        <div class="col-xs-6">
+            <span class="titre" style="font-weight: bold;color:darkslategray;">{% if formation.ecole  %} {{ formation.ecole.nom | upper }}{% else %} {{ formation.nom_ecole |upper }}{% endif %}</span><br>
+            <span class="info--entreprise">{{ formation.titre_formation }}</span><br>
+            <span class="info">{{ formation.domaine }}</span><br>
+            <span class="info">{{ formation.annee_debut | date:"Y" }} - {{ formation.annee_fin | date:"Y" }} </span>
+            <br><br>
+            <p class="description">{{ formation.activite_et_associations }}</p>
+            <p class="description">{{ formation.description }}</p>
+        </div>
+
+
+        <!-- divate : titre,info--ecole,info, liens / -->
+
+
+    </div>
+
+
+    {% if not forloop.last %}
+                        <hr width="75%"
+                            style="box-shadow: 0 0 3px rgba(0, 0, 0, 0.7);height:1px;border:none;color:#1ea1f2;background-color:#1ea1f2"
+                            ;/>
+                    {% endif %}
+{% endfor %}

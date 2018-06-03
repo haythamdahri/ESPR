@@ -1,0 +1,180 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+    {{ journalist }} - Articles
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'journal/css/journalist/nav-journalist.css' %}">
+    <link rel="stylesheet" href="{% static 'journal/css/journalist/journalist-articles.css' %}">
+    <script src="{% static 'journal/js/jquery.min.js' %}"></script>
+{% endblock %}
+
+{% block script %}
+    $(".formDelete").submit(function( event ) {
+        event.preventDefault();
+        var form = $(this);
+        var id = form.attr('data-id');
+        if (confirm("Voulez vous vraiment supprimer l'article " + id)){
+            form.off('submit').submit();
+        }
+    });
+
+{% endblock %}
+
+{% block content %}
+
+    <!-- SECTION HEADER -->
+    <div class="section header-info">
+        <div class="container">
+            <h2>Articles</h2>
+            <!-- breadcrumb -->
+            <ul class="article-breadcrumb pull-right">
+                <li><a href="{% url 'index' %}">Accueil</a></li>
+                <li><a href="{% url 'journalist' %}">Espace Journalistes</a></li>
+                <li><a href="{% url 'journalist_articles' %}">Articles</a></li>
+            </ul>
+            <!-- /breadcrumb -->
+        </div>
+    </div>
+    <!-- /SECTION HEADER -->
+    <div class="main-panel">
+    <!-- NAV JOURNALIST -->
+    <div class="container">
+        <nav class="nav-journalist">
+            <ul class="list-inline">
+                <li><a href="{% url 'journalist_profile' %}">Profil</a></li>
+                <li><a href="{% url 'journalist_videos' %}">Videos</a></li>
+                <li><a href="{% url 'journalist_signals' %}">Signals</a></li>
+                <li><a href="{% url 'journalist_create_article' %}">Ajouter Article</a></li>
+                <li><a href="{% url 'journalist_create_video' %}">Ajouter Video</a></li>
+            </ul>
+        </nav>
+    </div>
+    <!-- /NAV JOURNALIST -->
+    <!-- DIV ARTICLES -->
+    <div class="container">
+        <div class="card">
+            <div class="header row">
+                <div class="col-md-3">
+                    {% if search %}
+                        <h4 class="title">Résultat de recherche</h4>
+                        <p class="category">Total des articles : {{ count }}</p>
+                    {% else %}
+                        <h4 class="title">Liste de vos Articles</h4>
+                        <p class="category">Total des articles : {{ count }}</p>
+                    {% endif %}
+                </div>
+                <div class="col-md-9">
+                    <form action="{% url 'journalist_articles' %}" method="get">
+                        {% if search %}
+                            <input type="text" name="q" maxlength="50" placeholder="Rechercher un article" value="{{ keywords }}">
+                        {% else %}
+                            <input type="text" name="q" maxlength="50" placeholder="Rechercher un article">
+                        {% endif %}
+                        <input type="submit" value="Rechercher">
+                    </form>
+                </div>
+            </div>
+            <div class="content table-responsive table-full-width">
+                {% if search and count == 0  %}
+                    <h1 style="text-align: center; margin-bottom: 20px">Aucun résultat trouvé pour votre recherche</h1>
+                {% else %}
+                <table class="table table-striped">
+                    {% if created == '1' %}
+                        <div class="alert alert-success alert-dismissible" role="alert" style="margin: 15px">
+                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                 <span aria-hidden="true">&times;</span></button>
+                               Article Créé avec succès, veuillez attendre l'approbation d'un administrateur pour qu'il soit publié
+                         </div>
+                    {% endif %}
+                    {% if updated == '1' %}
+                        <div class="alert alert-success alert-dismissible" role="alert" style="margin: 15px">
+                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                 <span aria-hidden="true">&times;</span></button>
+                                Article Modifié avec succès, veuillez attendre l'approbation d'un administrateur pour qu'il soit publié
+                         </div>
+                    {% endif %}
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Titre réduit</th>
+                        <th>Catégorie</th>
+                        <th>Commentaires</th>
+                        <th>Partage</th>
+                        <th>Tags</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for article in articles %}
+                            <tr>
+                                <td>{{ article.id }}</td>
+                                <td>{{ article.small_title }}<span class="vue">{{ article.view_number }} <i class="fa fa-eye"></i></span></td>
+                                <td>{{ article.category.displayed_text }}</td>
+                                {% if article.comment_enable %}
+                                    <td>Activés
+                                        <span class="vue">Total : {{ article.comment_set.count }} <i class="fa fa-comments-o"></i></span></td>
+                                {% else %}
+                                    <td>Désactivés</td>
+                                {% endif %}
+                                {% if article.share_enable %}
+                                    <td>Activé</td>
+                                {% else %}
+                                    <td>Désactivé</td>
+                                {% endif %}
+                                <td>
+                                    {% for tag in article.tag.all %}
+                                        <span style="background: {{ tag.color }}">{{ tag }}</span>
+                                    {% endfor %}
+                                </td>
+                                <td>
+                                    <form action="{% url 'journalist_articles' %}" method="post" class="formDelete"
+                                          data-id="{{ article.id }}">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="article" value="{{ article.id }}">
+                                        <button type="submit" class="btn btn-danger">
+                                            <i class="fa fa-trash-o"></i></button>
+                                    </form>
+                                    <a href="{% url 'journalist_update_article' article.id %}" class="btn btn-warning">
+                                        <i class="fa fa-edit"></i></a>
+                                    <a href="{% url 'post' article.category article.id %}" class="btn btn-info">
+                                        <i class="fa fa-eye"></i></a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% endif %}
+            </div>
+            <div>
+                {% if articles.has_other_pages %}
+                    <ul class="pagination">
+                        {% if articles.has_previous %}
+                            <li><a href="?page={{ articles.previous_page_number }}">&laquo;</a></li>
+                        {% else %}
+                            <li class="disabled"><span>&laquo;</span></li>
+                        {% endif %}
+                        {% for i in articles.paginator.page_range %}
+                            {% if articles.number == i %}
+                                <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                            {% else %}
+                                <li><a href="?page={{ i }}">{{ i }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                        {% if articles.has_next %}
+                            <li><a href="?page={{ articles.next_page_number }}">&raquo;</a></li>
+                        {% else %}
+                            <li class="disabled"><span>&raquo;</span></li>
+                        {% endif %}
+                    </ul>
+                    <p class="paginatorIndex">page {{ articles.number }} sur {{ articles.paginator.num_pages }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <!-- /DIV ARTICLES -->
+    </div>
+
+{% endblock %}

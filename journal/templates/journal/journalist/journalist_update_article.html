@@ -1,0 +1,337 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+    {{ user.username }} - Modifier article
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'journal/css/journalist/nav-journalist.css' %}">
+    <link rel="stylesheet" href="{% static 'journal/css/journalist/journalist_create_article.css' %}">
+    <link rel="stylesheet" href="{% static 'journal/css/journalist/bootstrap-select.min.css' %}">
+{% endblock %}
+
+{% block javascript %}
+
+    {# JQUERY FILE UPLOAD SCRIPTS #}
+    <script src="{% static 'journal/js/journalist/jquery.min.js' %}"></script>
+    <script src="{% static 'journal/js/journalist/jquery.ui.widget.js' %}"></script>
+    <script src="{% static 'journal/js/journalist/jquery.iframe-transport.js' %}"></script>
+    <script src="{% static 'journal/js/journalist/jquery.fileupload.js' %}"></script>
+
+    {# BOOTSTRAP SELECT PLUGIN #}
+    <script src="{% static 'journal/js/journalist/bootstrap-select.min.js' %}"></script>
+
+    {# PHOTOS PAGE SCRIPTS #}
+    <script src="{% static 'journal/js/journalist/basic-upload.js' %}"></script>
+
+    <script src="{% static 'journal/js/journalist/article_create.js' %}"></script>
+
+{% endblock %}
+
+{% block script %}
+{% endblock %}
+
+{% block content %}
+
+    <!-- SECTION HEADER -->
+    <div class="section header-info">
+        <div class="container">
+            <h2>Modifier Article</h2>
+            <!-- breadcrumb -->
+            <ul class="article-breadcrumb pull-right">
+                <li><a href="{% url 'index' %}">Accueil</a></li>
+                <li><a href="{% url 'journalist' %}">Espace Journalistes</a></li>
+                <li><a href="{% url 'journalist_articles' %}">Articles</a></li>
+                <li><a href="{% url 'journalist_create_article' %}">Modifier Article</a></li>
+            </ul>
+            <!-- /breadcrumb -->
+        </div>
+    </div>
+    <!-- /SECTION HEADER -->
+    <!-- NAV JOURNALIST -->
+    <div class="container">
+        <nav class="nav-journalist">
+            <ul class="list-inline">
+                <li><a href="{% url 'journalist_profile' %}">Profil</a></li>
+                <li><a href="{% url 'journalist_articles' %}">Articles</a></li>
+                <li><a href="{% url 'journalist_videos' %}">Videos</a></li>
+                <li><a href="{% url 'journalist_signals' %}">Signals</a></li>
+                <li><a href="{% url 'journalist_create_video' %}">Ajouter Video</a></li>
+            </ul>
+        </nav>
+    </div>
+    <!-- /NAV JOURNALIST -->
+    <!-- DIV CREATE ARTICLE -->
+    <div class="container create-article">
+        <div class="row">
+             <!-- DIV IMPORT PRIMARY IMAGE -->
+             <div class="col-md-4 card">
+                 <div class="form-group">
+                     <label>Image Pricipale</label>
+                     {# 1. BUTTON TO TRIGGER THE ACTION #}
+                     <button type="button" class="btn btn-danger js-upload-primary_image" id="drop-zone">
+                         <span class="glyphicon glyphicon-cloud-upload"></span> Modifier image principale
+                     </button>
+                     {# 2. FILE INPUT TO BE USED BY THE PLUG-IN #}
+                     <input id="file_upload_primary" type="file" name="image"
+                           style="display: none;" accept="image/*"
+                           data-url="{% url 'journalist_update_primary_image' article.id %}"
+                           data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
+
+                     {# 3. DIV TO DISPLAY THE UPLOADED PHOTO #}
+                     <div id="primary_image_url">
+                         <a href="{{ article.primary_image.image.url }}">{{ article.primary_image.image.name }}</a>
+                     </div>
+                 </div>
+
+                 <div class="form-group">
+                     <label>Categorie</label>
+                     <select name="category" id="article_category" class="selectpicker form-control" title="Sélectionner ...">
+                         {% for cat in cats %}
+                             {% if cat == article.category %}
+                                 <option value="{{ cat.id }}" selected>{{ cat }}</option>
+                             {% else %}
+                                 <option value="{{ cat.id }}">{{ cat }}</option>
+                             {% endif %}
+                         {% endfor %}
+                     </select>
+                 </div>
+
+                <div class="form-group">
+                    <label for="">Commentaires activés</label>
+                    {% if article.comment_enable %}
+                        <input type="radio" name="comment" value="yes" id="c_yes" checked>
+                        <input type="radio" name="comment" value="no" id="c_no">
+                    {% else %}
+                        <input type="radio" name="comment" value="yes" id="c_yes">
+                        <input type="radio" name="comment" value="no" id="c_no" checked>
+                    {% endif %}
+                    <div class="switch">
+                        <label for="c_yes">Oui</label>
+                        <label for="c_no">Non</label>
+                        <span></span>
+                    </div>
+                </div>
+
+                <div class="form-group form-share">
+                    <label for="">Partage activé</label>
+                    {% if article.share_enable %}
+                        <input type="radio" name="share" value="yes" id="p_yes" checked>
+                        <input type="radio" name="share" value="no" id="p_no">
+                    {% else %}
+                        <input type="radio" name="share" value="yes" id="p_yes">
+                        <input type="radio" name="share" value="no" id="p_no" checked>
+                    {% endif %}
+                    <div class="switch-share">
+                        <label for="p_yes">Oui</label>
+                        <label for="p_no">Non</label>
+                        <span></span>
+                    </div>
+                </div>
+
+             </div>
+             <!-- DIV IMPORT MULTIPLE IMAGE -->
+             <div class="col-md-8">
+                 <div class="well text-muted text-center" style="padding-top: 4rem; padding-bottom: 4rem;" id="drop-zone-multiple">
+                    <span class="glyphicon glyphicon-arrow-down" style="font-size: 4rem;"></span>
+                    <h3>Glisser vos photos secondaire ici pour les importer</h3>
+                 </div>
+
+                 {# 1. BUTTON TO TRIGGER THE ACTION #}
+                 <button type="button" class="btn btn-dark js-upload-photos">
+                     <span class="glyphicon glyphicon-cloud-upload"></span> Importer images
+                 </button>
+
+                 {# 2. FILE INPUT TO BE USED BY THE PLUG-IN #}
+                 <input id="fileupload" type="file" name="image" multiple
+                       style="display: none;" accept="image/*"
+                       data-url="{% url 'journalist_update_image' article.id %}"
+                       data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
+
+                 {# 3. TABLE TO DISPLAY THE UPLOADED PHOTOS #}
+                 <table id="gallery" class="table table-bordered">
+                     <thead>
+                        <tr><th>Images</th></tr>
+                    </thead>
+                    <tbody>
+                        {% for photo in article.imagenews_set.all %}
+                            <tr id="tr{{ photo.id }}">
+                                <td>
+                                    <a href="{{ photo.image.url }}">{{ photo.image.name }}</a>
+                                    <form class="pull-right form-delete-image"
+                                          data-submit-url="{% url 'journalist_delete_image_update' article.id photo.id %}">
+                                        <button class="btn btn-danger" type="submit">
+                                            <i class="fa fa-trash-o"></i>
+                                        </button>
+                                    </form>
+                                    <button class="btn btn-default pull-right btn-copy" onclick="
+                                            var el = document.createElement('textarea');
+                                            el.value = '{{ photo.image.url }}';
+                                            el.setAttribute('readonly', '');
+                                            el.style.position = 'absolute';
+                                            el.style.left = '-9999px';
+                                            document.body.appendChild(el);
+                                            el.select();
+                                            document.execCommand('copy');
+                                            document.body.removeChild(el);">
+                                        <i class="fa fa-copy"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <div class="modal fade" id="modal-progress" data-backdrop="static" data-keyboard="false">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Téléchargement...</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" style="width:0;">0%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             </div>
+         </div>
+        <div class="card info">
+
+            <!-- FORM -->
+            <form action="" method="post" id="form-create-article">
+                {{ form.media }}
+                {% if form.errors %}
+                    <div class="form-group">
+                    <div class="alert alert-danger">
+                        <p style="font-size: 18px; font-weight: bold;">Veuillez corriger les erreurs ci dessous :</p>
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <p style="padding-left: 40px"><strong>{{ field.name }} : </strong>{{ error|escape }}</p>
+                            {% endfor %}
+                        {% endfor %}
+                    </div>
+                    </div>
+                {% endif %}
+                {% csrf_token %}
+                <input type="hidden" id="has-image" value="{{ has_image }}">
+                <div class="form-group">
+                    <label for="">Titre principale</label>
+                    {{ form.title }}
+                </div>
+                <div class="row">
+                    <div class="col-md-9" style="padding: 0">
+                        <div class="form-group">
+                            <label for="">Titre réduit</label>
+                            {{ form.small_title }}
+                        </div>
+                    </div>
+                    <div class="col-md-3" style="padding: 0">
+                        <div class="form-group">
+                            <label>
+                                Tags
+                                <button type="button" class="btn btn-dark" id="btn-modal" data-toggle="modal" data-target="#myModal">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </label>
+                            <select class="selectpicker form-control" name="tags" multiple
+                                    title="Sélectionnez des Tags..." id="tags">
+                                {% for tag in tags %}
+                                    {% if tag in selected_tags %}
+                                        <option value="{{ tag.id }}" selected>{{ tag }}</option>
+                                    {% else %}
+                                        <option value="{{ tag.id }}">{{ tag }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="">Résumé de l'article</label>
+                    {{ form.resume }}
+                </div>
+                <div class="form-group">
+                    <label for="">Contenu de l'article</label>
+                    {{ form.content }}
+                </div>
+                <!-- HIDDEN INPUT -->
+                {{ form.category }}
+                {{ form.comment_enable }}
+                {{ form.share_enable }}
+                <!-- /HIDDEN INPUT -->
+                <!-- SUBMIT BOUTON -->
+                <div class="form-group ending-button">
+                    <a href="{% url 'journalist_articles' %}" class="btn btn-danger">Annuler</a>
+                    <button class="btn btn-default" type="submit">Modifier l'article</button>
+                </div>
+                <!-- /SUBMIT BOUTON -->
+            </form>
+            <!-- /FORM -->
+
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Ajouter un Tag</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert alert-success alert-dismissible" role="alert" id="modal-success">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"
+                                    onclick="success_hide()">
+                                <span aria-hidden="true">&times;</span></button>
+                            Tag Créé avec succès
+                        </div>
+                        <div class="alert alert-danger alert-dismissible" role="alert" id="modal-danger">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"
+                                    onclick="danger_hide()">
+                                <span aria-hidden="true">&times;</span></button>
+                            Veuillez entrer des données valides
+                        </div>
+                        <form action="{% url 'journalist_create_tag' %}"
+                              id="form-tag" data-submit-url="{% url 'journalist_create_tag' %}">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">Nom</label>
+                                        {{ form_tag.name }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">Couleur</label>
+                                        {{ form_tag.color }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="">Description</label>
+                                        {{ form_tag.description }}
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="submit" id="modal-form-submit" class="hidden">
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn" id="modal-submit">Ajouter</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Modal -->
+    </div>
+    <!-- /DIV CREATE ARTICLE -->
+{% endblock %}

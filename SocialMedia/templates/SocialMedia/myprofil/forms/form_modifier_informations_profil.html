@@ -1,0 +1,105 @@
+{% load widget_tweaks %}
+<form class=" form-horizontal" onsubmit="return" id="form_modifier_InformationsProfil" method="post"
+      style="background-color:white">
+
+    <div class="modal-body DivToScroll DivWithScroll"
+         style=" margin-left: 1px; background-color:white;padding:30px;">
+
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label class="col-md-12">Nom *</label>
+            <div class="col-md-12 inputGroupContainer">
+                {% render_field FormInformationsUser.last_name id="poste_suggestion_modif_form" class="form-control awesomplete poste_suggestion" data-minChars="1" %}
+            </div>
+
+            {% for error in FormInformationsUser.last_name.errors %}
+                <span class="error-block" style="padding-left: 15px;">{{ error }}</span> <br>
+            {% endfor %}
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-12">Prénom *</label>
+            <div class="col-md-12 inputGroupContainer">
+                {% render_field FormInformationsUser.first_name  class="form-control" %}
+            </div>
+
+            {% for error in FormInformationsUser.first_name.errors %}
+                <!--
+                <script>$('.error_form').prev().css("border","1px solid red")</script>
+                <script>$('.error_form').prev().focus(function(){$(this).css("border","")})</script>*
+                 -->
+                <span class="error-block" class="error_form" style="padding-left: 15px;">{{ error }}</span><br>
+            {% endfor %}
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-12">Formation </label>
+            <div class="col-md-12 inputGroupContainer">
+                {% render_field FormInformationsProfil.formation_profil class="form-control" %}
+            </div>
+
+            {% for error in FormInformationsProfil.formation_profil.errors %}
+                <span class="error-block" style="padding-left: 15px;">{{ error }}</span><br>
+            {% endfor %}
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-12">Poste actuel </label>
+            <div class="col-md-12 inputGroupContainer">
+                {% render_field FormInformationsProfil.experience_profil class="form-control" %}
+            </div>
+
+            {% for error in FormInformationsProfil.experience_profil.errors %}
+                <span class="error-block" style="padding-left: 15px;">{{ error }}</span><br>
+            {% endfor %}
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-12">Pays</label>
+            <div class="col-md-12 inputGroupContainer">
+                {% render_field FormInformationsProfil.pays class="form-control" %}
+            </div>
+
+            {% for error in FormInformationsProfil.pays.errors %}
+                <span class="error-block" style="padding-left: 15px;">{{ error }}</span><br>
+            {% endfor %}
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-12">Ville</label>
+            <div class="col-md-12 inputGroupContainer">
+                {% render_field FormInformationsProfil.ville class="form-control" %}
+            </div>
+
+            {% for error in FormInformationsProfil.ville.errors %}
+                <span class="error-block" style="padding-left: 15px;">{{ error }}</span> <br>
+            {% endfor %}
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-12">Résumé</label>
+            <div class="col-md-12 inputGroupContainer">
+                {% render_field FormInformationsProfil.resume class="form-control" rows="1" %}
+            </div>
+
+            {% for error in FormInformationsProfil.resume.errors %}
+                <span class="error-block" style="padding-left: 15px;">{{ error }}</span><br>
+            {% endfor %}
+        </div>
+    </div> <!-- End Div with scroll modal body -->
+
+    <!-- Button -->
+    <div class="form-group" style="padding-top: 10px;">
+        <div class="col-md-12">
+            <button type="submit" class="btn btn-info float--right" style="margin-right: 10px;"
+                    id="btn_modifier_InformationsProfil"><span
+                    id="mymodifierInformationsProfilSpinner"
+                    style="position:relative; top: -2px;left: -15px; "></span>Enregistrer
+            </button>
+        </div>
+
+        <label class="col-md-12 "></label>
+
+    </div>
+</form>

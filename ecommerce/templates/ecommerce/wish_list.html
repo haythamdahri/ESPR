@@ -1,0 +1,113 @@
+{% extends 'ecommerce/base.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+<div class="main-container container">
+    <ul class="breadcrumb">
+        <li><a href="{% url 'e_commerce:index' %}">Accueil</a></li>
+        <li><a href="{% url 'e_commerce:my_account' %}">Mon compte</a></li>
+        <li><a href="#"><b>Liste Des Souhaits</b></a></li>
+    </ul>
+
+    <div class="row">
+        {% if message_error %}
+        <div class="alert alert-danger" role="alert">
+            <strong>Oups!</strong> {{ message_error }}
+        </div>
+        {% endif %}
+        <!--Middle Part Start-->
+        <div id="content" class="col-sm-12">
+            <h2 class="title" style="padding-bottom: 15px">Liste Des Souhaits</h2>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover wishlist">
+                    <thead>
+                        <tr>
+                            <td class="text-center">Image</td>
+                            <td class="text-center">Nom du Produit</td>
+                            <td class="text-center">Marque</td>
+                            <td class="text-center">Stock</td>
+                            <td class="text-center">Prix Unitaire</td>
+                            <td class="text-center">Action</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for el in wish_list_list %}
+                        <tr>
+                            <td class="text-center">
+                                <a href="{% url 'e_commerce:product' el.el.product.id %}"><img width="70px" src="{{ el.el.product.image.url }}" alt="{{ el.el.product.name }}" title="{{ el.el.product.name }}">
+                                </a>
+                            </td>
+                            <td class="text-center" style="padding-top: 15px"><a href="product.html">{{ el.el.product.name }}</a>
+                            </td>
+                            <td class="text-center" style="padding-top: 15px">{{ el.el.product.brand.name }}</td>
+                            <td class="text-center" style="padding-top: 15px">{{ el.stock }}</td>
+                            <td class="text-center" style="padding-top: 15px">
+                                {% if el.sale %}
+                                    <div class="price">
+                                        <span class="price-new">
+                                            {% if el.el.product.price_from %}
+                                                <span style="font-size: 12px;">À PARTIR DE</span>
+                                            {% endif %}
+                                            {{ el.sale.new_price|intcomma }} Dh
+                                        </span>
+                                        <span class="price-old">
+                                            {% if el.el.product.old_price %}
+                                                {{ el.el.product.old_price|intcomma }}
+                                            {% else %}
+                                                {{ el.el.product.price|intcomma }}
+                                            {% endif %} Dh
+                                        </span>
+                                    </div>
+                                {% else %}
+                                    <div class="price">
+                                        <span class="price-new">
+                                            {% if el.el.product.price_from %}
+                                                <span style="font-size: 12px;">À PARTIR DE</span>
+                                            {% endif %}
+                                            {{ el.el.product.price|intcomma }} Dh
+                                        </span>
+                                        {% if el.el.product.old_price %}
+                                            <span class="price-old">
+                                                {{ el.el.product.old_price|intcomma }} Dh
+                                            </span>
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
+                            </td>
+                            <td class="text-center" style="padding-top: 15px">
+                            {% if el.el.product.price_from %}
+                                <button type="button" class="btn btn-primary" title="Contacter Fournisser" style="display: inline-block; margin-top: 0;" data-toggle="tooltip" data-original-title="Add to Cart">
+                                    <a style="color: white;" class="iframe-link quickview_handler visible-lg" href="{% url 'e_commerce:contact_supplier' el.el.product.pk %}" data-fancybox-type="iframe">
+                                        <i class="fa fa-envelope"></i>
+                                    </a>
+                                </button>
+                            {% else %}
+                                <form id="formAddCart{{ el.el.product.pk }}" method="get" action="{% url 'e_commerce:add_to_cart' %}" data-validate-url="{% url 'e_commerce:add_to_cart' %}" style="display: inline-block"><input type="hidden" name="product" value="{{ el.el.product.pk }}">
+                                </form>
+                                <button type="button" class="btn btn-primary" title="Ajouter au Chariot" style="display: inline-block; margin-top: 0" data-toggle="tooltip" data-original-title="Add to Cart" onclick="cart.add('{{ el.el.product.pk }}', '{{ user.is_authenticated }}', '{{ el.el.product.name }}', '{{ el.el.product.image.url }}', '{% url 'e_commerce:product' el.el.product.pk %}');">
+                                    <i class="fa fa-shopping-cart"></i>
+                                </button>
+                            {% endif %}
+                                <form id="formAddCompare{{ el.el.product.pk }}" method="get" action="{% url 'e_commerce:add_to_compare' %}" data-validate-url="{% url 'e_commerce:add_to_compare' %}" style="display: inline-block"><input type="hidden" name="product" value="{{ el.el.product.pk }}"></form>
+                                <button type="button" class="btn btn-primary" title="Ajouter au Comparer" style="display: inline-block; margin-top: 0" data-toggle="tooltip" data-original-title="Add to compare" onclick="compare.add('{{ el.el.product.pk }}', '{{ user.is_authenticated }}', '{{ el.el.product.name }}', '{{ el.el.product.image.url }}', '{% url 'e_commerce:product' el.el.product.pk %}');">
+                                    <i class="fa fa-refresh"></i>
+                                </button>
+                                <form action="{% url 'e_commerce:remove_from_wish' %}" method="post" style="display: inline-block" id="formWish{{ forloop.counter }}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="product" value="{{ el.el.product.pk }}">
+                                    <input type="hidden" name="next" value="{{ request.path }}">
+                                    <a class="btn btn-danger" title="Retirer" data-toggle="tooltip" href="javascript:" onclick="document.getElementById('formWish{{ forloop.counter }}').submit();" data-original-title="Remove">
+                                        <i class="fa fa-times"></i>
+                                    </a>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!--Middle Part End-->
+    </div>
+</div>
+{% endblock %}

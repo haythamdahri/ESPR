@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+    Videos
+{% endblock %}
+
+{%  block style %}
+    <link rel="stylesheet" href="{% static 'journal/css/video.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="section videos">
+        <div class="container">
+            <ul class="article-breadcrumb">
+                <li><a href="{% url 'index' %}">Accueil</a></li>
+                <li><a href="{% url 'video' %}">Videos</a></li>
+            </ul>
+            <div class="title">
+                <h2>
+                    Videos
+                </h2>
+                <a href="https://www.youtube.com" title="Visitez notre chaine YouTube" class="pull-right" target="_blank">
+                    <img src="{% static 'journal/img/youtubeLogo.png' %}" alt="YouTube logo">
+                </a>
+                <p>
+                    Category descriptions are an increasingly important part of SEO strategy and are becoming a larger part of our
+                    product mix. Writing this type of content requires a slightly different mindset than traditional blogs or
+                    other SEO content. Before starting your next project, remember these four things to create more compelling
+                    category descriptions.
+                </p>
+            </div>
+            <div class="section-title">
+                <h2 class="title">Sélection de l'équipe</h2>
+            </div>
+            <div class="owl-carousel owl-theme" id="myOwl">
+                {% for video in video_selection %}
+                    <div class="item-video" data-merge="{{ video.data_merge }}">
+                        <a class="owl-video" href="{{ video.video_url }}"></a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="section other-video">
+        <div class="container">
+            <div class="section-title">
+                <h2 class="title">Videos Archive</h2>
+            </div>
+            <div class="row">
+                <div class="col-md-8">
+                    {% for video in other_video %}
+                        {% if forloop.first or forloop.counter == 3 or forloop.counter == 5 or forloop.counter == 7 %}
+                            <div class="row">
+                        {% endif %}
+                    <div class="col-md-6">
+                        <!-- ARTICLE -->
+                        <article class="article">
+                            <div class="article-img">
+                                <a href="{% url 'video_show' video.id %}">
+                                    <img src="{{ video.primary_image.image.url }}"
+                                         alt="{{ video.primary_image.description }}">
+                                </a>
+                                <ul class="article-info">
+                                    <li class="article-type"><a href="{% url 'video_show' video.id %}">
+                                        <i class="fa fa-play"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="article-body">
+                                <h4 class="article-title"><a href="{% url 'video_show' video.id %}">
+                                    {{ video.small_title }}.
+                                </a></h4>
+                                <ul class="article-meta">
+                                    <li><a href="{% url 'author' video.journalist.id %}">{{ video.journalist }}</a></li>
+                                    <li><i class="fa fa-clock-o"></i> {{ video.date_publication|date }}</li>
+                                    <li class="pull-right"><i class="fa fa-comments"></i> {{ video.comment_set.count }}</li>
+                                </ul>
+                            </div>
+                        </article>
+                        <!-- /ARTICLE -->
+                    </div>
+                    {% if forloop.last or forloop.counter == 2 or forloop.counter == 4 or forloop.counter == 6 %}
+                        </div>
+                    {% endif %}
+                    {% endfor %}
+                    <div>
+                        {% if other_video.has_other_pages %}
+                            <ul class="pagination">
+                            {% if other_video.has_previous %}
+                                <li><a href="?page={{ other_video.previous_page_number }}">&laquo;</a></li>
+                            {% else %}
+                                <li class="disabled"><span>&laquo;</span></li>
+                            {% endif %}
+                            {% for i in other_video.paginator.page_range %}
+                                {% if other_video.number == i %}
+                                    <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                                {% else %}
+                                    <li><a href="?page={{ i }}">{{ i }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                            {% if other_video.has_next %}
+                                <li><a href="?page={{ other_video.next_page_number }}">&raquo;</a></li>
+                            {% else %}
+                                <li class="disabled"><span>&raquo;</span></li>
+                            {% endif %}
+                            </ul>
+
+                            <p class="paginatorIndex">page {{ other_video.number }} sur {{ other_video.paginator.num_pages }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    {% include 'journal/includes/aside.html' %}
+                </div>
+            </div>
+        </div>
+    </div >
+{% endblock %}
+
+{% block script %}
+    $('#myOwl').owlCarousel({
+        items:1,
+        merge:true,
+        loop:true,
+        margin:10,
+        video:true,
+        lazyLoad:true,
+        center:true,
+        responsive:{
+            480:{
+                items:2
+            },
+            600:{
+                items:4
+            }
+        }
+    })
+{% endblock %}

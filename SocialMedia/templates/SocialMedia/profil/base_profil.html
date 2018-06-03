@@ -1,0 +1,486 @@
+{% extends "SocialMedia/base_socialmedia.html" %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% block title %}{{ profil.user.username }}{% endblock %}
+{% block content %}
+
+
+
+
+        <!-- Page Wrapper Start -->
+        <section class="page--wrapper pb--20">
+            <div class="container-fluid">
+                <div class="row  pt--40" style="padding: 20px 8%;">
+
+                <div class="col-md-8"  style="background-color: #f5f5f5;">
+
+                    <div class="row main--content"
+                         style="box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);transform: none;background-color:  white;">
+
+				<!-- Cover Header Start -->
+				<div id="coverpic" class="cover--header pt--80 text-center" data-bg-img="{{ profil.photo_couverture.image.url|default:'/media/SocialMedia/default.jpg' }}" data-overlay="0.6" data-overlay-color="white" >
+		 
+
+
+
+					<div style="width: auto;padding-bottom: 30px;">
+						<div class="cover--avatar" data-overlay="0.3" data-overlay-color="primary">
+
+							<div class="photprofilcontainer">
+                                									    <a href="{{ profil.photo_profil.image.url }}" data-lightbox="{{ profil.photo_profil.image.url }}" data-title="{{ profil.user.first_name }} {{ profil.user.last_name }}" class="feed-shared-image__image-link">
+									<img id="profilpic" class="image" style="cursor: pointer;" src="{{ profil.photo_profil.image.url|default:'/media/SocialMedia/default.jpg' }}" alt="">
+                                                                        </a>
+
+							</div>
+
+						</div>
+
+						<div class="cover--user-name">
+<div class="row" id="userButtons" style="overflow: hidden;white-space: nowrap;">
+
+        {% include 'SocialMedia/profil/informations/informations_profil.html' %}
+
+</div>
+
+						</div>
+
+					</div>
+				</div>
+			<!-- Cover Header End -->
+
+				</div>
+
+                    <!-- Main Content Start -->
+                    <div class="row main--content mt--20" data-trigger="stickyScroll" style="box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 3px; transform: none; background-color: white; position: relative; overflow: visible; box-sizing: border-box; min-height: 1px;">
+                        <div class="main--content-inner drop--shadow">
+                            <!-- Content Nav Start -->
+                            <div class="content--nav pb--30">
+                                <ul class="nav ff--primary fs--14 fw--500 bg-lighter profil_links_menu">
+                                    <li class="active"><a href="{% url 'SocialMedia:getProfil' profil.id %}">Profil</a></li>
+                                    {% if sont_ami %} <li><a href="{% url 'SocialMedia:ProfilStatuts' profil.id %}">Activité</a></li> {% endif %}
+                                    <li><a href="{% url 'SocialMedia:getProfilGroupes' profil.id %}">Groupes <span id="nbGroupesBadge" class="badge">{{ nbGroupes }}</span></a></li>
+                                </ul>
+                            </div>
+                            <!-- Content Nav End -->
+                        {% block contentProfil %}
+
+
+                        {% endblock %}
+
+                        </div>
+                    </div>
+                    <!-- Main Content End -->
+
+                </div>
+
+                {% block sideBar %}
+
+                    <!-- Main Sidebar Start -->
+                    <div class="col-md-4 main--sidebar pb--60 liste_informations" data-trigger="stickyScroll">
+                        {% include 'SocialMedia/profil/informations/liste_informations.html' %}
+                    </div>
+                    <!-- Main Sidebar End -->
+
+                    </div>
+
+                {% endblock %}
+
+                </div>
+        </section>
+        <!-- Page Wrapper End -->
+
+
+
+{% endblock %}
+
+
+
+
+
+{% block scripts %}
+    {{ block.super }}
+<script>
+
+
+
+    {% if messages %}
+            {% for msg in messages %}
+            swal({
+                  title: '{{ msg }}',
+                  animation: false,
+                  customClass: 'animated tada',
+                   type: '{{ msg.tags }}'
+                });
+            {% endfor %}
+        {% endif %}
+
+    function toggleOptionsProfil(profil){
+       $("#dropdownprofil-"+profil).fadeToggle(0);
+    }
+
+        $("#follow").on("submit",function(event){
+            event.preventDefault();
+            $.ajax({xhr: function () {
+                    var xhr = new window.XMLHttpRequest();
+                    xhr.upload.addEventListener("progress", function (e) {
+                    }, false);
+                    xhr.addEventListener("progress", function (evt) {
+                        $("#btfollow").html('<i class="fa fa-spinner fa-spin" aria-hidden="true"></i> Chargement');
+                    }, false);
+                    return xhr;
+                },
+                url: '{% url "SocialMedia:followProfil" profil.id %}',
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    if(data.statut) {
+                        if (data.follow) {
+                            $("#btfollow").html('<li-icon aria-hidden="true" type="cancel-icon" class="pv-s-profile-actions__overflow-icon" size="large"><svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false"><path d="M20,5.32L13.32,12,20,18.68,18.66,20,12,13.33,5.34,20,4,18.68,10.68,12,4,5.32,5.32,4,12,10.69,18.68,4Z" class="large-icon" style="fill: currentColor"></path></svg></li-icon><span aria-hidden="true" class="pv-s-profile-actions__label">Ne plus suivre</span>');
+                            const toast = swal.mixin({
+                                  toast: true,
+                                  position: 'bottom-right',
+                                  showConfirmButton: false,
+                                  timer: 3000
+                                });
+
+                                toast({
+                                  type: 'success',
+                                  title: data.message,
+                                })
+                        } else {
+                            $("#btfollow").html('<li-icon aria-hidden="true" type="follow-person-icon" class="pv-s-profile-actions__overflow-icon" size="large"><svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false"><path d="M7.71,19.29a1,1,0,0,1,0,1.41L4.5,24,3.21,22.71,4.83,21H0V19H4.83L3.21,17.29,4.5,16ZM21,17.73V20a1,1,0,0,1-1,1H10V19h9V17.58a2,2,0,0,0-1.28-1.87L13,13.92v-1a2.7,2.7,0,0,1-.79.12H11.79A2.7,2.7,0,0,1,11,12.88v1L7,15.48,5.55,14,9,12.66V10.83H9A7.75,7.75,0,0,1,8,7V6a4,4,0,0,1,8,0V7a7.75,7.75,0,0,1-1,3.81h0v1.83L18.45,14A4,4,0,0,1,21,17.73ZM14,5.85a2,2,0,0,0-4,0V8.14a2,2,0,0,0,.26,1l0.94,1.67a0.67,0.67,0,0,0,.59.33h0.42a0.67,0.67,0,0,0,.59-0.33l0.94-1.67a2,2,0,0,0,.26-1V5.85Z" class="large-icon" style="fill: currentColor"></path></svg></li-icon><span style="margin-left: 10px;" aria-hidden="true" class="pv-s-profile-actions__label">Suivre</span>');
+                            const toast = swal.mixin({
+                                  toast: true,
+                                  position: 'bottom-right',
+                                  showConfirmButton: false,
+                                  timer: 3000
+                                });
+
+                                toast({
+                                  type: 'success',
+                                  title: data.message,
+                                })
+                        }
+                    }else{
+                        const toast = swal.mixin({
+                                  toast: true,
+                                  position: 'bottom-right',
+                                  showConfirmButton: false,
+                                  timer: 3000
+                                });
+
+                                toast({
+                                  type: 'success',
+                                  title: data.message,
+                                })
+                    }
+                },
+                error: function() { },
+                stop: function (e) {
+                    swal("Veuiller Verifier Votre Connexion Reseau Puis Ressayer", "Erreur Fatale", "error");
+                }
+            });
+        });
+
+    $('body').on("submit", "#addFriend", function(event){
+            event.preventDefault();
+            toggleOptionsProfil({{ profil.id }});
+            var form_data = new FormData($(this)[0]);
+            var statut = $("#addFriend").find('input').eq(1).val();
+            $.ajax({xhr: function () {
+                    var xhr = new window.XMLHttpRequest();
+                    xhr.upload.addEventListener("progress", function (e) {
+                    }, false);
+                    xhr.addEventListener("progress", function (evt) {
+                        $("#addFriend #btaddFriend").html('<i class="fa fa-spinner fa-spin" aria-hidden="true"></i> Chargement...');
+                    }, false);
+                    return xhr;
+                },
+                url: '{% url "SocialMedia:addFriend" profil.id  %}',
+                type: 'POST',
+                processData: false,
+                contentType: false,
+                data: form_data,
+                dataType: 'json',
+                success: function(data) {
+                    if( data.friend == false && data.statut ) {
+                        $("#addFriend").addClass("hidden");
+                        $("#cancelSentRequest").removeClass("hidden");
+                        $("#sendmessage").removeClass("hidden");
+                        const toast = swal.mixin({
+                          toast: true,
+                          position: 'bottom-right',
+                          showConfirmButton: false,
+                          timer: 3000
+                        });
+
+                        toast({
+                          type: 'success',
+                          title: data.message,
+                        })
+                    }
+                },
+                error: function() { },
+                stop: function (e) {
+                    swal("Veuiller Verifier Votre Connexion Reseau Puis Ressayer", "Erreur Fatale", "error");
+                }
+            });
+        })
+
+    $('body').on("submit", "#deleteFriend", function(event){
+            event.preventDefault();
+            toggleOptionsProfil({{ profil.id }});
+            var form_data = new FormData($(this)[0]);
+            var statut = $("#deleteFriend").find('input').eq(1).val();
+            $.ajax({xhr: function () {
+                    var xhr = new window.XMLHttpRequest();
+                    xhr.upload.addEventListener("progress", function (e) {
+                    }, false);
+                    xhr.addEventListener("progress", function (evt) {
+                        $("#deleteFriend  #btaddFriend").html('<i class="fa fa-spinner fa-spin" aria-hidden="true"></i> Chargement');
+                    }, false);
+                    return xhr;
+                },
+                url: '{% url "SocialMedia:addFriend" profil.id  %}',
+                type: 'POST',
+                processData: false,
+                contentType: false,
+                data: form_data,
+                dataType: 'json',
+                success: function(data) {
+                    if( data.friend == false && data.statut ) {
+                        $("#deleteFriend").addClass("hidden");
+                        $("#sendmessage").addClass("hidden");
+                        $("#addFriend").removeClass("hidden");
+                        const toast = swal.mixin({
+                          toast: true,
+                          position: 'bottom-right',
+                          showConfirmButton: false,
+                          timer: 3000
+                        });
+
+                        toast({
+                          type: 'success',
+                          title: data.message,
+                        })
+                    }
+                },
+                error: function() { },
+                stop: function (e) {
+                    swal("Veuiller Verifier Votre Connexion Reseau Puis Ressayer", "Erreur Fatale", "error");
+                }
+            });
+        })
+
+    $('body').on("submit", "#cancelSentRequest",function(event){
+            event.preventDefault();
+            toggleOptionsProfil({{ profil.id }});
+            var form_data = new FormData($(this)[0]);
+            var statut = $("#cancelSentRequest").find('input').eq(1).val();
+            $.ajax({xhr: function () {
+                    var xhr = new window.XMLHttpRequest();
+                    xhr.upload.addEventListener("progress", function (e) {
+                    }, false);
+                    xhr.addEventListener("progress", function (evt) {
+                        $("#cancelSentRequest #btaddFriend").html('<i class="fa fa-spinner fa-spin" aria-hidden="true"></i> Chargement');
+                    }, false);
+                    return xhr;
+                },
+                url: '{% url "SocialMedia:addFriend" profil.id  %}',
+                type: 'POST',
+                processData: false,
+                contentType: false,
+                data: form_data,
+                dataType: 'json',
+                success: function(data) {
+                    if( data.friend == false && data.statut ){
+                        $("#cancelSentRequest").addClass(" hidden");
+                        $("#addFriend").removeClass("hidden");
+                        $("#sendmessage").addClass("hidden");
+
+                        const toast = swal.mixin({
+                          toast: true,
+                          position: 'bottom-right',
+                          showConfirmButton: false,
+                          timer: 3000
+                        });
+
+                        toast({
+                          type: 'success',
+                          title: data.message,
+                        })
+                    }else{
+                        swal(data.message);
+                    }
+                },
+                error: function() { },
+                stop: function (e) {
+                    swal("Veuiller Verifier Votre Connexion Reseau Puis Ressayer", "Erreur Fatale", "error");
+                }
+            });
+        })
+
+    $('body').on("submit", "#acceptRequest",function(event){
+            event.preventDefault();
+            toggleOptionsProfil({{ profil.id }});
+            var form_data = new FormData($(this)[0]);
+            var statut = $("#acceptRequest").find('input').eq(1).val();
+            $.ajax({xhr: function () {
+                    var xhr = new window.XMLHttpRequest();
+                    xhr.upload.addEventListener("progress", function (e) {
+                    }, false);
+                    xhr.addEventListener("progress", function (evt) {
+                        $("#acceptRequest #btaddFriend").html('<i class="fa fa-spinner fa-spin" aria-hidden="true"></i> Chargement');
+                    }, false);
+                    return xhr;
+                },
+                url: '{% url "SocialMedia:addFriend" profil.id  %}',
+                type: 'POST',
+                processData: false,
+                contentType: false,
+                data: form_data,
+                dataType: 'json',
+                success: function(data) {
+                    if( data.friend && data.statut ){
+                        $("#rejectRequest, #acceptRequest").addClass("hidden");
+                        $("#deleteFriend").removeClass("hidden");
+                        const toast = swal.mixin({
+                          toast: true,
+                          position: 'bottom-right',
+                          showConfirmButton: false,
+                          timer: 3000
+                        });
+
+                        toast({
+                          type: 'success',
+                          title: data.message,
+                        })
+                    }else{
+                        swal(data.message);
+                    }
+                },
+                error: function() { },
+                stop: function (e) {
+                    swal("Veuiller Verifier Votre Connexion Reseau Puis Ressayer", "Erreur Fatale", "error");
+                }
+            });
+        })
+
+    $('body').on("submit", "#rejectRequest",function(event){
+            event.preventDefault();
+            toggleOptionsProfil({{ profil.id }});
+            var form_data = new FormData($(this)[0]);
+            var statut = $("#rejectRequest").find('input').eq(1).val();
+            $.ajax({xhr: function () {
+                    var xhr = new window.XMLHttpRequest();
+                    xhr.upload.addEventListener("progress", function (e) {
+                    }, false);
+                    xhr.addEventListener("progress", function (evt) {
+                        $("#rejectRequest #btaddFriend").html('<i class="fa fa-spinner fa-spin" aria-hidden="true"></i> Chargement');
+                    }, false);
+                    return xhr;
+                },
+                url: '{% url "SocialMedia:addFriend" profil.id  %}',
+                type: 'POST',
+                processData: false,
+                contentType: false,
+                data: form_data,
+                dataType: 'json',
+                success: function(data) {
+                    if( data.friend == false && data.statut ){
+                        $("#rejectRequest, #acceptRequest").addClass("hidden");
+                        $("#addFriend").removeClass("hidden");
+                        $("#sendmessage").addClass("hidden");
+                        const toast = swal.mixin({
+                          toast: true,
+                          position: 'bottom-right',
+                          showConfirmButton: false,
+                          timer: 3000
+                        });
+
+                        toast({
+                          type: 'success',
+                          title: data.message,
+                        })
+                    }
+                },
+                error: function() { },
+                stop: function (e) {
+                    swal("Veuiller Verifier Votre Connexion Reseau Puis Ressayer", "Erreur Fatale", "error");
+                }
+            });
+        });
+
+
+    $('body').on("submit", "#bloque",function(event){
+            event.preventDefault();
+            toggleOptionsProfil({{ profil.id }});
+            var form_data = new FormData($(this)[0]);
+            var statut = $("#bloque").find('input').eq(1).val();
+            swal({
+          title: "Attention",
+          text: "Êtes-vous sur de bloquer {{ profil.user.username }}",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          cancelButtonText: 'Non',
+          confirmButtonText: 'Oui'
+        }).then((result) => {
+          if (!result.value) {
+            return false;
+          }else{
+            $.ajax({xhr: function () {
+                    var xhr = new window.XMLHttpRequest();
+                    xhr.upload.addEventListener("progress", function (e) {
+                    }, false);
+                    xhr.addEventListener("progress", function (evt) {
+                        $("#bloque #btaddFriend").html('<i class="fa fa-spinner fa-spin" aria-hidden="true"></i> Chargement');
+                    }, false);
+                    return xhr;
+                },
+                url: '{% url "SocialMedia:addFriend" profil.id  %}',
+                type: 'POST',
+                processData: false,
+                contentType: false,
+                data: form_data,
+                dataType: 'json',
+                success: function(data) {
+                    if( data.friend == false && data.statut ){
+                        clearInterval(interval);
+                            swal({
+                                  title: data.message,
+                                  text: "Vous serez redirigé vers votre profil",
+                                  timer: 3000,
+                                  onOpen: () => {
+                                    swal.showLoading()
+                                  }
+                                }).then((result) => {
+                                  if (result.dismiss === swal.DismissReason.timer) {
+                                    window.location = "{% url 'SocialMedia:myprofil' %}";
+                                  }
+                                });
+
+
+                    }else{
+                        swal(data.message);
+                    }
+                },
+                error: function() { },
+                stop: function (e) {
+                    swal("Veuiller Verifier Votre Connexion Reseau Puis Ressayer", "Erreur Fatale", "error");
+                }
+        });
+          }
+        });
+
+});
+
+
+
+    </script>
+{% endblock %}
+
+
+
+

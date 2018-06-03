@@ -1,0 +1,44 @@
+{% load staticfiles %}
+<div class="cover--user-name">
+
+    <h2 class="h3 fw--600">{{ groupe.nom | title }}</h2>
+</div>
+
+<div class="cover--user-desc fw--400 fs--18  text-darkest"
+     style="margin-top: 0; font-weight: lighter;">
+
+    <p style="margin: 0; font-weight: 400;">
+        <h3 id="NbMembres" class="h6">{{ nbMembres|default:'0' }} Membres</h3>
+    </p>
+
+    <p style="margin: 0px 0px;">
+                                        <form type="1" class="{%  if is_request_sent or  user.profil in groupe.admins.all or user.profil in groupe.moderators.all or user.profil in groupe.adherents.all and not is_request_sent %}hidden{% endif %}" id="joinGroupe" method="POST">
+                                        {% csrf_token %}
+                                            <input type="hidden" name="userRequestGroupe" value="1" />
+                                            <button class="btJoinGroupe fw--400" style="text-align: center;font-size: 17px;padding: 0px 20px;font-weight: normal;"><i class="fa fa-check-circle-o" aria-hidden="true"></i> Rejoindre</button>
+                                        </form>
+
+                                        <form id="exitGroupe" type="0" class="{% if user.profil not in groupe.admins.all and user.profil not in groupe.moderators.all and user.profil not in groupe.adherents.all %}hidden{% endif %}" data-message="Êtes-vous sur de quitter le groupe?" method="POST">
+                                        {% csrf_token %}
+                                            <input type="hidden" name="userRequestGroupe" value="0" />
+                                            <button id="groupememberBT" style="text-align: center;font-size: 17px;padding: 0px 20px;font-weight: normal;" class="btJoinGroupe fw--400"><i class="fa fa-check-circle-o" aria-hidden="true"></i> Membre</button>
+                                        </form>
+
+                                        <form style="width: 100%; height: 100%;" id="cancelRequest" type="-1" class="{% if not is_request_sent or user.profil in groupe.admins.all or user.profil in groupe.moderators.all or user.profil in groupe.adherents.all %}hidden{% endif %}" data-message="Êtes-vous sur d'annuler la demmande le groupe?" method="POST">
+                                        {% csrf_token %}
+                                            <input type="hidden" name="userRequestGroupe" value="-1" />
+                                            <button id="waitingGroupeBT" style="text-align: center;font-size: 17px;padding: 0px 20px;font-weight: normal;" class="btJoinGroupe fw--400"><i class="fa fa-check-circle-o" aria-hidden="true"></i> En attente</button>
+                                        </form>
+
+    </p>
+
+    <hr style=" margin-top: 10px; margin-bottom: 10px;">
+
+    <p style="margin: 0;">
+        {{ groupe.description }}.
+    </p>
+
+
+
+
+</div>

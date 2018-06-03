@@ -1,0 +1,11 @@
+{% load static %}
+<div style="width: 100%; text-align: center">
+    <h3 style="margin-top: 200px">Redirection...</h3>
+    <img src="{% static 'ecommerce/image/icon/Loading.gif' %}" alt="">
+</div>
+<div style="visibility: hidden">
+{{ form.render }}
+</div>
+<script type="text/javascript" src="{% static 'ecommerce/js/jquery-2.2.4.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'ecommerce/js/jquery-ui/jquery-ui.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'ecommerce/js/themejs/submit_paypal.js' %}"></script>

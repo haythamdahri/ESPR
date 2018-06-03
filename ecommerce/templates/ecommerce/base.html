@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+{% load humanize %}
+    <head>
+        <!-- Basic page needs
+            ============================================ -->
+        <title>ESPR - Marketplace</title>
+        <meta charset="utf-8">
+        <meta name="author" content="EL KHAOUA Karim">
+        <meta name="robots" content="index, follow" />
+        <!-- Mobile specific metas
+            ============================================ -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <!-- Favicon
+            ============================================ -->
+        <style type="text/css">
+            #checks span.glyphicon {
+                opacity: 0;
+            }
+            #checks.active span.glyphicon {
+                opacity: 1;
+            }
+        </style>
+        {% block style %}
+        {% endblock %}
+        <link rel="shortcut icon" type="image/png" href="{% static 'ecommerce/image/icon/logo.ico' %}"/>
+        <!-- Libs CSS
+            ============================================ -->
+        <link rel="stylesheet" href="{% static 'ecommerce/css/bootstrap/css/bootstrap.min.css' %}">
+        <link href="{% static 'ecommerce/css/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
+        <link href="{% static 'ecommerce/js/datetimepicker/bootstrap-datetimepicker.min.css' %}" rel="stylesheet">
+        <link href="{% static 'ecommerce/js/owl-carousel/owl.carousel.css' %}" rel="stylesheet">
+        <link href="{% static 'ecommerce/css/themecss/lib.css' %}" rel="stylesheet">
+        <link href="{% static 'ecommerce/js/jquery-ui/jquery-ui.min.css' %}" rel="stylesheet">
+        <link href="{% static 'ecommerce/js/minicolors/miniColors.css' %}" rel="stylesheet">
+        <!-- Theme CSS
+            ============================================ -->
+        <link href="{% static 'ecommerce/css/footer/footer3.css' %}" rel="stylesheet">
+        <link href="{% static 'ecommerce/css/header/header3.css' %}" rel="stylesheet">
+        <link id="color_scheme" href="{% static 'ecommerce/css/home3.css' %}" rel="stylesheet">
+        <link href="{% static 'ecommerce/css/responsive.css' %}" rel="stylesheet">
+        <link href="{% static 'ecommerce/css/themecss/so_searchpro.css' %}" rel="stylesheet">
+        <link href="{% static 'ecommerce/css/themecss/so_megamenu.css' %}" rel="stylesheet">
+        <link href="{% static 'ecommerce/css/themecss/so-categories.css' %}" rel="stylesheet">
+        <link href="{% static 'ecommerce/css/themecss/so-listing-tabs.css' %}" rel="stylesheet">
+        <link href="{% static 'ecommerce/css/themecss/so-newletter-popup.css' %}" rel="stylesheet">
+        <link href="{% static 'ecommerce/css/footer/footer4.css' %}" rel="stylesheet">
+        <link href="{% static 'ecommerce/css/header/header4.css' %}" rel="stylesheet">
+        <link id="color_scheme" href="{% static 'ecommerce/css/theme.css' %}" rel="stylesheet">
+        <link href="{% static 'ecommerce/css/responsive.css' %}" rel="stylesheet">
+        <!-- Google web fonts
+            ============================================ -->
+        <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700' rel='stylesheet' type='text/css'>
+        <style type="text/css">
+            body{font-family: 'Roboto', sans-serif;}
+        </style>
+        <link rel="stylesheet" href="{% static 'css/main_style.css' %}">
+    </head>
+    <body class="common-home res layout-4">
+        <div id="wrapper" class="wrapper-fluid banners-effect-5">
+            <!-- Header Container  -->
+            <header id="header" class=" typeheader-4">
+                {% include 'top_nav.html' %}
+                <!-- Header Top -->
+                <div class="header-top hidden-compact">
+                    <div class="container">
+                        <div class="row">
+                            <div class="header-top-right collapsed-block col-lg-12 col-md-8 col-sm-6 col-xs-5">
+                                <ul class="top-link list-inline">
+                                    <li class="account" id="my_account">
+                                        {% if user.is_authenticated %}
+                                            <a href="{% url 'e_commerce:my_account' %}" title="Mon Compte" class="btn-xs"> <span>{{ user.last_name.upper }} {{ user.first_name.capitalize }}</span></a>
+                                        {% else %}
+                                        <a href="#" title="My Account" class="btn-xs dropdown-toggle" data-toggle="dropdown"> <span>Mon Compte </span>  <span class="fa fa-caret-down"></span></a>
+                                        <ul class="dropdown-menu " >
+                                            <li><a href="/main/login">S'Inscrire</a>
+                                            </li>
+                                            <li><a href="/main/signup">Se Connecter</a>
+                                            </li>
+                                        </ul>
+                                        {% endif %}
+                                    </li>
+                                    <li class="wishlist hidden-sm hidden-xs">
+                                        <a id="number_in_wish_list" href="{% url 'e_commerce:wish_list' %}" id="wishlist-total" class="top-link-wishlist" title="Wish List ({{ number_items_wish_list }}) ">
+                                            Liste des souhaits ({{ number_items_wish_list }})
+                                        </a>
+                                    </li>
+                                    <li class="hidden-sm hidden-xs compare">
+                                        <a id="number_in_compare" href="{% url 'e_commerce:compare' %}" class="top-link-compare" title="Compare ({{ number_items_compare }}) ">
+                                        <i class="fa fa-refresh"></i>Comparer ({{ number_items_compare }})
+                                        </a>
+                                    </li>
+                                    <li class="checkout hidden-sm hidden-xs"><a href="{% url 'e_commerce:checkout' %}" class="btn-link" title="Checkout "><span ><i class="fa fa-check-square-o"></i>Check-out </span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- //Header Top -->
+
+                <!-- Header center -->
+                <div class="header-middle">
+                    <div class="container">
+                        <div class="row">
+                            <!-- Logo -->
+                            <div class="navbar-logo col-lg-2 col-md-3 col-sm-12 col-xs-12">
+                                <div class="logo"><a href="{% url 'e_commerce:index' %}"><img style="margin-left: 0" src="{% static 'ecommerce/image/icon/logo_ecommerce.png' %}" title="Your Store" alt="Your Store" /></a></div>
+                            </div>
+                            <!-- //end Logo -->
+                            <!-- Search -->
+                            <div class="middle2 col-lg-7 col-md-6 col-sm-6 col-xs-12" style="padding-top: 10px">
+                                <div class="search-header-w">
+                                    <div id="sosearchpro" class="sosearchpro-wrapper so-search ">
+                                        <form method="Post" action="{% url 'e_commerce:search' %}">
+                                            {% csrf_token %}
+                                            <input name="filter" type="hidden" value="true" />
+                                            <div id="search0" class="search input-group form-group">
+                                                <div class="select_category filter_type  icon-select hidden-sm hidden-xs">
+                                                    <label for="select_categories"></label>
+                                                    <select class="no-border" name="category_id" id="select_categories" style="width:200px;">
+                                                        <option value="0">Toutes les Catégories</option>
+                                                        {% for category in categories %}
+                                                            <option value="{{ category.pk }}">{{ category.name }}</option>
+                                                            {% for sous_1 in category.commercescategoryone_set.all %}
+                                                                <option value="${{ sous_1.pk }}">&nbsp;&nbsp;&nbsp;{{ sous_1.name }}</option>
+                                                                {% for sous_2 in sous_1.commercescategorytwo_set.all %}
+                                                                    <option value="*{{ sous_2.pk }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ sous_2.name }}</option>
+                                                                    {% for sous in sous_2.commercescategory_set.all %}
+                                                                        <option value="-{{ sous.pk }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ sous.name }}</option>
+                                                                    {% endfor %}
+                                                                {% endfor %}
+                                                            {% endfor %}
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                                <input class="autosearch-input form-control" type="text" size="50" placeholder="Chercher produit..." name="word" required="required">
+                                                <span class="input-group-btn">
+                                                <button type="submit" class="button-search btn btn-primary" name="submit_search"><i class="fa fa-search"></i></button>
+                                                </span>
+                                            </div>
+                                            <!-- <input type="hidden" name="route" value="product/search" /> -->
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- //end Search -->
+                            <div class="middle3 col-lg-3 col-md-3 col-sm-6 col-xs-12" style="padding-top: 10px">
+                                <!--cart-->
+                                <div class="shopping_cart">
+                                    <div id="cart" class="btn-shopping-cart">
+                                        <a href="#" data-loading-text="Loading... " class="btn-group top_cart dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                            <div class="shopcart">
+                                                <span class="icon-c">
+                                                </span>
+                                                <div class="shopcart-inner">
+                                                    <p class="text-shopping-cart">
+                                                        {% if total_price_in_cart == 0 %}
+                                                            <br/>
+                                                        {% endif %}
+                                                        Mon chariot
+                                                    </p>
+                                                    <span class="total-shopping-cart cart-total-full">
+                                                        {% if not total_price_in_cart == 0 %}<span class="items_cart">02</span><span class="items_cart2" id="total_cart_2">{{ total_price_in_cart|intcomma }} Dh</span>{% endif %}
+                                                        <span id="number_in_cart" class="items_cart">{{ number_products_in_cart }}</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        {% if cart %}
+                                            <ul class="dropdown-menu pull-right shoppingcart-box" role="menu">
+                                                <li>
+                                                    <table class="table table-striped">
+                                                        <tbody id="table_cart">
+                                                            {% for el in cart %}
+                                                            <tr id="line{{ el.product.pk }}">
+                                                                <td class="text-center" style="width:70px">
+                                                                    <a href="{% url 'e_commerce:product' el.product.pk %}">
+                                                                    <img src="{{ el.product.image.url }}" style="width:70px;" alt="image {{ el.product.name }}" title="{{ el.product.name }}" class="preview">
+                                                                    </a>
+                                                                </td>
+                                                                <td class="text-left"><a class="cart_product_name" href="{% url 'e_commerce:product' el.product.pk %}">{{ el.product.name }}</a></td>
+                                                                <td class="text-center">x{{ el.quantity }}</td>
+                                                                <td class="text-center">{{ el.total|intcomma }} Dh</td>
+                                                                <td class="text-right"><a href="#" class="fa fa-edit"></a></td>
+                                                                <td class="text-right">
+                                                                    <form id="formRemoveFromCart{{ el.product.pk }}" method="get" action="{% url 'e_commerce:remove_from_cart' %}" data-validate-url="{% url 'e_commerce:remove_from_cart' %}">
+                                                                        <input type="hidden" name="cart" value="{{ el.pk }}">
+                                                                    </form>
+                                                                    <a href="javascript:" onclick="cart.remove('{{ el.product.pk }}', '{{ el.product.name }}', '{{ el.product.image.url }}', '{% url 'e_commerce:product' el.product.pk %}');" class="fa fa-times fa-delete"></a>
+                                                                </td>
+                                                            </tr>
+                                                            {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                </li>
+                                                <li>
+                                                    <div>
+                                                        <table class="table table-bordered">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td class="text-left"><strong>Total</strong>
+                                                                    </td>
+                                                                    <td class="text-right" id="total_cart_1">{{ total_price_in_cart|intcomma }} Dh</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <p class="text-right">
+                                                            <a class="btn view-cart" href="{% url 'e_commerce:cart' %}"><i class="fa fa-shopping-cart"></i>Voir Chariot</a>&nbsp;&nbsp;&nbsp;
+                                                            <a class="btn btn-mega checkout-cart" href="{% url 'e_commerce:checkout' %}"><i class="fa fa-share"></i>Check-out</a>
+                                                        </p>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <!--//cart-->
+                                <!-- call -->
+                                <div class="telephone  hidden-sm hidden-md">
+                                    <span>Appelez nous:</span>
+                                    <a>053-7629223</a>
+                                </div>
+                                <!-- //call -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- //Header center -->
+
+                <!-- Header Bottom -->
+                <div class="header-bottom hidden-compact">
+                    <div class="container">
+                        <div class="row">
+                            <div class="bottom1 menu-vertical col-lg-2 col-md-3">
+                                <!-- Secondary menu -->
+                                <div class="responsive so-megamenu  megamenu-style-dev">
+                                    <div class="so-vertical-menu ">
+                                        <nav class="navbar-default">
+                                            <div class="container-megamenu vertical">
+                                                <div id="menuHeading">
+                                                    <div class="megamenuToogle-wrapper">
+                                                        <div class="megamenuToogle-pattern">
+                                                            <div class="container">
+                                                                <div>
+                                                                    <a href="{% url 'e_commerce:products' %}"><span></span></a>
+                                                                    <a href="{% url 'e_commerce:products' %}"><span></span></a>
+                                                                    <a href="{% url 'e_commerce:products' %}"><span></span></a>
+                                                                </div>
+                                                                Toutes les Catégories
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="navbar-header" style="width: 50px">
+                                                    <button type="button" id="show-verticalmenu" data-toggle="collapse" class="navbar-toggle">
+                                                        <i class="fa fa-bars"></i>
+                                                        <span>Toutes les Catégories</span>
+                                                    </button>
+                                                </div>
+                                                {% if not hide_menu %}
+                                                <div class="vertical-wrapper" >
+                                                    <span id="remove-verticalmenu" class="fa fa-times"></span>
+                                                    <div class="megamenu-pattern">
+                                                        <div class="container-mega">
+                                                            <ul class="megamenu" style="width: 300px">
+                            {#-------------------------------------------------- categories ------------------------------------------------#}
+                                                            {% for category in categories %}
+                                                                {% if forloop.counter < 10 %}
+                                                                    {% if category.commercescategoryone_set.exists %}
+                                                                        <li class="item-vertical with-sub-menu hover">
+                                                                    {% else %}
+                                                                        <li class="item-vertical">
+                                                                    {% endif %}
+                                                                        <p class="close-menu"></p>
+                                                                        <a href="{% url 'e_commerce:products' 'category' category.pk %}" class="clearfix">
+                                                                            <span class="dot"></span>
+                                                                            <span>{{ category.name }}</span>
+                                                                            <b class="caret"></b>
+                                                                        </a>
+                                                                        {% if category.commercescategoryone_set.exists %}
+                                                                            {% if category.commercescategoryone_set.count > 6 %}
+                                                                                <div class="sub-menu" data-subwidth="80" >
+                                                                            {% elif category.commercescategoryone_set.count > 3 %}
+                                                                                <div class="sub-menu" data-subwidth="50" >
+                                                                            {% else %}
+                                                                                <div class="sub-menu" data-subwidth="25" >
+                                                                            {% endif %}
+                                                                            <div class="content">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-12">
+                                                                                        <div class="col-md-12 text-center" style="margin-bottom: 15px">
+                                                                                            <!--<img height="100px" src="{{ category.image.url }}" alt="Category {{ cactegory.name }}">-->
+                                                                                        </div>
+                                                                                        <div class="row">
+                                                                                            {% if category.commercescategoryone_set.count > 6 %}
+                                                                                                <div class="col-md-4 static-menu">
+                                                                                            {% elif category.commercescategoryone_set.count > 3 %}
+                                                                                                <div class="col-md-6 static-menu">
+                                                                                            {% else %}
+                                                                                                <div class="col-md-12 static-menu">
+                                                                                            {% endif %}
+                                                                                                <div class="menu">
+                                                                                                    <ul>
+                                                                                                    {% for category_one in category.commercescategoryone_set.all|slice:':9' %}
+                                                                                                        <li>
+                                                                                                            <a href="{% url 'e_commerce:products' 'category_one' category_one.pk %}" class="main-menu">{{ category_one.name }}</a>
+                                                                                                            {% if category_one.commercescategorytwo_set.exists %}
+                                                                                                            <ul>
+                                                                                                                {% for category_two in category_one.commercescategorytwo_set.all|slice:":5" %}
+                                                                                                                <li>
+                                                                                                                    <a href="{% url 'e_commerce:products_sub' 'category_two' category_two.pk %}" >{{ category_two.name }}</a>
+                                                                                                                </li>
+                                                                                                                {% endfor %}
+                                                                                                                {% if category_one.commercescategorytwo_set.count > 5 %}
+                                                                                                                    <li>
+                                                                                                                        <a href="{% url 'e_commerce:list_categories' %}#category_one{{ category_one.pk }}" >Autres ..</a>
+                                                                                                                    </li>
+                                                                                                                {% endif %}
+                                                                                                            </ul>
+                                                                                                            {% endif %}
+                                                                                                        </li>
+                                                                                                        {% if forloop.counter|divisibleby:"3" and not forloop.last %}
+                                                                                                                     {{ '</ul>' }}
+                                                                                                                {{ '</div>' }}
+                                                                                                            {{ '</div>' }}
+                                                                                                            {{ '<div class="col-md-4 static-menu">' }}
+                                                                                                                {{ '<div class="menu">' }}
+                                                                                                                    {{ '<ul>' }}
+                                                                                                        {% endif %}
+                                                                                                    {% endfor %}
+                                                                                                    {% if category.commercescategoryone_set.count > 12 %}
+                                                                                                        <li>
+                                                                                                            <a href="{% url 'e_commerce:list_categories' %}#category{{ category.pk }}"  class="main-menu">Autres ..</a>
+                                                                                                        </li>
+                                                                                                    {% endif %}
+                                                                                                    </ul>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        {% endif %}
+                                                                    </li>
+                                                                {% else %}
+                                                                    {% if category.commercescategoryone_set.exists %}
+                                                                    <li class="item-vertical with-sub-menu hover" style="display: none;">
+                                                                    {% else %}
+                                                                        <li class="item-vertical" style="display: none;">
+                                                                    {% endif %}
+                                                                        <p class="close-menu"></p>
+                                                                        <a href="{% url 'e_commerce:products' 'category' category.pk %}" class="clearfix">
+                                                                            <span class="dot"></span>
+                                                                            <span>{{ category.name }}</span>
+                                                                            <b class="caret"></b>
+                                                                        </a>
+                                                                    {% if category.commercescategoryone_set.exists %}
+                                                                        {% if category.commercescategoryone_set.count > 6 %}
+                                                                            <div class="sub-menu" data-subwidth="80" >
+                                                                        {% elif category.commercescategoryone_set.count > 3 %}
+                                                                            <div class="sub-menu" data-subwidth="50" >
+                                                                        {% else %}
+                                                                            <div class="sub-menu" data-subwidth="25" >
+                                                                        {% endif %}
+                                                                            <div class="content" >
+                                                                                <div class="row">
+                                                                                    <div class="col-md-12">
+                                                                                        <div class="col-md-12 text-center" style="margin-bottom: 15px">
+                                                                                            <!--<img height="100px" src="{{ category.image.url }}" alt="Category {{ cactegory.name }}">-->
+                                                                                        </div>
+                                                                                        <div class="row">
+                                                                                            {% if category.commercescategoryone_set.count > 6 %}
+                                                                                                <div class="col-md-4 static-menu">
+                                                                                            {% elif category.commercescategoryone_set.count > 3 %}
+                                                                                                <div class="col-md-6 static-menu">
+                                                                                            {% else %}
+                                                                                                <div class="col-md-12 static-menu">
+                                                                                            {% endif %}
+                                                                                                <div class="menu">
+                                                                                                    <ul>
+                                                                                                    {% for category_one in category.commercescategoryone_set.all %}
+                                                                                                        <li>
+                                                                                                            <a href="{% url 'e_commerce:products' 'category_one' category_one.pk %}" class="main-menu">{{ category_one.name }}</a>
+                                                                                                            {% if category_one.commercescategorytwo_set.exists %}
+                                                                                                            <ul>
+                                                                                                                {% for category_two in category_one.commercescategorytwo_set.all %}
+                                                                                                                <li><a href="{% url 'e_commerce:products_sub' 'category_two' category_two.pk %}" >{{ category_two.name }}</a></li>
+                                                                                                                {% endfor %}
+                                                                                                                {% if category_one.commercescategorytwo_set.count > 5 %}
+                                                                                                                    <li>
+                                                                                                                        <a href="{% url 'e_commerce:products' 'category_one' category_one.pk %}" >Others ..</a>
+                                                                                                                    </li>
+                                                                                                                {% endif %}
+                                                                                                            </ul>
+                                                                                                            {% endif %}
+                                                                                                        </li>
+                                                                                                        {% if forloop.counter|divisibleby:"4" and forloop.last %}
+                                                                                                                     {{ '</ul>' }}
+                                                                                                                {{ '</div>' }}
+                                                                                                            {{ '</div>' }}
+                                                                                                            {{ '<div class="col-md-4 static-menu">' }}
+                                                                                                                {{ '<div class="menu">' }}
+                                                                                                                    {{ '<ul>' }}
+                                                                                                        {% endif %}
+                                                                                                    {% endfor %}
+                                                                                                    {% if category.commercescategoryone_set.count > 12 %}
+                                                                                                        <li>
+                                                                                                            <a href="{% url 'e_commerce:products' 'category_one' category.pk %}"  class="main-menu">Others ..</a>
+                                                                                                        </li>
+                                                                                                    {% endif %}
+                                                                                                    </ul>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    {% endif %}
+                                                                    </li>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                                <li class="loadmore">
+                                                                    <i class="fa fa-plus-square-o"></i>
+                                                                    <span class="more-view">Plus de Catégories</span>
+                                                                </li>
+                                                                <li style="padding: 2px 15px 12px 24px;">
+                                                                    <i class="fa fas fa-align-justify"></i>
+                                                                    <span class="more-view">
+                                                                        <a href="{% url 'e_commerce:list_categories' %}">Toutes les Categories</a>
+                                                                    </span>
+                                                                </li>
+                            {#----------------------------------------------------------------------------------------------#}
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {% endif %}
+                                            </div>
+                                        </nav>
+                                    </div>
+                                </div>
+                                <!-- // end Secondary menu -->
+                            </div>
+                            <!-- Main menu -->
+                            <div class="main-menu col-lg-10 col-md-9">
+                                <div class="responsive so-megamenu megamenu-style-dev">
+                                    <nav class="navbar-default">
+                                        <div class=" container-megamenu  horizontal open ">
+                                            <div class="navbar-header">
+                                                <button type="button" id="show-megamenu" data-toggle="collapse" class="navbar-toggle">
+                                                <span class="icon-bar"></span>
+                                                <span class="icon-bar"></span>
+                                                <span class="icon-bar"></span>
+                                                </button>
+                                            </div>
+                                            <div class="megamenu-wrapper">
+                                                <span id="remove-megamenu" class="fa fa-times"></span>
+                                                <div class="megamenu-pattern">
+                                                    <div class="container-mega">
+                                                        <ul class="megamenu" data-transition="slide" data-animationtime="250">
+                                                            <li class="with-sub-menu hover">
+                                                                <p class="close-menu"></p>
+                                                                <a href="#" class="clearfix">
+                                                                <strong>Catégories</strong>
+                                                                <b class="caret"></b>
+                                                                </a>
+                                                                <div class="sub-menu" style="width: 100%; display: none;">
+                                                                    <div class="content">
+                                    {#---------------------------------------------------- hot categories ------------------------------------------------------------------------------------------------------------#}
+                                                                        <div class="row">
+                                                                            <div class="col-sm-12">
+                                                                                <div class="row">
+                                                                                    {% for category in hot_categories %}
+                                                                                        <div class="col-md-3 img img1">
+                                                                                            <a href="{% url 'e_commerce:products' "category" category.pk %}"><img width="200px" height="100px" src="{{ category.image.url }}" alt="image {{ category.name }}"></a>
+                                                                                        </div>
+                                                                                    {% endfor %}
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            {% for category in hot_categories %}
+                                                                                <div class="col-md-3">
+                                                                                    <a href="{% url 'e_commerce:products' "category" category.pk %}" class="title-submenu">{{ category.name }}</a>
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-12 hover-menu">
+                                                                                            <div class="menu">
+                                                                                                <ul>
+                                                                                                    {% for sous in category.commercescategoryone_set.all|slice:':10' %}
+                                                                                                        <li><a href="{% url 'e_commerce:products' "category_one" sous.pk %}"  class="main-menu">{{ sous.name }}</a></li>
+                                                                                                    {% endfor %}
+                                                                                                </ul>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            {% endfor %}
+                                                                        </div>
+                                    {#-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------#}
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <li class="with-sub-menu hover">
+                                                                <p class="close-menu"></p>
+                                                                <a href="#" class="clearfix">
+                                                                <strong>Compte</strong>
+                                                                <b class="caret"></b>
+                                                                </a>
+                                                                <div class="sub-menu" style="width: 25%; right: auto;">
+                                                                    <div class="content" >
+                                                                        <div class="row">
+                                                                            <div class="col-md-12">
+                                                                                <ul class="row-list">
+                                                                                    <li><a href="{% url 'e_commerce:my_account' %}">Mon Compte</a></li>
+                                                                                    <li><a href="{% url 'e_commerce:cart' %}">Chariot</a></li>
+                                                                                    <li><a href="{% url 'e_commerce:checkout' %}">Check-out</a></li>
+                                                                                    <li><a href="{% url 'e_commerce:compare' %}">Comparer</a></li>
+                                                                                    <li><a href="{% url 'e_commerce:wish_list' %}">Liste des souhaits</a></li>
+                                                                                    <li><a href="{% url 'e_commerce:order_history' %}">Historiques des Commandes</a></li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <li class="with-sub-menu hover">
+                                                                <p class="close-menu"></p>
+                                                                <a href="#" class="clearfix">
+                                                                <strong>Accès rapide</strong>
+                                                                <b class="caret"></b>
+                                                                </a>
+                                                                <div class="sub-menu" style="width: 20%; ">
+                                                                    <div class="content" >
+                                                                        <div class="row">
+                                                                            <div class="col-md-12">
+                                                                                <ul class="row-list">
+                                                                                    <li><a class="subcategory_item" href="{% url 'e_commerce:suppliers' %}">Exposants</a></li>
+                                                                                    <li><a class="subcategory_item" href="{% url 'e_commerce:faq' %}">FAQ</a></li>
+                                                                                    <li><a class="subcategory_item" href="{% url 'e_commerce:sitemap' %}">Carte du site</a></li>
+                                                                                    <li><a class="subcategory_item" href="#">Support</a></li>
+                                                                                    <li><a class="subcategory_item" href="{% url 'e_commerce:about-us' %}">Qui somme nous?</a></li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            {% if is_supplier %}
+                                                            <li class="with-sub-menu hover">
+
+                                                                <p class="close-menu"></p>
+                                                                <a href="#" class="clearfix">
+                                                                <strong>Gérer</strong>
+                                                                <b class="caret"></b>
+                                                                </a>
+                                                                <div class="sub-menu" style="width: 20%; ">
+                                                                    <div class="content" >
+                                                                        <div class="row">
+                                                                            <div class="col-md-12">
+                                                                                <ul class="row-list">
+                                                                                    <li><a href="{% url 'e_commerce:my_account' %}">Mon Compte</a></li>
+                                                                                    <li><a href="{% url 'e_commerce:supplier' store_id %}">Ma Boutique</a></li>
+                                                                                    <li><a class="subcategory_item" href="{% url 'e_commerce:your_products' %}">Mes Produits</a></li>
+                                                                                    <li><a class="subcategory_item" href="{% url 'e_commerce:add_product' %}">Ajouter Produit</a></li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            {% endif %}
+                                                            {% if is_seller %}
+                                                            <li class="with-sub-menu hover">
+                                                                <p class="close-menu"></p>
+                                                                <a href="#" class="clearfix">
+                                                                <strong>Administration</strong>
+                                                                <b class="caret"></b>
+                                                                </a>
+                                                                <div class="sub-menu" style="width: 20%; ">
+                                                                    <div class="content" >
+                                                                        <div class="row">
+                                                                            <div class="col-md-12">
+                                                                                <ul class="row-list">
+                                                                                    <li><a href="{% url 'e_commerce:processing_orders' %}">Commande en cours</a></li>
+                                                                                    <li><a href="{% url 'e_commerce:all_orders' %}">Toutes les commandes</a></li>
+                                                                                    <li><a href="/admin/ecommerce">Administrer</a></li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            {% endif %}
+                                                            <li class="with-sub-menu hover">
+                                                                <a href="{% url 'e_commerce:contact-us' %}">
+                                                                <strong>Contacter Nous</strong>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </nav>
+                                </div>
+                            </div>
+                            <!-- //end Main menu -->
+                        </div>
+                    </div>
+                </div>
+                <!-- //Header Bottom -->
+            </header>
+            <!-- //Header Container  -->
+            <!-- Main Container  -->
+            {% block content %}
+            {% endblock %}
+            <!-- //Main Container -->
+
+            <!-- Footer Container -->
+            <footer class="footer-container typefooter-4" id="footer-scroll">
+                <!-- Footer Top Container -->
+                <section class="footer-top">
+                    <div class="container">
+                        <div class="row">
+                            <div class="contnet-footer-top">
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 socials-footer">
+                                    <h3 class="title-footer-top">Suivre</h3>
+                                    <ul class="socials">
+                                        <li class="facebook"><a class="_blank" href="https://www.facebook.com/MagenTech" target="_blank"><i class="fa fa-facebook"></i></a>
+                                        </li>
+                                        <li class="twitter"><a class="_blank" href="https://twitter.com/smartaddons" target="_blank"><i class="fa fa-twitter"></i></a>
+                                        </li>
+                                        <li class="google_plus"><a class="_blank" href="https://plus.google.com/u/0/+Smartaddons/posts" target="_blank"><i class="fa fa-google-plus"></i></a>
+                                        </li>
+                                        <li class="pinterest"><a class="_blank" href="https://www.pinterest.com/smartaddons/" target="_blank"><i class="fa fa-skype"></i></a>
+                                        </li>
+                                        <li class="pinterest"><a class="_blank" href="https://www.pinterest.com/smartaddons/" target="_blank"><i class="fa fa-pinterest"></i></a>
+                                        </li>
+                                        <li class="pinterest"><a class="_blank" href="https://www.pinterest.com/smartaddons/" target="_blank"><i class="fa fa-youtube"></i></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12  form-newsletter">
+                                    <h3 class="title-footer-top title-footer-bot hidden-xs hidden-md hidden-sm">S'inscrire au Newsletter</h3>
+                                    <div class="block_content" style="width: 75%;">
+                                        <form method="post" id="signup" name="signup" class="form-group form-inline signup send-mail">
+                                            <div class="form-group">
+                                                <div class="subcribe">
+                                                    <button class="btn btn-primary btn-default font-title" style="font-size:12px;" type="submit" onclick="return subscribe_newsletter();" name="submit">
+                                                    S'abonner
+                                                    </button>
+                                                </div>
+                                                <div class="input-box">
+                                                    <input type="email" placeholder="Entrer votre email ..." value="" class="form-control" id="txtemail" name="txtemail" size="55">
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- /Footer Top Container -->
+                <section class="footer-middle ">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 col-style">
+                                <div class="infos-footer box-footer">
+                                    <div class="module">
+                                        <h3 class="modtitle">Contact</h3>
+                                        <ul>
+                                            <li class="adres">114, SECTEUR 3, RIAD OULAD MTAA – TEMARA – RABAT.</li>
+                                            <li class="mail">
+                                                <a href="mailto:espr.maroc@gmail.com">espr.maroc@gmail.com</a>
+                                            </li>
+                                            <li class="phone">Phone : +212 (0) 537 62 92 23</li>
+                                            <li class="phone">Fax : +212 (0) 537 62 92 23</li>
+                                            <li class="time">Open time: 8:00AM - 6:00PM</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12 col-style">
+                                <div class="box-information box-footer">
+                                    <div class="module clearfix">
+                                        <h3 class="modtitle">Informations</h3>
+                                        <div class="modcontent">
+                                            <ul class="menu">
+                                                <li><a href="{% url 'e_commerce:about-us' %}">Qui sommes nous?</a></li>
+                                                <li><a href="{% url 'e_commerce:faq' %}">FAQ</a></li>
+                                                <li><a href="#">Garantie </a></li>
+                                                <li><a href="#">Support 24/7 page</a></li>
+                                                <li><a href="#">Produit Support</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12 col-style">
+                                <div class="box-service box-footer">
+                                    <div class="module clearfix">
+                                        <h3 class="modtitle">Services</h3>
+                                        <div class="modcontent">
+                                            <ul class="menu">
+                                                <li><a href="{% url 'e_commerce:contact-us' %}">Contacter Nous</a></li>
+                                                <li><a href="#">Support</a></li>
+                                                <li><a href="{% url 'e_commerce:sitemap' %}">Carte du Site</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 col-style">
+                                <div class="module  so-popular-tag box-footer">
+                                    <h3 id="popular_tags" class="modtitle"><span>Tags Populaires</span></h3>
+                                    <div class="modcontent">
+                                        <div class="box-content">
+                                            {% for tag in tags|slice:":29" %}<a href="{% url 'e_commerce:products' "tag" tag.pk %}">{{ tag.name }}</a>{% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- Footer Bottom Container -->
+                <section class="footer-bottom ">
+                    <div class="container">
+                        <div class="row">
+                            <div class="content-footer-bottom">
+                                <div class="col-lg-6 col-md-5 col-sm-12 col-xs-12 payment-w hidden-sm">
+                                    <img src="{% static 'ecommerce/image/catalog/demo/payment/payment.png' %}" alt="imgpayment">
+                                </div>
+                                <div class="col-lg-6 col-md-7 col-sm-12 col-xs-12 copyright-w pull-right">
+                                    <div class="copyright">© 2018 Made by OUJRI & EL KHAOUA. All Rights Reserved.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- /Footer Bottom Container -->
+                <!--Back To Top-->
+                <div class="back-to-top"><i class="fa fa-angle-up"></i></div>
+            </footer>
+            <!-- //Footer Container -->
+        </div>
+        <!-- End Color Scheme
+            ============================================ -->
+        <!-- Include Libs & Plugins
+            ============================================ -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script type="text/javascript" src="{% static 'ecommerce/js/jquery-2.2.4.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'ecommerce/js/bootstrap.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'ecommerce/js/owl-carousel/owl.carousel.js' %}"></script>
+        <script type="text/javascript" src="{% static 'ecommerce/js/themejs/libs.js' %}"></script>
+        <script type="text/javascript" src="{% static 'ecommerce/js/unveil/jquery.unveil.js' %}"></script>
+        <script type="text/javascript" src="{% static 'ecommerce/js/countdown/jquery.countdown.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'ecommerce/js/dcjqaccordion/jquery.dcjqaccordion.2.8.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'ecommerce/js/datetimepicker/moment.js' %}"></script>
+        <script type="text/javascript" src="{% static 'ecommerce/js/datetimepicker/bootstrap-datetimepicker.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'ecommerce/js/jquery-ui/jquery-ui.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'ecommerce/js/modernizr/modernizr-2.6.2.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'ecommerce/js/minicolors/jquery.miniColors.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'ecommerce/js/jquery-scrolltofixed-min.js' %}"></script>
+        <!-- Theme files
+            ============================================ -->
+        <script type="text/javascript" src="{% static 'ecommerce/js/themejs/application.js' %}"></script>
+        <script type="text/javascript" src="{% static 'ecommerce/js/themejs/homepage.js' %}"></script>
+        <script type="text/javascript" src="{% static 'ecommerce/js/themejs/so_megamenu.js' %}"></script>
+        <script type="text/javascript" src="{% static 'ecommerce/js/themejs/addtocart.js' %}"></script>
+        <script type="text/javascript" src="{% static 'ecommerce/js/themejs/cpanel.js' %}"></script>
+        <script type="text/javascript" src="{% static 'ecommerce/js/themejs/my_ajax.js' %}"></script>
+        <script type="text/javascript" src="{% static 'ecommerce/js/themejs/main.js' %}"></script>
+        {% block script %}
+        {% endblock %}
+        <script type="text/javascript"><!--
+            // Check if Cookie exists
+                if($.cookie('display')){
+                    view = $.cookie('display');
+                }
+                else{
+                    view = 'list';
+                }
+                if(view) display(view);
+            //-->
+        </script>
+    </body>
+</html>

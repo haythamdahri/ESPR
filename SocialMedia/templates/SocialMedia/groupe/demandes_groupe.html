@@ -1,0 +1,346 @@
+{% extends "SocialMedia/groupe/base_groupe.html" %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% block title %}{{ groupe.nom }} - Demandes{% endblock %}
+{% block contentGroupe %}
+                        <!-- Filter Nav Start -->
+                            <div class="filter--nav pb--60 clearfix">
+                            </div>
+                            <!-- Filter Nav End -->
+
+                            <!-- Member Items Start -->
+                            <div class="member--items">
+                                <div id="requests" class="row">
+                        {% if nbdemandes != 0 %}
+                            {% for demande in demandesGroupe %}
+                                    <div class="col-sm-3 demande{{ demande.id }}">
+                                        <!-- Member Item Start -->
+                                        <div class="member--item online">
+                                            <div class="img img-circle">
+                                                <a href="{% url 'SocialMedia:getProfil' demande.emetteur_id %}" class="btn-link">
+                                                    <img src="{{ demande.emetteur.photo_profil.image.url|default:'/media/SocialMedia/default.jpg' }}" style="max-height: 55px;height: 100px;" alt="">
+                                                </a>
+                                            </div>
+
+                                            <div class="name" style="white-space: nowrap;">
+                                                <h3 class="h6 fs--12">
+                                                    <a href="{% url 'SocialMedia:getProfil' demande.emetteur.id %}" class="btn-link">{{ demande.emetteur }}</a>
+                                                </h3>
+                                            </div>
+
+                                            <div class="activity" style="white-space: nowrap;">
+                                                <p><i class="fa mr--8 fa-clock-o"></i>{{ demande.emetteur.user.last_login|safe|date:'M. d, y, g:i A' }}{{ demande.emetteur.user.last_login|default_if_none:"Non Connecté" }}</p>
+                                            </div>
+
+                                            <div class="actions" style="white-space: nowrap;">
+                                                <ul class="nav">
+                                                    <li>
+                                                        <a href="#" title="Approuver" class="btn-lin" data-toggle="tooltip" data-placement="bottom">
+                                                            <form id="acceptDemande"  sentence="êtes-vous sur d'approuver la demmande?" data-id="Demande approuvée" action="{% url 'SocialMedia:demandesGroupe' groupe.id %}" method="POST">
+                                                                {% csrf_token %}
+                                                                    {% render_field formDemande.demande value=demande.id %}
+                                                                    {% render_field formDemande.reponse value=1 %}
+                                                                <button type="submit" class="btn-link" ><i class="fa fa-check-circle-o" aria-hidden="true"></i></button>
+                                                            </form>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#" title="Refuser" class="btn-link" data-toggle="tooltip" data-placement="bottom">
+                                                            <form id="refuseDemande"  sentence="êtes-vous sur de refuser la demmande?" data-id="Demande refusée" action="{% url 'SocialMedia:demandesGroupe' groupe.id %}" method="POST">
+                                                                {% csrf_token %}
+                                                                    {% render_field formDemande.demande value=demande.id %}
+                                                                    {% render_field formDemande.reponse value=0 %}
+                                                                    <button type="submit" class="btn-link" ><i class="fa fa-remove" aria-hidden="true"></i></button>
+                                                            </form>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                            {% endfor %}
+                        {% else %}
+                                <h2 class="h4 fw--700 widget--title">le groupe n'a aucune demande de jointure.</h2>
+                        {% endif %}
+                                </div>
+                            </div>
+                                        <!-- Member Item End -->
+                                 <div class="row text-center">
+                                                            <img id="loadingImage" style="display: none; width: 100%; object-fit: contain;" class="img-rounded"  src="{% static 'SocialMedia/loading.gif' %}" />
+                                </div>
+
+                            <!-- Page Count Start -->
+                            <div class="page--count pt--30">
+                                <label class="ff--primary fs--14 fw--500 text-darker">
+                                    <span>Viewing</span>
+                                    {% if demandesGroupe.has_previous %}
+                                        <button id="btfirst" href="?page=1" class="btn-link"><i class="fa fa-caret-left"></i><i class="fa fa-caret-left"></i></button>
+                                        <button id="btprevious" page="{{ demandesGroupe.previous_page_number }}" class="btn-link"><i class="fa fa-caret-left"></i></button>
+                                    {% else %}
+                                        <button id="btfirst" href="1" class="btn-link"><i class="fa fa-caret-left"></i><i class="fa fa-caret-left"></i></button>
+                                        <button id="btprevious" page="1" class="btn-link"><i class="fa fa-caret-left"></i></button>
+                                    {% endif %}
+                                        <input id="RequestsPageNum" type="number" name="page-count" value="{{ demandesGroupe.number }}" class="form-control form-sm">
+                                    {% if demandesGroupe.has_next %}
+                                        <button id="btnext" page="{{ demandesGroupe.next_page_number }}" class="btn-link"><i class="fa fa-caret-right"></i></button>
+                                        <button id="btlast" page="{{ demandesGroupe.paginator.num_pages }}" class="btn-link"><i class="fa fa-caret-right"></i><i class="fa fa-caret-right"></i></button>
+                                    {% else %}
+                                        <button id="btnext" page="{{ demandesGroupe.paginator.num_pages }}" class="btn-link"><i class="fa fa-caret-right"></i></button>
+                                        <button id="btlast" page="{{ demandesGroupe.paginator.num_pages }}" class="btn-link"><i class="fa fa-caret-right"></i><i class="fa fa-caret-right"></i></button>
+                                    {% endif %}
+                                        <span id="numPages">{{ demandesGroupe.paginator.num_pages }}</span>
+
+                                </label>
+                            </div>
+                            <!-- Page Count End -->
+
+
+{% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
+<script>
+
+	$('.profil_links_menu li').removeClass('active');
+    $('.profil_links_menu li:eq(1)').addClass('active');
+
+
+    function printRequests(emetteurId, demandeId, results)
+    {
+            profilURL = "{% url 'SocialMedia:getProfil' 999999 %}".replace(999999, emetteurId);
+            demandefield = '{% render_field formDemande.demande value=999999 %}'.replace(999999, demandeId);
+            actionURL = "{% url 'SocialMedia:demandesGroupe' 999999 %}".replace(999999, {{ groupe.id }});
+            csrf = "{% csrf_token %}".replace(/'/g, '"');
+            NewData = '<div class="col-sm-3 demande'+demandeId+'" >' +
+            '<div class="member--item online">' +
+
+                '<div class="img img-circle">' +
+                '<a href="'+profilURL+'" class="btn-link"><img src="'+results.photo_profil+'" style="max-height: 55px;height: 100px;" alt=""></a>' +
+                '</div>' +
+
+            '<div class="name"  style="white-space: nowrap;">' +
+            '<h3 class="h6 fs--12">' +
+            '<a href="'+profilURL+'" class="btn-link">'+results.username+'</a></h3>' +
+            '</div>' +
+
+                '<div class="activity" style="white-space: nowrap;"><p><i class="fa mr--8 fa-clock-o"></i>'+results.last_login+'</p></div>' +
+
+                    '<div class="actions" style="white-space: nowrap;">' +
+                        '<ul class="nav"><li><a href="#" title="Accepter" class="btn-lin" data-toggle="tooltip" data-placement="bottom">' +
+                        '<form id="acceptDemande"   sentence="êtes-vous sur d\'approuver la demmande?" data-id="Demande approuvée" action="'+actionURL+'" method="POST">'+csrf+demandefield+
+                        '{% render_field formDemande.reponse value=1 %}'+
+                        '<button type="submit" class="btn-link" ><i class="fa fa-check-circle-o" aria-hidden="true"></i></button>' +
+                        '</form></a></li>' +
+                        '<li><a href="#" title="Refuser" class="btn-link" data-toggle="tooltip" data-placement="bottom">' +
+                        '<form id="refuseDemande"  sentence="êtes-vous sur de refuser la demmande?" data-id="Demande refusée" action='+actionURL+' method="POST">'+csrf+demandefield+
+                        '{% render_field formDemande.reponse value=0 %}'+
+                        '<button type="submit" class="btn-link" ><i class="fa fa-remove" aria-hidden="true"></i></button></form></a></li>' +
+                        '</ul></div></div></div>';
+           /* setTimeout(function(){
+                    $("#requests").text(NewData);
+                }, 1000);*/
+           $("#requests").append(NewData);
+           //console.log(demandeId);
+           //console.log(NewData);
+    }
+
+    function getUserAjax(emetteur_id,id)
+    {
+        $.ajax({
+            url: '{% url "SocialMedia:AjaxUser" %}',
+            type: 'GET',
+            data : {
+                    'pid': emetteur_id
+                   },
+            dataType: 'json',
+            success: function(data) {
+                if( data.statut ) {
+                        printRequests(emetteur_id,id, data);
+                }else
+                    {
+                        swal({
+                          type: 'error',
+                          title: 'Erreur',
+                          text: 'Veuiller actualiser la page puis ressayer',
+                        })
+                    }
+            },
+            error: function() {
+                swal("Veuiller Verifier Votre Connexion Reseau Puis Ressayer", "Erreur Fatale", "error");
+            },
+            stop: function (e) {  /* 3. WHEN THE UPLOADING PROCESS FINALIZE, HIDE THE MODAL */
+
+            }
+        });
+    }
+
+	$('body').on( "submit","#acceptDemande, #refuseDemande", function(event) {
+	event.preventDefault();
+    swal({
+          title: "Attention",
+          text: $(this).attr('sentence'),
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          cancelButtonText: 'Non',
+          confirmButtonText: 'Oui'
+        }).then((result) => {
+          if (!result.value) {
+            return false;
+          }else{
+        var form_data = new FormData($(this)[0]);
+        message = $(this).data('id');
+        $.ajax({
+            url: '{% url "SocialMedia:demandesGroupe" groupe.id %}',
+            type: $(this).attr('method'),
+            processData: false,
+            contentType: false,
+            data : form_data,
+            success: function(data) {
+                var i=1;
+                if( data.statut ) {
+                        if( data.nbdemandes == 0)
+                        {
+
+                            $("#requests").html("<h2 class='h4 fw--700 widget--title'>le groupe n'a aucune demande de jointure.</h2>");$("#RequestsPageNum").val('1');
+                            $("#btfirst").hide(250);
+                            $("#btnext").hide(250);
+                            $("#btlast").hide(250);
+                            $("#btnext").hide(250);
+                            $("#btprevious").hide(250);
+                            $("#nbdemandeBadge").text(data.nbdemandes);
+                                $("#nbDemandes").text(data.nbdemandes);
+                            const toast = swal.mixin({
+                              toast: true,
+                              position: 'bottom-right',
+                              showConfirmButton: false,
+                              timer: 3000
+                            });
+                            toast({
+                              type: 'success',
+                              title: data.message,
+                            })
+                        }else{
+                            $('.demande'+data.demande).fadeOut(250, function(){
+                                $("#requests").fadeOut(250, function(){
+                                    $("#requests").fadeIn(250);
+                                });
+                                const toast = swal.mixin({
+                                  toast: true,
+                                  position: 'bottom-right',
+                                  showConfirmButton: false,
+                                  timer: 3000
+                            });
+                            toast({
+                              type: 'success',
+                              title: data.message,
+                            });
+                                getGroupeRequests($("#RequestsPageNum").val());
+                                $("#nbdemandeBadge").text(data.nbdemandes);
+                            });
+                        }
+                }else
+                    {
+                        swal({
+                          type: 'error',
+                          title: 'Erreur',
+                          text: 'Veuiller actualiser la page puis ressayer',
+                        })
+                    }
+            },
+            complete: function()
+            {
+
+            },
+            error: function() { },
+            stop: function (e) {  /* 3. WHEN THE UPLOADING PROCESS FINALIZE, HIDE THE MODAL */
+                swal("Veuiller Verifier Votre Connexion Reseau Puis Ressayer", "Erreur Fatale", "error");
+            }
+        });
+          }
+        });
+
+});
+
+    function getGroupeRequests(page)
+    {
+        $.ajax({
+        url: '{% url "SocialMedia:demandesGroupeViaAjax" groupe.id %}',
+        data : {'page':page},
+        dataType: 'json',
+        success: function(data) {
+            if( data.statut ) {
+                var i=1;
+                    if( data.nbdemandes == 0)
+                    {
+                        $("#requests").html("<h2 class='h4 fw--700 widget--title'>le groupe n'a aucune demande de jointure.</h2>");
+                        $("#RequestsPageNum").val('1');
+                        $("#nbdemandeBadge").text(data.nbdemandes);
+                            $("#nbDemandes").text(data.nbdemandes);
+                    }else{
+                        $("#loadingImage").fadeIn(350);
+                            $('#requests').empty();
+                            setTimeout(function () {
+                            $.each(data.demandesGroupe,function(key, value){
+                                    getUserAjax(value.emetteur_id, value.id);
+                                    $("#NbMembres").text(data.nbMembres+' Membres.');
+                            });
+                            },250);
+                            $("#nbdemandeBadge").text(data.nbdemandes);
+                            $("#nbDemandes").text(data.nbdemandes);
+                            $("#btprevious").attr('page', data.previous_page_number);
+                            $("#btnext").attr('page', data.next_page_number);
+                            $("#btlast").attr('page', data.num_pages);
+                            $("#RequestsPageNum").val(data.current_page);
+                            $("#numPages").text(data.num_pages);
+
+                            if( data.NumPagesExcessed )
+                            {
+                                $("#RequestsPageNum").text(data.num_pages);
+                            }
+
+                    }
+            }else
+                {
+                    swal({
+                      type: 'error',
+                      title: 'Erreur',
+                      text: 'Veuiller actualiser la page puis ressayer',
+                    })
+                }
+        },
+        complete: function()
+        {
+            $("#loadingImage").fadeOut(350);
+            $('html, body').animate({
+              scrollTop: $("#navTop").offset().top
+            }, 500)
+        },
+        error: function() { },
+        stop: function (e) {  /* 3. WHEN THE UPLOADING PROCESS FINALIZE, HIDE THE MODAL */
+            swal("Veuiller Verifier Votre Connexion Reseau Puis Ressayer", "Erreur Fatale", "error");
+        }
+    });
+    }
+
+    $("body").on('click', '#btfirst, #btprevious, #btnext, #btlast', function(event){
+        event.preventDefault();
+        pagenum=$(this).attr('page');
+        getGroupeRequests(pagenum);
+    });
+
+    $('#RequestsPageNum').on('keypress', function(e) {
+        if(e.which == 13) {
+         pageNum = $(this).val();
+         getGroupeRequests(pageNum);
+        }
+    });
+
+
+
+</script>
+{% endblock %}
+
+
+

@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Page non trouvée - BTP E-Commerce{% endblock %}
+
+{% block style %}
+    <style>
+        .p404 i.fa {
+            font-size: 200px;
+            color: #000;
+        }
+        .p404 h1 {
+            font-size: 80px;
+            margin-top: 0;
+        }
+        .p404 h3 {
+            font-size: 24px;
+        }
+        .p404 p {
+            font-size: 20px;
+        }
+        .p404 a {
+            border-radius: 0;
+            padding: 8px 30px;
+            font-size: 18px;
+            margin-bottom: 20px;
+            background-color: #f46320
+        }
+        .moreArticle .article .article-img img {
+            height: 210px;
+        }
+        .title a {
+            color: #FFF;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+
+    <div class="container text-center p404">
+        <i class="fa fa-frown-o fa-4x" aria-hidden="true"></i>
+        <h1>404</h1>
+        <h3>Oups, désolé, nous ne pouvons pas trouver cette page!</h3>
+        <p>Quelque chose s'est mal passé ou la page n'existe plus.</p>
+        <a href="{% url 'e_commerce:index' %}" class="btn btn-danger">Acceuil</a>
+    </div>
+
+
+{% endblock %}

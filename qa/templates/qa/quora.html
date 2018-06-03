@@ -1,0 +1,513 @@
+{% extends 'base_qa.html' %}
+{% load django_markdown %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+
+{% block style %}
+<!-- <link rel="stylesheet" href="/qahttps://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+<style type="text/css">
+	
+.q_text
+{
+    white-space: nowrap; 
+    max-height: 50px;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+
+.btncomt {
+    background-color: Transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+
+
+</style>
+{% endblock style %}
+
+
+ {% block content %}
+
+	<!-- =-=-=-=-=-=-= Main Area =-=-=-=-=-=-= -->
+	<div class="main-content-area" style="    background: #fafafa;">
+		<!-- =-=-=-=-=-=-= Latest Questions  =-=-=-=-=-=-= -->
+<!-- 		<section class="white question-tabs padding-bottom-80" id="latest-post"> -->
+			<div class="container ">
+
+				<!-- title-section -->
+
+				<div class="main-heading text-center">
+
+		        </div>
+
+				<!-- End title-section -->
+				
+				<div class="row">
+					<!-- Content Area Bar -->
+
+					<div class="col-sm-3 col-md-2">
+					            <div class="panel-group" id="accordion">
+					            	<div class="panel panel-default">
+					                    <div class="panel-heading" style="background-color: #ffffff;border: 1px solid #efefef;">
+					                        <h4 class="panel-title">
+					                            <a data-toggle="collapse" data-parent="#accordion" href="/qa#collapseFour"><span class="glyphicon glyphicon-file">
+					                            </span>|Questions </a>
+					                        </h4>
+					                    </div>
+					                    <div id="collapseFour" class="panel-collapse collapse">
+					                        <div class="panel-body">
+					                            <table class="table" style="color: black;">
+					                                <thead><tr>
+					                                    <td>
+					                                        <!-- <span class="glyphicon glyphicon-fire"></span> --><a style="color: black;" data-toggle="tab" href="/qa#tab1">{% trans "Récents" %}<!-- Recents --></a>
+					                                    </td>
+					                                </tr>
+					                                <tr>
+					                                    <td>
+					                                        <!-- <span class="glyphicon glyphicon-leaf"></span> --><a style="color: black;" data-toggle="tab" href="/qa#tab2">{% trans "Populaire" %}<!-- Popular --></a>
+					                                    </td>
+					                                </tr>
+					                                <tr>
+					                                    <td>
+					                                        <!-- <span class="glyphicon glyphicon-certificate"></span> --><a style="color: black;" data-toggle="tab" href="/qa#tab3">{% trans "Sans réponses" %}<!-- No answers --></a>
+					                                    </td>
+					                                </tr>
+					                            </thead></table>
+					                        </div>
+					                    </div>
+					                </div>
+					                <div class="panel panel-default">
+					                    <div class="panel-heading" style="background-color: #ffffff;border: 1px solid #efefef;">
+					                        <h4 class="panel-title">
+					                            <a  href="/qa/list_cat"><span class="glyphicon glyphicon-th">
+					                            </span>|Categories</a>
+					                        </h4>
+					                    </div>
+	
+					                </div>
+					                <div class="panel panel-default">
+					                    <div class="panel-heading" style="background-color: #ffffff;border: 1px solid #efefef;">
+					                        <h4 class="panel-title">
+					                            <a href="/qa/list_tags"><span class="fa fa-tags">
+					                            </span>|Tags</a>
+					                        </h4>
+					                    </div>
+
+					                </div>
+					                
+					            </div>
+					        </div>
+
+
+
+					<div class="white question-tabs  col-md-7 col-sm-12 col-xs-12" style="border: 1px solid #efefef;">
+						<div class="panel panel-primary">
+							<div class="panel-heading">
+								<!-- Tabs -->
+								<!-- <ul class="nav panel-tabs">
+									<li class="active"> <a data-toggle="tab" href="/qa#tab1"><i class="icofont icon-ribbon"></i><span class="hidden-xs">Recent Questions</span></a> 
+									</li>
+									<li> <a data-toggle="tab" href="/qa#tab2"><i class="icofont icon-global"></i><span class="hidden-xs">Popular Questions</span></a> 
+									</li>
+									<li > <a data-toggle="tab" href="/qa#tab3"><i class="icofont icon-layers"></i><span class="hidden-xs">Questions -No answers</span></a> 
+									</li>
+								</ul> -->
+								<div class="AddQuestionPrompt FeedAddQuestionPrompt">
+									<div class="fake_reason">
+										<div class="row">
+											<div class="col-md-1">
+												<!-- <img style="margin-top: 10px;" class="profile_photo_img img-circle resize" src="https://qsf.ec.quoracdn.net/-3-images.new_grid.profile_pic_default_small.png-26-902da2b339fedf49.png" alt="Sante Sport" height="50" width="50"> -->
+														{% if user.is_authenticated %}
+															{% if user.profil.photo_profil.image.url %}
+																<img style="margin-top: 10px;" class="profile_photo_img img-circle resize"  src="{{ user.profil.photo_profil.image.url }}" alt="Sante Sport" height="100" width="100">
+															{% else %}
+										                      <img height="70" width="70" style="margin-top: 10px;" class="profile_photo_img img-circle resize"  class="img-sm"  src='{% static "qa/images/p1.png" %}'>
+										                    {% endif %}
+										                {% endif %}    
+										                    
+											</div>
+											<div class="col-md-10" style="margin-top: 10px; margin-left: -15px;">
+												<a href="/qa/activites/" style="color: black; ">{{ user.username }}</a>
+											</div>
+											
+										</div>
+
+									</div>
+									{% if user.is_authenticated %}
+									<a href="/qa/add/" class="AskQuestionButton" style=" margin-top:10px ; font-weight: bold;line-height: 1.3;color: #262626;font-size: 18px;color: #999;display: block;padding-bottom: 16px;font-family: Georgia,Times,\"Times New Roman\",\"Hiragino Kaku Gothic Pro\",\"Meiryo\",serif;"><span class="button_text" id="__w2_FQi720f_text">{% trans "Avez-vous des Question" %}?</span></a>
+									{% endif %}
+								</div>
+							</div>
+						</div>
+						<div class="panel-body">
+							<div class="tab-content">
+
+									<div id="tab1" class="tab-pane active">
+											<!-- Question Listing -->
+											{% if questions %}
+											{% for question in questions %}
+											<div class="listing-grid">
+												<div class="row">
+													<div class="col-md-2 col-sm-2 col-xs-12 hidden-xs">
+														<a data-toggle="tooltip" data-placement="bottom" data-original-title="Martina Jaz" href="/qa#">
+															{% if question.user_data.photo_profil.image.url %}
+																<img alt="" class="img-responsive center-block" src="{{ question.user_data.photo_profil.image.url }}">
+															{% else %}
+										                      <img class="img-sm"  src='{% static "qa/images/p1.png" %}'>
+										                    {% endif %}
+														</a>
+													</div>
+													<div class="col-md-7 col-sm-8  col-xs-12">
+														<h3><a  href="/qa/q/{{ question.id }}/"> {{ question.question_title|truncatechars_html:50 }}</a></h3>
+														<div class="listing-meta"> <span><i class="fa fa-clock-o" aria-hidden="true"></i>{{ question.pub_date}}</span>  <span><i class="fa fa fa-eye" aria-hidden="true"></i> {{ question.views }} {% trans "Vues" %}<!-- Views --></span> 
+															<!-- <br> -->
+															<!-- | <span><i class="glyphicon glyphicon-tags" ></i>
+																{% for tag in question.tags.all %}
+															 	<a style="color: #777;" href="/qa/tag/{{ tag.slug|slugify }}/">{{ tag.slug }}</a> ,
+															 	{% endfor %}
+															</span> -->
+														</div>
+													</div>
+													<div class="col-md-3 col-sm-2 col-xs-12">
+														<ul class="question-statistic">
+															<li > <a data-toggle="tooltip" data-placement="bottom" title='{% trans "réponses" %}'><span>{{ question.answer_set.count }}</span></a> 
+															</li>
+															<li> <a data-toggle="tooltip" data-placement="bottom" title="Votes"><span>{{ question.qvoter_set.count }}</span></a> 
+															</li>
+														</ul>
+													</div>
+													<div class="col-md-10 col-sm-10  col-xs-12">
+														<div><p class="q_text">{{ question.question_text|truncatechars_html:100| safe }} </p></div>
+														<div class="pull-right ">
+															<!-- {% for tag in question.tags.all %}
+														 	<a href="/qa/tag/{{ tag.slug|slugify }}/">{{ tag.slug }}</a>
+														 	{% endfor %} -->
+
+														 	{% if user.is_authenticated %}
+														 	<div class="pull-right">
+														 	<button class="btncomt" onclick="myFunction({{ question.id }} , {{ user.id }})" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" ><small><span class="glyphicon glyphicon-comment" aria-hidden="true" ></span> Commenter &nbsp;</small></button>
+														 	|
+														 	 <a style="color: black;" data-toggle="tooltip" data-placement="bottom" data-original-title="Like This Answer" href="/qa/thumb/{{ user.id }}/{{ question.id }}/0/"><i class="fa fa-thumbs-up"></i>
+											                                  </a>
+
+											                  <a style="color: black;" href="/qa/thumb/{{ user.id }}/{{ question.id }}/1/" data-original-title="Spam" data-placement="bottom" data-toggle="tooltip"><i class="fa fa-thumbs-down"></i></a>
+											                  ( {{ question.reward }} )
+											              	</div>
+
+											              	 <!-- Modal -->
+															  <!-- <div class="modal fade" id="{{ question.id }}" role="dialog">
+															    <div class="modal-dialog"> -->
+															    
+															      <!-- Modal content-->
+															     <!--  <div class="modal-content">
+															        <div class="modal-header">
+															          <button type="button" class="close" data-dismiss="modal">&times;</button>
+															          <h4 class="modal-title">{% trans "Postez votre réponse" %}</h4>
+															        </div>
+															        <div class="modal-body">
+															         {% include 'qa/answer_form.html' %}
+															        </div>
+															        <div class="modal-footer">
+															          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+															        </div>
+															      </div>
+															      
+															    </div>
+															  </div> -->
+											                  {% endif %}
+														</div>
+
+
+													</div>
+
+													<!-- <div class="col-md-10 col-sm-10  col-xs-12 pull-right">
+														
+														<hr>
+														<div class="entry-footer" style=" padding-bottom: 20px;">
+											                <div class="pull-left post-admin">
+											                  <button class="btncomt pull-right"><small><span class="glyphicon glyphicon-comment" aria-hidden="true"></span> Commenter &nbsp;</small></button>
+											                </div>
+											                <div class="tags pull-right">
+											                  
+											                  <a style="color: black;" data-toggle="tooltip" data-placement="bottom" data-original-title="Like This Answer" href="/qa/voteblog/1/17/0/"><i class="fa fa-thumbs-up"></i>
+											                                  </a>
+
+											                  <a style="color: black;" href="/qa/voteblog/1/17/1/" data-original-title="Spam" data-placement="bottom" data-toggle="tooltip"><i class="fa fa-thumbs-down"></i></a>
+											                  ( 5 )
+
+											                </div>
+											              </div>
+											              
+													</div> -->
+
+												</div>
+
+
+											</div>
+											{% endfor %}
+											{% endif %}
+											<!-- Question Listing End -->
+
+
+											<!-- Pagination View More -->
+										<div class="text-center clearfix">
+											<!-- <button class="btn btn-primary btn-lg">View All Question</button> -->
+											<div class="pagination center-block">
+											          <span class="step-links">
+											           <div class="clearfix"></div>
+											            <nav aria-label="">
+											              <ul class="pager">
+											                {% if questions.has_previous %}
+											                    <li><a href="?page={{ questions.previous_page_number }}">Précédent</a></li>
+											                {% endif %}
+
+											                 <span class="current">
+											                   {{ questions.number }} / {{ questions.paginator.num_pages }}
+											                </span>
+
+											                {% if questions.has_next %}
+											                    <li><a href="?page={{ questions.next_page_number }}">Suivant</a></li>
+											                {% endif %}
+											              </ul>
+											            </nav>
+											          </span>
+											</div>
+										</div>
+										<!-- Pagination View More End -->
+									</div>
+										
+
+
+										<!-- ****************************** tab 2 **************** -->
+
+
+									<div id="tab2" class="tab-pane">
+											<!-- Question Listing -->
+											{% if question_top %}
+											{% for question in question_top %}
+											<div class="listing-grid">
+												<div class="row">
+													<div class="col-md-2 col-sm-2 col-xs-12 hidden-xs">
+														<a data-toggle="tooltip" data-placement="bottom" data-original-title="Martina Jaz" href="/qa#">
+															{% if question.user_data.photo_profil.image.url %}
+																<img alt="" class="img-responsive center-block" src="{{ question.user_data.photo_profil.image.url }}">
+															{% else %}
+										                      <img class="img-sm"  src='{% static "qa/images/p1.png" %}'>
+										                    {% endif %}
+														</a>
+													</div>
+													<div class="col-md-7 col-sm-8  col-xs-12">
+														<h3><a  href="/qa/q/{{ question.id }}/"> {{ question.question_title|truncatechars_html:50 }}</a></h3>
+														<div class="listing-meta"> <span><i class="fa fa-clock-o" aria-hidden="true"></i>{{ question.pub_date}}</span>  <span><i class="fa fa fa-eye" aria-hidden="true"></i> {{ question.views }} {% trans "Vues" %}</span> 
+														</div>
+													</div>
+													<div class="col-md-3 col-sm-2 col-xs-12">
+														<ul class="question-statistic">
+															<li > <a data-toggle="tooltip" data-placement="bottom" data-original-title="Answers"><span>{{ question.answer_set.count }}</span></a> 
+															</li>
+															<li> <a data-toggle="tooltip" data-placement="bottom" data-original-title="Votes"><span>{{ question.qvoter_set.count }}</span></a> 
+															</li>
+														</ul>
+													</div>
+													<div class="col-md-10 col-sm-10  col-xs-12">
+														<p>{{ question.question_text| safe }}</p>
+														<div class="pull-right tagcloud">
+															{% for tag in question.tags.all %}
+														 	<a href="/qa/tag/{{ tag.slug|slugify }}/">{{ tag.slug }}</a>
+														 	{% endfor %}
+														</div>
+													</div>
+
+
+												</div>
+
+
+											</div>
+											{% endfor %}
+											{% endif %}
+											<!-- Question Listing End -->
+									</div>
+									<!-- ****************************** end tab 2 **************** -->
+
+
+									<!-- ****************************** tab 3 **************** -->
+									<div id="tab3" class="tab-pane">
+											<!-- Question Listing -->
+											{% if question_null %}
+											{% for question in question_null %}
+											<div class="listing-grid">
+												<div class="row">
+													<div class="col-md-2 col-sm-2 col-xs-12 hidden-xs">
+														<a data-toggle="tooltip" data-placement="bottom" data-original-title="Martina Jaz" href="/qa#">
+															{% if question.user_data.photo_profil.image.url %}
+																<img alt="" class="img-responsive center-block" src="{{ question.user_data.photo_profil.image.url }}">
+															{% else %}
+										                      <img class="img-sm"  src='{% static "qa/images/p1.png" %}'>
+										                    {% endif %}
+														</a>
+													</div>
+													<div class="col-md-7 col-sm-8  col-xs-12">
+														<h3><a  href="/qa/q/{{ question.id }}/"> {{ question.question_title|truncatechars_html:50 }}</a></h3>
+														<div class="listing-meta"> <span><i class="fa fa-clock-o" aria-hidden="true"></i>{{ question.pub_date}}</span>  <span><i class="fa fa fa-eye" aria-hidden="true"></i> {{ question.views }} {% trans "Vues" %}</span> 
+														</div>
+													</div>
+													<div class="col-md-3 col-sm-2 col-xs-12">
+														<ul class="question-statistic">
+															<li > <a data-toggle="tooltip" data-placement="bottom" data-original-title="Answers"><span>{{ question.answer_set.count }}</span></a> 
+															</li>
+															<li> <a data-toggle="tooltip" data-placement="bottom" data-original-title="Votes"><span>{{ question.qvoter_set.count }}</span></a> 
+															</li>
+														</ul>
+													</div>
+													<div class="col-md-10 col-sm-10  col-xs-12">
+														<p>{{ question.question_text| safe }}</p>
+														<div class="pull-right tagcloud">
+															{% for tag in question.tags.all %}
+														 	<a href="/qa/tag/{{ tag.slug|slugify }}/">{{ tag.slug }}</a>
+														 	{% endfor %}
+														</div>
+													</div>
+
+
+												</div>
+
+
+											</div>
+											{% endfor %}
+											{% endif %}
+											<!-- Question Listing End -->
+									</div>
+									<!-- ****************************** end tab 3 **************** -->	
+							</div>
+						</div>
+					</div>
+					
+					<!-- ************************** -->
+
+					<!-- Right Sidebar -->
+					<div class="col-md-3 col-sm-12 col-xs-12 clearfix pull-right">
+						   <div class="side-bar">
+					{% include 'qa/right_sidebar.html' %}
+							</div>
+					      </div>
+					<!-- Right Sidebar End -->
+
+					<div class="clearfix"></div>
+				</div>
+			</div>
+			<!-- end container -->
+		<!-- </section> -->
+		<!-- =-=-=-=-=-=-= Latest Questions  End =-=-=-=-=-=-= -->
+		
+
+
+        
+	</div>
+	<!-- =-=-=-=-=-=-= Main Area End =-=-=-=-=-=-= -->
+
+<!-- 
+<div class="">
+  <h2>Modal Example</h2>
+  <!-- Trigger the modal with a button -->
+<!--   <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+
+  <!-- Modal --><!-- 
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+     -->
+      <!-- Modal content-->
+     <!--  <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+          <p>Some text in the modal.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+</div> --> 
+
+<!-- <div class="w3-container">
+  <h2>W3.CSS Modal</h2>
+  <button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-black">Open Modal</button> -->
+<!-- 
+  <div id="id01" class="w3-modal">
+    <div class="w3-modal-content">
+      <div class="w3-container">
+        <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+        <p>Some text. Some text. Some text.</p>
+        <p>Some text. Some text. Some text.</p>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+
+<!-- <button onclick="myFunction(11)" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Open modal for @mdo</button>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@fat">Open modal for @fat</button>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Open modal for @getbootstrap</button> -->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{% trans "Postez votre réponse" %}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="post" action="/qa/answer/">
+		 	{% csrf_token %}
+		 	<div class="form-group">
+		 		<label></label>
+		 		<div>
+		 			{{ form_a.media }}
+		 			{{ form_a.answer_text }}
+		 		</div>
+		 	</div>
+		 	<input type="hidden" name="question" id="qst">
+		 	<input type="hidden" name="user" id="us">
+		 	<!-- <button class="btn btn-primary btn-lg btn-block">{% trans "Postez votre réponse" %}</button> -->
+
+		 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+        <button class="btn btn-primary">{% trans "Postez votre réponse" %}</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+	function myFunction(qst , user) {
+    document.getElementById("qst").value = qst;
+    document.getElementById("us").value = user;
+}
+
+
+$('#exampleModal').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget) // Button that triggered the modal
+  var recipient = button.data('whatever') // Extract info from data-* attributes
+  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+  var modal = $(this)
+  modal.find('.modal-title').text('New message to ' + recipient)
+  modal.find('.modal-body input').val(recipient)
+})
+</script>
+  {% endblock content %}

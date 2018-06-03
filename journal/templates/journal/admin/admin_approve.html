@@ -1,0 +1,201 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+    Supervision
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'journal/css/journalist/journalist-articles.css' %}">
+    <style>
+        #admin-space {
+            color: #f46320;
+        }
+
+        .header-info h2 {
+            font-size: 36px;
+            display: inline;
+        }
+
+        .header-info {
+            background-color: #fcfcfc;
+            border-bottom: 1px solid #f2f2f2;
+            margin-top: -20px;
+            padding: 15px;
+        }
+
+        .article-breadcrumb {
+            padding-top: 9px;
+            margin: 0;
+        }
+    </style>
+{% endblock %}
+
+{% block script %}
+    $(".formDelete").submit(function( event ) {
+        event.preventDefault();
+        var form = $(this);
+        var id = form.attr('data-id');
+        if (confirm("Voulez vous vraiment supprimer l'article " + id)){
+            form.off('submit').submit();
+        }
+    });
+
+    $("#article-approve").hide();
+    $("#video-approve").hide();
+
+    $( ".formApprove" ).submit(function( event ) {
+        event.preventDefault();
+        var form = $(this);
+        $.ajax({
+            url: form.attr("data-url"),
+            data: form.serialize(),
+            dataType: 'json',
+            success: function (data) {
+                if (data.message == "success") {
+                    $(data.tr).hide();
+                    if (data.type == "video") {
+                        $("#video-approve").show();
+                        setTimeout(function () {
+                            $("#video-approve").hide();
+                        }, 5000);
+                    } if (data.type == "news") {
+                        $("#article-approve").show();
+                        setTimeout(function () {
+                            $("#article-approve").hide();
+                        }, 5000);
+                    }
+                }
+            }
+        });
+    });
+{% endblock %}
+
+{% block content %}
+
+    <!-- SECTION HEADER -->
+    <div class="section header-info">
+        <div class="container">
+            <h2>Supervision</h2>
+            <!-- breadcrumb -->
+            <ul class="article-breadcrumb pull-right">
+                <li><a href="{% url 'index' %}">Accueil</a></li>
+                <li><a href="{% url 'admin_approve' %}">Espace Superviseur</a></li>
+            </ul>
+            <!-- /breadcrumb -->
+        </div>
+    </div>
+    <!-- /SECTION HEADER -->
+    <div class="main-panel">
+    <!-- DIV ARTICLES -->
+    <div class="container">
+        <div class="card">
+            <div class="header">
+                <h4 class="title">Liste des Articles et Vidéos à approuver</h4>
+                <p class="category">Total des articles : {{ count_articles }}</p>
+                <p class="category">Total des vidéos : {{ count_videos }}</p>
+            </div>
+            <div class="alert alert-success alert-dismissible" role="alert" id="article-approve" style="margin: 15px">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                Article publié avec succées
+            </div>
+            <div class="alert alert-success alert-dismissible" role="alert" id="video-approve" style="margin: 15px">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                Vidéo publié avec succées
+            </div>
+            <div class="content table-responsive table-full-width">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Titre réduit</th>
+                            <th>Catégorie</th>
+                            <th>Journalist</th>
+                            <th>Date d'ajout</th>
+                            <th>Tags</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for article in articles %}
+                            <tr id="tr{{ article.id }}">
+                                <td>
+                                    {% if article.type == 'video' %}
+                                        <a href="{% url 'video_show' article.id %}">{{ article.id }}</a>
+                                    {% else %}
+                                        <a href="{% url 'post' article.category article.id %}">{{ article.id }}</a>
+                                    {% endif %}
+                                </td>
+                                <td>{{ article.small_title }}</td>
+                                <td>
+                                    {% if article.type == 'video' %}
+                                        Vidéo
+                                    {% else %}
+                                        {{ article.category.displayed_text }}
+                                    {% endif %}
+                                </td>
+                                <td><a href="{% url 'author' article.journalist.id %}">{{ article.journalist }}</a></td>
+                                <td>{{ article.date_publication }}</td>
+                                <td>
+                                    {% for tag in article.tag.all %}
+                                        <span style="background: {{ tag.color }}">{{ tag }}</span>
+                                    {% endfor %}
+                                </td>
+                                <td>
+                                    <form action="{% url 'admin_approve' %}" method="post" class="formDelete"
+                                          data-id="{{ article.id }}">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="article" value="{{ article.id }}">
+                                        <button type="submit" class="btn btn-danger">
+                                            <i class="fa fa-trash-o"></i></button>
+                                    </form>
+                                    <form action="" method="post" class="formApprove" data-url="{% url 'admin_approve_article' %}">
+                                        <input type="hidden" name="article" value="{{ article.id }}">
+                                        <input type="hidden" name="type" value="{{ article.type }}">
+                                        <button type="submit" class="btn btn-success">
+                                            <i class="fa fa-check"></i></button>
+                                    </form>
+                                    {% if article.type == 'video' %}
+                                        <a href="{% url 'video_show' article.id %}" class="btn btn-info">
+                                    {% else %}
+                                        <a href="{% url 'post' article.category article.id %}" class="btn btn-info">
+                                    {% endif %}
+                                    <i class="fa fa-eye"></i></a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                {% if articles.has_other_pages %}
+                    <ul class="pagination">
+                        {% if articles.has_previous %}
+                            <li><a href="?page={{ articles.previous_page_number }}">&laquo;</a></li>
+                        {% else %}
+                            <li class="disabled"><span>&laquo;</span></li>
+                        {% endif %}
+                        {% for i in articles.paginator.page_range %}
+                            {% if articles.number == i %}
+                                <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                            {% else %}
+                                <li><a href="?page={{ i }}">{{ i }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                        {% if articles.has_next %}
+                            <li><a href="?page={{ articles.next_page_number }}">&raquo;</a></li>
+                        {% else %}
+                            <li class="disabled"><span>&raquo;</span></li>
+                        {% endif %}
+                    </ul>
+                    <p class="paginatorIndex">page {{ articles.number }} sur {{ articles.paginator.num_pages }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <!-- /DIV ARTICLES -->
+    </div>
+
+{% endblock %}

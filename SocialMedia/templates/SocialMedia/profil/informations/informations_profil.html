@@ -1,0 +1,173 @@
+{% load staticfiles %}
+<div class="cover--user-name">
+
+    <h2 class="h3 fw--600">{{ profil.user.first_name | title }} {{ profil.user.last_name | title }}</h2>
+</div>
+
+<div class="cover--user-desc fw--400 fs--18  text-darkest"
+    style="margin-top: 0; font-weight: lighter;">
+
+
+    {% if profil.experience_profil is not None %}
+        <p style="margin: 0; font-weight: 400;">
+            {{ profil.experience_profil.nom_poste }}
+        </p>
+    {% endif %}
+    <p style="margin: 0;">
+        {% if profil.experience_profil is not None %}
+            {{ profil.experience_profil.nom_entreprise }}
+        {% endif %}
+        {% if profil.experience_profil is not None and profil.formation_profil is not None %}
+            •
+        {% endif %}
+        {% if profil.formation_profil is not None %}
+            {{ profil.formation_profil.nom_ecole }}
+        {% endif %}
+    </p>
+
+    <p style="margin: 0;">
+        {% if profil.ville is not None and profil.pays is not None %}
+            {{ profil.ville }}, {{ profil.pays }}
+        {% elif profil.ville is not None %}
+            {{ profil.ville }}
+        {% elif profil.pays is not None %}
+            {{ profil.pays }}
+        {% endif %}
+    </p>
+
+    <hr style=" margin-top: 10px; margin-bottom: 10px;">
+    <p style="margin: 0px 0px;">
+        {{ profil.resume }}
+    </p>
+
+
+<div style="display: inline-block;" class="responsive">
+
+
+
+            <form id="addFriend" style="float: left;padding-right: 5px;" class="{% if is_friend or is_request_received or is_request_sent %}hidden{% endif %}" method="POST">
+            {% csrf_token %}
+                <input type="hidden" name="rep" value="0">
+                <button id="btFriend" class="btJoinGroupe fw--400"
+                        style="font-size: 17px;padding: 0px 20px;font-weight: normal;">
+                    <i class="fa fa-user-plus"
+                       aria-hidden="true"></i> Se
+                    connecter
+                </button>
+            </form>
+
+            <form onsubmit="swal('Paid service');return false;" id="sendmessage" style="float: left;padding-right: 5px;" class="{% if not is_friend and not is_request_received and not is_request_sent %}hidden{% endif %}" method="POST">
+            {% csrf_token %}
+                <input type="hidden" name="rep" value="0">
+                <button id="btMessage" class="btJoinGroupe fw--400"
+                        style="font-size: 17px;padding: 0px 20px;font-weight: normal;">
+                    <i class="fa fa-envelope-o"
+                       aria-hidden="true"></i>
+                    Message
+                </button>
+            </form>
+
+
+
+    <span id="statuts" style="float: left;"  class="pv-s-profile-actions__overflow ember-view profilLinks">
+
+        <button class="btSub mybt BTOPENMENUPROFIL" onclick="toggleOptionsProfil({{ profil.id }})" style="padding: 4px 20px 0px 20px;">
+            <span class="visually-hidden">Plus d’actions</span><li-icon aria-hidden="true" type="ellipsis-horizontal-icon" class="pv-s-profile-actions__overflow-toggle-icon"><svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false"><path d="M2,10H6v4H2V10Zm8,4h4V10H10v4Zm8-4v4h4V10H18Z" class="large-icon" style="fill: currentColor"></path></svg></li-icon>
+        </button>
+
+            <div  id="dropdownprofil-{{ profil.id }}" style="display: none;position: absolute;" class="pv-s-profile-actions__overflow-dropdown artdeco-dropdown-menu">
+              <ul>
+
+                  <li id="ember4729" class="pv-s-profile-actions__overflow-dropdown-item ember-view">
+                      <a style="display: flex;height: auto;align-items: center;padding-top: 8px;padding-bottom: 8px;" data-control-name="message" href="/messaging/compose/?after=profile.view&amp;afterParam=williamhgates&amp;body=https%3A%2F%2Fwww.linkedin.com%2Fin%2Fwilliamhgates" id="ember4730" class="pv-s-profile-actions pv-s-profile-actions--share-profile pv-s-profile-actions__overflow-button full-width text-align-left ember-view">    <li-icon aria-hidden="true" type="share-linkedin-icon" class="pv-s-profile-actions__overflow-icon" size="large"><svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false"><path d="M24,12h0a1.18,1.18,0,0,0-.36-0.84L14,2V8H11A10,10,0,0,0,1,18v4H2.87A6.11,6.11,0,0,1,9,16h5v6l9.63-9.14A1.18,1.18,0,0,0,24,12s0,0,0,0h0Zm-8,5.54V14H9a8.15,8.15,0,0,0-6,2.84A8,8,0,0,1,11,10h5V6.48L21.81,12Z" class="large-icon" style="fill: currentColor"></path></svg></li-icon>
+
+                        <span style="margin-left: 10px;" aria-hidden="true" class="pv-s-profile-actions__label">Partager le profil</span>
+
+                      </a>
+                  </li>
+
+                  <li id="ember4732" class="pv-s-profile-actions__overflow-dropdown-item ember-view">
+
+                                {% if not is_followed %}
+                                    <form  id="follow" method="POST">
+                                        <button  id="btfollow" style="display: flex;height: auto;align-items: center;padding-top: 8px;padding-bottom: 8px;" class="pv-s-profile-actions pv-s-profile-actions--connect pv-s-profile-actions__overflow-button full-width text-align-left" data-ember-action="" data-ember-action-4733="4733">
+                                        <li-icon aria-hidden="true" type="follow-person-icon" class="pv-s-profile-actions__overflow-icon" size="large"><svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false"><path d="M7.71,19.29a1,1,0,0,1,0,1.41L4.5,24,3.21,22.71,4.83,21H0V19H4.83L3.21,17.29,4.5,16ZM21,17.73V20a1,1,0,0,1-1,1H10V19h9V17.58a2,2,0,0,0-1.28-1.87L13,13.92v-1a2.7,2.7,0,0,1-.79.12H11.79A2.7,2.7,0,0,1,11,12.88v1L7,15.48,5.55,14,9,12.66V10.83H9A7.75,7.75,0,0,1,8,7V6a4,4,0,0,1,8,0V7a7.75,7.75,0,0,1-1,3.81h0v1.83L18.45,14A4,4,0,0,1,21,17.73ZM14,5.85a2,2,0,0,0-4,0V8.14a2,2,0,0,0,.26,1l0.94,1.67a0.67,0.67,0,0,0,.59.33h0.42a0.67,0.67,0,0,0,.59-0.33l0.94-1.67a2,2,0,0,0,.26-1V5.85Z" class="large-icon" style="fill: currentColor"></path></svg></li-icon>
+                                        <span style="margin-left: 10px;" aria-hidden="true" class="pv-s-profile-actions__label">Suivre</span>
+                                        </button>
+                                    </form>
+                                {% else %}
+                                    <form  id="follow" method="POST">{% csrf_token %}
+                                        <button  id="btfollow" style="display: flex;height: auto;align-items: center;padding-top: 8px;padding-bottom: 8px;" class="pv-s-profile-actions pv-s-profile-actions--connect pv-s-profile-actions__overflow-button full-width text-align-left" data-ember-action="" data-ember-action-4733="4733">
+                                        <li-icon aria-hidden="true" type="cancel-icon" class="pv-s-profile-actions__overflow-icon" size="large"><svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false"><path d="M20,5.32L13.32,12,20,18.68,18.66,20,12,13.33,5.34,20,4,18.68,10.68,12,4,5.32,5.32,4,12,10.69,18.68,4Z" class="large-icon" style="fill: currentColor"></path></svg></li-icon>
+                                        <span style="margin-left: 10px;" aria-hidden="true" class="pv-s-profile-actions__label"> Ne plus suivre</span>
+                                        </button>
+                                    </form>
+                                {% endif %}<!---->
+                  </li>
+
+                  <li id="ember4735" class="pv-s-profile-actions__overflow-dropdown-item ember-view">
+
+                                        <form id="acceptRequest" class="{% if not is_request_received %}hidden{% endif %}"
+                                              method="POST">{% csrf_token %}
+                                            <input type="hidden" name="rep" value="1">
+                                            <button  id="btfollow" style="display: flex;height: auto;align-items: center;padding-top: 8px;padding-bottom: 8px;" class="pv-s-profile-actions pv-s-profile-actions--connect pv-s-profile-actions__overflow-button full-width text-align-left" data-ember-action="" data-ember-action-4733="4733">
+                                            <li-icon aria-hidden="true" type="success-pebble-icon" class="pv-s-profile-actions__overflow-icon" size="large"><svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false"><g class="large-icon" style="fill: currentColor"><circle class="circle" r="9.1" stroke="currentColor" stroke-width="1.8" cx="12" cy="12" fill="none" transform="rotate(-90 12 12)"></circle><path d="M15.667,8L17,9.042l-5.316,7.36c-0.297,0.395-0.739,0.594-1.184,0.599c-0.455,0.005-0.911-0.195-1.215-0.599l-2.441-3.456l1.416-1.028l2.227,3.167L15.667,8z" fill="currentColor"></path></g></svg></li-icon>
+                                            <span style="margin-left: 10px;" aria-hidden="true" class="pv-s-profile-actions__label">Accepter</span>
+                                            </button>
+                                        </form>
+                  </li>
+
+                  <li id="ember4738" class="pv-s-profile-actions__overflow-dropdown-item ember-view">
+                                    <form class="{% if not is_request_sent %}hidden{% endif %}" id="cancelSentRequest" method="POST">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="rep" value="-2">
+                                        <button  id="btfollow" style="display: flex;height: auto;align-items: center;padding-top: 8px;padding-bottom: 8px;" class="pv-s-profile-actions pv-s-profile-actions--connect pv-s-profile-actions__overflow-button full-width text-align-left" data-ember-action="" data-ember-action-4733="4733">
+                                        <li-icon aria-hidden="true" type="success-pebble-icon" class="pv-s-profile-actions__overflow-icon" size="large"><svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false"><g class="large-icon" style="fill: currentColor"><circle class="circle" r="9.1" stroke="currentColor" stroke-width="1.8" cx="12" cy="12" fill="none" transform="rotate(-90 12 12)"></circle><path d="M15.667,8L17,9.042l-5.316,7.36c-0.297,0.395-0.739,0.594-1.184,0.599c-0.455,0.005-0.911-0.195-1.215-0.599l-2.441-3.456l1.416-1.028l2.227,3.167L15.667,8z" fill="currentColor"></path></g></svg></li-icon>
+                                        <span style="margin-left: 10px;" aria-hidden="true" class="pv-s-profile-actions__label">En attente / Annuler demande</span>
+                                        </button>
+                                    </form>
+                  </li>
+                  <li>
+
+                                    <form id="rejectRequest" class="{% if not is_request_received %}hidden{% endif %}"
+                                          method="POST">{% csrf_token %}
+                                        <input type="hidden" name="rep" value="2">
+                                        <button  id="btfollow" style="display: flex;height: auto;align-items: center;padding-top: 8px;padding-bottom: 8px;" class="pv-s-profile-actions pv-s-profile-actions--connect pv-s-profile-actions__overflow-button full-width text-align-left" data-ember-action="" data-ember-action-4733="4733">
+                                        <li-icon aria-hidden="true" type="success-pebble-icon" class="pv-s-profile-actions__overflow-icon" size="large"><svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false"><g class="large-icon" style="fill: currentColor"><circle class="circle" r="9.1" stroke="currentColor" stroke-width="1.8" cx="12" cy="12" fill="none" transform="rotate(-90 12 12)"></circle><path d="M15.667,8L17,9.042l-5.316,7.36c-0.297,0.395-0.739,0.594-1.184,0.599c-0.455,0.005-0.911-0.195-1.215-0.599l-2.441-3.456l1.416-1.028l2.227,3.167L15.667,8z" fill="currentColor"></path></g></svg></li-icon>
+                                        <span style="margin-left: 10px;" aria-hidden="true" class="pv-s-profile-actions__label">Refuser</span>
+                                        </button>
+                                    </form>
+                  </li>
+                  <li>
+
+                                    <form id="deleteFriend" class="{% if not is_friend %}hidden{% endif %}"
+                                          method="POST">{% csrf_token %}
+                                        <input type="hidden" name="rep" value="2">
+                                        <button  id="btfollow" style="display: flex;height: auto;align-items: center;padding-top: 8px;padding-bottom: 8px;" class="pv-s-profile-actions pv-s-profile-actions--connect pv-s-profile-actions__overflow-button full-width text-align-left" data-ember-action="" data-ember-action-4733="4733">
+                                        <li-icon aria-hidden="true" type="success-pebble-icon" class="pv-s-profile-actions__overflow-icon" size="large"><svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false"><g class="large-icon" style="fill: currentColor"><circle class="circle" r="9.1" stroke="currentColor" stroke-width="1.8" cx="12" cy="12" fill="none" transform="rotate(-90 12 12)"></circle><path d="M15.667,8L17,9.042l-5.316,7.36c-0.297,0.395-0.739,0.594-1.184,0.599c-0.455,0.005-0.911-0.195-1.215-0.599l-2.441-3.456l1.416-1.028l2.227,3.167L15.667,8z" fill="currentColor"></path></g></svg></li-icon>
+                                        <span style="margin-left: 10px;" aria-hidden="true" class="pv-s-profile-actions__label">Supprimer</span>
+                                        </button>
+                                    </form>
+                  </li>
+
+                  <li id="ember4738" class="pv-s-profile-actions__overflow-dropdown-item ember-view">
+                                    <form  id="bloque" method="POST">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="rep" value="3"/>
+                                        <button  id="btfollow" style="display: flex;height: auto;align-items: center;padding-top: 8px;padding-bottom: 8px;" class="pv-s-profile-actions pv-s-profile-actions--connect pv-s-profile-actions__overflow-button full-width text-align-left" data-ember-action="" data-ember-action-4733="4733">
+                                        <li-icon aria-hidden="true" type="flag-icon" class="pv-s-profile-actions__overflow-icon" size="large"><svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false"><path d="M13.82,5L14,4a1,1,0,0,0-1-1H5V2H3V22H5V15H9.18L9,16a1,1,0,0,0,1,1h8.87L21,5H13.82ZM5,13V5h6.94l-1.41,8H5Zm12.35,2h-6.3l1.42-8h6.29Z" class="large-icon" style="fill: currentColor"></path></svg></li-icon>
+                                        <span style="margin-left: 10px;" aria-hidden="true" class="pv-s-profile-actions__label">Signaler/Bloquer</span>
+                                        </button>
+                                    </form>
+                  </li>
+              </ul>
+
+            </div>
+
+    </span>
+
+
+
+</div>
+
+</div>

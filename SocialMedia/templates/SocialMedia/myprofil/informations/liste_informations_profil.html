@@ -1,0 +1,43 @@
+<div class="cover--user-name">
+
+    <h2 class="h3 fw--600">{{ user.first_name | title }} {{ user.last_name | title }}</h2>
+</div>
+
+<div class="cover--user-desc fw--400 fs--18  text-darkest"
+     style="margin-top: 0; font-weight: lighter;">
+
+
+    {% if user.profil.experience_profil is not None %}
+        <p style="margin: 0; font-weight: 400;">
+            {{ user.profil.experience_profil.nom_poste  }}
+        </p>
+    {% endif %}
+    <p style="margin: 0;">
+        {% if user.profil.experience_profil is not None %}
+            {{ user.profil.experience_profil.nom_entreprise  }}
+        {% endif %}
+        {% if user.profil.experience_profil is not None and user.profil.formation_profil is not None %}
+            •
+        {% endif %}
+        {% if user.profil.formation_profil is not None %}
+            {{ user.profil.formation_profil.nom_ecole  }}
+        {% endif %}
+    </p>
+
+    <p style="margin: 0;">
+        {% if user.profil.ville is not None and user.profil.pays is not None %}
+            {{ user.profil.ville }}, {{ user.profil.pays }}
+        {% elif user.profil.ville is not None  %}
+            {{ user.profil.ville }}
+        {% elif user.profil.pays is not None  %}
+           {{ user.profil.pays }}
+        {% endif %}
+    </p>
+
+
+    <hr style=" margin-top: 10px; margin-bottom: 10px;">
+    <p style="margin: 0px 0px;">
+        {{ user.profil.resume }}
+    </p>
+
+</div>

@@ -1,0 +1,267 @@
+{% extends 'ecommerce/base.html' %}
+{% load static %}
+
+{% block style %}
+    <style>
+        #btn-save {
+            background-color: #ea4c0f;
+            border: 1px solid #ea4c0f;
+            color: white;
+            font-weight: 500;
+            text-transform: uppercase;
+            padding: 8px 30px;
+            transition: .3s all;
+        }
+        #btn-save:hover {
+            background-color: #fff;
+            border: 1px solid #ea4c0f;
+            color: #ea4c0f;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+<div class="main-container container">
+    <ul class="breadcrumb">
+        <li><a href="{% url 'e_commerce:index' %}">Accueil</a></li>
+        <li><a href="#"><b>Mon Compte</b></a></li>
+    </ul>
+
+    <div class="row">
+        <!--Middle Part Start-->
+        <div class="col-sm-9" id="content">
+            <h2 class="title">Mon Compte</h2>
+            <p class="lead">Bonjour <strong>{{ user.last_name.upper }} {{ user.first_name.capitalize }}</strong>, Voici les détails de votre compte BTP E-Commerce</p>
+            {% if message_error %}
+            <div class="alert alert-danger" role="alert">
+              <strong>Oups!</strong> {{ message_error }}
+            </div>
+            {% endif %}
+            {% if message_success and not message_error %}
+            <div id="success" class="alert alert-success" role="alert">
+              <strong>Très bien!</strong> {{ message_success }}
+            </div>
+            {% endif %}
+            <form method="post" action="{% url 'e_commerce:my_account' %}">
+                {% csrf_token %}
+                <!--<div class="row">
+                    <div class="col-sm-12 btn-group btn-group-toggle" data-toggle="buttons">
+                        <fieldset id="personal-details">
+                            <legend>Type</legend>
+                        </fieldset>
+                            {# if user.profil.type_customer == 'Ordinary' #}
+                            <label class="btn btn-info active">
+                                <input type="radio" name="type" value="Ordinary" autocomplete="off" checked="checked"> Particulier
+                            </label>
+                            {# else #}
+                            <label class="btn btn-info ">
+                                <input type="radio" name="type" value="Ordinary" autocomplete="off"> Particulier
+                            </label>
+                            {# endif #}
+
+                            {# if user.profil.type_customer == 'Professional' #}
+                            <label class="btn btn-info active">
+                                <input type="radio" name="type" value="Professional" autocomplete="off" checked="checked"> Professionnel
+                            </label>
+                            {# else #}
+                            <label class="btn btn-info">
+                                <input type="radio" name="type" value="Professional" autocomplete="off"> Professionnel
+                            </label>
+                            {# endif #}
+
+                            {# if user.profil.type_customer == 'Supplier' #}
+                            <label class="btn btn-info active">
+                                <input type="radio" name="type" value="Supplier" autocomplete="off" checked="checked"> Fournisseur
+                            </label>
+                            {# else #}
+                            <label class="btn btn-info">
+                                <input type="radio" name="type" value="Supplier" autocomplete="off"> Fournisseur
+                            </label>
+                            {# endif #}
+                        <br>
+                        <br>
+                    </div>
+                </div> -->
+                <div class="row">
+                    <div class="col-sm-6">
+                        <fieldset id="personal-details">
+                            <legend>Détails Personnels</legend>
+                            <div class="form-group required">
+                                <label for="input-firstname" class="control-label">Prénom </label>
+                                <input type="text" class="form-control" id="input-firstname" placeholder="Prénom" value="{{ user.first_name }}" name="first_name" required>
+                            </div>
+                            <div class="form-group required">
+                                <label for="input-lastname" class="control-label">Nom</label>
+                                <input type="text" class="form-control" id="input-lastname" placeholder="Nom" value="{{ user.last_name }}" name="last_name" required>
+                            </div>
+                            <div class="form-group required">
+                                <label for="input-email" class="control-label">E-Mail</label>
+                                <input type="email" class="form-control" id="input-email" placeholder="E-Mail" value="{{ user.email }}" name="email" required>
+                            </div>
+                            <div class="form-group required">
+                                <label for="input-telephone" class="control-label">Téléphone</label>
+                                <input type="tel" class="form-control" id="input-telephone" placeholder="Téléphone" value="{{ user.profil.tel }}" name="telephone" required>
+                            </div>
+                        </fieldset>
+                        <br>
+                    </div>
+                    <div class="col-sm-6">
+                        <fieldset>
+                            <legend>Changer Mot de passe</legend>
+                            <div class="form-group required">
+                                <label for="input-password1" class="control-label">Ancien Mot de passe</label>
+                                <input type="password" class="form-control" id="input-password1" placeholder="Ancien Mot de passe" value="" name="old_password">
+                            </div>
+                            <div class="form-group required">
+                                <label for="input-password" class="control-label">Nouveau Mot de passe</label>
+                                <input type="password" class="form-control" id="input-password" placeholder="Nouveau Mot de passe" value="" name="new_password">
+                            </div>
+                            <div class="form-group required">
+                                <label for="input-confirm" class="control-label">Confirmer Mot de passe</label>
+                                <input type="password" class="form-control" id="input-confirm" placeholder="Confirmer Mot de passe" value="" name="confirm_password">
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend>Newsletter</legend>
+                            <div class="form-group">
+                                <label class="col-md-5 col-sm-5 control-label">S'abonner à la Newsletter</label>
+                                <div class="col-md-7 col-sm-7 btn-group btn-group-toggle" data-toggle="buttons" style="margin-top: -8px;">
+                                {% if newsletter_on %}
+                                    <label class="btn btn-warning active">
+                                        <input type="radio" value="1" name="newsletter" autocomplete="off" checked> Oui
+                                    </label>
+                                {% else %}
+                                    <label class="btn btn-warning">
+                                        <input type="radio" value="1" name="newsletter" autocomplete="off"> Oui
+                                    </label>
+                                {% endif %}
+                                {% if not newsletter_on %}
+                                    <label class="btn btn-warning active">
+                                        <input type="radio" value="0" name="newsletter" autocomplete="off" checked> Non
+                                    </label>
+                                {% else %}
+                                    <label class="btn btn-warning">
+                                        <input type="radio" value="0" name="newsletter" autocomplete="off"> Non
+                                    </label>
+                                {% endif %}
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <fieldset id="address">
+                            <legend>Adresse de Facturation</legend>
+                            <div class="form-group">
+                                <label for="input-company" class="control-label">Compagnie</label>
+                                <input type="text" class="form-control" placeholder="Compagnie" value="{{ user.profil.billingaddress.company }}" name="P_company">
+                            </div>
+                            <div class="form-group required">
+                                <label for="input-address-1" class="control-label">Adresse</label>
+                                <input type="text" class="form-control" rows="2" id="input-address-1" placeholder="Adresse" value="{{ user.profil.billingaddress.address }}" name="P_address" required>
+                            </div>
+                            <div class="form-group required">
+                                <label for="input-city" class="control-label">Ville</label>
+                                <input type="text" class="form-control" placeholder="Ville" value="{{ user.profil.billingaddress.city }}" name="P_city" required>
+                            </div>
+                            <div class="form-group required">
+                                <label for="input-postcode" class="control-label">Code Postal</label>
+                                <input type="text" class="form-control"  placeholder="Code Postal" value="{{ user.profil.billingaddress.post_code }}" name="P_postcode" required>
+                            </div>
+                            <div class="form-group required">
+                                <label for="input-country" class="control-label">Pays</label>
+                                <input type="text" class="form-control" id="input-country" placeholder="Pays" value="{{ user.profil.billingaddress.country }}" name="P_country" required>
+                            </div>
+                            <div class="form-group required">
+                                <label for="input-zone" class="control-label">Région / Province</label>
+                                <input type="text" class="form-control" id="input-zone" placeholder="Région / Province" value="{{ user.profil.billingaddress.region }}" name="P_region" required>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="col-sm-6">
+                        <fieldset id="shipping-address">
+                            <legend>Adresse de Livraison</legend>
+                            <div class="form-group">
+                                <label for="input-company" class="control-label">Compagnie</label>
+                                <input type="text" class="form-control" id="input-company" placeholder="Compagnie" value="{{ user.profil.shippingaddress.company }}" name="S_company">
+                            </div>
+                            <div class="form-group required">
+                                <label for="input-address-1" class="control-label">Address</label>
+                                <input type="text" class="form-control" rows="2" id="input-address-1" placeholder="Address" value="{{ user.profil.shippingaddress.address }}" name="S_address" required>
+                            </div>
+                            <div class="form-group required">
+                                <label for="input-city" class="control-label">Ville</label>
+                                <input type="text" class="form-control" id="input-city" placeholder="Ville" value="{{ user.profil.shippingaddress.city }}" name="S_city" required>
+                            </div>
+                            <div class="form-group required">
+                                <label for="input-postcode" class="control-label">Code Postal</label>
+                                <input type="text" class="form-control" id="input-city" placeholder="Code Postal" value="{{ user.profil.shippingaddress.post_code }}" name="S_postcode" required>
+                            </div>
+                            <div class="form-group required">
+                                <label for="input-country" class="control-label">Pays</label>
+                                <input type="text" class="form-control" id="input-country" placeholder="Pays" value="{{ user.profil.shippingaddress.country }}" name="S_country" required>
+                            </div>
+                            <div class="form-group required">
+                                <label for="input-zone" class="control-label">Région / Province</label>
+                                <input type="text" class="form-control" id="input-region" placeholder="Région / Province" value="{{ user.profil.shippingaddress.region }}" name="S_region" required>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+
+                <div class="buttons clearfix">
+                    <div class="pull-right">
+                        <input type="submit" class="btn btn-md" id="btn-save" value="Enregistrer les modifications">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!--Middle Part End-->
+        <!--Right Part Start -->
+        <aside class="col-sm-3 hidden-xs" id="column-right">
+            <h2 class="subtitle">Compte</h2>
+            <div class="list-group">
+                <ul class="list-item">
+                    <li><a href="{% url 'e_commerce:cart' %}">Chariot</a></li>
+                    <li><a href="{% url 'e_commerce:compare' %}">Comparer</a></li>
+                    <li><a href="{% url 'e_commerce:wish_list' %}">Liste des Souhaits</a></li>
+                    <li><a href="{% url 'e_commerce:order_history' %}">Historique des Commandes</a></li>
+                    <li><a href="{% url 'e_commerce:checkout' %}">Check-out</a></li>
+                    <li><a href="{% url 'e_commerce:contact-us' %}">Contacter Nous</a></li>
+                </ul>
+            </div>
+            {% if is_supplier %}
+            <h2 class="subtitle" style="margin-top: 40px">Boutique</h2>
+            <div class="list-group">
+                <ul class="list-item">
+                    <li><a href="{% url 'e_commerce:supplier' store_id %}">Ma Boutique</a></li>
+                    <li><a href="{% url 'e_commerce:your_products' %}">Mes Produits</a></li>
+                    <li><a href="{% url 'e_commerce:add_product' %}">Ajouter Produit</a></li>
+                    <li><a href="{% url 'e_commerce:processing_orders' %}">Commandes En cours</a></li>
+                    <li><a href="{% url 'e_commerce:all_orders' %}">Tous les commandes</a></li>
+                </ul>
+            </div>
+            {% else %}
+                <a href="{% url 'e_commerce:create_store' %}"><h2 class="subtitle" style="margin-top: 40px">Devenir Exposant</h2></a>
+            {% endif %}
+        </aside>
+        <!--Right Part End -->
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+    <script>
+        $(document).ready(function() {
+            $('#column-right').scrollToFixed({
+                marginTop: 30,
+                limit: function() {
+                    var limit = $('#footer-scroll').offset().top - $('#column-right').outerHeight(true) - 30;
+                    return limit;
+                },
+                zIndex: 1
+            });
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,193 @@
+{% extends "SocialMedia/base_socialmedia.html" %}
+{% load staticfiles %}
+{% load nbsp %}
+{% load widget_tweaks %}
+{% block title %}Notifications | ESPR{% endblock %}
+
+{% block stylesheets %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'SocialMedia/css/mur/style1.css' %}" type="text/css"/>
+    <link rel="stylesheet" href="{% static 'SocialMedia/css/mur/style2.css' %}" type="text/css"/>
+{% endblock stylesheets %}
+
+{% block content %}
+
+
+    <!-- Wrapper Start -->
+    <div class="wrapper">
+
+        <!-- Page Wrapper Start -->
+        <section class="page--wrapper pt--80 pb--20" style="transform: none;padding-top: 20px;">
+            <div class="container">
+                <div class="row">
+
+
+                    <!-- Main Sidebar Start -->
+                    <div class="main--sidebar col-md-3 pb--60" data-trigger="stickyScroll">
+                        <!-- Widget Start -->
+                        <div class="widget" style="    background-color: white;">
+                            <div class="row">
+                                <a href="/reseausocial/profil/">
+                                    <div class="col-xs-12 text-center">
+                                        <img src="{{ user.profil.photo_profil.image.url }}"
+                                             class="img-circle" style="width:100px; height: 100px;"
+                                             alt="">
+                                    </div>
+
+                                    <div class="col-xs-12 text-center">
+                                        <h4>{{ user.first_name | title }} {{ user.last_name |title }}</h4>
+                                    </div>
+                                </a>
+                            </div>
+                            <!-- Groupes End -->
+                        </div>
+                        <!-- Widget End -->
+
+                        <!-- Relations Start -->
+                        <div class="widget" style="    background-color: white;">
+
+
+                            <!-- Text Widget Start -->
+                            <div class="text--widget text-center">
+                                <a href="/amis/dialou">
+                                    <p class="h4 badge" style="font-weight: 500;font-size: 20px;padding: 5px;color: white;">{{ amis }}</p>
+                                    <p style="color:grey;">relations</p>
+                                </a>
+                            </div>
+                            <!-- Text Widget End -->
+                        </div>
+                        <!-- Widget End -->
+                        <!-- Widget Start -->
+                        <div class="widget" style="    background-color: white;">
+
+                            <h4 style="text-align:  center;">Entreprises</h4>
+
+                            <!-- Item  Entreprise Start -->
+                            {% for page_entreprise in mes_pages_entreprises %}
+                                <div class="row text-center">
+                                    <a href="/reseausocial/entreprise/{{ page_entreprise.id }}">
+                                        <div class="col-md-12">
+                                            <img id="" class="img-circle" src="
+                                                {{ page_entreprise.entreprise.logo.url }}"
+                                                 alt="" style="width: 25px; height: 25px"><span
+                                                style="padding-left: 15px;color:black;">{{ page_entreprise.entreprise.nom }}</span><br><br>
+                                        </div>
+                                    </a>
+
+                                </div>
+                            {% endfor %}
+                            <!-- Item  Entreprise End -->
+
+                            <div class="text--widget" style="font-size:12px;">
+                                <a href="/reseausocial/creer_entreprise/"> Créer une page </a><br>
+                                <a href="/reseausocial/creer_entreprise/"> Gérer mes pages </a>
+                            </div>
+                            <!-- Text Widget End -->
+                        </div>
+                        <!-- Widget End -->
+                        <!-- Widget Start -->
+                        <div class="widget" style="    background-color: white;">
+
+                            <h4 style="text-align:  center;">Groupes</h4>
+
+                            <!-- Item  Groupes Start -->
+                            <div class="row">
+                                <a href="fdfgfg">
+                                    <div class="col-md-12 ">
+                                        <img id="" class="img-circle" src="
+                                                {{ user.profil.photo_profil.image.url }}"
+                                             alt="" style="width: 25px; height: 25px"><span
+                                            style="padding-left: 15px;color:black;">Nom groupe</span><br><br>
+                                    </div>
+                                </a>
+
+                            </div>
+                            <!-- Item  Groupes End -->
+
+                            <div class="text--widget" style="font-size:12px;">
+                                <a href="/reseausocial/creer_entreprise/"> Créer un groupe </a><br>
+                                <a href="/reseausocial/creer_entreprise/"> Gérer mes groupes </a>
+                            </div>
+                            <!-- Text Widget End -->
+                        </div>
+
+
+                    </div>
+                    <!-- Main Sidebar End -->
+
+                    <!-- Main Content Start -->
+
+                    <div class="col-md-9 pb--60">
+                    {% if notifications %}
+                        {% for notification in notifications %}
+                            {% include 'SocialMedia/notifications/notifications_info.html' %}
+                        {% endfor %}
+                    {% else %}
+
+                    {% endif %}
+                    </div>
+
+
+                </div>
+            </div>
+        </section>
+        <!-- Page Wrapper End -->
+    </div>
+
+{% endblock content %}
+{% block scripts %}
+    {{ block.super }}
+
+    <script>
+        function deleteNotification(event, frm) {
+            event.preventDefault();
+            notificationID = frm.getAttribute("val");
+            form_data = new FormData(frm);
+            deleteNotificationURL = "{% url 'SocialMedia:deleteNotification' %}";
+            $.ajax({
+                url: deleteNotificationURL,
+                type: 'POST',
+                processData: false,
+                contentType: false,
+                data: form_data,
+                beforeSend: function (xhr, settings) {
+                    var csrftoken = getCookie('csrftoken');
+                    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                    }
+                },
+                success: function (data) {
+                    if (data.status == true) {
+                        $(".NotificationCONTENT" + notificationID).remove();
+                        const toast = swal.mixin({
+                          toast: true,
+                          position: 'bottom-end',
+                          showConfirmButton: false,
+                          timer: 3000
+                        });
+                        toast({
+                            type: 'success',
+                            title: 'Votre notification a été supprimé avec succé',
+                        })
+                    }
+                },
+                error: function () {
+                },
+                complete: function () {
+                },
+                stop: function (e) {
+                    swal("Veuiller Verifier Votre Connexion Reseau Puis Ressayer", "Erreur Fatale", "error");
+                }
+            });
+        }
+
+
+        function toggleOptionsDropDown(nt) {
+            $("#dropdown-" + nt).fadeToggle(0);
+        }
+
+
+
+    </script>
+{% endblock %}
+

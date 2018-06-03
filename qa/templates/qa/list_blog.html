@@ -1,0 +1,161 @@
+{% extends 'base_qa.html' %}
+{% load django_markdown %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+
+
+{% block content %}
+<!-- =-=-=-=-=-=-= Main Area =-=-=-=-=-=-= -->
+<div class="main-content-area">
+
+    <!-- =-=-=-=-=-=-= Page Breadcrumb =-=-=-=-=-=-= -->
+
+    <section class="page-title">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 col-sm-7 co-xs-12 text-left">
+            <h1>Latest News &amp; Post</h1>
+          </div>
+          <!-- end col -->
+          <div class="col-md-6 col-sm-5 co-xs-12 text-right">
+            <div class="bread">
+              <ol class="breadcrumb">
+                <li><a href="/qa#">Home</a>
+                </li>
+                <li><a href="/qa#">Pages</a>
+                </li>
+                <li class="active">Blog</li>
+              </ol>
+            </div>
+            <!-- end bread -->
+          </div>
+          <!-- end col -->
+        </div>
+        <!-- end row -->
+      </div>
+      <!-- end container -->
+    </section>
+
+    <!-- =-=-=-=-=-=-= Page Breadcrumb End =-=-=-=-=-=-= -->
+
+    <!-- =-=-=-=-=-=-= Blog & News =-=-=-=-=-=-= -->
+    <section id="blog" class="custom-padding white">
+      <div class="container">
+        <!-- Row -->
+        <div class="row">
+
+          <!-- Blog Masonry Grid -->
+          {% for blog in mesBlogs %}
+          <!-- <div id="posts-masonry" class="posts-masonry" style="position: relative; height: 2054.64px;"> -->
+            <!-- Blog Grid -->
+            
+           
+            <!-- Blog Grid -->
+
+         
+
+          <!-- </div>  -->
+          {% endfor %}
+          <!-- Blog Masonry Grid -->
+          <div class="clearfix"></div>
+          <div class="text-center clearfix section-padding-40"> <a href="/qajavascript:void(0)" class="btn btn-lg btn-primary">View more post</a> </div>
+          <div class="clearfix"></div>
+        </div>
+        <!-- Row End -->
+      </div>
+      <!-- end container -->
+    </section>
+    <!-- =-=-=-=-=-=-= Blog & News end =-=-=-=-=-=-= -->
+
+    <!-- =-=-=-=-=-=-= Our Clients =-=-=-=-=-=-= -->
+    <section class="custom-padding" id="clients">
+      <div class="container">
+
+        <!-- Row -->
+        <div class="row">
+
+          <!-- col-md-2 client-block -->
+          <div class="col-md-2 col-xs-6 col-sm-4 client-block">
+
+            <!-- client-item client-item-style-2 -->
+            <div class="client-item client-item-style-2">
+              <a title="Client Logo" href="/qa#"> <img alt="Clients Logo" src="images/clients/client_5.png"> </a>
+            </div>
+            <!-- /client-item client-item-style-2 -->
+
+          </div>
+          <!-- /col-md-2 client-block -->
+
+          <!-- col-md-2 client-block -->
+          <div class="col-md-2 col-xs-6 col-sm-4 client-block">
+
+            <!-- client-item client-item-style-2 -->
+            <div class="client-item client-item-style-2">
+              <a title="Client Logo" href="/qa#"> <img alt="Clients Logo" src="images/clients/client_6.png"> </a>
+            </div>
+            <!-- /client-item client-item-style-2 -->
+
+          </div>
+          <!-- /col-md-2 client-block -->
+
+          <!-- col-md-2 client-block -->
+          <div class="col-md-2 col-xs-6 col-sm-4 client-block">
+
+            <!-- client-item client-item-style-2 -->
+            <div class="client-item client-item-style-2">
+              <a title="Client Logo" href="/qa#"> <img alt="Clients Logo" src="images/clients/client_7.png"> </a>
+            </div>
+            <!-- /client-item client-item-style-2 -->
+
+          </div>
+          <!-- /col-md-2 client-block -->
+
+          <!-- col-md-2 client-block -->
+          <div class="col-md-2 col-xs-6 col-sm-4 client-block">
+
+            <!-- client-item client-item-style-2 -->
+            <div class="client-item client-item-style-2">
+              <a title="Client Logo" href="/qa#"> <img alt="Clients Logo" src="images/clients/client_8.png"> </a>
+            </div>
+            <!-- /client-item client-item-style-2 -->
+
+          </div>
+          <!-- /col-md-2 client-block -->
+
+          <!-- col-md-2 client-block -->
+          <div class="col-md-2 col-xs-6 col-sm-4 client-block">
+
+            <!-- client-item client-item-style-2 -->
+            <div class="client-item client-item-style-2">
+              <a title="Client Logo" href="/qa#"> <img alt="Clients Logo" src="images/clients/client_9.png"> </a>
+            </div>
+            <!-- /client-item client-item-style-2 -->
+
+          </div>
+          <!-- /col-md-2 client-block -->
+
+          <!-- col-md-2 client-block -->
+          <div class="col-md-2 col-xs-6 col-sm-4 client-block">
+
+            <!-- client-item client-item-style-2 -->
+            <div class="client-item client-item-style-2">
+              <a title="Client Logo" href="/qa#"> <img alt="Clients Logo" src="images/clients/client_10.png"> </a>
+            </div>
+            <!-- /client-item client-item-style-2 -->
+
+          </div>
+          <!-- /col-md-2 client-block -->
+
+        </div>
+        <!-- Row End -->
+
+      </div>
+      <!-- end container -->
+    </section>
+    <!-- =-=-=-=-=-=-= Our Clients -end =-=-=-=-=-=-= -->
+
+  </div>
+<!-- =-=-=-=-=-=-= Main Area End =-=-=-=-=-=-= -->
+{% endblock content %}

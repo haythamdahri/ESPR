@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'journal/css/search.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <div class="section search-section">
+        <div class="container">
+            <!-- ROW -->
+            <div class="row">
+                <!-- Main Column -->
+                <div class="col-md-8">
+                    <!-- breadcrumb -->
+                    <ul class="article-breadcrumb">
+                        <li><a href="{% url 'index' %}">Accueil</a></li>
+                        <li>rechercher</li>
+                    </ul>
+                    <!-- /breadcrumb -->
+
+                    <div class="top-info">
+                        <h1>
+                            <span>{{ search }}</span> - Résultats de la recherche
+                        </h1>
+                        <form action="{% url 'search' %}" method="get">
+                            <input type="text" name="q" value="{{ search }}" maxlength="50">
+                            <input type="submit" value="Rechercher">
+                        </form>
+                        <p>Si vous n'êtes pas satisfait des résultats, veuillez effectuer une autre recherche</p>
+                    </div>
+
+                    {% if count > 0 %}
+                    <!-- Result list -->
+                    {% for article in article_result %}
+                    <div class="row search-article">
+                        <div class="col-md-3">
+                            <a href="{% url 'post' article.category article.id %}">
+                                <img src="{{ article.primary_image.image_video.url }}" alt="{{ article.primary_image.description }}">
+                            </a>
+                        </div>
+                        <div class="col-md-9">
+                            <h3><a href="{% url 'post' article.category article.id %}">{{ article.small_title }}</a></h3>
+                            <ul class="list-inline">
+                                <li><a href="{% url 'author' article.journalist.id %}">{{ article.journalist }}</a></li>
+                                <li><i class="fa fa-clock-o"></i> {{ article.date_publication }}</li>
+                                <li><i class="fa fa-comments"></i> {{ article.comment_set.count }}</li>
+                            </ul>
+                            <p>{{ article.resume }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <!-- /Result list -->
+                    <div>
+                        {% if article_result.has_other_pages %}
+                            <ul class="pagination">
+                            {% if article_result.has_previous %}
+                                <li><a href="?page={{ article_result.previous_page_number }}">&laquo;</a></li>
+                            {% else %}
+                                <li class="disabled"><span>&laquo;</span></li>
+                            {% endif %}
+                            {% for i in article_result.paginator.page_range %}
+                                {% if article_result.number == i %}
+                                    <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                                {% else %}
+                                    <li><a href="?page={{ i }}">{{ i }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                            {% if article_result.has_next %}
+                                <li><a href="?page={{ article_result.next_page_number }}">&raquo;</a></li>
+                            {% else %}
+                                <li class="disabled"><span>&raquo;</span></li>
+                            {% endif %}
+                            </ul>
+
+                            <p class="paginatorIndex">page {{ article_result.number }} sur {{ article_result.paginator.num_pages }}</p>
+                        {% endif %}
+                    </div>
+                    {% else %}
+                        <h1>Aucun résultat trouvé pour votre recherche</h1>
+                    {% endif %}
+                </div>
+                <!-- /Main Column -->
+                <!-- Aside Column -->
+                <div class="col-md-4">
+                    {% if count > 0 %}
+                        {% include 'journal/includes/aside.html' %}
+                    {% else %}
+                        <img src="{% static 'journal/img/ad.gif' %}" class="pull-right" alt="ad">
+                    {% endif %}
+                </div>
+                <!-- /Aside Column -->
+            </div>
+            <!-- /ROW -->
+        </div>
+    </div>
+
+{% endblock %}

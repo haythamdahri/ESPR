@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+    Privacy
+{% endblock %}
+
+{% block style %}
+    <style>
+        #privacy-base-link {
+            color: #f46320;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+
+    <!-- SECTION INFO -->
+    <div class="section info">
+        <div class="container">
+            <!-- breadcrumb -->
+            <ul class="article-breadcrumb">
+                <li><a href="{% url 'index' %}">Accueil</a></li>
+                <li><a href="{% url 'privacy' %}">Privacy</a></li>
+            </ul>
+            <!-- /breadcrumb -->
+            <!-- Title -->
+            <div class="title">
+                <h2>Privacy</h2>
+            </div>
+            <!-- /Title -->
+        </div>
+    </div>
+    <!-- /SECTION INFO -->
+
+{% endblock %}

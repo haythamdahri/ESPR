@@ -1,0 +1,715 @@
+{% extends 'ecommerce/base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% load coma_dot %}
+
+{% block content %}
+<div class="main-container container">
+{% if product %}
+    <div class="row">
+        <aside class="col-sm-4 col-md-3 content-aside" id="column-left" style="margin-top: 25px;">
+            <div class="module category-style">
+                <h3 class="modtitle">{{ product.cat.category_two.category_one.name }}</h3>
+                <div class="modcontent">
+                    <div class="box-category">
+                        <ul id="cat_accordion" class="list-group">
+                            {# for category_two in product.cat.category_two.category_one.commercescategorytwo_set.all #}
+                            {% for category_two in menu_categories %}
+                                {% if category_two.id.commercescategory_set.exists %}
+                                    <li class="hadchild">
+                                        <a href="{% url 'e_commerce:products_sub' 'category_two' category_two.id.pk %}" class="cutom-parent"><b>{{ category_two.id.name }} ({{ category_two.number }})</b></a>
+                                        <span class="button-view  fa fa-caret-right"></span>
+                                        <ul style="display: block;">
+                                            {% for sub_category in category_two.id.commercescategory_set.all %}
+                                                <li><a href="{% url 'e_commerce:products' 'sub_category' sub_category.pk %}">{{ sub_category.name }} ({{ sub_category.product_set.count }})</a></li>
+                                            {% endfor %}
+                                        </ul>
+                                    </li>
+                                {% else %}
+                                    <li class="">
+                                        <a href="{% url 'e_commerce:products_sub' 'category_two' category_two.id.pk %}" class="cutom-parent"><b>{{ category_two.id.name }} ({{ category_two.number }})</b></a>
+                                        <span class="dcjq-icon"></span></li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="module banner-left hidden-xs ">
+                <div class="banner-sidebar banners">
+                    <div>
+                        <a title="Banner Image" href="#">
+                        <img src="{% static 'ecommerce/image/catalog/banners/home/banner-8.jpeg' %}" alt="Banner Image">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="product-simple" id="last-prodct-as">
+                <h3 class="modtitle">
+                    <span>Derniers Produits</span>
+                </h3>
+                <div class="modcontent">
+                    <div  class="so-extraslider" >
+                        <!-- Begin extraslider-inner -->
+                        <div class="yt-content-slider extraslider-inner products-list" data-rtl="yes" data-pagination="yes" data-autoplay="no" data-delay="4" data-speed="0.6" data-margin="30" data-items_column0="1" data-items_column1="1" data-items_column2="1" data-items_column3="1" data-items_column4="1" data-arrows="no" data-lazyload="yes" data-loop="no" data-buttonpage="top">
+                            <div class="item">
+                                {# ------------------------------- Item ------------------------------- #}
+                                {% for pr in latest_products %}
+                                <div class="product-layout item-inner style1 ">
+                                    <div class="item-image">
+                                        <div class="item-img-info">
+                                            <a href="{% url 'e_commerce:product' pr.id.pk %}" target="_self" title="{{ pr.id.name }}">
+                                                <img src="{{ pr.id.image.url }}" alt="Image {{ pr.id.name }}">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="item-info">
+                                        <div class="item-title">
+                                            <b><a href="{% url 'e_commerce:product' pr.id.pk %}" target="_self" title="{{ pr.id.name }}">{{ pr.id.name }}</a></b>
+                                        </div>
+                                        <div class="rating">
+                                        {% for i in "*****" %}
+                                            {% if forloop.counter <= pr.ratting %}
+                                               <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                            {% elif forloop.counter == pr.ratting|add:"1" and pr.rattingInt < pr.ratting %}
+                                                <span class="fa fa-stack">
+                                                    <i style="color: #ea4c0f" class="fa fa-star-half-empty fa-stack-2x"></i>
+                                                </span>
+                                            {% else %}
+                                                <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                            {% endif %}
+                                        {% endfor %}
+                                        </div>
+                                        <div class="content_price price">
+                                            {% if pr.sale %}
+                                                <span class="price-old">
+                                                {% if pr.id.old_price %}
+                                                    {{ pr.id.old_price|intcomma }}
+                                                {% else %}
+                                                    {{ pr.id.price|intcomma }}
+                                                {% endif %}
+                                                     Dh
+                                                </span>
+                                                <br/>
+                                                <span class="price-new" style="font-size: 19px;">
+                                                {% if pr.id.price_from %}
+                                                    <span style="font-size: 12px;">À PARTIR DE</span>
+                                                {% endif %}
+                                                    {{ pr.sale.new_price|intcomma }} Dh
+                                                </span>
+                                            {% else %}
+                                                {% if pr.id.old_price %}
+                                                    <span class="price-old">
+                                                        {{ pr.id.old_price|intcomma }} Dh
+                                                    </span>
+                                                {% endif %}
+                                                <br/>
+                                                <span class="price-new" style="font-size: 19px;">
+                                                {% if pr.id.price_from %}
+                                                    <span style="font-size: 12px;">À PARTIR DE</span>
+                                                {% endif %}
+                                                    {{ pr.id.price|intcomma }} Dh
+                                                </span>
+                                            {% endif %}&nbsp
+                                        </div>
+                                    </div>
+                                    <!-- End item-info -->
+                                    <!-- End item-wrap-inner -->
+                                </div>
+                                {% if forloop.counter|divisibleby:"5" and not forloop.last %}
+                                    </div>
+                                    <div class="item">
+                                {% endif %}
+                                {% endfor %}
+                                {# -------------------------------------------------------------------- #}
+                            </div>
+                        </div>
+                        <!--End extraslider-inner -->
+                    </div>
+                </div>
+            </div>
+        </aside>
+        <!--Middle Part Start-->
+        <div id="content" class="col-md-9 col-sm-8">
+            <ul class="breadcrumb" style="margin-bottom: 20px;">
+                <li><a href="{% url 'e_commerce:index' %}">Accueil</a></li>
+                <li><a href="{% url 'e_commerce:products' 'category' product.cat.category_two.category_one.category.pk %}">{{ product.cat.category_two.category_one.category.name }}</a></li>
+                {% if product.cat.category_two.category_one.category.name != product.cat.category_two.category_one.name %}
+                    <li><a href="{% url 'e_commerce:products' 'category_one' product.cat.category_two.category_one.pk %}">{{ product.cat.category_two.category_one.name }}</a></li>
+                {% endif %}
+                {% if product.cat.category_two.category_one.name != product.cat.category_two.name %}
+                    <li><a href="{% url 'e_commerce:products_sub' 'category_two' product.cat.category_two.pk %}">{{ product.cat.category_two.name }}</a></li>
+                {% endif %}
+                {% if product.cat.category_two.name != product.cat.name %}
+                    <li><a href="{% url 'e_commerce:products' 'sub_category' product.cat.pk %}">{{ product.cat.name }}</a></li>
+                {% endif %}
+            </ul>
+            <div class="product-view row">
+                <div class="left-content-product" style="margin-left: 10px;">
+                    <div class="content-product-left class-honizol col-md-5 col-sm-12 col-xs-12" style="margin-right: 10px;">
+                        <div class="large-image" style="padding: 0; text-align: center;">
+                            <img itemprop="image" class="product-image-zoom img-responsive" src="{{ product.image.url }}" data-zoom-image="{{ product.image.url }}" title="{{ product.name }}" alt="Image {{ product.name }}" width="100%">
+                        </div>
+                        <div id="thumb-slider" class="yt-content-slider full_slider owl-drag" data-rtl="yes" data-autoplay="no" data-autoheight="no" data-delay="4" data-speed="0.6" data-margin="10" data-items_column0="4" data-items_column1="3" data-items_column2="4"  data-items_column3="4" data-items_column4="3" data-arrows="yes" data-pagination="no" data-lazyload="yes" data-loop="no" data-hoverpause="yes">
+                            <a data-index="0" class="img thumbnail" data-image="{{ product.image.url }}" title="{{ product.name }}">
+                            <img src="{{ product.image.url }}" title="{{ product.name }}" alt="Image {{ product.name }}">
+                            </a>
+                        {% if product.commerceimage_set.exists %}
+                        {% for image in product.commerceimage_set.all %}
+                            <a data-index="{{ forloop.counter }}" class="img thumbnail" data-image="{{ image.image.url }}" title="{{ image.product.name }}">
+                            <img src="{{ image.image.url }}" title="{{ image.product.name }}" alt="Image {{ image.product.name }}" >
+                            </a>
+                        {% endfor %}
+                        {% endif %}
+                        </div>
+                        {% if sale %}
+                            <div class="box-label"><span class="label-product label-sale"> -{{ sale.percentage }}%</span></div>
+                        {% endif %}
+                        {% if new %}
+                            <div class="box-label"> <span class="label-product label-new"> New </span></div>
+                        {% endif %}
+                    </div>
+                    <div class="content-product-right col-md-6 col-sm-12 col-xs-12">
+                        <div class="title-product" style="margin-top: 14px">
+                            <h1 style="display: inline-block; margin-top: 10px; margin-bottom: 0">
+                                <span>{{ product.name }}</span>
+                                <span style="font-size: 13px; display: inherit; position: relative;">
+                                    <kbd style="position: absolute; width: 47px; top: -16px; left: 10px;">
+                                    {{ product.number_views }} <i class="fa fa-eye"></i></kbd>
+                                </span>
+                            </h1>
+                        </div>
+                        <!-- Review -->
+                        <div class="box-review form-group" style="margin-top: 5px">
+                            <div class="ratings">
+                            {% if ratting %}
+                            {% for i in "*****" %}
+                                {% if forloop.counter <= ratting %}
+                                   <span class="fa fa-stack" style="margin-top: -9px;"><i class="fa fa-star fa-stack-2x"></i></span>
+                                {% elif forloop.counter == ratting|add:"1" and rattingInt < ratting %}
+                                    <span class="fa fa-stack" style="margin-top: -9px;">
+                                        <i style="color: #ea4c0f" class="fa fa-star-half-empty fa-stack-2x"></i>
+                                    </span>
+                                {% else %}
+                                    <span class="fa fa-stack" style="margin-top: -9px;"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                {% endif %}
+                            {% endfor %}
+                            {% else %}
+                                <div class="rating-box">
+                                    <span class="fa fa-stack" style="margin-top: -9px;"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                                    <span class="fa fa-stack" style="margin-top: -9px;"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                                    <span class="fa fa-stack" style="margin-top: -9px;"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                                    <span class="fa fa-stack" style="margin-top: -9px;"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                                    <span class="fa fa-stack" style="margin-top: -9px;"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                                </div>
+                            {% endif %}
+                            </div>
+                            <div style="display: inline-block">
+                                <a class="reviews_button" href="#" onclick="$('a[href=\'#tab-review\']').trigger('click'); return false;">{{ product.commerceratting_set.count }} revues</a>  |
+                                <a class="write_review_button" href="#" onclick="$('a[href=\'#tab-review\']').trigger('click'); return false;">Ecrivez une revue</a>
+                            </div>
+                        </div>
+                        <!-- Review end -->
+                        <div class="product-label form-group">
+                            <div class="product_page_price price" itemprop="offerDetails" itemscope="">
+                            {% if sale %}
+                                {% if product.old_price %}
+                                    <span class="price-old">
+                                        {{ product.old_price|intcomma }}
+                                    </span>
+                                {% else %}
+                                    <span class="price-old" id="price_old_1">
+                                        {{ product.price|intcomma }} Dh
+                                    </span>
+                                {% endif %}
+                                {% if product.price_from %}
+                                    <span class="price-new">
+                                        <span style="font-size: 10px">À PARTIR DE</span>
+                                    </span>
+                                {% endif %}
+                                <span class="price-new" id="price_new_1" itemprop="price">
+                                    {{ sale.new_price|intcomma }} Dh
+                                </span>
+                            {% else %}
+                                {% if product.old_price %}
+                                    <span class="price-old">
+                                        {{ product.old_price|intcomma }} Dh
+                                    </span>
+                                {% endif %}
+                                {% if product.price_from %}
+                                    <span class="price-new">
+                                        <span style="font-size: 10px">À PARTIR DE</span>
+                                    </span>
+                                {% endif %}
+                                <span class="price-new" id="price_new_2" itemprop="price">
+                                    {{ product.price|intcomma }} Dh
+                                </span>
+                            {% endif %}
+                            </div><div>&nbsp;&nbsp;<b style="padding-top: 4px;display: inline-block;">/{{ product.unit }}</b></div>
+                        </div>
+                        <div class="stock">
+                            {% if not product.price_from %}
+                                {% if quantity == 0 %}
+                                    <span class="bg-danger" style="margin-right: 20px">En rupture de stock</span>
+                                {% else %}
+                                    <span class="status-stock" style="margin-right: 20px">En Stock</span>
+                                {% endif %}
+                            {% endif %}
+                            <span class="code-product" style="margin-left: 0;">code du product : <b>#{{ product.pk }}</b></span>
+                        </div>
+                        <br>
+                        {% if not product.price_from %}
+                        <div class="item-available">
+                            <div class="row">
+                                <p class="col-xs-6 a1">Disponible: <b>{{ quantity }}</b>
+                                </p>
+                                <p class="col-xs-6 a2 text-right" >Vendu: <b>{{ sold }}</b>
+                                </p>
+                            </div>
+                            {% if percent > 80 %}
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="{{ percent }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ percent|coma_dot }}%"></div>
+                            </div>
+                            {% elif percent > 60 %}
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-primary progress-bar-striped" role="progressbar" aria-valuenow="{{ percent }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ percent|coma_dot }}%"></div>
+                            </div>
+                            {% elif percent > 40 %}
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="{{ percent }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ percent|coma_dot }}%"></div>
+                            </div>
+                            {% elif percent > 20 %}
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar" aria-valuenow="{{ percent }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ percent|coma_dot }}%"></div>
+                            </div>
+                            {% else %}
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="{{ percent }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ percent|coma_dot }}%"></div>
+                            </div>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                        {% if product.brand %}
+                            <div class="brand-product" style="margin-top: 0">
+                                <span style="text-transform: uppercase">Marque : </span>
+                                {% if product.brand.image != "" %}
+                                    <a href="{% url 'e_commerce:products' 'brand' product.brand.pk %}"><img style="margin-left: 10px"  width="80px" height="40px" src="{{ product.brand.image.url }}" alt="Brand {{ product.brand.name }}"></a>
+                                {% else %}
+                                    <a href="{% url 'e_commerce:products' 'brand' product.brand.pk %}"><b>{{ product.brand.name }}</b></a>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                        <div class="short_description form-group" style="text-transform: uppercase">
+                        {% if product.quantity_min > 1 %}
+                            Commande minimum :  <b>{{ product.quantity_min }}</b> {{ product.unit }}
+                        {% else %}
+                            Commande minimum :  <b>1</b> {{ product.unit }}
+                        {% endif %}
+                        </div>
+                        {% if product.supplier %}
+                        <div class="short_description form-group">
+                            {% if product.supplier %}
+                                <div class="short_description form-group">
+                                    EXPOSANT : <a href="{% url 'e_commerce:supplier' product.supplier.pk %}"><b>{{ product.supplier.name }}</b></a>
+                                </div>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                        <div id="product" style="margin-top: 0">
+                            <form id="formAddCompare{{ product.pk }}" method="get" action="{% url 'e_commerce:add_to_compare' %}" data-validate-url="{% url 'e_commerce:add_to_compare' %}">
+                                <input type="hidden" name="product" value="{{ product.pk }}">
+                            </form>
+                            <form id="formAddWish{{ product.pk }}" method="get" action="{% url 'e_commerce:add_to_wish_list' %}" data-validate-url="{% url 'e_commerce:add_to_wish_list' %}">
+                                <input type="hidden" name="product" value="{{ product.pk }}">
+                            </form>
+                            <form id="formAddCart{{ product.pk }}" method="get" action="{% url 'e_commerce:add_to_cart' %}" data-validate-url="{% url 'e_commerce:add_to_cart' %}">
+                                <input type="hidden" name="product" value="{{ product.pk }}">
+                                {% if product.stock_set.exists %}
+                                    {% if product.stock_set.count == 1 and product.stock_set.first.color.name == "None" %}
+                                        <input onchange="change_price({{ product.price }},{{ stock.price_sup }}, {{ sale.percentage }});" type="hidden" name="option[231]" value="0">
+                                    {% else %}
+                                        <div class="image_option_type form-group required">
+                                            <label style="margin-right: 15px">Couleurs : </label>
+                                            <ul class="product-options clearfix list-inline" id="input-option231">
+                                                {% for stock in product.stock_set.all %}
+                                                    {% if stock.color.name == "None"%}
+                                                    <li class="radio">
+                                                        <label>{{ produt.stock_set.0.color.name  }}
+                                                            <input onchange="change_price({{ product.price }},{{ stock.price_sup }}, {{ sale.percentage }});" class="image_radio" type="radio" required name="option[231]" value="{{ stock.color.pk }}">
+                                                            <img src="{% static 'ecommerce/image/none.png' %}" data-original-title="Original" class="img-thumbnail icon icon-color">
+                                                            <i class="fa fa-check"></i>
+                                                            <label></label>
+                                                        </label>
+                                                    </li>
+                                                    {% else %}
+                                                        <li class="radio">
+                                                            <label>
+                                                                <input onchange="change_price({{ product.price }},{{ stock.price_sup }}, {{ sale.percentage }});" class="image_radio" type="radio" name="option[231]" value="{{ stock.color.pk }}">
+                                                                <img style="background-color: {{ stock.color.code_hex }}" data-original-title="{{ stock.color.name }} +${{ stock.price_sup|intcomma }}" class="img-thumbnail icon icon-color">
+                                                                <i class="fa fa-check"></i>
+                                                                <label></label>
+                                                            </label>
+                                                        </li>
+                                                    {% endif %}
+                                                {% endfor %}
+                                                <li class="selected-option" style="display: inline-block"></li>
+                                            </ul>
+                                        </div>
+                                    {% endif %}
+                                {% endif %}
+                                <div class="form-group box-info-product" style="margin-top: 0">
+                                    <div class="option quantity">
+                                        <label class="hidden-xs">
+                                            Quantité
+                                            {% if product.quantity_min > 1 %}(<b>{{ product.quantity_min }}</b> Min){% endif %} :
+                                        </label>
+                                        <div class="input-group quantity-control" style="float: left;margin-left: 13px;">
+                                            <input title="Quantité" class="form-control" type="text" name="quantity" value="{{ product.quantity_min }}">
+                                            <input type="hidden" name="product_id" value="{{ product.pk }}">
+                                            <span class="input-group-addon product_quantity_down">−</span>
+                                            <span class="input-group-addon product_quantity_up">+</span>
+                                        </div>
+                                    </div>
+                                    <div class="add-to-links wish_comp" style="text-align: left;">
+                                        <ul class="blank list-inline">
+                                            <li>
+                                                {% if product.price_from %}
+                                                <div class="button-group so-quickview cartinfo--left">
+                                                    <a class="iframe-link addToCart btn-button quickview quickview_handler visible-lg" href="{% url 'e_commerce:contact_supplier' product.pk %}" title="Quick view" data-fancybox-type="iframe">
+                                                        <i class="fa fa-envelope"></i>
+                                                        <span>Contacter</span>
+                                                    </a>
+                                                </div>
+                                                {% else %}
+                                                <a type="button" class="addToCart btn-button btn" title="Ajouter au Chariot" onclick="cart.add('{{ product.pk }}', '{{ user.is_authenticated }}', '{{ product.name }}', '{{ product.image.url }}', '{% url 'e_commerce:product' product.pk %}');">
+                                                    <i class="fa fa-shopping-basket"></i>
+                                                    <span>Ajouter au Chariot</span>
+                                                </a>
+                                                {% endif %}
+                                            </li>
+                                            <li class="">
+                                                <a class="icon" data-toggle="tooltip" title="Comparer ce Produit" onclick="compare.add('{{ product.pk }}', '{{ user.is_authenticated }}', '{{ product.name }}', '{{ product.image.url }}', '{% url 'e_commerce:product' product.pk %}');" data-original-title="Compare this Product">
+                                                    <i class="fa fa-exchange"></i>
+                                                    <span>Comparer</span>
+                                                </a>
+                                            </li>
+                                            <li class="wishlist">
+                                                <a class="icon" data-toggle="tooltip" title="Ajouter au liste des Souhaits" onclick="wishlist.add('{{ product.pk }}', '{{ user.is_authenticated }}', '{{ product.name }}', '{{ product.image.url }}', '{% url 'e_commerce:product' product.pk %}');" >
+                                                    <i class="fa fa-heart"></i>
+                                                    <span>Souhaits</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- end box info product -->
+                        <div class="content-product-bottom col-lg-12">
+                            <div class="share">
+                                <div class="icon-share">
+                                    <div class="row">
+                                        <div class="col-md-3" style="padding-top: 11px;">
+                                            <span>Partager : </span>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <ul class="socials list-inline">
+                                                <li class="facebook"><a class="_blank" href="https://www.facebook.com/MagenTech" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                                                <li class="twitter"><a class="_blank" href="https://twitter.com/smartaddons" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                                                <li class="google_plus"><a class="_blank" href="https://plus.google.com/u/0/+Smartaddons/posts" target="_blank"><i class="fa fa-google-plus"></i></a></li>
+                                                <li class="pinterest"><a class="_blank" href="https://www.pinterest.com/smartaddons/" target="_blank"><i class="fa fa-skype"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% if tags_p %}
+                                    <div class="tags" style="margin-top: 16px;">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <span>Tags : </span>
+                                            </div>
+                                            <div class="col-md-9">
+                                                <ul>
+                                                    {% for tag in tags_p %}
+                                                    <li><a href="{% url 'e_commerce:products' 'tag' tag.pk %}">{{ tag.name }}{% if forloop.last %}.{% else %}, {% endif %}</a></li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Product Tabs -->
+            <div class="producttab" style="margin-top: 0; margin-bottom: 0">
+                <div class="tabsslider horizontal-tabs col-xs-12">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a data-toggle="tab" href="#tab-1">Description</a></li>
+                        <li class="item_nonactive"><a data-toggle="tab" href="#tab-review">Revues ({{ product.commerceratting_set.count }})</a></li>
+                        <li class="item_nonactive"><a data-toggle="tab" href="#tab-4">Specifications</a></li>
+                    </ul>
+                    <div class="tab-content col-xs-12">
+                        <div id="tab-1" class="tab-pane fade active in">
+                            <h1 style="margin-top: 0">Vue supérieure</h1>
+                            <hr/>
+                            <h2>Détails</h2>
+                            <table class="col-xs-12" style="margin-bottom: 20px">
+                                <tr>
+                                    {% for detail in product.commerceinformation_set.all %}
+                                        <td><b>{{ detail.name }} : </b></td>
+                                        <td>{{ detail.value }}</td>
+                                        {% if forloop.counter|divisibleby:"4" and not forloop.last %}
+                                            {{ '</tr>' }}
+                                            {{ '<tr>' }}
+                                        {% endif %}
+                                    {% endfor %}
+                                </tr>
+                            </table>
+                            <br>
+                            <hr/>
+                            {% if product.packaging_detail or product.delivery_time %}
+                                <h2>Emballage et livraison</h2>
+                                {% if product.packaging_detail %}
+                                    <p><b>Détails de l'emballage : </b> {{ product.packaging_detail }}</p>
+                                {% endif %}
+                                {% if product.delivery_time %}
+                                    <p><b>Temps de livraison     :</b> {{ product.delivery_time }}</p>
+                                {% endif %}
+                                <hr/>
+                            {% endif %}
+                            {% autoescape off %}
+                            {{ product.content }}
+                            {% endautoescape %}
+                        </div>
+                        <div id="tab-review" class="tab-pane fade">
+                            <div id="review">
+                                <table class="table table-striped table-bordered">
+                                    <tbody>
+                                    {% for review in product.commerceratting_set.all|dictsortreversed:"date_add"|slice:":6" %}
+                                        <tr>
+                                            <td style="width: 50%;"><strong>{{ review.name }}</strong></td>
+                                            <td class="text-right">{{ review.date_add }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <p>{{ review.comment }}</p>
+                                                <div class="ratings">
+                                                {% if review.value %}
+                                                {% for i in "*****" %}
+                                                    {% if forloop.counter <= review.value %}
+                                                       <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                                    {% else %}
+                                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                                    {% endif %}
+                                                {% endfor %}
+                                                {% else %}
+                                                    <div class="rating-box">
+                                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                                                        <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                                                    </div>
+                                                {% endif %}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                                <div class="text-right"></div>
+                            </div>
+                            <h2 id="review-title">Ecrivez une revue</h2>
+                            <form action="{% url 'e_commerce:review' %}" method="post" id="review_form">
+                                {% csrf_token %}
+                                <div class="contacts-form">
+                                    <div class="form-group">
+                                        <span class="icon icon-user"></span>
+                                        <input type="hidden" name="product" value="{{ product.pk }}">
+                                    {% if user.is_authenticated %}
+                                        <input type="Hidden" name="name" class="form-control" value="{{ user.last_name.upper }} {{ user.first_name.capitalize }}">
+                                        <input type="Hidden" name="email" class="form-control" value="{{ user.email }}">
+                                    {% else %}
+                                        <input type="text" name="name" class="form-control" placeholder="Votre Num" required>
+                                        <input type="email" name="email" class="form-control" placeholder="Votre E-mail" required>
+                                    {% endif %}
+                                    </div>
+                                    <div class="form-group"> <span class="icon icon-bubbles-2"></span>
+                                        <textarea class="form-control" name="review" placeholder="Votre revue"></textarea>
+                                    </div>
+                                    <span style="font-size: 11px;">
+                                        <span class="text-danger">Note:</span>                       HTML n'est pas traduit!
+                                    </span>
+                                    <div class="form-group">
+                                        <b>Rating</b>&nbsp<span>Mauvais</span>&nbsp
+                                        <input title="1" type="radio" name="ratting" value="1"> &nbsp
+                                        <input title="2" type="radio" name="ratting" value="2"> &nbsp
+                                        <input title="3" type="radio" name="ratting" value="3"> &nbsp
+                                        <input title="4" type="radio" name="ratting" value="4"> &nbsp
+                                        <input title="5" type="radio" name="ratting" value="5" checked="checked"> &nbsp
+                                        <span>Bon</span>
+                                    </div>
+                                    <div class="buttons clearfix"><a href="javascript:" onclick="document.getElementById('review_form').submit();" id="button-review" class="btn buttonGray">Continue</a></div>
+                                </div>
+                            </form>
+                        </div>
+                        <div id="tab-4" class="tab-pane fade">
+                            {% if product.specification_set.exists %}
+                            <table class="table table-striped">
+                            {% for spec in product.specification_set.all %}
+                                <tr>
+                                    <td>{{ spec.name }}</td>
+                                    <td>{{ spec.value }}</td>
+                                </tr>
+                            {% endfor %}
+                            </table>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- //Product Tabs -->
+            <!-- Related Products -->
+            {% if accessories %}
+            <div class="related titleLine products-list grid module">
+                <div id="so_listing_tabs_3" class="so-listing-tabs first-load">
+                    <div class="ltabs-wrap">
+                        <div class="ltabs-tabs-container" data-rtl="yes" data-delay="300" data-duration="600" data-effect="starwars" data-ajaxurl="" data-type_source="0" data-lg="5" data-md="4" data-sm="2" data-xs="1" data-xxs="1" data-margin="30">
+                            <!--Begin Tabs-->
+                            <div class="ltabs-tabs-wrap">
+                                <span class='ltabs-tab-selected'></span>
+                                <span class="ltabs-tab-arrow">▼</span>
+                                <ul class="ltabs-tabs cf list-sub-cat font-title">
+                                    <li class="ltabs-tab tab-sel" data-category-id="61" data-active-content=".items-category-61"><span class="ltabs-tab-label">Accessoires</span></li>
+                                </ul>
+                            </div>
+                            <!-- End Tabs-->
+                        </div>
+                        <div class="wap-listing-tabs ltabs-items-container products-list grid">
+                            <!--Begin Items-->
+                            <div class="ltabs-items ltabs-items-selected items-category-61" data-total="10">
+                                <div class="ltabs-items-inner ltabs-slider">
+                                    {# --------------------------------- Item -------------------------------------- #}
+                                    {% for p in accessories %}
+                                    <div class="item">
+                                        <div class="item-inner product-layout transition product-grid">
+                                            <div class="product-item-container">
+                                                <div class="left-block">
+                                                    {% if p.image %}
+                                                    <div class="product-image-container second_img">
+                                                        <a href="{% url 'e_commerce:product' p.id.pk %}" target="_self" title="{{ p.id.name }}">
+                                                            <img src="{{ p.id.image.url }}" class="img-1" alt="Image1 {{ p.id.name }}" height="150px">
+                                                            <img src="{{ p.image.url }}" class="img-2" alt="Image2 {{ p.id.name }}" height="150px">
+                                                        </a>
+                                                    </div>
+                                                    {% else %}
+                                                    <div class="product-image-container">
+                                                        <a href="{% url 'e_commerce:product' p.id.pk %}" target="_self" title="{{ p.name }}">
+                                                            <img src="{{ p.id.image.url }}" class="img-2" alt="Image1 {{ p.id.name }}" height="150px">
+                                                        </a>
+                                                    </div>
+                                                    {% endif %}
+                                                {% if p.sale %}
+                                                    <div class="box-label"><span class="label-product label-sale"> -{{ p.sale.percentage }}%</span></div>
+                                                {% endif %}
+                                                {% if p.new %}
+                                                    <div class="box-label"> <span class="label-product label-new"> New </span></div>
+                                                {% endif %}
+                                                    <div class="button-group so-quickview cartinfo--left">
+                                                    {% if p.id.price_from %}
+                                                        <a class="iframe-link btn-button quickview quickview_handler visible-lg" href="{% url 'e_commerce:contact_supplier' p.id.pk %}" title="Quick view" data-fancybox-type="iframe"><i class="fa fa-envelope"></i><span>Contacter Fournisseur</span></a>
+                                                    {% else %}
+                                                        <form id="formAddCart{{ p.id.pk }}" method="get" action="{% url 'e_commerce:add_to_cart' %}" data-validate-url="{% url 'e_commerce:add_to_cart' %}"><input type="hidden" name="product" value="{{ p.id.pk }}"></form>
+                                                        <button type="button" class="addToCart btn-button" title="Add to cart" onclick="cart.add('{{ p.id.pk }}', '{{ user.is_authenticated }}', '{{ p.id.name }}', '{{ p.id.image.url }}', '{% url 'e_commerce:product' p.id.pk %}');">
+                                                            <i class="fa fa-shopping-basket"></i>
+                                                            <span>Add to cart </span>
+                                                        </button>
+                                                    {% endif %}
+                                                        <form id="formAddWish{{ p.id.pk }}" method="get" action="{% url 'e_commerce:add_to_wish_list' %}" data-validate-url="{% url 'e_commerce:add_to_wish_list' %}"><input type="hidden" name="product" value="{{ p.id.pk }}"></form>
+                                                        <button type="button" class="wishlist btn-button" title="Add to Wish List" onclick="wishlist.add('{{ p.id.pk }}', '{{ user.is_authenticated }}', '{{ p.id.name }}', '{{ p.id.image.url }}', '{% url 'e_commerce:product' p.id.pk %}');">
+                                                            <i class="fa fa-heart"></i>
+                                                            <span>Add to Wish List</span>
+                                                        </button>
+
+                                                        <form id="formAddCompare{{ p.id.pk }}" method="get" action="{% url 'e_commerce:add_to_compare' %}" data-validate-url="{% url 'e_commerce:add_to_compare' %}"><input type="hidden" name="product" value="{{ p.id.pk }}"></form>
+                                                        <button type="button" class="compare btn-button" title="Compare this Product " onclick="compare.add('{{ p.id.pk }}', '{{ user.is_authenticated }}', '{{ p.id.name }}', '{{ p.id.image.url }}', '{% url 'e_commerce:product' p.id.pk %}');">
+                                                            <i class="fa fa-refresh"></i><span>Compare this Product</span>
+                                                        </button>
+                                                        <!--quickview-->
+                                                        <a class="iframe-link btn-button quickview quickview_handler visible-lg" href="{% url 'e_commerce:quick_view' p.id.pk %}" title="Quick view" data-fancybox-type="iframe"><i class="fa fa-eye"></i><span>Quick view</span></a>
+                                                        <!--end quickview-->
+                                                    </div>
+                                                </div>
+                                                <div class="right-block">
+                                                    <div class="caption">
+                                                        <div class="rating">
+                                                            {% for i in "*****" %}
+                                                                {% if forloop.counter <= p.ratting %}
+                                                                   <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                                                {% elif forloop.counter == p.ratting|add:"1" and p.rattingInt < p.ratting %}
+                                                                    <span class="fa fa-stack">
+                                                                        <i style="color: #ea4c0f" class="fa fa-star-half-empty fa-stack-2x"></i>
+                                                                    </span>
+                                                                {% else %}
+                                                                    <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        </div>
+                                                        <h4><a href="{% url 'e_commerce:product' p.id.pk %}" title="{{ p.id.name }}" target="_self">{{ p.id.name }}</a></h4>
+                                                        <div class="price">
+                                                            {% if p.sale %}
+                                                                <span class="price-old">
+                                                                    {% if p.id.old_price %}
+                                                                        {{ p.id.old_price|intcomma }}
+                                                                    {% else %}
+                                                                        {{ p.id.price|intcomma }}
+                                                                    {% endif %} Dh
+                                                                </span>
+                                                                <br/>
+                                                                <span class="price-new">
+                                                                {% if p.id.price_from %}
+                                                                    <span style="font-size: 15px;">À PARTIR DE</span>
+                                                                {% endif %}
+                                                                    {{ p.sale.new_price|intcomma }} Dh
+                                                                </span>
+                                                            {% else %}
+                                                                {% if p.id.old_price %}
+                                                                    <span class="price-old">
+                                                                        {{ p.id.old_price|intcomma }} Dh
+                                                                    </span>
+                                                                {% endif %}
+                                                                <br/>
+                                                                <span class="price-new">
+                                                                {% if p.id.price_from %}
+                                                                    <span style="font-size: 10px">À PARTIR DE</span>
+                                                                {% endif %}
+                                                                    {{ p.id.price|intcomma }} Dh</span>
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                    {# --------------------------------- Item -------------------------------------- #}
+                                </div>
+                            </div>
+                        <!--End Items-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            <!-- end Related  Products-->
+        </div>
+    </div>
+{% endif %}
+</div>
+{% endblock %}

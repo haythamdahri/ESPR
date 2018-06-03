@@ -1,0 +1,550 @@
+{% extends 'base_main.html' %}
+{% load static %}
+
+
+{% block title %}
+{{ block.super }}
+    Mon Profile
+{% endblock title %}
+
+
+{% block stylesheets %}
+    {{ block.super }}
+
+      <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title> Accueil</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="{% static "appelsOffres/assets/images/aa.png" %}">
+
+        <!--<link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,600,700' rel='stylesheet' type='text/css'>-->
+        <link rel="stylesheet" href="{% static "appelsOffres/assets/css/fonticons.css" %} ">
+        <link rel="stylesheet" href="{% static "appelsOffres/assets/fonts/stylesheet.css" %} ">
+        <link rel="stylesheet" href="{% static "appelsOffres/assets/css/font-awesome.min.css" %} ">
+        <link rel="stylesheet" href="{% static "appelsOffres/assets/css/bootstrap.min.css" %} ">
+        <!--        <link rel="stylesheet" href="assets/css/bootstrap-theme.min.css">-->
+
+
+        <!--For Plugins external css-->
+        <link rel="stylesheet" href="{% static "appelsOffres/assets/css/plugins.css" %} " />
+
+        <!--Theme custom css -->
+        <link rel="stylesheet" href="{% static "appelsOffres/assets/css/style.css" %} ">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+        <!--Theme Responsive css-->
+        <link rel="stylesheet" href="{% static "appelsOffres/assets/css/responsive.css" %} " />
+
+        <style>
+            #profile {
+                width: 90%;
+                margin-left: 5%;
+                margin-right: 5%;
+            }
+
+            .head {
+                padding: 5px 5px 5px 0px;
+                text-align: right;
+
+            }
+
+            .head > a {
+                display: inline;
+                padding-left: 10px;
+            }
+
+            .btn {
+                width: inherit;
+            }
+
+            .btn-default:hover {
+                border: 1px solid #e84c3d;
+                color : #e84c3d;
+            }
+
+            .btn-danger {
+                color: white;
+                border: 0px;
+            }
+
+            .btn-danger:hover{
+                color: red;
+                border: 1px solid red;
+            }
+
+            .bodyA{
+                margin-top: 20px;
+                width: 100%;
+            }
+
+            .personnelA {
+                border: 1px solid black;
+                margin-bottom: 1%;
+                box-shadow: 5px 5px 5px grey;
+            }
+
+            .btn-success {
+                color: white;
+                border: 0px;
+            }
+
+            .bo {
+                margin-top: 5%;
+                margin-left: 3%;
+                margin-right: 2%;
+                border-top: 3px solid darkorange;
+                background-color: white;
+                box-shadow: 5px 5px 5px darkgray;
+            }
+        </style>
+
+{% endblock stylesheets %}
+
+
+{% block content %}
+        {{ block.super }}
+        <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+		<div class='preloader'><div class='loaded'>&nbsp;</div></div>
+        <!--Home page style-->
+        <header id="main_menu" class="header">
+            <div class="main_menu_bg navbar-fixed-top" style="background-color: white;">
+                <div class="container" >
+                    <div class="row">
+                        <div class="nave_menu wow fadeInUp" data-wow-duration="1s" >
+                            <nav class="navbar navbar-default" id="navmenu" >
+                                <div class="container-fluid" >
+                                    <!-- Brand and toggle get grouped for better mobile display -->
+                                    <div class="navbar-header">
+                                        {{ user }}
+                                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                                            <span class="sr-only">Toggle navigation</span>
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                        </button>
+                                    </div>
+
+                                    <!-- Collect the nav links, forms, and other content for toggling -->
+                                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+                                        <ul class="nav navbar-nav navbar-right" >
+                                            <li><a href="/appelsOffres">LES APPELS D'OFFRES</a></li>
+
+                                            <li>
+                                                  <a href="#" class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">ANNONCES <span class="caret"></span></a>
+                                                  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                                        <li><a href="/appelsOffres/NouvelleAnnonce">NOUVELLE ANNONCE</a></li>
+                                                        <li role="separator" class="divider"></li>
+                                                        <li><a href="/appelsOffres/MesAnnonces">MES ANNONCES</a></li>
+                                                  </ul>
+                                            </li>
+
+                                            <li>
+                                                  <a href="#" class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">PROJETS <span class="caret"></span></a>
+                                                  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                                        <li><a href="/appelsOffres/NouveauProjet">NOUVEAU PROJET</a></li>
+                                                        <li role="separator" class="divider"></li>
+                                                        <li><a href="/appelsOffres/MesProjets">MES PROJETS</a></li>
+                                                  </ul>
+                                            </li>
+
+                                            <li class="active"><a href="/appelsOffres/MonProfile">MON PROFILE</a></li>
+
+                                            <li><a href="/appelsOffres/MESFAVORIS">MES FAVORIS</a></li>
+
+                                            {% if user.is_staff or user.is_superuser %}
+                                            <li><a href="/admin">GESTION</a></li>
+                                        {% endif %}
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </nav>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </header> <!--End of header -->
+
+                <section id="scrolimage" >
+                        <div class="w3-content w3-section" >
+                          <img class="mySlides" src="{% static "appelsOffres/assets/images/sl1.jpeg" %}" style="width:100%">
+                          <img class="mySlides" src="{% static "appelsOffres/assets/images/sl2.jpeg" %}" style="width:100%">
+                          <img class="mySlides" src="{% static "appelsOffres/assets/images/sl3.jpeg" %}" style="width:100%">
+                          <img class="mySlides" src="{% static "appelsOffres/assets/images/sl4.jpeg" %}" style="width:100%">
+                          <img class="mySlides" src="{% static "appelsOffres/assets/images/sl5.jpeg" %}" style="width:100%">
+                        </div>
+
+                        <script>
+                        var myIndex = 0;
+                        carousel();
+
+                        function carousel() {
+                            var i;
+                            var x = document.getElementsByClassName("mySlides");
+                            for (i = 0; i < x.length; i++) {
+                               x[i].style.display = "none";
+                            }
+                            myIndex++;
+                            if (myIndex > x.length) {myIndex = 1}
+                            x[myIndex-1].style.display = "block";
+                            setTimeout(carousel, 5000); // Change image every 2 seconds
+                        }
+                        </script>
+
+        </section>
+
+
+        <section id="profile">
+
+            {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{message.tags}} alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+            <div class="head">
+
+                <button class="btn btn-default" data-toggle="modal" data-target="#myModal">
+                    <i class="fa fa-cogs"></i> Changer le mots de passe
+                </button>
+
+                <a href="/appelsOffres/updateProfile"><button class="btn btn-default "> <i class="fa fa-user"></i> Changer des information</button></a>
+
+                <a href="/appelsOffres/delete/{{user.id}}/{{user.profil.entreprise.id}}"><button class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i> Supprimer ce compte</button></a>
+
+            </div>
+
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <form action="/appelsOffres/changePassword/{{ user.id }}" method="POST">
+                            {% csrf_token %}
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title"><i class="fa fa-cogs"></i> Changer votre mot de passe</h4>
+                            </div>
+                            <div class="modal-body">
+
+                                <span id="nouveauPasswordlabel"><i class="fa fa-lock"></i><label>&nbsp; Nouveau mot de passe</label></span>
+                                <input type="password" class="form-control" name="nouveauPassword" id="nouveauPassword"><br>
+
+                                <span id="confirmationPasswordlabel"><i class="glyphicon glyphicon-ok"></i><label>&nbsp; Confirmer votre mot de passe</label></span>
+                                <input type="password" class="form-control" name="confirmationPassword" id="confirmationPassword">
+
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-success" id="valide"><i class="glyphicon glyphicon-ok"></i> &nbsp; Valider </button>
+                        </form>
+                                <button class="btn btn-danger" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i> &nbsp; Annuler </button>
+                            </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!--
+                <div class="bodyA">
+                Information Personnell
+                <div class="personnelA">
+                    <div class="container">
+                        <div class="row">
+                            <div class="personnel">
+                                <div class="form-row">
+
+                                        <div class="form-group col-md-4 ">
+                                            <i class="fa fa-envelope"></i><label for="">&nbsp;Email : {{ user.email }}</label>
+                                        </div>
+
+                                        <div class="form-group col-md-4 ">
+                                            <i class="glyphicon glyphicon-user"></i> <label for="">&nbsp; Prénom : {{ user.first_name }}</label>
+
+                                        </div>
+
+                                        <div class="form-group col-md-4 ">
+                                            <i class="fa fa-user"></i> <label for="">&nbsp; Nom : {{ user.last_name }} </label>
+                                        </div>
+
+                                        <div class="form-group col-md-4 ">
+                                            <i class="glyphicon glyphicon-phone"></i> <label for="">&nbsp; Téléphone : {{ user.profil.tel }}&nbsp;</label>
+                                        </div>
+
+                                        <div class="form-group col-md-4 ">
+                                            <i class="fa fa-male"></i> / <i class="fa fa-female"></i> <label for=""> &nbsp;Civilité : {{ user.profil.civilité }}</label>
+                                        </div>
+
+                                        <div class="form-group col-md-4 ">
+                                            <i class="glyphicon glyphicon-hand-right"></i> <label for=""> &nbsp;Fonction : {{ user.profil.fonction }}</label>
+                                        </div>
+
+                                        <div class="form-group col-md-4 ">
+                                            <i class="glyphicon glyphicon-hand-right"></i><label for=""> &nbsp;Service : {{ user.profil.service }}</label>
+                                        </div>
+
+                                        <div class="form-group col-md-4 ">
+                                            <i class="fa fa-map"></i><label for=""> &nbsp; Pays : {{ user.profil.pays }}</label>
+                                        </div>
+
+                                        <div class="form-group col-md-4 ">
+                                            <i class="fa fa-map-signs"></i><label for=""> &nbsp; Ville : {{ user.profil.ville }}</label>
+                                        </div>
+
+                                        <div class="form-group col-md-12">
+                                            <i class="fa fa-map-marker"></i><label for="">&nbsp; Adresse : {{ user.profil.adresse_profile }}</label>
+                                        </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                Information sur Entreprise
+                <div class="personnelA">
+                    <div class="container">
+                        <div class="row">
+                            <div class="personnel">
+                                <div class="form-row">
+
+                                        <div class="form-group col-md-4 ">
+                                            <i class="fa fa-vcard-o"></i> <label for="">&nbsp; Raison social : {{ user.profil.entreprise.raison_social }}</label>
+                                        </div>
+
+                                        <div class="form-group col-md-4 ">
+                                            <i class="fa fa-vcard"></i> <label for="">&nbsp; Registre commerce : {{ user.profil.entreprise.registre_commerce }}</label>
+
+                                        </div>
+
+                                        <div class="form-group col-md-4 ">
+                                            <i class="fa fa-line-chart"></i> <label for="">&nbsp; Activité : {{ user.profil.entreprise.activite }}</label>
+
+                                        </div>
+
+                                        <div class="form-group col-md-4 ">
+                                            <i class="glyphicon glyphicon-hand-right"></i> <label for="">&nbsp; Secteur d'activité : {{ user.profil.entreprise.secteurActivite }}</label>
+
+                                        </div>
+
+                                        <div class="form-group col-md-4 ">
+                                            <i class="glyphicon glyphicon-phone-alt"></i> <label for="">&nbsp;tel-Fix : {{ user.profil.entreprise.telephone }} </label>
+                                        </div>
+
+                                        <div class="form-group col-md-4 ">
+                                            <i class="fa fa-map"></i> <label for=""> &nbsp; Pays : {{ user.profil.entreprise.pays }}</label>
+                                        </div>
+
+                                        <div class="form-group col-md-4 ">
+                                            <i class="fa fa-map-signs"></i><label for="">&nbsp; Ville : {{ user.profil.entreprise.ville }} </label>
+                                        </div>
+
+
+                                        <div class="form-group col-md-8">
+                                            <i class="fa fa-map-marker"></i><label for="">&nbsp;Adresse : {{ user.profil.entreprise.adresse_Entreprise }}</label>
+                                        </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            -->
+        </section>
+
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="card col-md-11 bo" >
+                    <div class="form-row">
+                        <div class="form-group col-md-6 ">
+                            <i class="fa fa-envelope"></i><label for="">&nbsp;Email : </label>
+                            <p>{{ user.email }}</p>
+                        </div>
+
+                        <div class="form-group col-md-3 ">
+                            <i class="glyphicon glyphicon-user"></i> <label for="">&nbsp; Prénom : </label>
+                            <p>{{ user.first_name }}</p>
+                        </div>
+
+                        <div class="form-group col-md-3 ">
+                            <i class="fa fa-user"></i> <label for="">&nbsp; Nom : </label>
+                            <p>{{ user.last_name }}</p>
+                        </div>
+
+                        <div class="form-group col-md-6 ">
+                            <i class="glyphicon glyphicon-hand-right"></i> <label for=""> &nbsp;Fonction : </label>
+                            <p>{{ user.profil.fonction }}</p>
+                        </div>
+
+                        <div class="form-group col-md-3 ">
+                            <i class="glyphicon glyphicon-phone"></i> <label for="">&nbsp; Téléphone : &nbsp;</label>
+                            <p>{{ user.profil.tel }}</p>
+                        </div>
+
+                        <div class="form-group col-md-3 ">
+                            <i class="fa fa-male"></i> / <i class="fa fa-female"></i> <label for=""> &nbsp;Civilité :</label>
+                            <p>{{ user.profil.civilité }}</p>
+                        </div>
+
+                        <div class="form-group col-md-6 ">
+                            <i class="glyphicon glyphicon-hand-right"></i><label for=""> &nbsp;Service : </label>
+                            <p>{{ user.profil.service }}</p>
+                        </div>
+
+                        <div class="form-group col-md-3 ">
+                            <i class="fa fa-map"></i><label for=""> &nbsp; Pays : </label>
+                            <p>{{ user.profil.pays }}</p>
+                        </div>
+
+                        <div class="form-group col-md-3 ">
+                            <i class="fa fa-map-signs"></i><label for=""> &nbsp; Ville : </label>
+                            <p>{{ user.profil.ville }}</p>
+                        </div>
+
+                        <div class="form-group col-md-12">
+                            <i class="fa fa-map-marker"></i><label for="">&nbsp; Adresse :</label>
+                            <p>{{ user.profil.adresse_profile }}</p>
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="card col-md-11 bo" >
+                    <div class="form-row">
+                        <div class="form-group col-md-4 ">
+                            <i class="fa fa-vcard-o"></i> <label for="">&nbsp; Raison social : </label>
+                            <P>{{ user.profil.entreprise.raison_social }}</P>
+                        </div>
+
+                        <div class="form-group col-md-4 ">
+                            <i class="fa fa-vcard"></i> <label for="">&nbsp; Registre commerce : </label>
+                            <P>{{ user.profil.entreprise.registre_commerce }}</P>
+                        </div>
+
+                        <div class="form-group col-md-4 ">
+                            <i class="fa fa-line-chart"></i> <label for="">&nbsp; Activité : </label>
+                            <p>{{ user.profil.entreprise.activite }}</p>
+                        </div>
+
+                        <div class="form-group col-md-4 ">
+                            <i class="glyphicon glyphicon-hand-right"></i> <label for="">&nbsp; Secteur d'activité : </label>
+                            <p>{{ user.profil.entreprise.secteurActivite }}</p>
+                        </div>
+
+                        <div class="form-group col-md-4 ">
+                                            <i class="glyphicon glyphicon-phone-alt"></i> <label for="">&nbsp;tel-Fix : </label>
+                                            <p>{{ user.profil.entreprise.telephone }}</p>
+                                        </div>
+
+                                        <div class="form-group col-md-4 ">
+                                            <i class="fa fa-map"></i> <label for=""> &nbsp; Pays : </label>
+                                            <p>{{ user.profil.entreprise.pays }}, {{ user.profil.entreprise.ville }}</p>
+                                        </div>
+
+                                        <div class="form-group col-md-12">
+                                            <i class="fa fa-map-marker"></i><label for="">&nbsp;Adresse :</label>
+                                            <p>{{ user.profil.entreprise.adresse_Entreprise }}</p>
+                                        </div>
+
+
+                                </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- STRAT SCROLL TO TOP -->
+
+        <div class="scrollup">
+            <a href="#"><i class="fa fa-chevron-up"></i></a>
+        </div>
+
+        <br><br><br>
+
+{% endblock content %}
+
+
+{% block scripts %}
+    {{ block.super }}
+        <script src="{% static "appelsOffres/assets/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js" %} "></script>
+        <script src="{% static "appelsOffres/assets/js/vendor/jquery-1.11.2.min.js" %} "></script>
+        <script src="{% static "appelsOffres/assets/js/vendor/bootstrap.min.js" %} "></script>
+        <script src="{% static "appelsOffres/assets/js/jquery.easypiechart.min.js" %} "></script>
+
+        <script src="{% static "appelsOffres/assets/js/plugins.js" %} "></script>
+        <script src="{% static "appelsOffres/assets/js/main.js " %} "></script>
+
+        <script>
+        $(function () {
+                var v1 = 1;
+                var v2 = 1;
+
+
+                $('#nouveauPassword').keyup(function(){
+                    $('#nouveauPassword').filter(function(){
+                        nouveauPassword=$('#nouveauPassword').val();
+                        nouveauPasswordReg = /^[a-zA-Z0-9]{8,}$/;
+
+                        if( !nouveauPasswordReg.test( nouveauPassword ) ) {
+                            $('#nouveauPasswordlabel').css({"color":"red"});
+                            v1 = 1;
+                        }else{
+                            $('#nouveauPasswordlabel').css({"color":"green"});
+                            v1 = 0;
+                        }
+                    });
+                });
+
+                $('#confirmationPassword').keyup(function(){
+                    $('#confirmationPassword').filter(function(){
+                        confirmationPassword=$('#confirmationPassword').val();
+                        nouveauPassword=$('#nouveauPassword').val();
+
+                        if( confirmationPassword != nouveauPassword ) {
+                            $('#confirmationPasswordlabel').css({"color":"red"});
+                            v2 = 1;
+                        }else{
+                            $('#confirmationPasswordlabel').css({"color":"green"});
+                            v2 = 0;
+                        }
+                    });
+                });
+
+
+
+                $("#valide").click(function () {
+                    var v = (v1+v2);
+
+                    if (v == 0) {
+                        alert(v);
+                        return true;
+                    }else {
+                        alert(v);
+                        alert("Corrige tous ce qui est en rouge, Merci !");
+                        return false;
+                    }
+                });
+
+            });
+
+
+        </script>
+
+{% endblock scripts %}
+
+

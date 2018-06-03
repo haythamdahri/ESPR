@@ -1,0 +1,135 @@
+{% extends "network/index.html" %}
+{% load staticfiles %}
+{% block title %}{{ user.username }}{% endblock %}
+{% block content %}
+
+        <!-- Cover Header Start -->
+        <div class="cover--header pt--80 text-center" data-bg-img="{{ user.profile.cover_picture.url }}" data-overlay="0.6" data-overlay-color="white">
+            <div class="container">
+                <div class="cover--avatar online" data-overlay="0.3" data-overlay-color="primary">
+                    <img src="{{ user.profile.profile_picture.url }}" alt="">
+                </div>
+
+                <div class="cover--user-name">
+                    <h2 class="h3 fw--600">{{ user.first_name }} {{ user.last_name }}</h2>
+                </div>
+
+                <div class="cover--user-activity">
+                    <p><i class="fa mr--8 fa-clock-o"></i>Last Login: {{ user.last_login }}</p>
+                </div>
+
+                <div class="cover--user-desc fw--400 fs--18 fstyle--i text-darkest">
+                    <p>Hello everyone ! There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour.</p>
+                </div>
+            </div>
+        </div>
+        <!-- Cover Header End -->
+
+        <!-- Page Wrapper Start -->
+        <section class="page--wrapper pt--80 pb--20">
+            <div class="container">
+                <div class="row">
+                    <!-- Main Content Start -->
+                    <div class="main--content col-md-8 pb--60" data-trigger="stickyScroll">
+                        <div class="main--content-inner drop--shadow">
+                            <!-- Content Nav Start -->
+                            <div class="content--nav pb--30">
+                                <ul class="nav ff--primary fs--14 fw--500 bg-lighter">
+                                    <li><a href="member-activity-personal.html">Activity</a></li>
+                                    <li><a href="{% url 'social:profile' %}">Profile</a></li>
+                                    <li><a href="{% url 'social:friends' %}">Friends Requests</a></li>
+                                    <li class="active"><a href="{% url 'social:findfriends' %}">Find Friends</a></li>
+                                    <li><a href="member-groups.html">Groups</a></li>
+                                    <li><a href="member-forum-topics.html">Forum</a></li>
+                                    <li><a href="member-media-all.html">Media</a></li>
+                                </ul>
+                            </div>
+                            <!-- Content Nav End -->
+
+                            <!-- Filter Nav Start -->
+                            <div class="filter--nav pb--50 clearfix">
+                                <div class="filter--options float--right">
+                                    <label>
+                                        <span class="fs--14 ff--primary fw--500 text-darker">Show By :</span>
+
+                                        <select name="membersfilter" class="form-control form-sm" data-trigger="selectmenu">
+                                            <option value="last-active" selected>Last Active</option>
+                                            <option value="new-registered">New Registerd</option>
+                                            <option value="alphabetical">Alphabetical</option>
+                                        </select>
+                                    </label>
+                                </div>
+                            </div>
+                            <!-- Filter Nav End -->
+
+                            <!-- Member Items Start -->
+                        {% if profiles.count != 0 %}
+                            <div class="member--items">
+                                <div class="row gutter--15 AdjustRow">
+                            {% for profile in profiles %}
+                                    <div class="col-md-4">
+                                        <!-- Member Item Start -->
+                                        <div class="member--item online">
+                                            <div class="img img-circle">
+                                                <a href="{% url 'social:getProfile' profile.id %}" class="btn-link">
+                                                    <img src="{{ profile.profile_picture.url }}" alt="">
+                                                </a>
+                                            </div>
+
+                                            <div class="name">
+                                                <h3 class="h6 fs--12">
+                                                    <a href="{% url 'social:getProfile' profile.id %}" class="btn-link">{{ friend.emetteur }}</a>
+                                                </h3>
+                                            </div>
+
+                                            <div class="activity">
+                                                <p><i class="fa mr--8 fa-clock-o"></i>{% if profile.user.last_login is not None  %}Active {{ profile.user.last_login|date:"l, d M, Y " }}{% else %}Never Logged In{% endif %}</p>
+                                            </div>
+                                            <div class="actions">
+                                                <ul class="nav">
+                                                    <li>
+                                                        <a href="#" title="Send Message" class="btn-link" data-toggle="tooltip" data-placement="bottom">
+                                                            <i class="fa fa-envelope-o"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#" title="Add Friend" class="btn-link" data-toggle="tooltip" data-placement="bottom">
+                                                            <i class="fa fa-user-plus"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#" title="Media" class="btn-link" data-toggle="tooltip" data-placement="bottom">
+                                                            <i class="fa fa-folder-o"></i>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                </div>
+                            {% endfor %}
+                            </div>
+                            </div>
+                        {% else %}
+                                <h2 class="h4 fw--700 widget--title">Aucun Profile N'a Ete Trouvé, Veuiller Actualiser La Page</h2>
+                        {% endif %}
+                            <!-- Page Count Start -->
+                            <div class="page--count pt--30">
+                                <label class="ff--primary fs--14 fw--500 text-darker">
+                                    <span>Viewing</span>
+
+                                    <a href="#" class="btn-link"><i class="fa fa-caret-left"></i></a>
+                                    <input type="number" name="page-count" value="01" class="form-control form-sm">
+                                    <a href="#" class="btn-link"><i class="fa fa-caret-right"></i></a>
+
+                                    <span>of 68</span>
+                                </label>
+                            </div>
+                            <!-- Page Count End -->
+
+                    </div>
+                </div>
+                    <!-- Main Content End -->
+            </div>
+            </div>
+        </section>
+{% endblock %}

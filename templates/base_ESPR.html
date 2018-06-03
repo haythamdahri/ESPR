@@ -1,0 +1,265 @@
+{% load staticfiles %}
+{% load widget_tweaks %}
+<!DOCTYPE html>
+
+<html>
+    
+<!-- Mirrored from bootstraplovers.com/bootstrap4/bizwrap-v3.2/html/home-onepage.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 01 Jun 2018 21:38:04 GMT -->
+<head>
+    {% block stylesheet %}
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>{% block title %}ESPR{% endblock %}</title>
+        <link href="{% static 'main_app/main/main-font-awesome-4.2.0/css/font-awesome.min.css' %}" rel="stylesheet"/>
+
+        <!--plugins-->
+        <link href="{% static 'main_app/css/plugins/plugins.css' %}" rel="stylesheet">
+
+        <link href="{% static 'main_app/images/icons/favicon.ico' %}" rel="icon">
+        <!--master slider-->
+        <link rel="stylesheet" href="{% static 'main_app/masterslider/style/masterslider.css' %}"/>
+        <link href="{% static 'main_app/masterslider/skins/default/style.css' %}" rel='stylesheet'>
+        <!--cube portfolio-->
+        <link href="{% static 'main_app/cubeportfolio/css/cubeportfolio.min.css' %}" rel='stylesheet'>
+        <!--Custom css-->
+        <link href="{% static 'main_app/css/style.css' %}" rel="stylesheet">
+
+{% endblock %}
+
+    </head>
+
+    <body class="one-page-wrap" data-spy="scroll">
+        <div id="preloader">
+            <div id="preloader-inner"></div>
+        </div><!--/preloader-->
+        <!--back to top-->
+        <a href="#" class="scrollToTop"><i class="ion-android-arrow-dropup-circle"></i></a>
+        <!--back to top end-->
+
+        {% block header %}
+      <header class="header header-sticky header-transparent header-light">
+
+           <div class="top-bar navbar">
+                <div class="container">
+                {% if user.is_authenticated %}
+                    <ul class="navbar-nav nav flex-row mr-auto">
+                        <li class="nav-item"><a href="#"><i class="ion-ios-telephone mr-2"></i> {{ user.email }}</a></li>
+                     </ul>
+                {% endif %}
+                    <ul class="navbar-nav flex-row nav ml-auto">
+
+                    {% if not user.is_authenticated %}
+                        <li class="nav-item"><a href="{% url 'main_app:signup' %}" class="nav-link">Creer un compte</a></li>
+                        <li class="nav-item">
+                            <a href="{% url 'main_app:log_in' %}" class="nav-link"><i class="ion-android-lock mr-2"></i> Se Connecter</a></li>
+
+                    {% else %}
+                        <li class="nav-item"><a href="javascript:void(0)" class="nav-link"><i class="fa fa-user" aria-hidden="true"></i> Bienvuenue {{ user.first_name }} {{ user.last_name }}</a></li>
+                        <li class="nav-item"><a href="{% url 'main_app:log_out' %}" class="nav-link"><i class="fa fa-sign-out" aria-hidden="true"></i> Deconnexion</a></li>
+                    {% endif %}
+                        <li class="dropdown nav-item">
+                            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"> Eng.</a>
+                            <ul class="dropdown-menu dropdown-menu-right dropdown-menu-sm">
+                                <li><a href="#" class="dropdown-item">ENGLISH</a></li>
+                                <li><a href="#" class="dropdown-item">FRANCE</a></li>
+                                <li><a href="#" class="dropdown-item">GERMANY</a></li>
+                                <li><a href="#" class="dropdown-item">JAPANESE</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div><!--container end-->
+            </div>
+
+
+            <nav class="navbar navbar-expand-lg yamm">
+                <div class="container">
+                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <a class="navbar-brand" href="{% url 'main_app:home' %}">
+                        <img src="{% static 'main_app/img/logo.png' %}" style="top: 14px;width: 40px;" class="img-fluid logo-dark" alt="">
+                        <img src="{% static 'main_app/img/logo.png' %}" style="top: 14px;width: 40px;" class="img-fluid logo-light" alt="">
+                    </a>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav ml-auto smooth-scroll">
+                        <li class="nav-item"><a class="nav-link active" href="#home"><i class="ion-home mr-2"></i> Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#about"><i class="ion-person-stalker mr-2"></i> About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#work"><i class="ion-images mr-2"></i> Portfolio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#services"><i class="ion-settings mr-2"></i> Services</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contact"><i class="ion-android-call mr-2"></i> Contact</a></li>
+
+                    </ul>
+                    </div>
+                    <div class="right-search ml-4 dropdown">
+                        <a class="icon-search" href="#!" data-toggle="dropdown">
+                            <i class="ion-ios-search-strong"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <form class="form-inline">
+                                <input type="text" placeholder="Search" class="form-control">
+                                <button type="button" class="form-search-button">
+                                    <i class="ion-ios-search-strong"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </nav><!--nav end-->
+        </header>
+        {% endblock %}
+{% block content %}
+
+{% endblock %}
+{% block footer %}
+        <section id="contact">
+            <div class="space-50"></div>
+            <div id="footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4 margin-btm-20">
+                            <div class="footer-col">
+                                <h3>Bizwrap</h3>
+                                <p>
+                                    aliqua.adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna. aliqua.adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.
+                                </p>
+                            </div>
+                            <div class="space-20"></div>
+                            <div class="footer-col">
+                                <h3>contact info</h3>
+                                <p><i class="ion-home"></i> pearl tower,3rd floor,jaipur,302012</p>
+                                <p><i class="ion-iphone"></i> +91 9887568614</p>
+                                <p><i class="ion-email"></i> mail@domain.com</p>
+                            </div>
+                            <div class="space-20"></div>
+                            <div class="footer-col">
+                                <h3>Follow us</h3>
+                                <ul class=" list-inline social-btn">
+                                    <li class="list-inline-item"><a href="#"><i class="ion-social-facebook" data-toggle="tooltip" data-placement="top" title="" data-original-title="Like On Facebook"></i></a></li>
+                                    <li class="list-inline-item"><a href="#"><i class="ion-social-twitter" data-toggle="tooltip" data-placement="top" title="" data-original-title="Follow On twitter"></i></a></li>
+                                    <li class="list-inline-item"><a href="#"><i class="ion-social-googleplus" data-toggle="tooltip" data-placement="top" title="" data-original-title="Follow On googleplus"></i></a></li>
+                                    <li class="list-inline-item"><a href="#"><i class="ion-social-pinterest" data-toggle="tooltip" data-placement="top" title="" data-original-title="pinterest"></i></a></li>
+                                    <li class="list-inline-item"><a href="#"><i class="ion-social-skype" data-toggle="tooltip" data-placement="top" title="" data-original-title="skype"></i></a></li>
+                                </ul>
+                            </div><!--footer social col-->
+                        </div><!--col-4 end-->
+                        <div class="col-md-3 margin-btm-20">
+                            <div class="footer-col">
+                                <h3>Latest post</h3>
+                                <ul class="post-list list-unstyled">
+                                    <li><a href="#" class="hover-color">Blog post with image</a></li>
+                                    <li><a href="#" class="hover-color">lorem ipsum dollor sit amet</a></li>
+                                    <li><a href="#" class="hover-color">Blog post with audio</a></li>
+                                    <li><a href="#" class="hover-color">lorem ipsum dollor sit amet</a></li>
+                                    <li><a href="#" class="hover-color">Blog post with quote</a></li>
+                                </ul>
+                            </div>
+                        </div><!--latest post col end-->
+                        <div class="col-md-5">
+                            <div class="footer-col">
+                                {% include "messages.html" %}
+                                <h3>Get in touch</h3>
+                                <form action="{% url 'main_app:contactus' %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="is_home" />
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            {% render_field contact_form.full_name class="form-control" placeholder="Nom complet..." %}
+                                        </div>
+                                        {% for error in contact_form.full_name.errors %}
+                                            <span class="error-block">{{ error }}</span>
+                                        {% endfor %}
+                                        <div class="col-md-12">
+                                            {% render_field contact_form.email class="form-control" placeholder="Email..." %}
+                                        </div>
+                                        {% for error in contact_form.email.errors %}
+                                            <span class="error-block">{{ error }}</span>
+                                        {% endfor %}
+                                        <div class="col-md-12">
+                                            {% render_field contact_form.message class="form-control" placeholder="Message..." %}
+                                        </div>
+                                        {% for error in contact_form.message.errors %}
+                                            <span class="error-block">{{ error }}</span>
+                                        {% endfor %}
+                                        <div class="col-md-12 text-right">
+                                            <button type="submit" class="btn btn-lg btn-white">Send massege</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div><!--get in touch col end-->
+                    </div><!--footer main row end-->  
+                    <div class="space-70"></div>
+                    <div class="row">
+                        <div class="col-md-12 text-center footer-bottom">
+                            <a href="index.html"> <img style="width: 60px;" src="{% static 'main_app/img/logo.png' %}" alt=""></a>
+                            <div class="space-20"></div>
+                            <span>&copy;2017. All right reserved. Design by design_mylife</span>
+                        </div>
+                    </div><!--footer copyright row end-->
+                </div><!--container-->
+            </div><!--footer main end-->
+        </section>
+{% endblock %}
+
+{% block scripts %}
+        <!-- jQuery plugins. -->
+        <script src="{% static 'main_app/js/plugins/plugins.js' %}"></script>
+        <script src="{% static 'main_app/js/app.js' %}"></script>
+        <!--page template scripts-->
+        <script src="{% static 'main_app/masterslider/masterslider.min.js' %}"></script>
+        <script src="{% static 'main_app/js/masterslider-custom.js' %}" type="text/javascript"></script>
+        <script src="{% static 'main_app/cubeportfolio/js/jquery.cubeportfolio.min.js' %}"></script>
+        <script>
+            //auto close navbar-collapse on click a
+            $('a.nav-link').on('click', function () {
+                $('.navbar-toggler:visible').click();
+            });
+            (function ($, window, document, undefined) {
+                'use strict';
+
+                // init cubeportfolio
+                $('#js-grid-mosaic-flat').cubeportfolio({
+                    filters: '#js-filters-mosaic-flat',
+                    layoutMode: 'mosaic',
+                    sortToPreventGaps: true,
+                    mediaQueries: [{
+                            width: 1500,
+                            cols: 6
+                        }, {
+                            width: 1100,
+                            cols: 4
+                        }, {
+                            width: 800,
+                            cols: 3
+                        }, {
+                            width: 480,
+                            cols: 2,
+                            options: {
+                                caption: '',
+                                gapHorizontal: 15,
+                                gapVertical: 15
+                            }
+                        }],
+                    defaultFilter: '*',
+                    animationType: 'fadeOutTop',
+                    gapHorizontal: 0,
+                    gapVertical: 0,
+                    gridAdjustment: 'responsive',
+                    caption: 'fadeIn',
+                    displayType: 'fadeIn',
+                    displayTypeSpeed: 100,
+                    // lightbox
+                    lightboxDelegate: '.cbp-lightbox',
+                    lightboxGallery: true,
+                    lightboxTitleSrc: 'data-title',
+                    lightboxCounter: '<div class="cbp-popup-lightbox-counter">{{current}} of {{total}}</div>',
+                });
+            })(jQuery, window, document);
+        </script>
+    {% endblock %}
+    </body>
+
+<!-- Mirrored from bootstraplovers.com/bootstrap4/bizwrap-v3.2/html/home-onepage.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 01 Jun 2018 21:40:53 GMT -->
+</html>

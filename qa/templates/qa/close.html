@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load django_markdown %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+
+
+{% block content %}
+
+
+<h1>{{ question.closed }}</h1>
+
+<form method="post" action="/qa/closequestion/">
+              {% csrf_token %} 
+              <input type="hidden" name="question_id" value="{{ question.id }}">
+            
+{% if question.closed == False %}
+                <input type="hidden" name="closequestion" value="True">
+                <div class="alert alert-success" role="alert">
+	  Votre Question Ouverte!
+	</div>
+	<button class="btn btn-danger btn-sm" >
+                <i class=" glyphicon glyphicon-remove icon-white"></i>
+                Fermer</button>
+   
+{% else %}
+                <div class="alert alert-danger" role="alert">
+		  Votre Question Fermer
+		</div>
+               <input type="hidden" name="closequestion" value="False">
+                
+                <button class="btn btn-danger btn-sm" >
+                	<i class="glyphicon glyphicon-ok icon-white"></i>
+                	Open
+           
+{% endif %}
+               </button>
+             </form>  
+{% endblock content %}

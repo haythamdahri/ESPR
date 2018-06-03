@@ -1,0 +1,15 @@
+ {% load i18n %}
+ <form method="post" action="/qa/answer/">
+ 	{% csrf_token %}
+ 	<div class="form-group">
+ 		<label></label>
+ 		<div>
+ 			{{ upform.media }}
+ 			{{ upform.answer_text }}
+ 		</div>
+ 	</div>
+ 	<input type="hidden" name="question" value="{{ question.id }}">
+ 	<input type="hidden" name="user" value="{{ user.id }}">
+ 	<button class="btn btn-primary btn-lg btn-block">{% trans "Postez votre réponse" %}</button>
+
+ </form>

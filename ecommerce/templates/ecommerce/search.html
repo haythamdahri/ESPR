@@ -1,0 +1,1242 @@
+{% extends 'ecommerce/base.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+<div class="main-container container">
+    <ul class="breadcrumb">
+        <li><a href="{% url 'e_commerce:index' %}">Accueil</a></li>
+        <li>
+            {% if type_search == "category" %}
+                <a href="{% url 'e_commerce:products' "category" category.pk %}">{{ category.name }}</a>
+
+            {% elif type_search == "category_one" %}
+                <a href="{% url 'e_commerce:products' "category" category.category.pk %}">{{ category.category.name }}</a>
+            </li>
+            <li>
+                <b><a href="{% url 'e_commerce:products' "category_one" category.pk %}">{{ category.name }}</a></b>
+
+            {% elif type_search == "category_two" %}
+                <a href="{% url 'e_commerce:products' "category" category.category_one.category.pk %}">{{ category.category_one.category.name }}</a>
+            </li>
+            <li>
+                <a href="{% url 'e_commerce:products' "category_one" category.category_one.pk %}">{{ category.category_one.name }}</a>
+            </li>
+            <li>
+                <b><a href="{% url 'e_commerce:products' "category_two" category.pk %}">{{ category.name }}</a></b>
+
+            {% elif type_search == "sub_category" %}
+                <a href="{% url 'e_commerce:products' "category" category.category_two.category_one.category.pk %}">{{ category.category_two.category_one.category.name }}</a>
+            </li>
+            <li>
+                <a href="{% url 'e_commerce:products' "category_one" category.category_two.category_one.pk %}">{{ category.category_two.category_one.name }}</a>
+            </li>
+            <li>
+                <a href="{% url 'e_commerce:products' "category_two" category.category_two.pk %}">{{ category.category_two.name }}</a>
+            </li>
+            <li>
+                <b><a href="{% url 'e_commerce:products' "sub_category" category.pk %}">{{ category.name }}</a></b>
+            {% else %}
+                <b>Toutes les Catégories</b>
+            {% endif %}
+        </li>
+    </ul>
+    <div class="row">
+    {% if results %}
+        <!--Left Part Start -->
+        <aside class="col-sm-4 col-md-3 content-aside" id="column-left">
+            <div class="module category-style">
+                <h3 class="modtitle">Achetez Par</h3>
+                <div class="">
+                    <div class="modcontent">
+                    {# -------------------------------------------- Form -------------------------------------------- #}
+                        <form class="type_2" method="POST" action="{% url 'e_commerce:search' %}">
+                        {% csrf_token %}
+                        {% if category %}
+                            <input type="hidden" name="category_id" value="{{ category.pk }}" />
+                        {% else %}
+                            <input type="hidden" name="category_id" value="0" />
+                        {% endif %}
+                        {% if word %}
+                            <input type="hidden" name="word" value="{{ word }}" />
+                        {% else %}
+                            <input type="hidden" name="word" value="null" />
+                        {% endif %}
+                        {% if sort_by %}
+                            <input type="hidden" name="sort_by" value="{{ sort_by }}" />
+                        {% endif %}
+                        {% if is_pro %}
+                            <input type="hidden" name="is_pro" value="{{ is_pro }}" />
+                        {% endif %}
+                        {% if number_elements %}
+                            <input type="hidden" name="number_elements" value="{{ number_elements }}" />
+                        {% endif %}
+                            <div class="table_layout filter-shopby">
+                                <div class="table_row">
+                                    <!-- - - - - - - - - - - - - - Price - - - - - - - - - - - - - - - - -->
+                                    <div class="table_cell">
+                                        <fieldset>
+                                            <legend>Prix
+                                                <div class="btn-group" data-toggle="buttons">
+                                                <label id="checks" class="btn btn-default">
+                                                    <input type="checkbox" name="price">
+                                                    <span class="glyphicon glyphicon-ok"></span>
+                                                </label></div>
+                                            </legend>
+                                            <div id="slider" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                                                <div class="ui-slider-range ui-widget-header ui-corner-all"></div>
+                                                <span class="ui-slider-handle ui-state-default ui-corner-all" ></span>
+                                                <span class="ui-slider-handle ui-state-default ui-corner-all" ></span>
+                                            </div>
+                                            <div class="bock-range range">
+                                                <input title="min value" type="text" name="min_val" id="min_val" value="01.00" class="min_val input input-group">
+                                                <input title="max value" type="text" name="max_val" id="max_val" value="5000.00" class="max_val input input-group">
+                                            </div>
+                                            <div class="range">
+                                                Range :
+                                                <span class="min_val">$0</span> -
+                                                <span class="max_val">$5000</span>
+                                                <input type="hidden" name="" class="min_value" value="01.00">
+                                                <input type="hidden" name="" class="max_value" value="5000.00">
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                    <!-- - - - - - - - - - - - - - End price - - - - - - - - - - - - - - - - -->
+                                    <!-- - - - - - - - - - - - - - Pro - - - - - - - - - - - - - - - - -->
+                                    <div class="table_cell">
+                                        <fieldset>
+                                            <legend>Professionnel</legend>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <label class="text-muted font-weight-light" style="padding: 2px">
+                                                        {% if is_pro == 'both' or not is_pro %}
+                                                            <input type="radio" name="is_pro" value="both" checked="checked"> Tous
+                                                        {% else %}
+                                                            <input type="radio" name="is_pro" value="both">Both
+                                                        {% endif %}
+                                                    </label>
+                                                    <label class="text-muted font-weight-light" style="padding: 2px">
+                                                        {% if is_pro == 'pro' %}
+                                                            <input type="radio" name="is_pro" value="pro" checked="checked">Professionnel
+                                                        {% else %}
+                                                            <input type="radio" name="is_pro" value="pro">Professional
+                                                        {% endif %}
+                                                    </label>
+                                                    <label class="text-muted font-weight-light" style="padding: 2px">
+                                                        {% if is_pro == 'ord' %}
+                                                            <input type="radio" name="is_pro" value="ord" checked="checked">Particulier
+                                                        {% else %}
+                                                            <input type="radio" name="is_pro" value="ord">Ordinary
+                                                        {% endif %}
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                    <!-- - - - - - - - - - - - - - End Pro - - - - - - - - - - - - - - - - -->
+                                    <!-- - - - - - - - - - - - - - Color - - - - - - - - - - - - - - - - -->
+                                    <div class="table_cell">
+                                        <fieldset>
+                                            <legend>Couleurs</legend>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <ul class="color checkboxes_list">
+                                                        {% for color in colors %}
+                                                            {% if color.id in selected_colors %}
+                                                                <input type="checkbox" name="color" value="{{ color.pk }}" id="color{{ color.pk }}" checked>
+                                                            {% else %}
+                                                                <input type="checkbox" name="color" value="{{ color.pk }}" id="color{{ color.pk }}">
+                                                            {% endif %}
+                                                            <label for="color{{ color.pk }}">
+                                                            {% if not color.name == 'None' %}
+                                                                <li style="background-color: {{ color.code_hex }};
+                                                                                cursor: pointer;
+                                                                                border: 1px solid black;
+                                                                                border-radius: 5px;">
+                                                            {% else %}
+                                                                <li style="background-image: url('{% static 'ecommerce/image/none.png' %}');
+                                                                                background-size: 28px;
+                                                                                cursor: pointer;
+                                                                                border: 1px solid black;
+                                                                                border-radius: 5px;">
+                                                            {% endif %}
+                                                            </li></label>
+                                                        {% endfor %}
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                    <!-- - - - - - - - - - - - - - End color - - - - - - - - - - - - - - - - -->
+                                    <!-- - - - - - - - - - - - - - Brands - - - - - - - - - - - - - - - - -->
+                                    {% if brands %}
+                                    <div class="table_cell">
+                                        <fieldset>
+                                            <legend>Marques</legend>
+                                            <ul class="checkboxes_list">
+                                                {% for brand in brands %}
+                                                <li>
+                                                    {% if brand.id in selected_brands %}
+                                                        <input type="checkbox" name="brand" value="{{ brand.pk }}" id="brand{{ brand.pk }}" checked>
+                                                    {% else %}
+                                                        <input type="checkbox" name="brand" value="{{ brand.pk }}" id="brand{{ brand.pk }}">
+                                                    {% endif %}
+                                                    <label for="brand{{ brand.pk }}">{{ brand.name }} ({{ brand.product_set.count }})</label>
+                                                </li>
+                                                {% endfor %}
+                                            </ul>
+                                        </fieldset>
+                                    </div>
+                                    {% endif %}
+                                    <!-- - - - - - - - - - - - - - End SUB CATEGORY - - - - - - - - - - - - - - - - -->
+                                </div>
+                                <!--/ .table_row -->
+                            </div>
+                            <!--/ .table_layout -->
+                            <input name="filter" type="hidden" value="true" />
+                            <button class="btn btn-group filter">Filtrer</button>
+                        </form>
+                    {# ---------------------------------------------------------------------------------------------- #}
+                    </div>
+                </div>
+            </div>
+        </aside>
+    {% endif %}
+        <!--Left Part End -->
+        <!--Middle Part Start-->
+        <div id="content" class="col-md-9 col-sm-8">
+            <div class="products-category">
+            {% if results %}
+                <div class="module">
+                    <h3 class="modtitle2">Recherche de '{{ word }}' dans {% if category %}{{ category.name }}{% else %}Touts les catégories{% endif %}</h3>
+                </div>
+                <!-- Filters -->
+                <div class="product-filter product-filter-top filters-panel">
+                    <div class="row">
+                        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12 view-mode">
+                            <div class="list-view">
+                                <button class="btn btn-default grid active" data-view="grid" data-toggle="tooltip" data-original-title="Grid"><i class="fa fa-th"></i></button>
+                                <button class="btn btn-default list" data-view="list" data-toggle="tooltip" data-original-title="List"><i class="fa fa-th-list"></i></button>
+                            </div>
+                        </div>
+                        <div class="short-by-show form-inline text-right col-lg-5 col-md-9 col-sm-12 col-xs-12">
+                            <div class="form-group short-by">
+                            {# ------------------------------ Sort By -------------------------------------- #}
+                                <form style="display: inline;" method="post" action="{% url 'e_commerce:search' %}" id="form_sort_by">
+                                    {% csrf_token %}
+                                    {% if category %}
+                                        <input type="hidden" name="category_id" value="{{ category.pk }}" />
+                                    {% else %}
+                                        <input type="hidden" name="category_id" value="0" />
+                                    {% endif %}
+
+                                    {% if word %}
+                                        <input type="hidden" name="word" value="{{ word }}" />
+                                    {% else %}
+                                        <input type="hidden" name="word" value="null" />
+                                    {% endif %}
+
+                                    {% if max_value %}
+                                        <input type="hidden" name="max_value" value="{{ max_value }}" />
+                                    {% else %}
+                                        <input type="hidden" name="max_value" value="null" />
+                                    {% endif %}
+
+                                    {% if min_value %}
+                                        <input type="hidden" name="min_value" value="{{ min_value }}" />
+                                    {% else %}
+                                        <input type="hidden" name="min_value" value="null" />
+                                    {% endif %}
+
+                                    {% if is_filtered %}
+                                        <input type="hidden" name="filter" value="True" />
+                                    {% endif %}
+
+                                    {% if filter_by_price %}
+                                        <input type="hidden" name="price" value="True" />
+                                    {% endif %}
+
+                                    {% if is_pro %}
+                                        <input type="hidden" name="is_pro" value="{{ is_pro }}" />
+                                    {% endif %}
+
+                                    {% if selected_colors %}
+                                        {% for el in selected_colors %}
+                                            <input type="hidden" name="color" value="{{ el }}" />
+                                        {% endfor %}
+                                    {% endif %}
+
+                                    {% if selected_brands %}
+                                        {% for el in selected_colors %}
+                                            <input type="hidden" name="brand" value="{{ el }}" />
+                                        {% endfor %}
+                                    {% endif %}
+
+                                    {% if number_elements %}
+                                        <input type="hidden" name="number_elements" value="{{ number_elements }}" />
+                                    {% endif %}
+
+                                    <select title="sort" id="input-sort" class="form-control" name="sort_by">
+                                        {% if sort_by %}
+                                            {% if sort_by == "1" %}
+                                                <option value="1" selected="selected">Trier Par Défaut</option>
+                                            {% else %}
+                                                <option value="1">Trier Par Défaut</option>
+                                            {% endif %}
+                                            {% if sort_by == "2" %}
+                                                <option value="2" selected="selected">Trier Par Nom (A - Z)</option>
+                                            {% else %}
+                                                <option value="2">Trier Par Nom (A - Z)</option>
+                                            {% endif %}
+                                            {% if sort_by == "3" %}
+                                                <option value="3" selected="selected">Trier Par Nom (Z - A)</option>
+                                            {% else %}
+                                                <option value="3">Trier Par Nom (Z - A)</option>
+                                            {% endif %}
+                                            {% if sort_by == "4" %}
+                                                <option value="4" selected="selected">Trier Par Prix (Bas &gt; Elevé)</option>
+                                            {% else %}
+                                                <option value="4">Trier Par Prix (Bas &gt; Elevé)</option>
+                                            {% endif %}
+                                            {% if sort_by == "5" %}
+                                                <option value="5" selected="selected">Trier Par Prix (Elevé &gt; Bas)</option>
+                                            {% else %}
+                                                <option value="5">Trier Par Prix (Elevé &gt; Bas)</option>
+                                            {% endif %}
+                                            {% if sort_by == "6" %}
+                                                <option value="6" selected="selected">Trier Par Evaluation (Elevé)</option>
+                                            {% else %}
+                                                <option value="6">Trier Par Evaluation (Elevé)</option>
+                                            {% endif %}
+                                            {% if sort_by == "7" %}
+                                                <option value="7" selected="selected">Trier Par Evaluation (Bas)</option>
+                                            {% else %}
+                                                <option value="7">Trier Par Evaluation (Bas)</option>
+                                            {% endif %}
+                                            {% if sort_by == "8" %}
+                                                <option value="8" selected="selected">Trier Par Marque (A - Z)</option>
+                                            {% else %}
+                                                <option value="8">Trier Par Marque (A - Z)</option>
+                                            {% endif %}
+                                            {% if sort_by == "9" %}
+                                                <option value="9" selected="selected">Trier Par Marque(Z - A)</option>
+                                            {% else %}
+                                                <option value="9">Trier Par Marque (Z - A)</option>
+                                            {% endif %}
+                                            {% if sort_by == "10" %}
+                                                <option value="10" selected="selected">Trier Par Date (Nouveau)</option>
+                                            {% else %}
+                                                <option value="10">Trier Par Date (Nouveau)</option>
+                                            {% endif %}
+                                            {% if sort_by == "11" %}
+                                                <option value="11" selected="selected">Trier Par Date (Ancien)</option>
+                                            {% else %}
+                                                <option value="11">Trier Par Date (Ancien)</option>
+                                            {% endif %}
+                                        {% else %}
+                                            <option value="1" selected="selected">Trier Par Défaut</option>
+                                            <option value="2">Trier Par Nom (A - Z)</option>
+                                            <option value="3">Trier Par Nom (Z - A)</option>
+                                            <option value="4">Trier Par Prix (Bas &gt; Elevé)</option>
+                                            <option value="5">Trier Par Prix (Elevé &gt; Bas)</option>
+                                            <option value="6">Trier Par Rating (Elevé)</option>
+                                            <option value="7">Trier Par Rating (Bas)</option>
+                                            <option value="8">Trier Par Marque (A - Z)</option>
+                                            <option value="9">Trier Par Marque (Z - A)</option>
+                                            <option value="10">Trier Par Date (Nouveau)</option>
+                                            <option value="11">Trier Par Date (Ancien)</option>
+                                        {% endif %}
+                                    </select>
+                                    <button type="submit" class="btn btn-group"><i class="fa fa-long-arrow-down"></i></button>
+                                </form>
+                            {# ---------------------------------------------------------------------------- #}
+                            </div>
+                            <div class="form-group">
+                            {# ------------------------------ Number elements -------------------------------------- #}
+                                <label for="input-limit"><span class="control-label">Show:</span></label>
+                                <form style="display: inline;" method="post" action="{% url 'e_commerce:search' %}" id="form_number_elements">
+                                    {% csrf_token %}
+                                    {% if category %}
+                                        <input type="hidden" name="category_id" value="{{ category.pk }}" />
+                                    {% else %}
+                                        <input type="hidden" name="category_id" value="0" />
+                                    {% endif %}
+
+                                    {% if word %}
+                                        <input type="hidden" name="word" value="{{ word }}" />
+                                    {% else %}
+                                        <input type="hidden" name="word" value="null" />
+                                    {% endif %}
+
+                                    {% if max_value %}
+                                        <input type="hidden" name="max_value" value="{{ max_value }}" />
+                                    {% else %}
+                                        <input type="hidden" name="max_value" value="null" />
+                                    {% endif %}
+
+                                    {% if min_value %}
+                                        <input type="hidden" name="min_value" value="{{ min_value }}" />
+                                    {% else %}
+                                        <input type="hidden" name="min_value" value="null" />
+                                    {% endif %}
+
+                                    {% if is_filtered %}
+                                        <input type="hidden" name="filter" value="True" />
+                                    {% endif %}
+
+                                    {% if filter_by_price %}
+                                        <input type="hidden" name="price" value="True" />
+                                    {% endif %}
+
+                                    {% if is_pro %}
+                                        <input type="hidden" name="is_pro" value="{{ is_pro }}" />
+                                    {% endif %}
+
+                                    {% if selected_colors %}
+                                        {% for el in selected_colors %}
+                                            <input type="hidden" name="color" value="{{ el }}" />
+                                        {% endfor %}
+                                    {% endif %}
+
+                                    {% if selected_brands %}
+                                        {% for el in selected_colors %}
+                                            <input type="hidden" name="brand" value="{{ el }}" />
+                                        {% endfor %}
+                                    {% endif %}
+
+                                    {% if sort_by %}
+                                        <input type="hidden" name="sort_by" value="{{ sort_by }}" />
+                                    {% endif %}
+
+                                    <select id="input-limit" title="number elements" name="number_elements" class="form-control" onchange="document.getElementById('form_number_elements').submit();">
+                                        {% if number_elements %}
+                                            {% if number_elements == "15" %}
+                                                <option value="15" selected="selected">15</option>
+                                            {% else %}
+                                                <option value="15">15</option>
+                                            {% endif %}
+                                            {% if number_elements == "25" %}
+                                                <option value="25" selected="selected">25</option>
+                                            {% else %}
+                                                <option value="25">25</option>
+                                            {% endif %}
+                                            {% if number_elements == "50" %}
+                                                <option value="50" selected="selected">50</option>
+                                            {% else %}
+                                                <option value="50">50</option>
+                                            {% endif %}
+                                            {% if number_elements == "75" %}
+                                                <option value="75" selected="selected">75</option>
+                                            {% else %}
+                                                <option value="75">75</option>
+                                            {% endif %}
+                                            {% if number_elements == "100" %}
+                                                <option value="100" selected="selected">100</option>
+                                            {% else %}
+                                                <option value="100">100</option>
+                                            {% endif %}
+                                        {% else %}
+                                            <option value="15" selected="selected">15</option>
+                                            <option value="25">25</option>
+                                            <option value="50">50</option>
+                                            <option value="75">75</option>
+                                            <option value="100">100</option>
+                                        {% endif %}
+                                    </select>
+                                </form>
+                            {# ------------------------------ -------------------------------------- #}
+                            </div>
+                        </div>
+                        <div class="box-pagination col-lg-5 col-md-12 col-sm-12 col-xs-12 text-right">
+                            {# ------------------------------ Pagination -------------------------------------- #}
+                            {% if results.has_other_pages %}
+                            <div class="content-pagination-2 col-md-12">
+                                <span>Page: </span>
+                                <ul class="pagination1">
+                                    {# --------------------------------- previous -------------------------------------------- #}
+                                    {% if results.has_previous %}
+                                    <form style="display: inline"  method="post" action="{% url 'e_commerce:search' %}" id="form_previous1">
+                                        {% csrf_token %}
+                                        {% if category %}
+                                            <input type="hidden" name="category_id" value="{{ category.pk }}" />
+                                        {% else %}
+                                            <input type="hidden" name="category_id" value="0" />
+                                        {% endif %}
+
+                                        {% if word %}
+                                            <input type="hidden" name="word" value="{{ word }}" />
+                                        {% else %}
+                                            <input type="hidden" name="word" value="null" />
+                                        {% endif %}
+
+                                        {% if max_value %}
+                                            <input type="hidden" name="max_value" value="{{ max_value }}" />
+                                        {% else %}
+                                            <input type="hidden" name="max_value" value="null" />
+                                        {% endif %}
+
+                                        {% if min_value %}
+                                            <input type="hidden" name="min_value" value="{{ min_value }}" />
+                                        {% else %}
+                                            <input type="hidden" name="min_value" value="null" />
+                                        {% endif %}
+
+                                        {% if is_filtered %}
+                                            <input type="hidden" name="filter" value="True" />
+                                        {% endif %}
+
+                                        {% if filter_by_price %}
+                                            <input type="hidden" name="price" value="True" />
+                                        {% endif %}
+
+                                        {% if is_pro %}
+                                            <input type="hidden" name="is_pro" value="{{ is_pro }}" />
+                                        {% endif %}
+
+                                        {% if selected_colors %}
+                                            {% for el in selected_colors %}
+                                                <input type="hidden" name="color" value="{{ el }}" />
+                                            {% endfor %}
+                                        {% endif %}
+
+                                        {% if selected_brands %}
+                                            {% for el in selected_colors %}
+                                                <input type="hidden" name="brand" value="{{ el }}" />
+                                            {% endfor %}
+                                        {% endif %}
+
+                                        {% if sort_by %}
+                                            <input type="hidden" name="sort_by" value="{{ sort_by }}" />
+                                        {% endif %}
+
+                                        {% if number_elements %}
+                                            <input type="hidden" name="number_elements" value="{{ number_elements }}" />
+                                        {% endif %}
+                                        <input type="hidden" name="page" value="{{ results.previous_page_number }}">
+                                        <li><a href="javascript:" onclick="document.getElementById('form_previous1').submit();" ><i class="fa fa-caret-left"></i></a></li>
+                                    </form>
+                                    {% endif %}
+                                    {# ----------------------------------------------------------------------------- #}
+                                    {#--------------------------------- numbers ------------------------------------ #}
+                                    {% for i in page_range %}
+                                    <form style="display: inline" method="post" action="{% url 'e_commerce:search' %}" id="form1-{{ i }}">
+                                        {% csrf_token %}
+                                        {% if results.number == i %}
+                                            <li class="active"><span><b>{{ i }}</b><span class="sr-only">(Actuel)</span></span></li>
+                                        {% else %}
+                                            {% if category %}
+                                                <input type="hidden" name="category_id" value="{{ category.pk }}" />
+                                            {% else %}
+                                                <input type="hidden" name="category_id" value="0" />
+                                            {% endif %}
+
+                                            {% if word %}
+                                                <input type="hidden" name="word" value="{{ word }}" />
+                                            {% else %}
+                                                <input type="hidden" name="word" value="null" />
+                                            {% endif %}
+
+                                            {% if max_value %}
+                                                <input type="hidden" name="max_value" value="{{ max_value }}" />
+                                            {% else %}
+                                                <input type="hidden" name="max_value" value="null" />
+                                            {% endif %}
+
+                                            {% if min_value %}
+                                                <input type="hidden" name="min_value" value="{{ min_value }}" />
+                                            {% else %}
+                                                <input type="hidden" name="min_value" value="null" />
+                                            {% endif %}
+
+                                            {% if is_filtered %}
+                                                <input type="hidden" name="filter" value="True" />
+                                            {% endif %}
+
+                                            {% if filter_by_price %}
+                                                <input type="hidden" name="price" value="True" />
+                                            {% endif %}
+
+                                            {% if is_pro %}
+                                                <input type="hidden" name="is_pro" value="{{ is_pro }}" />
+                                            {% endif %}
+
+                                            {% if selected_colors %}
+                                                {% for el in selected_colors %}
+                                                    <input type="hidden" name="color" value="{{ el }}" />
+                                                {% endfor %}
+                                            {% endif %}
+
+                                            {% if selected_brands %}
+                                                {% for el in selected_colors %}
+                                                    <input type="hidden" name="brand" value="{{ el }}" />
+                                                {% endfor %}
+                                            {% endif %}
+
+                                            {% if sort_by %}
+                                                <input type="hidden" name="sort_by" value="{{ sort_by }}" />
+                                            {% endif %}
+                                            <input type="hidden" name="page" value="{{ i }}" />
+                                            <li><a  href="javascript:" onclick="document.getElementById('form1-{{ i }}').submit();" >{{ i }}</a></li>
+                                        {% endif %}
+                                    </form>
+                                    {% endfor %}
+                                    {# -------------------------------------------------------------------------------- #}
+                                    {# --------------------------------------- Next ----------------------------------- #}
+                                    {% if results.has_next %}
+                                    <form style="display: inline"  method="post" action="{% url 'e_commerce:search' %}" id="form_next1">
+                                        {% csrf_token %}
+                                        {% if category %}
+                                            <input type="hidden" name="category_id" value="{{ category.pk }}" />
+                                        {% else %}
+                                            <input type="hidden" name="category_id" value="0" />
+                                        {% endif %}
+
+                                        {% if word %}
+                                            <input type="hidden" name="word" value="{{ word }}" />
+                                        {% else %}
+                                            <input type="hidden" name="word" value="null" />
+                                        {% endif %}
+
+                                        {% if max_value %}
+                                            <input type="hidden" name="max_value" value="{{ max_value }}" />
+                                        {% else %}
+                                            <input type="hidden" name="max_value" value="null" />
+                                        {% endif %}
+
+                                        {% if min_value %}
+                                            <input type="hidden" name="min_value" value="{{ min_value }}" />
+                                        {% else %}
+                                            <input type="hidden" name="min_value" value="null" />
+                                        {% endif %}
+
+                                        {% if is_filtered %}
+                                            <input type="hidden" name="filter" value="True" />
+                                        {% endif %}
+
+                                        {% if filter_by_price %}
+                                            <input type="hidden" name="price" value="True" />
+                                        {% endif %}
+
+                                        {% if is_pro %}
+                                            <input type="hidden" name="is_pro" value="{{ is_pro }}" />
+                                        {% endif %}
+
+                                        {% if selected_colors %}
+                                            {% for el in selected_colors %}
+                                                <input type="hidden" name="color" value="{{ el }}" />
+                                            {% endfor %}
+                                        {% endif %}
+
+                                        {% if selected_brands %}
+                                            {% for el in selected_colors %}
+                                                <input type="hidden" name="brand" value="{{ el }}" />
+                                            {% endfor %}
+                                        {% endif %}
+
+                                        {% if sort_by %}
+                                            <input type="hidden" name="sort_by" value="{{ sort_by }}" />
+                                        {% endif %}
+                                        <input type="hidden" name="page" value="{{ results.next_page_number }}">
+                                        <li><a href="javascript:" onclick="document.getElementById('form_next1').submit();" ><i class="fa fa-caret-right"></i></a></li>
+                                    </form>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                            {% endif %}
+                            {# -------------------------------------------------------------------------------- #}
+                        </div>
+                    </div>
+                </div>
+                <!-- //end Filters -->
+                <!--changed listings-->
+                <div id="products-list" class="products-list row nopadding-xs so-filter-gird">
+                    {#---------------------------------------------- Product ---------------------------------------------------------------#}
+                    {% for el in results %}
+                    <div class="product-layout col-lg-15 col-md-4 col-sm-6 col-xs-12">
+                        <div class="product-item-container" style="padding-bottom: 5px;">
+                            <div class="left-block">
+                            {% if el.image %}
+                                <div class="product-image-container second_img">
+                                    <a href="{% url 'e_commerce:product' el.id.pk %}" target="_self" title="{{ el.id.name }}">
+                                    <img src="{{ el.id.image.url }}" class="img-1 img-responsive" id="product_img" alt="image {{ el.id.name }}" style="height: 300px;">
+                                    <img src="{{ el.image.url }}" class="img-2 img-responsive" id="product_img" alt="image2 {{ el.id.name }}" style="height: 300px;">
+                                    </a>
+                                </div>
+                            {% else %}
+                                <div class="product-image-container">
+                                    <a href="{% url 'e_commerce:product' el.id.pk %}" target="_self" title="{{ el.id.name }}">
+                                    <img src="{{ el.id.image.url }}" class="img-1 img-responsive" id="product_img" alt="image {{ el.id.name }}" style="height: 300px;">
+                                    </a>
+                                </div>
+                            {% endif %}
+                            {% if el.sale %}
+                                <div class="box-label"><span class="label-product label-sale"> -{{ el.sale.percentage }}%</span></div>
+                            {% endif %}
+                            {% if el.new %}
+                                <div class="box-label"><span class="label-product label-new"> New </span></div>
+                            {% endif %}
+                                <div class="button-group so-quickview cartinfo--left">
+                                {% if el.id.price_from %}
+                                    <a class="iframe-link addToCart btn-button btn-block quickview_handler visible-lg" href="{% url 'e_commerce:contact_supplier' el.id.pk %}" title="Contacter Fournisseur" data-fancybox-type="iframe">
+                                        <i class="fa fa-envelope"></i>
+                                        <span>Contacter Fournisseur</span>
+                                    </a>
+                                {% else %}
+                                    <form id="formAddCart{{ el.id.pk }}" method="get" action="{% url 'e_commerce:add_to_cart' %}" data-validate-url="{% url 'e_commerce:add_to_cart' %}"><input type="hidden" name="product" value="{{ el.id.pk }}"></form>
+                                    <button type="button" class="addToCart btn-button" title="Ajouter au Chariot" onclick="cart.add('{{ el.id.pk }}', '{{ user.is_authenticated }}', '{{ el.id.name }}', '{{ el.id.image.url }}', '{% url 'e_commerce:product' el.id.pk %}');">  <i class="fa fa-shopping-basket"></i>
+                                    <span>Ajouter au Chariot</span>
+                                    </button>
+                                {% endif %}
+                                    <form id="formAddWish{{ el.id.pk }}" method="get" action="{% url 'e_commerce:add_to_wish_list' %}" data-validate-url="{% url 'e_commerce:add_to_wish_list' %}"><input type="hidden" name="product" value="{{ el.id.pk }}"></form>
+                                    <button type="button" class="wishlist btn-button" title="Ajouter au Souhaits" onclick="wishlist.add('{{ el.id.pk }}', '{{ user.is_authenticated }}', '{{ el.id.name }}', '{{ el.id.image.url }}', '{% url 'e_commerce:product' el.id.pk %}');">
+                                        <i class="fa fa-heart"></i>
+                                        <span>Ajouter au Souhaits</span>
+                                    </button>
+
+                                    <form id="formAddCompare{{ el.id.pk }}" method="get" action="{% url 'e_commerce:add_to_compare' %}" data-validate-url="{% url 'e_commerce:add_to_compare' %}"><input type="hidden" name="product" value="{{ el.id.pk }}"></form>
+                                    <button type="button" class="compare btn-button" title="Comparer ce Produit" onclick="compare.add('{{ el.id.pk }}', '{{ user.is_authenticated }}', '{{ el.id.name }}', '{{ el.id.image.url }}', '{% url 'e_commerce:product' el.id.pk %}');"><i class="fa fa-refresh"></i><span>Comparer ce Produit</span>
+                                    </button>
+                                    <!--quickview-->
+                                    <a class="iframe-link btn-button quickview quickview_handler visible-lg" href="{% url 'e_commerce:quick_view' el.id.pk %}" title="Aperçu Rapide" data-fancybox-type="iframe"><i class="fa fa-eye"></i><span>Aperçu Rapide</span></a>
+                                    <!--end quickview-->
+                                </div>
+                            </div>
+                            <div class="right-block">
+                                <div class="caption" style="padding-top: 0;">
+                                    <h4><a href="{% url 'e_commerce:product' el.id.pk %}" title="{{ el.id.name }}" target="_self" style="min-width: 120px; display: block; margin-left: auto; margin-right: auto">{{ el.id.name }}</a></h4>
+                                    <div class="rating">
+                                        {% for i in "*****" %}
+                                            {% if forloop.counter <= el.ratting %}
+                                               <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i></span>
+                                            {% elif forloop.counter == el.ratting|add:"1" and el.rattingInt < el.ratting %}
+                                                <span class="fa fa-stack">
+                                                    <i style="color: #ea4c0f" class="fa fa-star-half-empty fa-stack-2x"></i>
+                                                </span>
+                                            {% else %}
+                                                <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                    <div class="price">
+                                        {% if el.sale %}
+                                            <span class="price-old">
+                                            {% if el.id.old_price %}
+                                                {{ el.id.old_price|intcomma }}
+                                            {% else %}
+                                                {{ el.id.price|intcomma }}
+                                            {% endif %} Dh
+                                            </span>
+                                            <br/>
+                                            <span style="font-size: 19px;" class="price-new">{{ el.sale.new_price|intcomma }} Dh</span>
+                                        {% else %}
+                                            {% if el.id.old_price %}
+                                                <span class="price-old">
+                                                    {{ el.id.old_price|intcomma }} Dh
+                                                </span>
+                                            {% endif %}
+                                            <br/>
+                                            <span class="price-new" style="font-size: 19px;">{{ el.id.price|intcomma }} Dh</span>
+                                        {% endif %}
+                                    </div>
+                                    <ul class="description item-desc list-group" style="margin-top: 10px;">
+                                    {% if product.quantity_min > 1 %}
+                                        <li class="list-group-item"><b>{{ el.id.quantity_min }}</b> {{ el.id.unit }} (Commande min)</li>
+                                    {% else %}
+                                        <li class="list-group-item"><b>1</b> {{ el.id.unit }} (Commande min)</li>
+                                    {% endif %}
+                                    {% for info in el.id.commerceinformation_set.all|slice:':3' %}
+                                        <li class="list-group-item"><b>{{ info.name }} : </b>{{ info.value }}</li>
+                                    {% endfor %}
+                                    </ul>
+                                </div>
+                                <div class="list-block">
+                                    {% if not el.id.price_from %}
+                                    <div class="item-available">
+                                        <div class="row">
+                                            <p class="col-xs-7 a1">Disponibilité: <b>{{ el.quantity }}</b>
+                                            </p>
+                                            <p class="col-xs-5 a2">Vendu: <b>{{ el.sold }}</b>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                    <div class="price">
+                                        {% if el.sale %}
+                                            <span class="price-old">
+                                            {% if el.id.old_price %}
+                                                {{ el.id.old_price|intcomma }}
+                                            {% else %}
+                                                {{ el.id.price|intcomma }}
+                                            {% endif %} Dh
+                                            </span>
+                                            <br/>
+                                            <span class="price-new" style="font-size: 19px;">
+                                                {% if el.id.price_from %}
+                                                    <span style="font-size: 12px;">À PARTIR DE</span><br>
+                                                {% endif %}
+                                                {{ el.sale.new_price|intcomma }} Dh
+                                            </span>
+                                        {% else %}
+                                            {% if el.id.old_price %}
+                                                <span class="price-old">
+                                                    {{ el.id.old_price|intcomma }} Dh
+                                                </span><br/>
+                                            {% endif %}
+                                            <span class="price-new" style="font-size: 19px;">
+                                                {% if el.id.price_from %}
+                                                    <span style="font-size: 12px;">À PARTIR DE</span><br>
+                                                {% endif %}
+                                                {{ el.id.price|intcomma }} Dh
+                                            </span>
+                                        {% endif %}
+                                    </div>
+                                {% if el.id.price_from %}
+                                    <a class="iframe-link addToCart btn-button btn-block quickview_handler visible-lg" href="{% url 'e_commerce:contact_supplier' el.id.pk %}" title="Contacter Fournisseur" data-fancybox-type="iframe">
+                                        <i class="fa fa-envelope"></i>
+                                        <span>Contacter Fournisseur</span>
+                                    </a>
+                                {% else %}
+                                    <button class="addToCart btn-button btn-block" type="button" title="Ajouter au Chariot" onclick="cart.add('{{ el.id.pk }}', '{{ user.is_authenticated }}', '{{ el.id.name }}', '{{ el.id.image.url }}', '{% url 'e_commerce:product' el.id.pk %}');">
+                                    <i class="fa fa-shopping-basket"></i>
+                                    <span>Ajouter au Chariot</span>
+                                    </button>
+                                {% endif %}
+
+                                    <button class="compare btn-button btn-block" type="button" title="Ajouter au Souhaits" onclick="wishlist.add('{{ el.id.pk }}', '{{ user.is_authenticated }}', '{{ el.id.name }}', '{{ el.id.image.url }}', '{% url 'e_commerce:product' el.id.pk %}');">
+                                    <i class="fa fa-refresh"></i>
+                                    <span>Ajouter au Souhaits</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {#----------------------------------------------------------------------------------------------------------------#}
+                </div>
+                <!--// End Changed listings-->
+                <!-- Filters -->
+                <div class="product-filter product-filter-top filters-panel">
+                    <div class="row">
+                        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12 view-mode">
+                            <div class="list-view">
+                                <button class="btn btn-default grid active" data-view="grid" data-toggle="tooltip"  data-original-title="Grid"><i class="fa fa-th"></i></button>
+                                <button class="btn btn-default list" data-view="list" data-toggle="tooltip" data-original-title="List"><i class="fa fa-th-list"></i></button>
+                            </div>
+                        </div>
+                        <div class="short-by-show form-inline text-right col-lg-5 col-md-9 col-sm-12 col-xs-12">
+                            <div class="form-group short-by">
+                                <form style="display: inline;" method="post" action="{% url 'e_commerce:search' %}">
+                                    {% csrf_token %}
+                                    {% if category %}
+                                        <input type="hidden" name="category_id" value="{{ category.pk }}" />
+                                    {% else %}
+                                        <input type="hidden" name="category_id" value="0" />
+                                    {% endif %}
+
+                                    {% if word %}
+                                        <input type="hidden" name="word" value="{{ word }}" />
+                                    {% else %}
+                                        <input type="hidden" name="word" value="null" />
+                                    {% endif %}
+
+                                    {% if max_value %}
+                                        <input type="hidden" name="max_value" value="{{ max_value }}" />
+                                    {% else %}
+                                        <input type="hidden" name="max_value" value="null" />
+                                    {% endif %}
+
+                                    {% if min_value %}
+                                        <input type="hidden" name="min_value" value="{{ min_value }}" />
+                                    {% else %}
+                                        <input type="hidden" name="min_value" value="null" />
+                                    {% endif %}
+
+                                    {% if is_filtered %}
+                                        <input type="hidden" name="filter" value="True" />
+                                    {% endif %}
+
+                                    {% if filter_by_price %}
+                                        <input type="hidden" name="price" value="True" />
+                                    {% endif %}
+
+                                    {% if selected_colors %}
+                                        {% for el in selected_colors %}
+                                            <input type="hidden" name="color" value="{{ el }}" />
+                                        {% endfor %}
+                                    {% endif %}
+
+                                    {% if selected_brands %}
+                                        {% for el in selected_colors %}
+                                            <input type="hidden" name="brand" value="{{ el }}" />
+                                        {% endfor %}
+                                    {% endif %}
+
+                                    {% if number_elements %}
+                                        <input type="hidden" name="number_elements" value="{{ number_elements }}" />
+                                    {% endif %}
+
+                                    <select title="sort" id="input-sort" class="form-control" name="sort_by">
+                                        {% if sort_by %}
+                                            {% if sort_by == "1" %}
+                                                <option value="1" selected="selected">Trier Par Défaut</option>
+                                            {% else %}
+                                                <option value="1">Trier Par Défaut</option>
+                                            {% endif %}
+                                            {% if sort_by == "2" %}
+                                                <option value="2" selected="selected">Trier Par Nom (A - Z)</option>
+                                            {% else %}
+                                                <option value="2">Trier Par Nom (A - Z)</option>
+                                            {% endif %}
+                                            {% if sort_by == "3" %}
+                                                <option value="3" selected="selected">Trier Par Nom (Z - A)</option>
+                                            {% else %}
+                                                <option value="3">Trier Par Nom (Z - A)</option>
+                                            {% endif %}
+                                            {% if sort_by == "4" %}
+                                                <option value="4" selected="selected">Trier Par Prix (Bas &gt; Elevé)</option>
+                                            {% else %}
+                                                <option value="4">Trier Par Prix (Bas &gt; Elevé)</option>
+                                            {% endif %}
+                                            {% if sort_by == "5" %}
+                                                <option value="5" selected="selected">Trier Par Prix (Elevé &gt; Bas)</option>
+                                            {% else %}
+                                                <option value="5">Trier Par Prix (Elevé &gt; Bas)</option>
+                                            {% endif %}
+                                            {% if sort_by == "6" %}
+                                                <option value="6" selected="selected">Trier Par Evaluation (Elevé)</option>
+                                            {% else %}
+                                                <option value="6">Trier Par Evaluation (Elevé)</option>
+                                            {% endif %}
+                                            {% if sort_by == "7" %}
+                                                <option value="7" selected="selected">Trier Par Evaluation (Bas)</option>
+                                            {% else %}
+                                                <option value="7">Trier Par Evaluation (Bas)</option>
+                                            {% endif %}
+                                            {% if sort_by == "8" %}
+                                                <option value="8" selected="selected">Trier Par Marque (A - Z)</option>
+                                            {% else %}
+                                                <option value="8">Trier Par Marque (A - Z)</option>
+                                            {% endif %}
+                                            {% if sort_by == "9" %}
+                                                <option value="9" selected="selected">Trier Par Marque(Z - A)</option>
+                                            {% else %}
+                                                <option value="9">Trier Par Marque (Z - A)</option>
+                                            {% endif %}
+                                            {% if sort_by == "10" %}
+                                                <option value="10" selected="selected">Trier Par Date (Nouveau)</option>
+                                            {% else %}
+                                                <option value="10">Trier Par Date (Nouveau)</option>
+                                            {% endif %}
+                                            {% if sort_by == "11" %}
+                                                <option value="11" selected="selected">Trier Par Date (Ancien)</option>
+                                            {% else %}
+                                                <option value="11">Trier Par Date (Ancien)</option>
+                                            {% endif %}
+                                        {% else %}
+                                            <option value="1" selected="selected">Trier Par Défaut</option>
+                                            <option value="2">Trier Par Nom (A - Z)</option>
+                                            <option value="3">Trier Par Nom (Z - A)</option>
+                                            <option value="4">Trier Par Prix (Bas &gt; Elevé)</option>
+                                            <option value="5">Trier Par Prix (Elevé &gt; Bas)</option>
+                                            <option value="6">Trier Par Rating (Elevé)</option>
+                                            <option value="7">Trier Par Rating (Bas)</option>
+                                            <option value="8">Trier Par Marque (A - Z)</option>
+                                            <option value="9">Trier Par Marque (Z - A)</option>
+                                            <option value="10">Trier Par Date (Nouveau)</option>
+                                            <option value="11">Trier Par Date (Ancien)</option>
+                                        {% endif %}
+                                    </select>
+                                    <button type="submit" class="btn btn-group"><i class="fa fa-long-arrow-down"></i></button>
+                                </form>
+                            </div>
+                            <div class="form-group">
+                            {# ------------------------------ Number elements -------------------------------------- #}
+                                <label for="input-limit"><span class="control-label">Show:</span></label>
+                                <form style="display: inline;" method="post" action="{% url 'e_commerce:search' %}" id="form_number_elements2">
+                                    {% csrf_token %}
+                                    {% if category %}
+                                        <input type="hidden" name="category_id" value="{{ category.pk }}" />
+                                    {% else %}
+                                        <input type="hidden" name="category_id" value="0" />
+                                    {% endif %}
+
+                                    {% if word %}
+                                        <input type="hidden" name="word" value="{{ word }}" />
+                                    {% else %}
+                                        <input type="hidden" name="word" value="null" />
+                                    {% endif %}
+
+                                    {% if max_value %}
+                                        <input type="hidden" name="max_value" value="{{ max_value }}" />
+                                    {% else %}
+                                        <input type="hidden" name="max_value" value="null" />
+                                    {% endif %}
+
+                                    {% if min_value %}
+                                        <input type="hidden" name="min_value" value="{{ min_value }}" />
+                                    {% else %}
+                                        <input type="hidden" name="min_value" value="null" />
+                                    {% endif %}
+
+                                    {% if is_filtered %}
+                                        <input type="hidden" name="filter" value="True" />
+                                    {% endif %}
+
+                                    {% if filter_by_price %}
+                                        <input type="hidden" name="price" value="True" />
+                                    {% endif %}
+
+                                    {% if selected_colors %}
+                                        {% for el in selected_colors %}
+                                            <input type="hidden" name="color" value="{{ el }}" />
+                                        {% endfor %}
+                                    {% endif %}
+
+                                    {% if selected_brands %}
+                                        {% for el in selected_colors %}
+                                            <input type="hidden" name="brand" value="{{ el }}" />
+                                        {% endfor %}
+                                    {% endif %}
+
+                                    {% if sort_by %}
+                                        <input type="hidden" name="sort_by" value="{{ sort_by }}" />
+                                    {% endif %}
+
+                                    <select id="input-limit" title="number elements" name="number_elements" class="form-control" onchange="document.getElementById('form_number_elements2').submit();">
+                                        {% if number_elements %}
+                                            {% if number_elements == "15" %}
+                                                <option value="15" selected="selected">15</option>
+                                            {% else %}
+                                                <option value="15">15</option>
+                                            {% endif %}
+                                            {% if number_elements == "25" %}
+                                                <option value="25" selected="selected">25</option>
+                                            {% else %}
+                                                <option value="25">25</option>
+                                            {% endif %}
+                                            {% if number_elements == "50" %}
+                                                <option value="50" selected="selected">50</option>
+                                            {% else %}
+                                                <option value="50">50</option>
+                                            {% endif %}
+                                            {% if number_elements == "75" %}
+                                                <option value="75" selected="selected">75</option>
+                                            {% else %}
+                                                <option value="75">75</option>
+                                            {% endif %}
+                                            {% if number_elements == "100" %}
+                                                <option value="100" selected="selected">100</option>
+                                            {% else %}
+                                                <option value="100">100</option>
+                                            {% endif %}
+                                        {% else %}
+                                            <option value="15" selected="selected">15</option>
+                                            <option value="25">25</option>
+                                            <option value="50">50</option>
+                                            <option value="75">75</option>
+                                            <option value="100">100</option>
+                                        {% endif %}
+                                    </select>
+                                </form>
+                            {# --------------------------------------------------------------------- #}
+                            </div>
+                        </div>
+                        <div class="box-pagination col-lg-5 col-md-12 col-sm-12 col-xs-12 text-right">
+                            {# ------------------------------ Pagination -------------------------------------- #}
+                            {% if results.has_other_pages %}
+                            <div class="content-pagination-2 col-md-12">
+                                <span>Page: </span>
+                                <ul class="pagination1">
+                                    {# --------------------------------- previous -------------------------------------------- #}
+                                    {% if results.has_previous %}
+                                    <form style="display: inline"  method="post" action="{% url 'e_commerce:search' %}" id="form_previous2">
+                                        {% csrf_token %}
+                                        {% if category %}
+                                            <input type="hidden" name="category_id" value="{{ category.pk }}" />
+                                        {% else %}
+                                            <input type="hidden" name="category_id" value="0" />
+                                        {% endif %}
+
+                                        {% if word %}
+                                            <input type="hidden" name="word" value="{{ word }}" />
+                                        {% else %}
+                                            <input type="hidden" name="word" value="null" />
+                                        {% endif %}
+
+                                        {% if max_value %}
+                                            <input type="hidden" name="max_value" value="{{ max_value }}" />
+                                        {% else %}
+                                            <input type="hidden" name="max_value" value="null" />
+                                        {% endif %}
+
+                                        {% if min_value %}
+                                            <input type="hidden" name="min_value" value="{{ min_value }}" />
+                                        {% else %}
+                                            <input type="hidden" name="min_value" value="null" />
+                                        {% endif %}
+
+                                        {% if is_filtered %}
+                                            <input type="hidden" name="filter" value="True" />
+                                        {% endif %}
+
+                                        {% if filter_by_price %}
+                                            <input type="hidden" name="price" value="True" />
+                                        {% endif %}
+
+                                        {% if selected_colors %}
+                                            {% for el in selected_colors %}
+                                                <input type="hidden" name="color" value="{{ el }}" />
+                                            {% endfor %}
+                                        {% endif %}
+
+                                        {% if selected_brands %}
+                                            {% for el in selected_colors %}
+                                                <input type="hidden" name="brand" value="{{ el }}" />
+                                            {% endfor %}
+                                        {% endif %}
+
+                                        {% if sort_by %}
+                                            <input type="hidden" name="sort_by" value="{{ sort_by }}" />
+                                        {% endif %}
+
+                                        {% if number_elements %}
+                                            <input type="hidden" name="number_elements" value="{{ number_elements }}" />
+                                        {% endif %}
+                                        <input type="hidden" name="page" value="{{ results.previous_page_number }}">
+                                        <li><a href="javascript:" onclick="document.getElementById('form_previous2').submit();" ><i class="fa fa-caret-left"></i></a></li>
+                                    </form>
+                                    {% endif %}
+                                    {# ----------------------------------------------------------------------------- #}
+                                    {#--------------------------------- numbers ------------------------------------ #}
+                                    {% for i in page_range %}
+                                    <form style="display: inline" method="post" action="{% url 'e_commerce:search' %}" id="form2-{{ i }}">
+                                        {% csrf_token %}
+                                        {% if results.number == i %}
+                                            <li class="active"><span><b>{{ i }}</b><span class="sr-only">(Atuel)</span></span></li>
+                                        {% else %}
+                                            {% if category %}
+                                                <input type="hidden" name="category_id" value="{{ category.pk }}" />
+                                            {% else %}
+                                                <input type="hidden" name="category_id" value="0" />
+                                            {% endif %}
+
+                                            {% if word %}
+                                                <input type="hidden" name="word" value="{{ word }}" />
+                                            {% else %}
+                                                <input type="hidden" name="word" value="null" />
+                                            {% endif %}
+
+                                            {% if max_value %}
+                                                <input type="hidden" name="max_value" value="{{ max_value }}" />
+                                            {% else %}
+                                                <input type="hidden" name="max_value" value="null" />
+                                            {% endif %}
+
+                                            {% if min_value %}
+                                                <input type="hidden" name="min_value" value="{{ min_value }}" />
+                                            {% else %}
+                                                <input type="hidden" name="min_value" value="null" />
+                                            {% endif %}
+
+                                            {% if is_filtered %}
+                                                <input type="hidden" name="filter" value="True" />
+                                            {% endif %}
+
+                                            {% if filter_by_price %}
+                                                <input type="hidden" name="price" value="True" />
+                                            {% endif %}
+
+                                            {% if selected_colors %}
+                                                {% for el in selected_colors %}
+                                                    <input type="hidden" name="color" value="{{ el }}" />
+                                                {% endfor %}
+                                            {% endif %}
+
+                                            {% if selected_brands %}
+                                                {% for el in selected_colors %}
+                                                    <input type="hidden" name="brand" value="{{ el }}" />
+                                                {% endfor %}
+                                            {% endif %}
+
+                                            {% if sort_by %}
+                                                <input type="hidden" name="sort_by" value="{{ sort_by }}" />
+                                            {% endif %}
+                                            <input type="hidden" name="page" value="{{ i }}" />
+                                            <li><a  href="javascript:" onclick="document.getElementById('form2-{{ i }}').submit();" >{{ i }}</a></li>
+                                        {% endif %}
+                                    </form>
+                                    {% endfor %}
+                                    {# -------------------------------------------------------------------------------- #}
+                                    {# --------------------------------------- Next ----------------------------------- #}
+                                    {% if results.has_next %}
+                                    <form style="display: inline"  method="post" action="{% url 'e_commerce:search' %}" id="form_next2">
+                                        {% csrf_token %}
+                                        {% if category %}
+                                            <input type="hidden" name="category_id" value="{{ category.pk }}" />
+                                        {% else %}
+                                            <input type="hidden" name="category_id" value="0" />
+                                        {% endif %}
+
+                                        {% if word %}
+                                            <input type="hidden" name="word" value="{{ word }}" />
+                                        {% else %}
+                                            <input type="hidden" name="word" value="null" />
+                                        {% endif %}
+
+                                        {% if max_value %}
+                                            <input type="hidden" name="max_value" value="{{ max_value }}" />
+                                        {% else %}
+                                            <input type="hidden" name="max_value" value="null" />
+                                        {% endif %}
+
+                                        {% if min_value %}
+                                            <input type="hidden" name="min_value" value="{{ min_value }}" />
+                                        {% else %}
+                                            <input type="hidden" name="min_value" value="null" />
+                                        {% endif %}
+
+                                        {% if is_filtered %}
+                                            <input type="hidden" name="filter" value="True" />
+                                        {% endif %}
+
+                                        {% if filter_by_price %}
+                                            <input type="hidden" name="price" value="True" />
+                                        {% endif %}
+
+                                        {% if selected_colors %}
+                                            {% for el in selected_colors %}
+                                                <input type="hidden" name="color" value="{{ el }}" />
+                                            {% endfor %}
+                                        {% endif %}
+
+                                        {% if selected_brands %}
+                                            {% for el in selected_colors %}
+                                                <input type="hidden" name="brand" value="{{ el }}" />
+                                            {% endfor %}
+                                        {% endif %}
+
+                                        {% if sort_by %}
+                                            <input type="hidden" name="sort_by" value="{{ sort_by }}" />
+                                        {% endif %}
+                                        <input type="hidden" name="page" value="{{ results.next_page_number }}">
+                                        <li><a href="javascript:" onclick="document.getElementById('form_next2').submit();" ><i class="fa fa-caret-right"></i></a></li>
+                                    </form>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                            {% endif %}
+                            {# -------------------------------------------------------------------------------- #}
+                        </div>
+                    </div>
+                </div>
+                <!-- //end Filters -->
+            {% else %}
+                <div class="module">
+                    <h3 class="modtitle2">Désolé nous n'avons pas trouvé '{{ word }}'</h3>
+                </div>
+            {% endif %}
+            </div>
+        </div>
+    <!--Middle Part End-->
+    </div>
+</div>
+{% endblock %}

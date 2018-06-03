@@ -1,0 +1,13 @@
+{% for langue in langues %}
+
+    <div class="row">
+        <div class="col-xs-4 titre" style="font-weight: bold; color:darkslategray;">
+            {{ langue.langue }}
+        </div>
+        <div class="col-xs-4 description">
+            {{ langue.niveau }}
+        </div>
+    </div>
+
+    <!-- divate : titre, description, liens X / -->
+{% endfor %}

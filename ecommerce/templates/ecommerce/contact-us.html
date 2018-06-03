@@ -1,0 +1,94 @@
+{% extends 'ecommerce/base.html' %}
+{% load static %}
+{% block content %}
+<div class="main-container container">
+    <ul class="breadcrumb">
+        <li><a href="{% url 'e_commerce:index' %}">Home</a></li>
+        <li><a href="#"><b>Contacter Nous</b></a></li>
+    </ul>
+    <div class="row">
+        <div id="content" class="col-sm-12">
+            <div class="info-contact clearfix">
+                {% if message_success %}
+                <div id="success" style="margin: 10px 0 20px;" class="alert alert-success" role="alert">
+                    {{ message_success }}
+                </div>
+                {% endif %}
+                <div class="col-md-12 info-store" style="padding: 0; margin-bottom: 10px">
+                    <div class="module">
+                        <h3 class="modtitle2" style="margin-bottom: 10px">Contacter nous</h3>
+                    </div>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3310.09899108403!2d-6.8968116854471555!3d33.93858198063703!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xffb95f12141d7f72!2sELECTRONIC+SERVICE+PROVIDERS+(ESPR)!5e0!3m2!1sfr!2sma!4v1526178947045" width="100%" height="350" frameborder="0" style="border:0" allowfullscreen></iframe>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-sm-6">
+                        <div class="name-store module">
+                            <h3 class="modtitle2" style="margin-bottom: 15px;">
+                                <span>Bienvenue à Rabat </span>
+                            </h3>
+                        </div>
+                        <address>
+                            <div class="comment" style="font-size: 19px; font-weight: 300; margin-bottom: 15px">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus at beatae corporis deleniti Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus at beatae corporis deleniti dicta quibusdam reiciendis sed voluptas! At fuga quisquam suscipit. A consectetur delectus illum quod unde. Delectus, odit.
+                            </div>
+                            <div class="address clearfix form-group" style="font-size: 18px; margin-bottom: 10px">
+                                <div class="icon">
+                                    <i class="fa fa-home"></i>
+                                </div>
+                                <div class="text">114, SECTEUR 3, RIAD OULAD MTAA – TEMARA – RABAT</div>
+                            </div>
+                            <div class="mail clearfix form-group" style="font-size: 18px; margin-bottom: 10px">
+                                <div class="icon">
+                                    <i class="fa fa-envelope"></i>
+                                </div>
+                                <div class="text">Email : espr.maroc@gmail.com</div>
+                            </div>
+                            <div class="phone form-group" style="font-size: 18px; margin-bottom: 10px">
+                                <div class="icon">
+                                    <i class="fa fa-phone"></i>
+                                </div>
+                                <div class="text">Téléphone : +212 (0) 537 62 92 23</div>
+                            </div>
+                            <div class="phone form-group" style="font-size: 18px; margin-bottom: 10px">
+                                <div class="icon">
+                                    <i class="fa fa-phone"></i>
+                                </div>
+                                <div class="text">Fax : +212 (0) 537 62 92 23</div>
+                            </div>
+                        </address>
+                    </div>
+                <div class="col-sm-6 contact-form">
+                    <div class="submit-comment module" style="margin-bottom: 0px">
+                        <h3 class="modtitle2" style="margin-bottom: 10px">
+                            <span>Laissez nous un Message</span>
+                        </h3>
+                        <form action="{% url 'e_commerce:contact-us' %}" method="post">
+                        {% csrf_token %}
+                            <div class="row">
+                                {% if user.is_authenticated %}
+                                    <input type="hidden" value="{{ user.last_name.upper }} {{ user.first_name.capitalize }}" name="name">
+                                    <input type="hidden" value="{{ user.email }}" name="email">
+                                {% else %}
+                                    <div class="col-md-5" style="padding-right: 3px">
+                                        <input type="text" class="form-control" placeholder="Votre nom" name="name" required>
+                                    </div>
+                                    <div class="col-md-7" style="padding-left: 3px">
+                                        <input type="email" class="form-control" placeholder="Votre e-mail" name="email" required>
+                                    </div>
+                                {% endif %}
+                                <div class=" col-md-12 textarea" style="margin: 10px 0">
+                                    <textarea class="form-control" rows="10" id="comment" name="message" placeholder="Votre Message..." required></textarea>
+                                </div>
+                                <div class="col-md-12">
+                                    <button class="btn btn-group">Envoyer Message</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

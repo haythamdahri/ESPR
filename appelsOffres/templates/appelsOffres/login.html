@@ -1,0 +1,272 @@
+{% extends 'base_main.html' %}
+{% load static %}
+
+{% block title %}
+    {{ block.super }}
+    Se Connecter
+{% endblock title %}
+
+{% block stylesheets %}
+    {{ block.super }}
+
+      <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title> Accueil</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="{% static "appelsOffres/assets/images/aa.png" %}">
+
+        <!--<link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,600,700' rel='stylesheet' type='text/css'>-->
+        <link rel="stylesheet" href="{% static "appelsOffres/assets/css/fonticons.css" %} ">
+        <link rel="stylesheet" href="{% static "appelsOffres/assets/fonts/stylesheet.css" %} ">
+        <link rel="stylesheet" href="{% static "appelsOffres/assets/css/font-awesome.min.css" %} ">
+        <link rel="stylesheet" href="{% static "appelsOffres/assets/css/bootstrap.min.css" %} ">
+        <!--        <link rel="stylesheet" href="assets/css/bootstrap-theme.min.css">-->
+
+
+        <!--For Plugins external css-->
+        <link rel="stylesheet" href="{% static "appelsOffres/assets/css/plugins.css" %} " />
+
+        <!--Theme custom css -->
+        <link rel="stylesheet" href="{% static "appelsOffres/assets/css/style.css" %} ">
+
+        <!--Theme Responsive css-->
+        <link rel="stylesheet" href="{% static "appelsOffres/assets/css/responsive.css" %} " />
+{% endblock stylesheets %}
+
+{% block content %}
+    {{ block.super }}
+
+    <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+		<div class='preloader'><div class='loaded'>&nbsp;</div></div>
+        <!--Home page style-->
+        <header id="main_menu" class="header">
+            <div class="main_menu_bg navbar-fixed-top" style="background-color: white;">
+                <div class="container" >
+                    <div class="row">
+                        <div class="nave_menu wow fadeInUp" data-wow-duration="1s" >
+                            <nav class="navbar navbar-default" id="navmenu" >
+                                <div class="container-fluid" >
+                                    <!-- Brand and toggle get grouped for better mobile display -->
+                                    <div class="navbar-header">
+                                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                                            <span class="sr-only">Toggle navigation</span>
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                        </button>
+                                    </div>
+
+                                    <!-- Collect the nav links, forms, and other content for toggling -->
+                                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+                                        <ul class="nav navbar-nav navbar-right" >
+                                            <li><a href="/appelsOffres/Accueil">Accueil</a></li>
+                                            <li><a href="/appelsOffres/aploffre">NOS APPELS D'OFFRES</a></li>
+                                            <li><a href="/appelsOffres/aboutus">À PROPOS DE NOUS</a></li>
+                                            <li><a href="/appelsOffres/contactus">CONTACTEZ NOUS</a></li>
+                                            <li class="active"><a href="/appelsOffres/login">LOGIN/REGISTER</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </nav>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </header> <!--End of header -->
+
+        <section id="home" class="home" style="background: url('{% static 'assets/images/pricingbg.jpg' %}') ">
+            <div class="home-overlay-fluid" style="padding-top:10px;">
+                <div class="container" >
+                    <div class="row" >
+                        <div class="main_slider_area" >
+                            <div class="slider" >
+                                <div class="single_slider wow fadeIn" data-wow-duration="2s" >
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section><!-- End of Banner Section -->
+
+        <section id="domain" class="domainsearce" style="padding: 25px 0px;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-10 col-sm-offset-1">
+						<div class="main_somainsearrce">
+							<div class="head_title text-center wow fadeInDown" data-wow-duration="1s">
+                                <br><br>
+                                <h2>Page Login</h2>
+								<p>
+                                    {% if messages %}
+                                          {% for message in messages %}
+                                                <div class="alert alert-{{message.tags}} alert-dismissible" role="alert">
+                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    {{ message }}
+                                                </div>
+                                          {% endfor %}
+                                    {% endif %}
+                                </p>
+							</div>
+
+                            <div class="form-group col-md-12">
+                                <form action="/appelsOffres/authentifier" method="POST">
+                                    {% csrf_token %}
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6" id="email">
+                                            <label for="">Email</label>
+                                            <input type="text" name="email" id="emailInput" class="form-control" placeholder="Username">
+                                        </div>
+
+                                        <div class="form-group col-md-6" id="password">
+                                            <label for="">Password</label>
+                                            <input type="password" name="password" id="passwordInput" class="form-control" placeholder="Password">
+                                        </div>
+                                    </div>
+                                    <center>
+                                        <button class="btn btn-primary" style="border-radius: 4px;" id="connexion"> Connexion </button>
+                                    </center>
+                                </form>
+
+                                    <center><a href="/appelsOffres/register" class=" btn btn-link"> Inscrivez-vous </a></center>
+
+                            </div>
+
+
+						</div>
+					</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- STRAT SCROLL TO TOP -->
+
+        <div class="scrollup">
+            <a href="#"><i class="fa fa-chevron-up"></i></a>
+        </div>
+{% endblock content %}
+
+{% block footer %}
+    {{ block.super }}
+        <section id="footer" class="footer sections">
+            <div class="container" style="padding-bottom: 0px">
+
+                <div class="row">
+                    <div class="footer_bottom_area">
+                        <div class="col-sm-9 col-xs-12">
+                            <div class="fo_bottom_right">
+                                <div class="row">
+                                    <div class="col-sm-6 col-xs-12">
+                                        <div class="single_right_footer wow fadeIn" data-wow-duration="1s">
+                                            <img src="{% static "appelsOffres/assets/images/aa.png" %}" width="130" height="130" >
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3 col-xs-6">
+                                        <div class="single_right_footer wow fadeIn" data-wow-duration="1.5s">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3 col-xs-6">
+                                        <div class="single_right_footer wow fadeIn" data-wow-duration="2s">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 col-xs-12">
+                            <div class="fo_bottom_socail wow fadeIn" data-wow-duration="2.3s">
+                                <a href="#"><i class="fa fa-phone"> +212 (0) 537 62 92 23</i></a>
+                                <a href="#"><i class="fa fa-fax"> +212 (0) 537 62 92 23</i></a>
+                                <a href="#"><i class="fa fa-envelope"></i> espr.maroc@gmail.com</a>
+                                <a href="#"><i class="fa fa-map-marker"></i> 114, SECTEUR 3, RIAD OULAD MTAA – TEMARA – RABAT</a>
+                                <a href="#"><i class="fa fa fa-globe"></i> http://www.btpexpo3d.ma</a>
+                                <a href="https://www.facebook.com/ESPROV"><i class="fa fa-facebook-official"></i> facebook/ESPROV</a>
+                                <a href="https://www.linkedin.com/company/electronic-service-providers-espr-/?originalSubdomain=fr"><i class="fa fa-linkedin-square"></i> Linkin/ESPR</a>
+                                <a href="https://twitter.com/ESPROVID"><i class="fa fa-twitter-square"></i> Twitter/ESPROVID</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section><!-- End of footer3 section -->
+{% endblock footer %}
+
+{% block scripts %}
+    {{ block.super }}
+    <script src="{% static "appelsOffres/assets/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js" %} "></script>
+    <script src="{% static "appelsOffres/assets/js/vendor/jquery-1.11.2.min.js" %} "></script>
+        <script src="{% static "appelsOffres/assets/js/vendor/bootstrap.min.js" %} "></script>
+        <script src="{% static "appelsOffres/assets/js/jquery.easypiechart.min.js" %} "></script>
+
+        <script src="{% static "appelsOffres/assets/js/plugins.js" %} "></script>
+        <script src="{% static "appelsOffres/assets/js/main.js " %} "></script>
+
+        <script type="text/javascript">
+
+
+
+            $(function () {
+                var v1 = 1;
+                var v2 = 1;
+
+                $('#emailInput').keyup(function(){
+                    $('#emailInput').filter(function(){
+                        email=$('#emailInput').val();
+                        emailReg = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+
+                        if( !emailReg.test( email ) ) {
+                            $('#email').removeClass("form-control")
+                            $('#email').addClass("has-error")
+                            v1 = 1;
+                        }else{
+                            $('#email').removeClass("has-error")
+                            $('#email').addClass("has-success")
+                            v1 = 0;
+                        }
+                    });
+                });
+
+                $('#passwordInput').keyup(function(){
+                    $('#passwordInput').filter(function(){
+                        password=$('#passwordInput').val();
+                        passwordReg = /^[a-zA-Z0-9]{8,}$/;
+
+                        if( !passwordReg.test( password ) ) {
+                            $('#password').removeClass("form-control")
+                            $('#password').addClass("has-error")
+                            v2 = 1;
+                        }else{
+                            $('#password').removeClass("has-error")
+                            $('#password').addClass("has-success")
+                            v2 = 0;
+                        }
+                    });
+                });
+
+                $("#connexion").click(function () {
+                    var v = (v1+v2);
+
+                    if (v == 0) {
+                        return true;
+                    }else {
+                        alert("Un ou plusieurs champs contiennent une erreur. Veuillez vérifier et essayer à nouveau.");
+                        return false;
+                    }
+                });
+
+            });
+
+
+        </script>
+
+{% endblock scripts %}
+

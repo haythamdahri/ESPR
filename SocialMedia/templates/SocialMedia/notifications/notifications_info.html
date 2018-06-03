@@ -1,0 +1,120 @@
+{% load staticfiles %}
+{% load nbsp %}
+
+
+
+<div class="row  NotificationCONTENT{{ notification.id }}">
+
+
+
+<div id="statuts" class="infinite-item" style="box-shadow: 0 0 0 1px rgba(0, 0, 0, .1), 0 2px 3px rgba(0, 0, 0, .2);">
+
+                                <div style="{% if not notification.is_read %}background-color: #e6f7ff;{% endif %}" class="feed-shared-update-v2 feed-shared-update mh0 Elevation-2dp relative full-height ember-view">
+
+
+                <div id="ember1575" class="feed-shared-update-control-menu absolute text-align-right ember-view">
+
+                    <button onclick="toggleOptionsDropDown({{ notification.id }})"  data-control-name="control_menu" class="feed-shared-update-control-menu-trigger" data-ember-action="" data-ember-action-3917="3917">
+    <span class="svg-icon-wrap"><li-icon aria-hidden="true" type="ellipsis-horizontal-icon"><svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false"><path d="M2,10H6v4H2V10Zm8,4h4V10H10v4Zm8-4v4h4V10H18Z" class="large-icon" style="fill: currentColor"></path></svg></li-icon></span>
+  </button>
+
+
+
+
+
+<div id="dropdown-{{ notification.id }}" class="DRPDW" style="display: none;">
+      <div style="border: 1px solid;" class="feed-shared-update-control-menu__options p0 absolute dropdown list-style-none Elevation-6dp">
+        <ul tabindex="-1" class="feed-shared-update-control-menu__action-menu actions-menu">
+            <li class="action-item list-style-none option-button__delete">
+              <form  onsubmit="deleteNotification(event, this)" val="{{ notification.id }}"><button type="submit" class="option-button full-height full-width pv1 ph4" data-ember-action="" data-ember-action-3969="3969">
+                <span class="button-content-container display-flex align-items-center">
+                  <span class="icon fl pt2 pr2 pb0 pl0 svg-icon-wrap"><li-icon aria-hidden="true" type="trash-icon"><svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false"><path d="M19.26,2.9A28,28,0,0,0,15,2.13V1.5A0.5,0.5,0,0,0,14.5,1h-5a0.5,0.5,0,0,0-.5.5V2.13a28,28,0,0,0-4.26.78,1,1,0,0,0-.74,1V9H5V21a1,1,0,0,0,1,1H18a1,1,0,0,0,1-1V9h1V3.88A1,1,0,0,0,19.26,2.9ZM17,20H7V9H17V20ZM18,7H6V4.59a26.35,26.35,0,0,1,6-.71,26.35,26.35,0,0,1,6,.71V7ZM11,18H10V11h1v7Zm3,0H13V11h1v7Z" class="large-icon" style="fill: currentColor"></path></svg></li-icon></span>
+                  <span class="text-description inline-block text-align-left">
+                    <span class="headline block p0 Sans-15px-black-85%-semibold">
+                      Supprimer la notification
+                    </span>
+                    <span class="sub-headline block text-align-left Sans-13px-black-55%">
+                    <input type="hidden" name="notification" value="{{ notification.id }}" />
+                    </span>
+                  </span>
+                </span>
+              </button>
+              </form>
+            </li>
+        </ul>
+      </div>
+  </div>
+
+
+
+                    <div class="row">{{ notification.date_notification }}</div>
+
+
+<!---->
+<!---->
+</div>
+
+
+      <div id="ember1581" class="feed-shared-actor feed-shared-actor--with-control-menu ember-view"><a data-control-id="W1C4B5y7iMwQGAR0mwPlgw==" data-control-name="actor_picture" target="_self" href="{{ notification.profil.photo_profil.image.url }}" id="ember1586" class="feed-shared-actor__image app-aware-link ember-view">    <span data-entity-hovercard-id="urn:li:fs_miniProfile:ACoAAA8BYqEBCGLg_vT_ca6mMEqkpp9nVffJ3hc" class="js-feed-shared-actor__avatar">
+      <div id="ember1597" class="feed-shared-actor__avatar ivm-image-view-model ember-view">
+          <div id="ember1602" class="display-flex ember-view"><!---->    <div id="ember1607" class="presence-entity presence-entity--size-3 ember-view"><div  id="ember1614" class="ivm-view-attr__img--centered feed-shared-actor__avatar-image EntityPhoto-circle-3 presence-entity__image EntityPhoto-circle-3 ember-view" style="background-image: url('{{ notification.profil.photo_profil.image.url }}');">
+</div>
+
+<div id="ember1617" class="presence-indicator  presence-entity__indicator presence-entity__indicator--size-3 hidden presence-indicator--size-3 ember-view"></div>
+</div>
+</div>
+</div>
+    </span>
+</a>
+<div class="feed-shared-actor__meta">
+<a id="ember1618" class="feed-shared-actor__meta-link app-aware-link ember-view">
+                  <h5 class="Sans-34px-white-100\%">
+                      <span>
+                          {% autoescape off %}
+                            {{ notification.message }}
+                          {% endautoescape %}
+                      </span>
+
+</div>
+
+<!---->
+
+
+
+      </div>
+
+
+
+<!---->
+</div>
+
+
+</div>
+
+
+
+<div class="row" style="background-color: {% if not notification.is_read %}#e6f7ff; {% else %} white;{% endif %}margin-left:0;margin-right: auto;box-shadow: 0 0 0 1px rgba(0, 0, 0, .1), 0 2px 3px rgba(0, 0, 0, .2);padding-bottom: 10px;">
+    {% if notification.statut != None %}
+    <div class="col-md-3">
+        <a href="{{ notification.statut.get_absolute_url }}" target="_blank"><button class="btJoinGroupe fw--400">Voir le statut</button></a>
+    </div>
+    {% endif %}
+    {% if notification.profil != None %}
+    <div class="col-md-3">
+        <a href="{% url 'SocialMedia:getProfil' notification.profil.id %}" target="_blank"><button class="btJoinGroupe fw--400">Voir le profil</button></a>
+    </div>
+    {% endif %}
+    {% if notification.groupe != None %}
+    <div class="col-md-3">
+        <a href="{{ notification.groupe.get_absolute_url }}" target="_blank" ><button class="btJoinGroupe fw--400">Voir le groupe</button></a>
+    </div>
+    {% endif %}
+    {% if notification.entreprise != None %}
+    <div class="col-md-3">
+        <a href="{{ notification.entrerprise.get_absolute_url }}" target="_blank" ><button class="btJoinGroupe fw--400">Voir l'entreprise</button></a>
+    </div>
+    {% endif %}
+</div>
+
+
+</div>

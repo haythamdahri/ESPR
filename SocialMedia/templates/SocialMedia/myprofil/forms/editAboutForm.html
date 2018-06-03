@@ -1,0 +1,53 @@
+{% extends 'SocialMedia/myprofil/forms/base_forms.html' %}
+{% load widget_tweaks %}
+{% block form %}
+    <form method="post" action="{% url 'SocialMedia:editAbout' %}">
+    {% csrf_token %}
+                            <div class="form-group row">
+
+                            <div class="col-sm-3">
+                                    <label for="exampleInputEmail1" class="h6 fw--600 text-darkest">Facebook</label>
+                                    {% render_field editForm.facebook class="form-control input-sm" value=user.profil.facebook placeholder="FACEBOOK" %}
+                            </div>
+
+                            <div class="col-sm-3">
+                                    <label for="exampleInputEmail1" class="h6 fw--600 text-darkest">Youtube</label>
+                                    {% render_field editForm.youtube class="form-control input-sm" value=user.profil.youtube placeholder="Enter email" %}
+                            </div>
+                            <div class="col-sm-3">
+                                    <label for="exampleInputEmail1" class="h6 fw--600 text-darkest">Instagram</label>
+                                    {% render_field editForm.instagram class="form-control input-sm" value=user.profil.instagram placeholder="Enter email" %}
+                            </div>
+
+                            <div class="col-sm-3">
+                                    <label for="exampleInputEmail1" class="h6 fw--600 text-darkest">Linkedin</label>
+                                    {% render_field editForm.linkedin class="form-control input-sm" value=user.profil.linkedin placeholder="Enter email" %}
+                            </div>
+                            <div class="row">&nbsp;</div><div class="row">&nbsp;</div>
+
+                            <div class="col-sm-4">
+                                    <label for="exampleInputEmail1" class="h6 fw--600 text-darkest">Entreprise</label>
+                                    {% render_field editForm.entreprise class="form-control input-sm" value=user.profil.entreprise placeholder="Enter email" %}
+                            </div>
+
+                            <div class="col-sm-4">
+                                    <label for="exampleInputEmail1" class="h6 fw--600 text-darkest">Nom</label>
+                                    {% render_field editForm.firstName class="form-control input-sm" value=user.first_name placeholder="Enter email" %}
+                            </div>
+
+                            <div class="col-sm-4">
+                                    <label for="exampleInputEmail1" class="h6 fw--600 text-darkest">Prenom</label>
+                                    {% render_field editForm.lastName class="form-control input-sm" value=user.last_name placeholder="Enter email" %}
+                            </div>
+
+                            <div class="col-sm">
+                                    <label for="exampleInputEmail1" class="h6 fw--600 text-darkest">Date De Naissance</label>
+                                    {% render_field editForm.dateNaissance type="date" class="form-control input-sm" value=user.profil.date_naissance placeholder="YYYY-MM-DD(AAAA-MM-JJ)" %}
+                            </div>
+
+                            </div>
+        <div class="row text-center">
+            <button type="submit" class="btn btn-primary" style="margin-bottom: 20px;">Modifier</button>
+        </div>
+    </form>
+{% endblock %}

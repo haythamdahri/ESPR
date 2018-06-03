@@ -1,0 +1,270 @@
+{% extends 'base_qa.html' %}
+{% load django_markdown %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+{% load i18n %}
+
+
+{% block content %}
+<!-- =-=-=-=-=-=-= Main Area =-=-=-=-=-=-= -->
+<div class="main-content-area">
+
+
+
+    <!-- =-=-=-=-=-=-= User Profile =-=-=-=-=-=-= -->
+    <section id="user-profile" class="user-profile parallex">
+      <div class="container">
+        <!-- Row -->
+        <div class="row">
+
+          <div class="col-md-12 col-xs-12 col-sm-12">
+            <div class="profile-sec ">
+              <div class="profile-head">
+                <div class="col-md-6 col-xs-12 col-sm-6 no-padding">
+                  <div class="profile-avatar">
+                    <span><img class="img-responsive img-circle" alt="" src="{{ profil.photo_profil.image.url }}"></span>
+                    <div class="profile-name">
+                      <h3>{{ user.first_name }}-{{ user.last_name }}</h3>
+                      <i>{{ profil.fonction }}</i>
+                      <ul class="social-btns">
+                        <li><a href="/qa#" title=""><i class="fa fa-facebook"></i></a>
+                        </li>
+                        <li><a href="/qa#" title=""><i class="fa fa-google-plus"></i></a>
+                        </li>
+                        <li><a href="/qa#" title=""><i class="fa fa-twitter"></i></a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 col-xs-12 col-sm-6 no-padding">
+                  <ul class="profile-count">
+                    <li>{{ nbAnswer }}<i>{% trans "Réponses" %}</i>
+                    </li>
+                    <li>{{ profil.points }}<i>{% trans "Points" %}</i>
+                    </li>
+                    <li>{{ nbQusetion }}<i>Questions</i>
+                    </li>
+                  </ul>
+                  <ul class="profile-connect">
+                    <li><a title="" >{{ profil.mylevel.libelle }}</a>
+                    </li>
+                    <!-- <li><a title="" href="/qa#">Hire Me</a>
+                    </li> -->
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <!-- Profile Sec -->
+          </div>
+
+        </div>
+        <!-- Row End -->
+      </div>
+      <!-- end container -->
+    </section>
+
+    <!-- =-=-=-=-=-=-= User Profile end =-=-=-=-=-=-= -->
+    
+ <!-- =-=-=-=-=-=-= User Form Settings =-=-=-=-=-=-= -->
+    <section class="section-padding-80" id="login">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-6 col-md-4">
+
+            <div class="box-panel">
+
+              <form method="post" enctype="multipart/form-data" action="/qa/change_img/">
+                 {% csrf_token %}
+                <div class="form-group">
+                  <label>Upload Image</label>
+                  <div class="input-group">
+                    <span class="input-group-btn">
+                {% render_field formimg.image class="form-control" %} 
+
+                    </span>
+                  </div>
+                  <img id="img-upload" src="{{ profil.photo_profil.image.url }}" alt="">
+                </div>
+
+                <button class="btn btn-primary btn-lg">Change Image</button>
+
+              </form>
+
+            </div>
+          </div>
+
+          <div class="col-md-8">
+
+            <div class="box-panel">
+
+              <!-- form login -->
+              <div class="col-sm-12">
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="/qa#home">Paramètres généraux du compte</a></li>
+              </ul>
+
+              
+          <div class="tab-content">
+            <div class="tab-pane active" id="home">
+                <hr>
+                   <form action="/qa/updateprofil/" method="post">
+                   {% csrf_token %}
+                                       <input type="hidden" name="user" value="{{ user.id }}">            
+
+                          <div id="div_id_date_naissance" class="form-group"> 
+                      <div class="form-group">
+                          
+                      <div class="col-xs-6">
+                              <label for="username"><h4>Username</h4></label>
+                              {% render_field formuser.username class="form-control" name="username" id="first_name" placeholder="" title="enter your first name if any." %}
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          
+                      <div class="col-xs-6">
+                              <label for="last_name"><h4>Prenom : </h4></label>
+                              {% render_field formuser.last_name class="form-control" name="last_name" id="last_name" placeholder="" title="enter your first name if any." %}
+                          </div>
+                      </div>
+                          
+                      <div class="form-group">    
+                      <div class="col-xs-6">
+                              <label for="first_name"><h4>Nom : </h4></label>
+                              {% render_field formuser.first_name class="form-control" name="first_name" id="first_name" placeholder="" title="enter your first name if any." %}
+                          </div>
+                      </div>
+                      </div>
+
+                      <div class="form-group">                          
+                      <div class="col-xs-6">
+                              <label for="email"><h4>Email : </h4></label>
+                              {% render_field formuser.email class="form-control" name="email" id="email" placeholder="" title="enter your first name if any." %}
+                          </div>
+                      </div> 
+
+
+                      <div class="form-group">
+                      <div class="col-xs-6">
+                              <label for="website"><h4>website </h4></label>
+                              {% render_field form.website class="form-control" name="website" id="website" placeholder="" title="enter your first name if any." %}
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          
+                      <div class="col-xs-6">
+                              <label for="facebook"><h4>facebook :</h4></label>
+                              {% render_field form.facebook class="form-control" name="facebook" id="facebook" placeholder="" title="enter your first name if any." %}
+                          </div>
+                      </div>
+                      
+                      <div class="form-group">    
+                      <div class="col-xs-6">
+                              <label for="youtube"><h4>youtube : </h4></label>
+                              {% render_field form.youtube class="form-control" name="youtube" id="youtube" placeholder="" title="enter your first name if any." %}
+                          </div>
+                      </div>
+                      
+
+                      <div class="form-group">    
+                      <div class="col-xs-6">
+                              <label for="instagram"><h4>instagram : </h4></label>
+                              {% render_field form.instagram class="form-control" name="instagram" id="instagram" placeholder="" title="enter your first name if any." %}
+                          </div>
+                      </div>    
+
+
+                      <div class="form-group">
+                      <div class="col-xs-6">
+                              <label for="linkedin"><h4>linkedin </h4></label>
+                              {% render_field form.linkedin class="form-control" name="linkedin" id="linkedin" placeholder="" title="enter your first name if any." %}
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          
+                      <div class="col-xs-6">
+                              <label for="tel"><h4>tel :</h4></label>
+                              {% render_field form.tel class="form-control" name="tel" id="tel" placeholder="" title="enter your first name if any." %}
+                          </div>
+                      </div>
+
+                      <div class="form-group">    
+                      <div class="col-xs-6">
+                              <label for="ville"><h4>ville : </h4></label>
+                              {% render_field form.ville class="form-control" name="ville" id="ville" placeholder="" title="enter your first name if any." %}
+                          </div>
+                      </div>
+                      
+                      <div class="form-group">    
+                      <div class="col-xs-6">
+                              <label for="pays"><h4>pays : </h4></label>
+                              {% render_field form.pays class="form-control" name="pays" id="pays" placeholder="" title="enter your first name if any." %}
+                          </div>
+                      </div> 
+
+                      <div class="form-group">
+                      <div class="col-xs-6">
+                              <label for="fonction"><h4>fonction : </h4></label>
+                              {% render_field form.fonction class="form-control" name="fonction" id="fonction" placeholder="" title="enter your first name if any." %}
+                          </div>
+                      </div> 
+
+                      <div class="form-group">
+                      <div class="col-xs-6">
+                              <label for="service"><h4>service </h4></label>
+                              {% render_field form.service class="form-control" name="service" id="service" placeholder="" title="enter your first name if any." %}
+                          </div>
+                      </div>
+                      
+                      <br><br><br><br>
+                      <hr>
+                      <button class="btn btn-lg btn-success pull-right" style="margin: 15px;" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
+                </form>
+              
+              
+             </div><!--/tab-pane-->
+               
+              </div><!--/tab-pane-->
+          </div><!--/tab-content-->
+
+          <script type="text/javascript">
+            $(document).ready(function() {
+
+    
+    var readURL = function(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('.avatar').attr('src', e.target.result);
+            }
+    
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    
+
+    $(".file-upload").on('change', function(){
+        readURL(this);
+    });
+});
+          </script>
+              <!-- form login -->
+
+            </div>
+          </div>
+
+          <div class="clearfix"></div>
+        </div>
+      </div>
+      <!-- end container -->
+    </section>
+ <!-- =-=-=-=-=-=-= User Form Settings End =-=-=-=-=-=-= -->
+ 
+
+
+  </div>
+<!-- =-=-=-=-=-=-= Main Area End =-=-=-=-=-=-= -->              
+
+{% endblock content %}

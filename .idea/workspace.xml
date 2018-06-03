@@ -1,0 +1,1725 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BookmarkManager">
+    <bookmark url="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/base_socialmedia.html" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="3b7e69f6-9767-4f06-be7b-c0e53ba8ac3b" name="Default" comment="" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
+  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
+    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="SocialNetworkJob" />
+  </component>
+  <component name="FileEditorManager">
+<<<<<<< HEAD
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+=======
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> d5a4491f9b709cb18afa2f9d6a528df99ed6be21
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SocialMedia/views.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="13515">
+              <caret line="815" selection-start-line="815" selection-end-line="815" />
+              <folding>
+                <element signature="e#0#77#0" expanded="true" />
+<<<<<<< HEAD
+=======
+=======
+      <file leaf-file-name="forms.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SocialMedia/forms.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="138">
+              <caret line="18" column="23" lean-forward="false" selection-start-line="18" selection-start-column="6" selection-end-line="18" selection-end-column="23" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="demandes_groupe.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/groupe/demandes_groupe.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="362">
+              <caret line="225" column="25" lean-forward="false" selection-start-line="225" selection-start-column="25" selection-end-line="225" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="groupe.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/groupe/groupe.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2466">
+              <caret line="137" column="106" lean-forward="false" selection-start-line="137" selection-start-column="106" selection-end-line="137" selection-end-column="106" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SocialMedia/urls.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="468">
+              <caret line="59" column="106" lean-forward="false" selection-start-line="59" selection-start-column="106" selection-end-line="59" selection-end-column="106" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="base_groupe.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/groupe/base_groupe.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="359">
+              <caret line="222" column="0" lean-forward="true" selection-start-line="222" selection-start-column="0" selection-end-line="222" selection-end-column="0" />
+              <folding>
+                <element signature="n#block#2;n#!!top" expanded="false" />
+                <element signature="n#block#5;n#!!top" expanded="false" />
+>>>>>>> 81eda517df9af0e88833d908c3ce4035b902cf72
+>>>>>>> d5a4491f9b709cb18afa2f9d6a528df99ed6be21
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> d5a4491f9b709cb18afa2f9d6a528df99ed6be21
+      <file leaf-file-name="myprofil.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/myprofil/myprofil.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="89">
+              <caret line="208" column="20" selection-start-line="208" selection-start-column="20" selection-end-line="208" selection-end-column="20" />
+<<<<<<< HEAD
+=======
+=======
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/SocialMedia/views.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="324">
+              <caret line="715" column="38" lean-forward="false" selection-start-line="715" selection-start-column="38" selection-end-line="715" selection-end-column="38" />
+              <folding>
+                <element signature="e#0#77#0" expanded="true" />
+                <element signature="e#975#2505#0" expanded="false" />
+                <element signature="e#2543#3316#0" expanded="false" />
+                <element signature="e#3358#4135#0" expanded="false" />
+                <element signature="e#4164#4803#0" expanded="false" />
+                <element signature="e#4830#5738#0" expanded="false" />
+                <element signature="e#5772#7380#0" expanded="false" />
+                <element signature="e#7408#7620#0" expanded="false" />
+                <element signature="e#7622#8359#1" expanded="false" />
+                <element signature="e#8435#10455#0" expanded="false" />
+                <element signature="e#9253#10342#0" expanded="false" />
+                <element signature="e#10361#10455#0" expanded="false" />
+                <element signature="e#10490#11928#0" expanded="false" />
+                <element signature="e#11960#12809#0" expanded="false" />
+                <element signature="e#12877#13298#0" expanded="false" />
+                <element signature="e#13362#13366#0" expanded="false" />
+                <element signature="e#13393#13882#0" expanded="false" />
+                <element signature="e#13916#15237#0" expanded="false" />
+                <element signature="e#15267#16496#0" expanded="false" />
+                <element signature="e#16535#18054#0" expanded="false" />
+                <element signature="e#18092#20307#0" expanded="false" />
+                <element signature="e#20355#21326#0" expanded="false" />
+                <element signature="e#21361#21940#0" expanded="false" />
+                <element signature="e#21975#22399#0" expanded="false" />
+                <element signature="e#22433#23589#0" expanded="false" />
+                <element signature="e#23644#25646#0" expanded="false" />
+                <element signature="e#25684#26764#0" expanded="false" />
+                <element signature="e#26804#30023#0" expanded="false" />
+                <element signature="e#30066#31246#0" expanded="false" />
+                <element signature="e#31287#34363#0" expanded="false" />
+                <element signature="e#31642#31763#0" expanded="false" />
+                <element signature="e#31881#32008#0" expanded="false" />
+                <element signature="e#34394#34712#0" expanded="false" />
+                <element signature="e#37244#38686#0" expanded="false" />
+              </folding>
+>>>>>>> 81eda517df9af0e88833d908c3ce4035b902cf72
+>>>>>>> d5a4491f9b709cb18afa2f9d6a528df99ed6be21
+            </state>
+          </provider>
+        </entry>
+      </file>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> d5a4491f9b709cb18afa2f9d6a528df99ed6be21
+      <file leaf-file-name="liste_langues.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/myprofil/informations/liste_langues.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="306">
+              <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="19" selection-end-column="51" />
+              <folding>
+                <element signature="e#81#128#0#HTML" expanded="true" />
+                <element signature="e#387#410#0#HTML" expanded="true" />
+                <element signature="e#613#656#0#HTML" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="liste_experiences.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/myprofil/informations/liste_experiences.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="192">
+              <caret line="16" column="32" lean-forward="true" selection-start-line="16" selection-start-column="32" selection-end-line="16" selection-end-column="32" />
+              <folding>
+                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#i#0;n#a#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#i#0;n#a#1;n#div#2;n#div#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="custom.css" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/SocialMedia/static/Socialmedia/css/custom.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="250">
+              <caret line="486" column="12" lean-forward="true" selection-start-line="486" selection-start-column="12" selection-end-line="486" selection-end-column="12" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 81eda517df9af0e88833d908c3ce4035b902cf72
+>>>>>>> d5a4491f9b709cb18afa2f9d6a528df99ed6be21
+    </leaf>
+>>>>>>> 68cd73ce6f68bee380ae5c1b2bdd506f818082d5
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+        <option value="JavaScript File" />
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+<<<<<<< HEAD
+<<<<<<< HEAD
+      <find>ec</find>
+      <find>acceptDemande</find>
+      <find>photo_profil</find>
+      <find>for</find>
+      <find>admins</find>
+      <find>demandesAmis</find>
+      <find>{% u</find>
+      <find>demandesGroupe</find>
+      <find>veuiller a</find>
+      <find>id=&quot;nbdemandeGroupeBadge&quot;</find>
+      <find>nbdemandeBadge</find>
+      <find>console.lo</find>
+      <find>admin</find>
+      <find>now</find>
+      <find>timeun</find>
+      <find>getGrou</find>
+      <find>demande</find>
+      <find>profil</find>
+      <find>profil_id</find>
+      <find>User</find>
+      <find>[</find>
+      <find>memGroupe</find>
+      <find>getProfil</find>
+      <find>Like</find>
+      <find>nav</find>
+      <find>Groups</find>
+      <find>badge</find>
+      <find>dict(</find>
+      <find>requests</find>
+      <find>getP</find>
+=======
+=======
+>>>>>>> d5a4491f9b709cb18afa2f9d6a528df99ed6be21
+      <find>squarespaceModalprofil</find>
+      <find>contentprofil</find>
+      <find>squarespaceAjouterLangue</find>
+      <find>render</find>
+      <find>{% render_field photoform.image accept='image/*' class=&quot;form-control&quot; style=&quot;cursor: pointer&quot; id=&quot;imgInp&quot; %}</find>
+      <find>myprofil</find>
+      <find>field</find>
+      <find>profil</find>
+      <find>photoform</find>
+      <find>form_data</find>
+      <find>ajax</find>
+      <find>formAjouterLangue</find>
+      <find>csrf</find>
+      <find>changephotocouverture</find>
+      <find>commit</find>
+      <find>awesome</find>
+      <find>FormAjouter</find>
+      <find>this</find>
+      <find>tableè</find>
+      <find>FormAjouterLangue</find>
+      <find>form_modifier_langue</find>
+      <find>hide</find>
+      <find>modifier</find>
+      <find>ajouter</find>
+      <find>my</find>
+      <find>instance</find>
+      <find>id</find>
+      <find>{{</find>
+      <find>experiences</find>
+      <find>liste_langues</find>
+<<<<<<< HEAD
+>>>>>>> 68cd73ce6f68bee380ae5c1b2bdd506f818082d5
+=======
+=======
+      <find>myprofil</find>
+      <find>mypro</find>
+      <find>mypr</find>
+      <find>main_app</find>
+      <find>{% c</find>
+      <find>group</find>
+      <find>profil</find>
+      <find>ecole_re</find>
+      <find>ecole_renseignee</find>
+      <find>ecole_renseigne</find>
+      <find>default</find>
+      <find>{{</find>
+      <find>ecole</find>
+      <find>bad</find>
+      <find>groupe</find>
+      <find>profilpic</find>
+      <find>contentP</find>
+      <find>A Prpo</find>
+      <find>ec</find>
+      <find>acceptDemande</find>
+      <find>photo_profil</find>
+      <find>for</find>
+      <find>admins</find>
+      <find>demandesAmis</find>
+      <find>{% u</find>
+      <find>demandesGroupe</find>
+      <find>veuiller a</find>
+      <find>id=&quot;nbdemandeGroupeBadge&quot;</find>
+      <find>nbdemandeBadge</find>
+      <find>console.lo</find>
+>>>>>>> 81eda517df9af0e88833d908c3ce4035b902cf72
+>>>>>>> d5a4491f9b709cb18afa2f9d6a528df99ed6be21
+    </findStrings>
+    <replaceStrings>
+      <replace>Facebook</replace>
+      <replace>Ajouter Au Contacts</replace>
+      <replace>member</replace>
+    </replaceStrings>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+<<<<<<< HEAD
+=======
+        <option value="$PROJECT_DIR$/Facebook/templates/Facebook/profil/base_profil.html" />
+        <option value="$PROJECT_DIR$/Facebook/templates/Facebook/profile.html" />
+>>>>>>> 68cd73ce6f68bee380ae5c1b2bdd506f818082d5
+        <option value="$PROJECT_DIR$/Facebook/views.py" />
+        <option value="$PROJECT_DIR$/Facebook/templates/Facebook/profil/demandesProfil.html" />
+        <option value="$PROJECT_DIR$/Facebook/templates/Facebook/profil/groupesProfil.html" />
+        <option value="$PROJECT_DIR$/Facebook/urls.py" />
+        <option value="$PROJECT_DIR$/SocialMedia/apps.py" />
+        <option value="$PROJECT_DIR$/SocialMedia/templates/SocialMedia/acceuil.html" />
+        <option value="$PROJECT_DIR$/SocialMedia/templates/SocialMedia/Search/base_search.html" />
+        <option value="$PROJECT_DIR$/templates/messages.html" />
+        <option value="$PROJECT_DIR$/main_app/static/css/main_style.css" />
+        <option value="$PROJECT_DIR$/templates/authentification/sign_up.html" />
+        <option value="$PROJECT_DIR$/main_app/admin.py" />
+        <option value="$PROJECT_DIR$/main_app/forms.py" />
+        <option value="$PROJECT_DIR$/SocialMedia/templates/SocialMedia/search/base_search.html" />
+        <option value="$USER_HOME$/Documents/GitHub/SocialMedia/views.py" />
+        <option value="$USER_HOME$/Documents/GitHub/SocialMedia/models.py" />
+        <option value="$USER_HOME$/Documents/GitHub/SocialMedia/admin.py" />
+        <option value="$PROJECT_DIR$/SocialMedia/static/Socialmedia/style.css" />
+        <option value="$PROJECT_DIR$/SocialMedia/static/Socialmedia/js/file.js" />
+        <option value="$PROJECT_DIR$/SocialMedia/templates/SocialMedia/myprofil/base_profil.html" />
+        <option value="$PROJECT_DIR$/SocialMedia/static/Socialmedia/js/custom.js" />
+        <option value="$PROJECT_DIR$/main_app/views.py" />
+        <option value="$PROJECT_DIR$/SocialMedia/templates/SocialMedia/base_socialmedia.html" />
+        <option value="$PROJECT_DIR$/SocialMedia/templates/SocialMedia/scripts/base_profil_scripts.js" />
+        <option value="$PROJECT_DIR$/SocialMedia/templates/SocialMedia/scripts/base_myprofil_scripts.js" />
+        <option value="$PROJECT_DIR$/SocialMedia/templates/SocialMedia/scripts/demandesMyProfil_scripts.js" />
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+        <option value="$PROJECT_DIR$/SocialMedia/templates/SocialMedia/myprofil/demandesMyProfil.html" />
+        <option value="$PROJECT_DIR$/SocialMedia/templates/SocialMedia/profil/profil.html" />
+        <option value="$PROJECT_DIR$/SocialNetworkJob/settings.py" />
+        <option value="$PROJECT_DIR$/SocialMedia/migrations/0001_initial.py" />
+        <option value="$PROJECT_DIR$/main_app/models.py" />
+        <option value="$PROJECT_DIR$/SocialMedia/templates/SocialMedia/profil/base_profil.html" />
+        <option value="$PROJECT_DIR$/SocialMedia/templates/SocialMedia/profil/groupesProfil.html" />
+        <option value="$PROJECT_DIR$/SocialMedia/models.py" />
+        <option value="$PROJECT_DIR$/SocialMedia/admin.py" />
+        <option value="$PROJECT_DIR$/SocialMedia/templates/SocialMedia/myprofil/base_myprofil.html" />
+        <option value="$PROJECT_DIR$/SocialMedia/templates/SocialMedia/test.html" />
+        <option value="$PROJECT_DIR$/SocialMedia/forms.py" />
+        <option value="$PROJECT_DIR$/SocialMedia/templates/SocialMedia/myprofil/modals/modal_ajouter_langue.html" />
+        <option value="$PROJECT_DIR$/SocialMedia/templates/SocialMedia/myprofil/modals/modal_modifier_langue.html" />
+        <option value="$PROJECT_DIR$/SocialMedia/views.py" />
+        <option value="$PROJECT_DIR$/SocialMedia/urls.py" />
+        <option value="$PROJECT_DIR$/SocialMedia/templates/SocialMedia/myprofil/myprofil.html" />
+        <option value="$PROJECT_DIR$/SocialMedia/templates/SocialMedia/myprofil/informations/liste_langues.html" />
+        <option value="$PROJECT_DIR$/SocialMedia/templates/SocialMedia/myprofil/informations/liste_experiences.html" />
+        <option value="$PROJECT_DIR$/SocialMedia/static/Socialmedia/css/custom.css" />
+=======
+        <option value="$PROJECT_DIR$/SocialMedia/admin.py" />
+        <option value="$PROJECT_DIR$/SocialMedia/templates/SocialMedia/profil/profil.html" />
+>>>>>>> d5a4491f9b709cb18afa2f9d6a528df99ed6be21
+        <option value="$PROJECT_DIR$/SocialMedia/migrations/0001_initial.py" />
+        <option value="$PROJECT_DIR$/main_app/models.py" />
+        <option value="$PROJECT_DIR$/SocialMedia/templates/SocialMedia/myprofil/myprofil.html" />
+        <option value="$PROJECT_DIR$/SocialNetworkJob/settings.py" />
+        <option value="$PROJECT_DIR$/SocialMedia/templates/SocialMedia/search/search_members.html" />
+        <option value="$PROJECT_DIR$/SocialMedia/templates/SocialMedia/search/search_offres.html" />
+        <option value="$PROJECT_DIR$/SocialMedia/templates/SocialMedia/groupe/base_groupev2.html" />
+        <option value="$PROJECT_DIR$/SocialMedia/templates/SocialMedia/groupe/memebres_groupe.html" />
+        <option value="$PROJECT_DIR$/SocialMedia/forms.py" />
+        <option value="$PROJECT_DIR$/SocialMedia/templates/SocialMedia/search/search_all.html" />
+        <option value="$PROJECT_DIR$/SocialMedia/templates/SocialMedia/search/search_groupes.html" />
+        <option value="$PROJECT_DIR$/SocialMedia/templates/SocialMedia/profil/profil.html" />
+        <option value="$PROJECT_DIR$/SocialMedia/templates/SocialMedia/groupe/groupe.html" />
+        <option value="$PROJECT_DIR$/SocialMedia/admin.py" />
+        <option value="$PROJECT_DIR$/SocialMedia/templates/SocialMedia/groupe/base_groupe.html" />
+        <option value="$PROJECT_DIR$/SocialMedia/models.py" />
+        <option value="$PROJECT_DIR$/SocialMedia/templates/SocialMedia/profil/base_profil.html" />
+        <option value="$PROJECT_DIR$/SocialMedia/templates/SocialMedia/groupe/membres_groupe.html" />
+        <option value="$PROJECT_DIR$/SocialMedia/templates/SocialMedia/myprofil/demandesMyProfil.html" />
+        <option value="$PROJECT_DIR$/SocialMedia/templates/SocialMedia/myprofil/base_myprofil.html" />
+        <option value="$PROJECT_DIR$/SocialMedia/templates/SocialMedia/myprofil/groupesMyProfil.html" />
+        <option value="$PROJECT_DIR$/SocialMedia/templates/SocialMedia/groupe/demandes_groupe.html" />
+        <option value="$PROJECT_DIR$/SocialMedia/templates/SocialMedia/profil/groupesProfil.html" />
+        <option value="$PROJECT_DIR$/SocialMedia/urls.py" />
+        <option value="$PROJECT_DIR$/SocialMedia/views.py" />
+<<<<<<< HEAD
+=======
+        <option value="$PROJECT_DIR$/SocialMedia/templates/SocialMedia/myprofil/demandesMyProfil.html" />
+        <option value="$PROJECT_DIR$/SocialMedia/templates/SocialMedia/profil/profil.html" />
+        <option value="$PROJECT_DIR$/SocialNetworkJob/settings.py" />
+        <option value="$PROJECT_DIR$/SocialMedia/migrations/0001_initial.py" />
+        <option value="$PROJECT_DIR$/main_app/models.py" />
+        <option value="$PROJECT_DIR$/SocialMedia/templates/SocialMedia/profil/base_profil.html" />
+        <option value="$PROJECT_DIR$/SocialMedia/templates/SocialMedia/profil/groupesProfil.html" />
+        <option value="$PROJECT_DIR$/SocialMedia/models.py" />
+        <option value="$PROJECT_DIR$/SocialMedia/admin.py" />
+        <option value="$PROJECT_DIR$/SocialMedia/templates/SocialMedia/myprofil/base_myprofil.html" />
+        <option value="$PROJECT_DIR$/SocialMedia/templates/SocialMedia/test.html" />
+        <option value="$PROJECT_DIR$/SocialMedia/forms.py" />
+        <option value="$PROJECT_DIR$/SocialMedia/templates/SocialMedia/myprofil/modals/modal_ajouter_langue.html" />
+        <option value="$PROJECT_DIR$/SocialMedia/templates/SocialMedia/myprofil/modals/modal_modifier_langue.html" />
+        <option value="$PROJECT_DIR$/SocialMedia/views.py" />
+        <option value="$PROJECT_DIR$/SocialMedia/urls.py" />
+        <option value="$PROJECT_DIR$/SocialMedia/templates/SocialMedia/myprofil/myprofil.html" />
+        <option value="$PROJECT_DIR$/SocialMedia/templates/SocialMedia/myprofil/informations/liste_langues.html" />
+        <option value="$PROJECT_DIR$/SocialMedia/templates/SocialMedia/myprofil/informations/liste_experiences.html" />
+        <option value="$PROJECT_DIR$/SocialMedia/static/Socialmedia/css/custom.css" />
+>>>>>>> 68cd73ce6f68bee380ae5c1b2bdd506f818082d5
+=======
+>>>>>>> 81eda517df9af0e88833d908c3ce4035b902cf72
+>>>>>>> d5a4491f9b709cb18afa2f9d6a528df99ed6be21
+      </list>
+    </option>
+  </component>
+  <component name="JsBowerSettings">
+    <node-interpreter value="project" />
+    <bower-package value="" />
+    <bower.json value="" />
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
+  </component>
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="NodePackageJsonFileManager">
+    <packageJsonPaths>
+      <path value="$PROJECT_DIR$/SocialMedia/static/Socialmedia/jQuery-File-Upload/package.json" />
+    </packageJsonPaths>
+  </component>
+<<<<<<< HEAD
+  <component name="ProjectFrameBounds" extendedState="6">
+<<<<<<< HEAD
+    <option name="x" value="6" />
+    <option name="y" value="-8" />
+    <option name="width" value="1094" />
+    <option name="height" value="788" />
+=======
+=======
+<<<<<<< HEAD
+  <component name="ProjectFrameBounds" extendedState="6">
+>>>>>>> d5a4491f9b709cb18afa2f9d6a528df99ed6be21
+    <option name="x" value="371" />
+    <option name="y" value="14" />
+    <option name="width" value="962" />
+    <option name="height" value="867" />
+<<<<<<< HEAD
+>>>>>>> 68cd73ce6f68bee380ae5c1b2bdd506f818082d5
+=======
+=======
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="353" />
+    <option name="y" value="40" />
+    <option name="width" value="1094" />
+    <option name="height" value="788" />
+>>>>>>> 81eda517df9af0e88833d908c3ce4035b902cf72
+>>>>>>> d5a4491f9b709cb18afa2f9d6a528df99ed6be21
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>AngularJS</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+<<<<<<< HEAD
+      <pane id="Scope" />
+=======
+>>>>>>> 68cd73ce6f68bee380ae5c1b2bdd506f818082d5
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="SocialMedia" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SocialMedia" type="462c0819:PsiDirectoryNode" />
+            </path>
+<<<<<<< HEAD
+=======
+            <path>
+              <item name="SocialMedia" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SocialMedia" type="462c0819:PsiDirectoryNode" />
+              <item name="SocialMedia" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SocialMedia" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SocialMedia" type="462c0819:PsiDirectoryNode" />
+              <item name="SocialMedia" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SocialMedia" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SocialMedia" type="462c0819:PsiDirectoryNode" />
+              <item name="SocialMedia" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="Socialmedia" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SocialMedia" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SocialMedia" type="462c0819:PsiDirectoryNode" />
+              <item name="SocialMedia" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="Socialmedia" type="462c0819:PsiDirectoryNode" />
+              <item name="css" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SocialMedia" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SocialMedia" type="462c0819:PsiDirectoryNode" />
+              <item name="SocialMedia" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="Socialmedia" type="462c0819:PsiDirectoryNode" />
+              <item name="img" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SocialMedia" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SocialMedia" type="462c0819:PsiDirectoryNode" />
+              <item name="SocialMedia" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SocialMedia" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SocialMedia" type="462c0819:PsiDirectoryNode" />
+              <item name="SocialMedia" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="SocialMedia" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SocialMedia" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SocialMedia" type="462c0819:PsiDirectoryNode" />
+              <item name="SocialMedia" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="SocialMedia" type="462c0819:PsiDirectoryNode" />
+              <item name="myprofil" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SocialMedia" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SocialMedia" type="462c0819:PsiDirectoryNode" />
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> d5a4491f9b709cb18afa2f9d6a528df99ed6be21
+              <item name="SocialMedia" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="SocialMedia" type="462c0819:PsiDirectoryNode" />
+              <item name="myprofil" type="462c0819:PsiDirectoryNode" />
+              <item name="informations" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SocialMedia" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SocialMedia" type="462c0819:PsiDirectoryNode" />
+              <item name="SocialMedia" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="SocialMedia" type="462c0819:PsiDirectoryNode" />
+              <item name="myprofil" type="462c0819:PsiDirectoryNode" />
+              <item name="modals" type="462c0819:PsiDirectoryNode" />
+<<<<<<< HEAD
+=======
+=======
+              <item name="SocialNetworkJob" type="462c0819:PsiDirectoryNode" />
+>>>>>>> 81eda517df9af0e88833d908c3ce4035b902cf72
+>>>>>>> d5a4491f9b709cb18afa2f9d6a528df99ed6be21
+            </path>
+>>>>>>> 68cd73ce6f68bee380ae5c1b2bdd506f818082d5
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scratches" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="com.intellij.database.dataSource.DataSourceTemplate" value="SQL Server (Microsoft)" />
+    <property name="last_opened_file_path" value="C:/eco" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="settings.editor.selected.configurable" value="Settings.JavaScript" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\HAYTHAM\PycharmProjects\Social\SocialMedia\SocialMedia\static\Socialmedia" />
+      <recent name="C:\Users\HAYTHAM\PycharmProjects\Social\SocialMedia\SocialMedia\templates\SocialMedia\myprofil" />
+      <recent name="C:\Users\HAYTHAM\PycharmProjects\Social\SocialMedia\SocialMedia\templates\SocialMedia\groupe" />
+      <recent name="C:\Users\HAYTHAM\PycharmProjects\Social\SocialMedia" />
+      <recent name="C:\Users\HAYTHAM\PycharmProjects\Social\SocialMedia\SocialMedia" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\HAYTHAM\PycharmProjects\Social\SocialMedia\SocialMedia\templates\SocialMedia\groupe" />
+      <recent name="C:\Social\SocialMedia\SocialMedia\templates\SocialMedia" />
+      <recent name="C:\Social\SocialMedia\Facebook\static\Socialmedia\js" />
+      <recent name="C:\Social\SocialMedia\Facebook\static\Socialmedia" />
+      <recent name="C:\Social\SocialMedia\Facebook\templates\Facebook" />
+<<<<<<< HEAD
+=======
+      <recent name="C:\Users\HAYTHAM\PycharmProjects\SocialNetworkJob\templates" />
+    </key>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> d5a4491f9b709cb18afa2f9d6a528df99ed6be21
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Social\SocialMedia\SocialMedia\static\Socialmedia\img" />
+      <recent name="C:\Social\SocialMedia\media" />
+      <recent name="C:\Users\HAYTHAM\PycharmProjects\Social\SocialMedia" />
+      <recent name="C:\Users\HAYTHAM\PycharmProjects\Social\SocialMedia\SocialMedia" />
+      <recent name="C:\Users\HAYTHAM\PycharmProjects\Social\SocialMedia\SocialMedia\templates\SocialMedia\scripts" />
+>>>>>>> 68cd73ce6f68bee380ae5c1b2bdd506f818082d5
+    </key>
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 81eda517df9af0e88833d908c3ce4035b902cf72
+>>>>>>> d5a4491f9b709cb18afa2f9d6a528df99ed6be21
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="SocialNetworkJob" type="Python.DjangoServer" factoryName="Django server">
+      <module name="SocialNetworkJob" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="DJANGO_SETTINGS_MODULE" value="SocialNetworkJob.settings" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Users\admin\AppData\Local\Programs\Python\Python36-32\python.exe" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8000" />
+      <option name="host" value="127.0.0.1" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3b7e69f6-9767-4f06-be7b-c0e53ba8ac3b" name="Default" comment="" />
+      <created>1523308396020</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1523308396020</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+<<<<<<< HEAD
+<<<<<<< HEAD
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <layout>
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32952693" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32952693" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3735726" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3588907" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1452345" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="SciView" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32952693" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+=======
+=======
+>>>>>>> d5a4491f9b709cb18afa2f9d6a528df99ed6be21
+    <frame x="-8" y="32" width="1456" height="876" extended-state="6" />
+    <layout>
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32952693" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5007163" side_tool="true" weight="0.3292683" />
+      <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Python Console" order="7" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49928367" visible="true" weight="0.3292683" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.24525745" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4969697" visible="true" weight="0.21991403" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="right" id="Database" order="4" weight="0.3295129" />
+      <window_info anchor="right" id="SciView" order="3" />
+      <window_info id="Structure" order="1" sideWeight="0.5030303" side_tool="true" weight="0.245702" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32952693" />
+<<<<<<< HEAD
+>>>>>>> 68cd73ce6f68bee380ae5c1b2bdd506f818082d5
+=======
+=======
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
+    <editor active="true" />
+    <layout>
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32952693" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32952693" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3735726" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3588907" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23524962" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="SciView" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32952693" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+>>>>>>> 81eda517df9af0e88833d908c3ce4035b902cf72
+>>>>>>> d5a4491f9b709cb18afa2f9d6a528df99ed6be21
+    </layout>
+    <layout-to-restore>
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32952693" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32952693" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3735726" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3588907" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1452345" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32952693" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="SciView" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+    </layout-to-restore>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+<<<<<<< HEAD
+<<<<<<< HEAD
+      <option name="time" value="21" />
+=======
+      <option name="time" value="13" />
+>>>>>>> 68cd73ce6f68bee380ae5c1b2bdd506f818082d5
+=======
+      <option name="time" value="13" />
+=======
+      <option name="time" value="15" />
+>>>>>>> 81eda517df9af0e88833d908c3ce4035b902cf72
+>>>>>>> d5a4491f9b709cb18afa2f9d6a528df99ed6be21
+    </breakpoint-manager>
+  </component>
+  <component name="editorHistoryManager">
+<<<<<<< HEAD
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/profil/base_profil.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="331">
+          <caret line="307" column="19" lean-forward="false" selection-start-line="307" selection-start-column="19" selection-end-line="307" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/static/SocialMedia/js/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/static/SocialMedia/js/custom.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/messages.html">
+=======
+=======
+>>>>>>> d5a4491f9b709cb18afa2f9d6a528df99ed6be21
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/myprofil/myprofil.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6698">
+          <caret line="394" column="21" lean-forward="true" selection-start-line="394" selection-start-column="21" selection-end-line="394" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Documents/GitHub/SocialMedia/admin.py" />
+    <entry file="file://$PROJECT_DIR$/SocialMedia/static/Socialmedia/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="5035" lean-forward="true" selection-start-line="5035" selection-end-line="5035" />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 81eda517df9af0e88833d908c3ce4035b902cf72
+>>>>>>> d5a4491f9b709cb18afa2f9d6a528df99ed6be21
+    <entry file="file://$PROJECT_DIR$/SocialMedia/static/Socialmedia/js/file.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="412">
+          <caret line="31" column="3" selection-start-line="31" selection-start-column="3" selection-end-line="31" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/profil/forms/base_forms.html" />
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/profil/base_profil.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="331">
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> d5a4491f9b709cb18afa2f9d6a528df99ed6be21
+          <caret line="307" column="19" selection-start-line="307" selection-start-column="19" selection-end-line="307" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/acceuil.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="8262">
+          <caret line="459" column="75" selection-start-line="459" selection-start-column="75" selection-end-line="459" selection-end-column="75" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/migrations/0020_auto_20180508_0108.py" />
+    <entry file="file://$PROJECT_DIR$/SocialMedia/migrations/0019_auto_20180507_0037.py" />
+    <entry file="file://$PROJECT_DIR$/SocialMedia/migrations/0018_offreemploi_date_publication.py" />
+    <entry file="file://$PROJECT_DIR$/SocialMedia/migrations/0017_remove_offreemploi_date_publication.py" />
+    <entry file="file://$PROJECT_DIR$/SocialMedia/migrations/0002_auto_20180426_1945.py" />
+    <entry file="file://$PROJECT_DIR$/SocialMedia/migrations/0003_auto_20180428_0252.py" />
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/scripts/base_profil_scripts.js" />
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/scripts/base_myprofil_scripts.js" />
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/scripts/demandesMyProfil_scripts.js" />
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/search/base_search.html">
+<<<<<<< HEAD
+>>>>>>> 68cd73ce6f68bee380ae5c1b2bdd506f818082d5
+=======
+=======
+          <caret line="307" column="19" lean-forward="false" selection-start-line="307" selection-start-column="19" selection-end-line="307" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/static/Socialmedia/js/main.js">
+>>>>>>> d5a4491f9b709cb18afa2f9d6a528df99ed6be21
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/static/Socialmedia/js/custom.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/SocialMedia/migrations/0020_auto_20180508_0108.py" />
+    <entry file="file://$PROJECT_DIR$/SocialMedia/migrations/0019_auto_20180507_0037.py" />
+    <entry file="file://$PROJECT_DIR$/SocialMedia/migrations/0018_offreemploi_date_publication.py" />
+    <entry file="file://$PROJECT_DIR$/SocialMedia/migrations/0017_remove_offreemploi_date_publication.py" />
+    <entry file="file://$PROJECT_DIR$/SocialMedia/migrations/0002_auto_20180426_1945.py" />
+    <entry file="file://$PROJECT_DIR$/SocialMedia/migrations/0003_auto_20180428_0252.py" />
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/scripts/base_profil_scripts.js" />
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/scripts/base_myprofil_scripts.js" />
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/scripts/demandesMyProfil_scripts.js" />
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/myprofil/mediaProfil.html">
+=======
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/messages.html">
+>>>>>>> 81eda517df9af0e88833d908c3ce4035b902cf72
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="167">
+          <caret line="60" lean-forward="true" selection-start-line="60" selection-end-line="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/search/search_all.html">
+>>>>>>> d5a4491f9b709cb18afa2f9d6a528df99ed6be21
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="317">
+          <caret line="230" column="40" selection-start-line="230" selection-start-column="40" selection-end-line="230" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/manage.py">
+=======
+=======
+<<<<<<< HEAD
+>>>>>>> d5a4491f9b709cb18afa2f9d6a528df99ed6be21
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/search/search_groupes.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="317">
+          <caret line="89" column="39" selection-start-line="89" selection-start-column="39" selection-end-line="89" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/search/search_members.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="317">
+          <caret line="44" column="97" selection-start-line="44" selection-start-column="97" selection-end-line="45" selection-end-column="144" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/search/search_offres.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-12">
+          <caret line="2" column="24" selection-start-line="2" selection-start-column="24" selection-end-line="3" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/myprofil/mediaProfil.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialNetworkJob/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="426">
+          <caret line="133" lean-forward="true" selection-start-line="133" selection-end-line="133" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/migrations/0002_groupe.py" />
+    <entry file="file://$PROJECT_DIR$/SocialMedia/migrations/0001_initial.py">
+<<<<<<< HEAD
+>>>>>>> 68cd73ce6f68bee380ae5c1b2bdd506f818082d5
+=======
+=======
+    <entry file="file://$PROJECT_DIR$/SocialMedia/migrations/0020_auto_20180508_0108.py" />
+    <entry file="file://$PROJECT_DIR$/SocialMedia/migrations/0019_auto_20180507_0037.py" />
+    <entry file="file://$PROJECT_DIR$/SocialMedia/migrations/0018_offreemploi_date_publication.py" />
+    <entry file="file://$PROJECT_DIR$/SocialMedia/migrations/0017_remove_offreemploi_date_publication.py" />
+    <entry file="file://$PROJECT_DIR$/SocialMedia/migrations/0002_auto_20180426_1945.py" />
+    <entry file="file://$PROJECT_DIR$/SocialMedia/migrations/0003_auto_20180428_0252.py" />
+    <entry file="file://$PROJECT_DIR$/SocialMedia/static/Socialmedia/css/custom.css">
+>>>>>>> d5a4491f9b709cb18afa2f9d6a528df99ed6be21
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-6044">
+          <caret line="460" column="0" lean-forward="false" selection-start-line="460" selection-start-column="0" selection-end-line="460" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/main_app/urls.py">
+=======
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/scripts/base_profil_scripts.js" />
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/scripts/base_myprofil_scripts.js" />
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/scripts/demandesMyProfil_scripts.js" />
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/myprofil/mediaProfil.html">
+>>>>>>> d5a4491f9b709cb18afa2f9d6a528df99ed6be21
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="9" column="17" lean-forward="false" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/SocialMedia/__init__.py">
+=======
+=======
+    <entry file="file://$PROJECT_DIR$/manage.py">
+>>>>>>> 81eda517df9af0e88833d908c3ce4035b902cf72
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-10" />
+      </provider>
+    </entry>
+<<<<<<< HEAD
+>>>>>>> d5a4491f9b709cb18afa2f9d6a528df99ed6be21
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/myprofil/groupesMyProfil.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="6" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/myprofil/findfriends.html">
+<<<<<<< HEAD
+>>>>>>> 68cd73ce6f68bee380ae5c1b2bdd506f818082d5
+=======
+=======
+    <entry file="file://$PROJECT_DIR$/main_app/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="31" lean-forward="true" selection-start-line="18" selection-start-column="31" selection-end-line="18" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/__init__.py">
+>>>>>>> 81eda517df9af0e88833d908c3ce4035b902cf72
+>>>>>>> d5a4491f9b709cb18afa2f9d6a528df99ed6be21
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="9" column="28" selection-start-line="9" selection-start-column="28" selection-end-line="9" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/myprofil/demandesMyProfil.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="549">
+          <caret line="115" column="36" selection-start-line="115" selection-start-column="36" selection-end-line="115" selection-end-column="36" />
+          <folding>
+            <element signature="n#block#2;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/profil/profil.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1813">
+          <caret line="117" lean-forward="true" selection-start-line="117" selection-end-line="117" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/apps.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/profil/groupesProfil.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="48" column="159" selection-start-line="48" selection-start-column="159" selection-end-line="48" selection-end-column="159" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/profil/base_profil.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1411">
+          <caret line="83" column="29" selection-start-line="83" selection-start-column="29" selection-end-line="83" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/authentification/login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/admin.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/authentification/base_authentification.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="27" lean-forward="true" selection-start-line="12" selection-end-line="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/forms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="571">
+          <caret line="77" lean-forward="true" selection-start-line="77" selection-end-line="77" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/test.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="554">
+          <caret line="51" lean-forward="true" selection-start-line="51" selection-end-line="51" />
+=======
+>>>>>>> d5a4491f9b709cb18afa2f9d6a528df99ed6be21
+    <entry file="file://$PROJECT_DIR$/SocialMedia/migrations/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/migrations/0002_groupe.py" />
+    <entry file="file://$PROJECT_DIR$/SocialMedia/migrations/0001_initial.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-10">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/myprofil/findfriends.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="9" column="28" lean-forward="false" selection-start-line="9" selection-start-column="28" selection-end-line="9" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/apps.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/search/search_members.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-817">
+          <caret line="38" column="96" lean-forward="false" selection-start-line="38" selection-start-column="96" selection-end-line="38" selection-end-column="96" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/search/search_offres.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-712">
+          <caret line="38" column="91" lean-forward="false" selection-start-line="38" selection-start-column="91" selection-end-line="38" selection-end-column="91" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main_app/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="464">
+          <caret line="66" column="22" lean-forward="true" selection-start-line="66" selection-start-column="22" selection-end-line="66" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/groupe/base_groupevAlpha.html" />
+    <entry file="file://$PROJECT_DIR$/SocialMedia/static/Socialmedia/Loading_icon.gif" />
+    <entry file="file://$PROJECT_DIR$/SocialMedia/static/SocialMedia/css/custom.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7308">
+          <caret line="460" column="0" lean-forward="false" selection-start-line="460" selection-start-column="0" selection-end-line="460" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/search/base_search.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="968">
+          <caret line="60" column="0" lean-forward="true" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
+          <folding />
+<<<<<<< HEAD
+=======
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/myprofil/demandesMyProfil.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="549">
+          <caret line="115" column="36" selection-start-line="115" selection-start-column="36" selection-end-line="115" selection-end-column="36" />
+          <folding>
+            <element signature="n#block#2;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/profil/profil.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1813">
+          <caret line="117" lean-forward="true" selection-start-line="117" selection-end-line="117" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/apps.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
+=======
+>>>>>>> 81eda517df9af0e88833d908c3ce4035b902cf72
+>>>>>>> d5a4491f9b709cb18afa2f9d6a528df99ed6be21
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/search/search_offres.html">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+        <state relative-caret-position="425">
+          <caret line="28" column="1" lean-forward="true" selection-start-line="28" selection-start-column="1" selection-end-line="28" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/myprofil/base_myprofil.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1456">
+          <caret line="499" lean-forward="true" selection-start-line="499" selection-end-line="499" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/base_socialmedia.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="382">
+          <caret line="218" column="22" lean-forward="true" selection-start-line="218" selection-start-column="22" selection-end-line="218" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/myprofil/modals/modal_ajouter_langue.html">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+        <state relative-caret-position="554">
+          <caret line="51" lean-forward="true" selection-start-line="51" selection-end-line="51" />
+>>>>>>> 68cd73ce6f68bee380ae5c1b2bdd506f818082d5
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/search/search_all.html">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+        <state relative-caret-position="64">
+          <caret line="194" column="41" lean-forward="true" selection-start-line="194" selection-start-column="41" selection-end-line="194" selection-end-column="71" />
+=======
+        <state relative-caret-position="-544">
+          <caret line="1" column="27" selection-start-line="1" selection-start-column="27" selection-end-line="1" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main_app/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="180" column="39" selection-start-line="180" selection-start-column="39" selection-end-line="180" selection-end-column="39" />
+=======
+        <state relative-caret-position="-712">
+          <caret line="38" column="91" lean-forward="false" selection-start-line="38" selection-start-column="91" selection-end-line="38" selection-end-column="91" />
+>>>>>>> d5a4491f9b709cb18afa2f9d6a528df99ed6be21
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/search/search_groupes.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="28" column="75" lean-forward="false" selection-start-line="28" selection-start-column="75" selection-end-line="28" selection-end-column="75" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/myprofil/myprofil.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="177">
+          <caret line="166" column="238" lean-forward="false" selection-start-line="166" selection-start-column="232" selection-end-line="166" selection-end-column="238" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialNetworkJob/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="124" column="21" lean-forward="true" selection-start-line="124" selection-start-column="21" selection-end-line="124" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/acceuil.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="549">
+          <caret line="459" column="75" lean-forward="false" selection-start-line="459" selection-start-column="75" selection-end-line="459" selection-end-column="75" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/base_socialmedia.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1341">
+          <caret line="84" column="0" lean-forward="true" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
+          <folding />
+<<<<<<< HEAD
+=======
+        <state relative-caret-position="425">
+          <caret line="28" column="1" lean-forward="true" selection-start-line="28" selection-start-column="1" selection-end-line="28" selection-end-column="1" />
+=======
+>>>>>>> 81eda517df9af0e88833d908c3ce4035b902cf72
+>>>>>>> d5a4491f9b709cb18afa2f9d6a528df99ed6be21
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/acceuil.html">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+        <state relative-caret-position="272">
+          <caret line="53" column="11" selection-start-line="53" selection-start-column="4" selection-end-line="53" selection-end-column="11" />
+=======
+        <state relative-caret-position="549">
+          <caret line="459" column="75" lean-forward="false" selection-start-line="459" selection-start-column="75" selection-end-line="459" selection-end-column="75" />
+          <folding />
+>>>>>>> 81eda517df9af0e88833d908c3ce4035b902cf72
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/search/search_all.html">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+        <state relative-caret-position="243">
+          <caret line="247" column="21" selection-start-line="247" selection-start-column="21" selection-end-line="247" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/myprofil/modals/modal_modifier_langue.html">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+        <state relative-caret-position="140">
+          <caret line="180" column="39" selection-start-line="180" selection-start-column="39" selection-end-line="180" selection-end-column="39" />
+>>>>>>> 68cd73ce6f68bee380ae5c1b2bdd506f818082d5
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/profil/profil.html">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+        <state relative-caret-position="350">
+          <caret line="239" column="0" lean-forward="false" selection-start-line="239" selection-start-column="0" selection-end-line="239" selection-end-column="0" />
+          <folding />
+=======
+        <state relative-caret-position="272">
+          <caret line="53" column="11" selection-start-line="53" selection-start-column="4" selection-end-line="53" selection-end-column="11" />
+>>>>>>> 68cd73ce6f68bee380ae5c1b2bdd506f818082d5
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/forms.py">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+        <state relative-caret-position="0">
+          <caret line="23" column="10" lean-forward="false" selection-start-line="23" selection-start-column="4" selection-end-line="23" selection-end-column="10" />
+=======
+        <state relative-caret-position="235">
+          <caret line="45" column="84" selection-start-line="45" selection-start-column="84" selection-end-line="45" selection-end-column="84" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="350">
+          <caret line="46" column="59" selection-start-line="46" selection-start-column="44" selection-end-line="46" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="13515">
+          <caret line="815" selection-start-line="815" selection-end-line="815" />
+=======
+        <state relative-caret-position="336">
+          <caret line="232" column="20" lean-forward="false" selection-start-line="232" selection-start-column="20" selection-end-line="236" selection-end-column="26" />
+>>>>>>> d5a4491f9b709cb18afa2f9d6a528df99ed6be21
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/admin.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="23" column="24" lean-forward="false" selection-start-line="23" selection-start-column="24" selection-end-line="23" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/groupe/base_groupe.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="249">
+          <caret line="220" column="106" lean-forward="true" selection-start-line="220" selection-start-column="106" selection-end-line="221" selection-end-column="112" />
+          <folding>
+            <element signature="n#block#2;n#!!top" expanded="false" />
+            <element signature="n#block#5;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="64" column="39" lean-forward="false" selection-start-line="64" selection-start-column="39" selection-end-line="64" selection-end-column="39" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/groupe/groupe.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2160">
+          <caret line="0" column="51" lean-forward="true" selection-start-line="0" selection-start-column="51" selection-end-line="0" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/profil/base_profil.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="441">
+          <caret line="124" column="108" lean-forward="false" selection-start-line="124" selection-start-column="108" selection-end-line="124" selection-end-column="171" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/myprofil/base_myprofil.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="440">
+          <caret line="231" column="151" lean-forward="false" selection-start-line="231" selection-start-column="151" selection-end-line="231" selection-end-column="151" />
+          <folding>
+            <element signature="n#block#2;n#!!top" expanded="false" />
+            <element signature="n#block#5;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/myprofil/demandesMyProfil.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="137">
+          <caret line="127" column="0" lean-forward="false" selection-start-line="127" selection-start-column="0" selection-end-line="129" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/myprofil/groupesMyProfil.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="486">
+          <caret line="108" column="0" lean-forward="true" selection-start-line="108" selection-start-column="0" selection-end-line="108" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/groupe/demandes_groupe.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="333">
+          <caret line="119" column="4" lean-forward="false" selection-start-line="119" selection-start-column="4" selection-end-line="119" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/groupe/membres_groupe.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3303">
+          <caret line="324" column="52" lean-forward="false" selection-start-line="324" selection-start-column="52" selection-end-line="324" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/profil/groupesProfil.html">
+=======
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/groupe/base_groupe.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="359">
+          <caret line="222" column="0" lean-forward="true" selection-start-line="222" selection-start-column="0" selection-end-line="222" selection-end-column="0" />
+>>>>>>> 81eda517df9af0e88833d908c3ce4035b902cf72
+          <folding>
+            <element signature="e#0#77#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/myprofil/myprofil.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="89">
+          <caret line="208" column="20" selection-start-line="208" selection-start-column="20" selection-end-line="208" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/myprofil/informations/liste_experiences.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="16" column="32" lean-forward="true" selection-start-line="16" selection-start-column="32" selection-end-line="16" selection-end-column="32" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#i#0;n#a#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#i#0;n#a#1;n#div#2;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/myprofil/informations/liste_langues.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="19" selection-end-column="51" />
+          <folding>
+            <element signature="e#81#128#0#HTML" expanded="true" />
+            <element signature="e#387#410#0#HTML" expanded="true" />
+            <element signature="e#613#656#0#HTML" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/static/Socialmedia/css/custom.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="486" column="12" lean-forward="true" selection-start-line="486" selection-start-column="12" selection-end-line="486" selection-end-column="12" />
+=======
+    <entry file="file://$PROJECT_DIR$/SocialMedia/forms.py">
+>>>>>>> d5a4491f9b709cb18afa2f9d6a528df99ed6be21
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="328">
+          <caret line="110" column="12" lean-forward="false" selection-start-line="110" selection-start-column="12" selection-end-line="110" selection-end-column="12" />
+          <folding />
+=======
+        <state relative-caret-position="243">
+          <caret line="247" column="21" selection-start-line="247" selection-start-column="21" selection-end-line="247" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/myprofil/modals/modal_modifier_langue.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="235">
+          <caret line="45" column="84" selection-start-line="45" selection-start-column="84" selection-end-line="45" selection-end-column="84" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="350">
+          <caret line="46" column="59" selection-start-line="46" selection-start-column="44" selection-end-line="46" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="13515">
+          <caret line="815" selection-start-line="815" selection-end-line="815" />
+          <folding>
+            <element signature="e#0#77#0" expanded="true" />
+          </folding>
+<<<<<<< HEAD
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/myprofil/myprofil.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="89">
+          <caret line="208" column="20" selection-start-line="208" selection-start-column="20" selection-end-line="208" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/myprofil/informations/liste_experiences.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="16" column="32" lean-forward="true" selection-start-line="16" selection-start-column="32" selection-end-line="16" selection-end-column="32" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#i#0;n#a#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#i#0;n#a#1;n#div#2;n#div#0;n#!!top" expanded="true" />
+          </folding>
+>>>>>>> 68cd73ce6f68bee380ae5c1b2bdd506f818082d5
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SocialMedia/templates/SocialMedia/myprofil/informations/liste_langues.html">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+        <state relative-caret-position="367">
+          <caret line="406" column="3" lean-forward="false" selection-start-line="406" selection-start-column="3" selection-end-line="406" selection-end-column="3" />
+          <folding>
+            <element signature="e#898#948#0" expanded="false" />
+            <element signature="e#975#2772#0" expanded="false" />
+            <element signature="e#2810#3583#0" expanded="false" />
+            <element signature="e#3625#4402#0" expanded="false" />
+            <element signature="e#4431#5065#0" expanded="false" />
+            <element signature="e#5092#6000#0" expanded="false" />
+            <element signature="e#6034#11071#0" expanded="false" />
+            <element signature="e#11099#11311#0" expanded="false" />
+            <element signature="e#11388#13719#0" expanded="false" />
+            <element signature="e#13754#15193#0" expanded="false" />
+            <element signature="e#15225#16074#0" expanded="false" />
+            <element signature="e#16142#16563#0" expanded="false" />
+            <element signature="e#16658#17147#0" expanded="false" />
+            <element signature="e#17181#18502#0" expanded="false" />
+            <element signature="e#18532#19761#0" expanded="false" />
+            <element signature="e#19800#21319#0" expanded="false" />
+            <element signature="e#21357#23572#0" expanded="false" />
+            <element signature="e#23620#24591#0" expanded="false" />
+            <element signature="e#24626#25205#0" expanded="false" />
+            <element signature="e#25240#25664#0" expanded="false" />
+            <element signature="e#25698#26854#0" expanded="false" />
+            <element signature="e#26909#29125#0" expanded="false" />
+            <element signature="e#29163#30243#0" expanded="false" />
+            <element signature="e#30283#33502#0" expanded="false" />
+            <element signature="e#33545#34725#0" expanded="false" />
+            <element signature="e#34766#40763#0" expanded="false" />
+            <element signature="e#40794#41262#0" expanded="false" />
+            <element signature="e#41301#43903#0" expanded="false" />
+            <element signature="e#43949#45506#0" expanded="false" />
+            <element signature="e#45544#48798#0" expanded="false" />
+            <element signature="e#48843#50479#0" expanded="false" />
+=======
+        <state relative-caret-position="306">
+          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="19" selection-end-column="51" />
+          <folding>
+            <element signature="e#81#128#0#HTML" expanded="true" />
+            <element signature="e#387#410#0#HTML" expanded="true" />
+            <element signature="e#613#656#0#HTML" expanded="true" />
+>>>>>>> 68cd73ce6f68bee380ae5c1b2bdd506f818082d5
+          </folding>
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/SocialMedia/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="11" column="68" lean-forward="false" selection-start-line="11" selection-start-column="68" selection-end-line="11" selection-end-column="68" />
+          <folding />
+=======
+    <entry file="file://$PROJECT_DIR$/SocialMedia/static/Socialmedia/css/custom.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="486" column="12" lean-forward="true" selection-start-line="486" selection-start-column="12" selection-end-line="486" selection-end-column="12" />
+>>>>>>> 68cd73ce6f68bee380ae5c1b2bdd506f818082d5
+=======
+>>>>>>> 81eda517df9af0e88833d908c3ce4035b902cf72
+>>>>>>> d5a4491f9b709cb18afa2f9d6a528df99ed6be21
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

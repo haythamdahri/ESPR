@@ -1,0 +1,347 @@
+
+
+.create-article {
+    padding-top: 20px;
+}
+
+.create-article .row {
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.create-article .info .form-group {
+    padding: 0 15px;
+}
+
+.create-article .info .form-group textarea {
+    max-width: 100%;
+}
+
+.card {
+    border-radius: 6px;
+    box-shadow: 0 2px 2px rgba(204, 197, 185, 0.5);
+    background-color: #FAFAFA;
+    color: #252422;
+    padding-top: 15px;
+    margin-bottom: 20px;
+}
+
+.well {
+    margin-bottom: 3px;
+}
+
+.js-upload-primary_image, .js-upload-photos {
+    width: 100%;
+    margin-bottom: 3px;
+}
+
+.js-upload-primary_image {
+    margin-top: 10px;
+    background-color: #f46320;
+    border-color: #f46320;
+    transition: .3s all;
+}
+
+#primary_image_url {
+    margin-top: 2px;
+    text-align: center;
+    overflow: hidden;
+}
+
+#primary_image_url a {
+    color: #f46320;
+}
+
+.form-group {
+    position: relative;
+}
+
+.form-share {
+    margin-top: 55px;
+    margin-bottom: 60px;
+}
+
+.form-group label {
+    padding-left: 2px;
+}
+
+.ending-button .btn {
+    width: 20%;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 6px;
+    transition: .3s all;
+}
+
+.ending-button .btn:first-child {
+    background-color: #e57373;
+    border-color: #e57373;
+}
+
+.ending-button .btn:first-child:hover {
+    color: #e57373;
+    background: #FFF;
+}
+
+.ending-button .btn:last-child:hover, .js-upload-primary_image:hover {
+    color: #f46320;
+    background: #FFF;
+}
+
+.ending-button .btn:last-child {
+    width: 79.7%;
+    background-color: #f46320;
+    border-color: #f46320;
+    color: #FFF;
+}
+
+.form-delete-image {
+    display: inline-block;
+}
+
+.form-delete-image .btn-danger {
+    padding: 0 10px;
+}
+
+.btn-copy {
+    padding: 0px 10px;
+    margin-right: 2px;
+    margin-top: 1px;
+}
+
+.modal-body {
+    padding: 15px 0;
+}
+
+#btn-modal {
+    margin-left: 4px;
+    margin-top: -3px;
+    padding: 0;
+    background: transparent;
+    color: #f46320;
+    border: 0;
+    transition: .3s all;
+}
+
+#btn-modal:hover {
+    color: #333;
+    margin-left: 10px;
+}
+
+#modal-submit {
+    background: #f46320;
+    color: #FFF;
+}
+
+.modal .alert {
+    border-radius: 0;
+}
+
+.modal-footer button {
+    transition: .3s all;
+}
+
+.modal-footer button:hover {
+    padding-right: 30px;
+    padding-left: 30px;
+}
+
+.cke_chrome {
+    width: 100% !important;
+}
+
+
+
+
+/*  START RADIO INPUT */
+.switch {
+    position: absolute;
+    top: 56px;
+    left: 21%;
+    width: 100%;
+    height: 35px;
+    text-align: center;
+    margin: -30px 0 0 -75px;
+    background: #424242;
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    -ms-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+    border-radius: 6px;
+}
+.switch span {
+  position: absolute;
+  width: 20px;
+  height: 4px;
+  top: 50%;
+  left: 50%;
+  margin: -2px 0 0 -4px;
+  background: #fff;
+  display: block;
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  -ms-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+  border-radius: 2px;
+}
+.switch span:after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 4px;
+  height: 12px;
+  margin-top: -8px;
+  background: #fff;
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  -ms-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+  border-radius: 2px;
+}
+input[type=radio] {
+  display: none;
+}
+.switch label {
+  cursor: pointer;
+  color: #757575;
+  width: 60px;
+  line-height: 35px;
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  -ms-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+}
+label[for=c_yes] {
+  position: absolute;
+  left: 0;
+  height: 20px;
+}
+label[for=c_no] {
+  position: absolute;
+  right: 0;
+}
+#c_no:checked ~ .switch {
+  background: #9E9E9E;
+}
+#c_no:checked ~ .switch span {
+  background: #fff;
+  margin-left: -8px;
+}
+#c_no:checked ~ .switch span:after {
+  background: #fff;
+  height: 20px;
+  margin-top: -8px;
+  margin-left: 8px;
+}
+#c_yes:checked ~ .switch label[for=c_yes] {
+  color: #fff;
+}
+#c_no:checked ~ .switch label[for=c_no] {
+  color: #fff;
+}
+
+/*  END RADIO INPUT */
+
+/*  START RADIO INPUT */
+.switch-share {
+    position: absolute;
+    top: 56px;
+    left: 21%;
+    width: 100%;
+    height: 35px;
+    text-align: center;
+    margin: -30px 0 0 -75px;
+    background: #424242;
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    -ms-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+    border-radius: 6px;
+}
+.switch-share span {
+  position: absolute;
+  width: 20px;
+  height: 4px;
+  top: 50%;
+  left: 50%;
+  margin: -2px 0 0 -4px;
+  background: #fff;
+  display: block;
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  -ms-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+  border-radius: 2px;
+}
+.switch-share span:after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 4px;
+  height: 12px;
+  margin-top: -8px;
+  background: #fff;
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  -ms-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+  border-radius: 2px;
+}
+
+.switch-share label {
+  cursor: pointer;
+  color: #757575;
+  width: 60px;
+  line-height: 35px;
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  -ms-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+}
+label[for=p_yes] {
+  position: absolute;
+  left: 0;
+  height: 20px;
+}
+label[for=p_no] {
+  position: absolute;
+  right: 0;
+}
+#p_no:checked ~ .switch-share {
+  background: #9E9E9E;
+}
+#p_no:checked ~ .switch-share span {
+  background: #fff;
+  margin-left: -8px;
+}
+#p_no:checked ~ .switch-share span:after {
+  background: #fff;
+  height: 20px;
+  margin-top: -8px;
+  margin-left: 8px;
+}
+#p_yes:checked ~ .switch-share label[for=p_yes] {
+  color: #fff;
+}
+#p_no:checked ~ .switch-share label[for=p_no] {
+  color: #fff;
+}

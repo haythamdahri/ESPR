@@ -1,0 +1,47 @@
+{% extends 'authentification/base_authentification.html' %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+
+{% block title %} {{block.super}} - Récupérer mon mot de passe{% endblock title %}
+
+{% block form %}
+
+<form class="login100-form validate-form" method="GET" >
+    {% csrf_token %}
+
+    <span class="login100-form-title"> Envoyer un mail de confirmation 	</span>
+
+    {% include "messages.html" %}
+
+    {% for error in form_confirm_mail.email.errors %}
+        <span class="error-block">{{ error }}</span>
+    {% endfor %}
+    <div class="wrap-input100 validate-input" >
+        <input type="email" class="input100" placeholder="Email" name="email">
+        <span class="focus-input100"></span>
+        <span class="symbol-input100">
+            <i class="fa fa-envelope" aria-hidden="true"></i>
+        </span>
+    </div>
+
+
+    <div class="container-login100-form-btn">
+        <button class="login100-form-btn">
+            Continuer
+        </button>
+    </div>
+
+    <div class="text-center p-t-12">
+
+
+        <a class="txt2" href="/main/login">
+            Se connecter
+        </a>
+        |
+        <a class="txt2" href="/main/signup">
+            S'inscrire
+        </a>
+    </div>
+</form>
+
+{% endblock form %}

@@ -1,0 +1,305 @@
+{% load staticfiles %}
+{% load nbsp %}
+
+
+{% for comment in comments %}
+
+    <script>
+     {% if comment.image.all.count == 0 %}
+
+        content = "{{ comment.comment|linebreaks }}".replace(/<[<br />]*?>/gm, " <br/>");
+        console.log(content);
+        words = content.split(" ");
+		for(var i=0; i<words.length; i++){
+            var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+              '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name and extension
+              '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+              '(\\:\\d+)?'+ // port
+              '(\\/[-a-z\\d%@_.~+&:]*)*'+ // path
+              '(\\?[;&a-z\\d%@_.,~+&:=-]*)?'+ // query string
+              '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+            textcontent = words[i].replace(/<(?:.|\n)*?>/gm, '');
+            if( pattern.test(textcontent)){
+                var target = textcontent;
+                var key = "5b01f41ec84ddd62e4f397395281275035b2f6d67c5b4";
+
+                $.ajax({
+                    url: "https://api.linkpreview.net",
+                    dataType: "jsonp",
+                    data: {q: target, key: key},
+                    beforeSend: function(){
+                    },
+                    success: function (response) {
+                        console.log(response);
+                        if( !response.error ) {
+                            $("#LinkPreviewComment{{ comment.id }}").fadeIn();
+                            $("#imagecm{{ comment.id }}").css("background-image", "url("+response.image+")");
+                            $("#titlecm{{ comment.id }}").html(response.title);
+                            if( response.url == "" ){
+                                $("#urlcm1{{ comment.id }}").attr("href", "{% static 'SocialMedia/no-image-available.png' %}");
+                            }else {
+                                $("#urlcm1{{ comment.id }}").attr("href", response.url);
+                            }
+                            $("#descriptioncm{{ comment.id }}").html(response.title);
+                            $("#urlcm{{ comment.id }}").attr("href", response.url);
+                            i = words.length;
+                        }
+                    },
+                    complete: function(){
+                    }
+                });
+            }
+        }
+            {% endif %}
+    </script>
+
+
+    <article   class="feed-shared-comments-list__comment-item feed-shared-comment-item ember-view  CommentCONTENT{{ comment.id }}">    <div class="feed-shared-comment-item__options">
+
+
+        {% with actual=now  %}
+        <time class="feed-shared-comment-item__timestamp Sans-13px-black-55%">{{ comment.date_commentaire }}</time>
+    {% endwith %}
+
+    <button onclick="toggleOptionsComment({{ comment.id }})" data-control-name="comment_control_menu" class="comment-options-trigger" data-ember-action="" data-ember-action-3114="3114" data-ember-action-3115="3115">
+  <span class="svg-icon-wrap"><span class="visually-hidden">Open options for patience medinat’s comment</span><li-icon aria-hidden="true" type="ellipsis-horizontal-icon" size="small"><svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false"><path d="M2,7H4V9H2V7ZM7,9H9V7H7V9Zm5-2V9h2V7H12Z" class="small-icon" style="fill-opacity: 1"></path></svg></li-icon></span>
+</button>
+
+    <div id="dropdown-comment-{{ comment.id }}"  class="DRPDW" style="display: none;">
+      <div style="border: 1px solid;" class="feed-shared-update-control-menu__options p0 absolute dropdown list-style-none Elevation-6dp">
+        <ul tabindex="-1" class="feed-shared-update-control-menu__action-menu actions-menu">
+            {% if comment.user != user.profil %}
+            <li class="action-item list-style-none option-button__report">
+              <button onclick="signalerCommentaireAcceuil({{ comment.id }})" data-control-id="C9k+EexoQvuHqyUSFLsgEQ==" class="option-button full-height full-width pv1 ph4" data-ember-action="" data-ember-action-3974="3974">
+                <span class="button-content-container display-flex align-items-center">
+                  <span class="icon fl pt2 pr2 pb0 pl0 svg-icon-wrap"><li-icon aria-hidden="true" type="flag-icon"><svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false"><path d="M13.82,5L14,4a1,1,0,0,0-1-1H5V2H3V22H5V15H9.18L9,16a1,1,0,0,0,1,1h8.87L21,5H13.82ZM5,13V5h6.94l-1.41,8H5Zm12.35,2h-6.3l1.42-8h6.29Z" class="large-icon" style="fill: currentColor"></path></svg></li-icon></span>
+                  <span class="text-description inline-block text-align-left">
+                    <span class="headline block p0 Sans-15px-black-85%-semibold">
+                      Signaler ce commentaire
+                    </span>
+                    <span class="sub-headline block text-align-left Sans-13px-black-55%">
+                      Ce post est offensif ou le compte a été piraté
+                    </span>
+                  </span>
+                </span>
+              </button>
+            </li>
+            {% endif %}
+            {% if user.profil == comment.user %}
+            <li class="action-item list-style-none option-button__edit-share">
+              <form onsubmit="showEditComment(event, {{ comment.id }})">
+                  <button  data-toggle="modal" class="option-button full-height full-width pv1 ph4" data-ember-action="" data-ember-action-3968="3968">
+                    <span class="button-content-container display-flex align-items-center">
+                      <span class="icon fl pt2 pr2 pb0 pl0 svg-icon-wrap"><li-icon aria-hidden="true" type="pencil-icon"><svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false"><path d="M21.71,5L19,2.29a1,1,0,0,0-1.41,0L4,15.85,2,22l6.15-2L21.71,6.45A1,1,0,0,0,22,5.71,1,1,0,0,0,21.71,5ZM6.87,18.64l-1.5-1.5L15.92,6.57l1.5,1.5ZM18.09,7.41l-1.5-1.5,1.67-1.67,1.5,1.5Z" class="large-icon" style="fill: currentColor"></path></svg></li-icon></span>
+                      <span class="text-description inline-block text-align-left">
+                        <span class="headline block p0 Sans-15px-black-85%-semibold">
+                          Modifier le commentaire
+                        </span>
+                        <span class="sub-headline block text-align-left Sans-13px-black-55%">
+                        </span>
+                      </span>
+                    </span>
+                  </button>
+              </form>
+            </li>
+            {% endif %}
+            {% if comment.user == user.profil %}
+            <li class="action-item list-style-none option-button__delete">
+              <form  onsubmit="deleteComment(event, this, {{ comment.statut.id }})" val="{{ comment.id }}"><button type="submit" class="option-button full-height full-width pv1 ph4" data-ember-action="" data-ember-action-3969="3969">
+                <span class="button-content-container display-flex align-items-center">
+                  <span class="icon fl pt2 pr2 pb0 pl0 svg-icon-wrap"><li-icon aria-hidden="true" type="trash-icon"><svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false"><path d="M19.26,2.9A28,28,0,0,0,15,2.13V1.5A0.5,0.5,0,0,0,14.5,1h-5a0.5,0.5,0,0,0-.5.5V2.13a28,28,0,0,0-4.26.78,1,1,0,0,0-.74,1V9H5V21a1,1,0,0,0,1,1H18a1,1,0,0,0,1-1V9h1V3.88A1,1,0,0,0,19.26,2.9ZM17,20H7V9H17V20ZM18,7H6V4.59a26.35,26.35,0,0,1,6-.71,26.35,26.35,0,0,1,6,.71V7ZM11,18H10V11h1v7Zm3,0H13V11h1v7Z" class="large-icon" style="fill: currentColor"></path></svg></li-icon></span>
+                  <span class="text-description inline-block text-align-left">
+                    <span class="headline block p0 Sans-15px-black-85%-semibold">
+                      Supprimer
+                    </span>
+                    <span class="sub-headline block text-align-left Sans-13px-black-55%">
+                    <input type="hidden" name="comment" value="{{ comment.id }}" />
+                    <input type="hidden" name="statut" value="{{ comment.statut.id }}" />
+                    </span>
+                  </span>
+                </span>
+              </button>
+              </form>
+            </li>
+            {% endif %}
+        </ul>
+      </div>
+  </div>
+  </div>
+
+<div id="ember3118" class="feed-shared-comment-item__post-meta feed-shared-post-meta is-comment feed-shared-post-meta--is-not-sponsored ember-view"><a data-control-name="comment_actor" target="_self" href="{% url 'SocialMedia:getProfil' comment.user.id %}" id="ember3119" class="tap-target feed-shared-post-meta__actor-link ember-view">    <div data-entity-hovercard-id="urn:li:fs_miniProfile:ACoAABgyyp0BbuiFgNnEU2AG6uUZ5_d3dTIDlP4" id="ember3120" class="feed-shared-avatar-image b0 member ember-view">  <div id="ember3121" class="presence-entity presence-entity--size-1 ember-view"><div aria-label="patience medinat" id="ember3122" class="avatar member EntityPhoto-circle-1 presence-entity__image EntityPhoto-circle-1 ember-view" style="background-image: url('{{ comment.user.photo_profil.image.url }}');">
+
+    <span class="visually-hidden">
+    {{ comment.user.user.first_name }} {{ comment.user.user.last_name }}
+    </span>
+    <!-- End Contenu Commentaire -->
+</div>
+
+<div id="ember3123" class="presence-indicator  presence-entity__indicator presence-entity__indicator--size-1 hidden presence-indicator--size-1 ember-view"></div>
+</div>
+</div>
+</a>
+    <!-- Poste UserCommented -->
+<a data-control-name="comment_actor" target="_self" href="/in/patience-medinat-251b67b3/" id="ember3124" class="feed-shared-post-meta__profile-link Sans-17px-black-85%-semibold tap-target ember-view">  <h3 class="feed-shared-post-meta__actor Sans-13px-black-55%">
+    <span class=" feed-shared-post-meta__name Sans-15px-black-85%-semibold">
+        <span data-entity-hovercard-id="urn:li:fs_miniProfile:ACoAABgyyp0BbuiFgNnEU2AG6uUZ5_d3dTIDlP4" class="hoverable-link-text">{{ comment.user.user.first_name }} {{ comment.user.user.last_name }}</span><!----><!---->    </span>
+      <span class="feed-shared-post-meta__headline Sans-13px-black-55%">
+          {{ comment.user.user.profil.experience_profil.nom_poste|default:'Utilisateur'|default_if_none:'Utilisateur' }}
+      </span>
+<!----><!----><!----><!----><!----></h3>
+</a>
+    <!-- End Poste User Commented -->
+<!----></div>
+
+<div class="feed-shared-comment-item-content-body">
+    <!-- Contneu Commentaire -->
+<div id="ember3125" style="margin-bottom: 12px;" class="feed-shared-comment-item__inline-show-more-text feed-shared-inline-show-more-text ember-view">      <p dir="ltr" class="feed-shared-comment-item__main-content feed-shared-main-content--comment Sans-13px-black-70%  ember-view"><span><span id="ContenuComment{{ comment.id }}">{{ comment.comment|nbsp_Link|linebreaksbr }}</span>
+</span></p>
+<!----></div>
+{% if comment.image.all.count == 0 %}
+
+<!----><article style="display: none" id="LinkPreviewComment{{ comment.id }}" class="mt2 feed-shared-article feed-shared-update__update-content-wrapper Elevation-0dp ember-view"><div class="feed-shared-article--with-small-image display-flex p2 relative align-items-center">
+<a target="_blank" id="urlcm1{{ comment.id }}" href="http://www.google.com" id="ember6361" class="tap-target app-aware-link ember-view">      <div id="ember6362" class="ivm-image-view-model ember-view">  <div id="ember6363" class="display-flex ivm-view-attr__img-wrapper--expanded ember-view"><!---->    <div id="imagecm{{ comment.id }}" class="ivm-view-attr__img--centered feed-shared-article__small-image-picture mr2 b0 ember-view" ><!----></div>
+</div>
+</div>
+    </a>
+  <div class="feed-shared-article__description-container pv2 ph0 display-flex feed-shared-article__small-image-description">
+<a target="_blank" id="urlcm{{ comment.id }}" href="http://www.google.com" id="ember6365" class="flex-grow-1 full-width tap-target app-aware-link ember-view">        <h2 class="feed-shared-article__title Sans-15px-black-85%-semibold mv0 mh3">
+          <span dir="ltr" id="titlecm{{ comment.id }}">Google</span>
+        </h2>
+
+        <h3 id="descriptioncm{{ comment.id }}" style="font-size: 11px; line-height: 1" class="feed-shared-article__subtitle Sans-13px-black-55% mv0 mh3">
+
+        </h3>
+
+</a>  </div>
+</div>
+</article>
+
+
+{% endif %}
+{% include 'SocialMedia/acceuil/comments/media_commentaire.html' %}
+        <!-- End Contneu Commentaire -->
+<!---->
+      <div id="ember3131" class="feed-shared-comment-social-bar display-flex ember-view">
+          <div class="feed-shared-comment-social-bar__action-group  ">
+
+              <button class="feed-shared-comment-social-bar__action-button Sans-13px-black-55%-semibold pr3 ml0 hoverable-link-text like-button button like ember-view"><!---->
+  <span onclick="likeUnlikeComment(this)" aria-hidden="true" {% if user.profil in comment.likes.all %}lk="-1"{% else %}lk="1"{% endif %} comment="{{ comment.id }}" id="likeComment{{ comment.id }}" class="{% if user.profil in comment.likes.all %}active{% endif %}"> j'aime</span>
+
+<span class="visually-hidden">
+    Like patience medinat’s comment
+</span></button>
+
+              <button  onclick="focusReply(this)" comment="{{ comment.id }}" data-control-name="reply" id="ember3133" class="feed-shared-comment-social-bar__action-button Sans-13px-black-55%-semibold pr3 ml0 hoverable-link-text button reply ember-view"><span class="svg-icon-wrap"><span class="visually-hidden">Reply to patience the comment</span><li-icon aria-hidden="true" type="speech-bubble-icon" size="small"><svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false"><path d="M14,3H2A1,1,0,0,0,1,4v7a1,1,0,0,0,1,1h9l4,3V4A1,1,0,0,0,14,3ZM3,10V5H13v6.11L11.52,10H3ZM5,7h6V8H5V7Z" class="small-icon" style="fill-opacity: 1"></path></svg></li-icon></span>
+<span aria-hidden="true"  page="1" onclick="getMoreReplies(this)" commentId="{{ comment.id }}">Répondre</span>
+</button></div>
+              <div class="feed-shared-comment-social-bar__social-counts"><button data-control-name="comment_like_count" class="feed-shared-comment-social-bar__likes-count Sans-13px-black-55% hoverable-link-text" data-ember-action="" data-ember-action-5017="5017">
+        <span aria-hidden="true" onclick="showLikers({{ comment.id }}, 'comment')" id="NbLikesComment{{ comment.id }}">{{ comment.likes.count }} j'aime</span><span class="Sans-13px-black-55% mh1">·</span>
+            <button data-control-name="reply_count" class="feed-shared-comment-social-bar__comments-count Sans-13px-black-55% hoverable-link-text" data-ember-action="" data-ember-action-5552="5552" disabled="">
+            <span aria-hidden="true"  id="NbReplies{{ comment.id }}">{{ comment.reply_set.all.count }} commentaires</span>
+            <span class="visually-hidden">
+              {{ comment.reply_set.all.count }} réponses au commentaire de {{ comment.publisher.user.first_name }} {{ comment.publisher.user.last_name }}
+            </span>
+            </button>
+        <span class="visually-hidden">
+            1 Like on {{ comment.user.user.first_name }} {{ comment.user.user.last_name }}’s comment
+        </span>
+      </button><!----></div>
+<!---->
+</div>
+
+
+
+
+
+<!---->
+
+
+
+        <div id="AddedReply{{ comment.id }}">
+
+        </div>
+
+
+<div id="reply">
+<div id="ember3143" class="feed-shared-comment-box feed-shared-comment-box--has-avatar ember-view" style="padding: 12px 16px 0px 0px;">  <div id="ember3144" class="feed-shared-comment-box__avatar-image ml0 feed-shared-avatar-image b0 member ember-view">  <img src="{{ user.profil.photo_profil.image.url }}" class="avatar member EntityPhoto-circle-1 ghost-person" alt="HAYTHAM DAHRI">
+</div>
+
+<div class="feed-shared-comment-box__form-container flex-grow-1" id="boxReply{{ comment.id }}">
+<!---->  <form onsubmit="addReply(event, this)" val="{{ comment.id }}" data-submit-control-name="comment_post" class="feed-shared-comment-box__form" data-ember-action="" data-ember-action-3145="3145">
+<div id="ember3154" class="feed-shared-comment-textarea ember-view"><div id="ember3159" class="feed-shared-comment-textarea__mentions-input mentions-input ember-view"><!---->
+<div class="mentions-highlighter-container" style="max-height: 31em;">
+  <pre class="mentions-highlighter" style="line-height: 16px; padding: 0px; font-style: normal; font-variant: normal; font-weight: 400; font-stretch: 100%; font-size: 12px; font-family: -apple-system, system-ui, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, &quot;Fira Sans&quot;, Ubuntu, Oxygen, &quot;Oxygen Sans&quot;, Cantarell, &quot;Droid Sans&quot;, &quot;Lucida Grande&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;;"><!----></pre>
+      <div class="feed-shared-comment-textarea__autoresized-area textareaReply{{ comment.id }}">
+    <pre class="feed-shared-comment-textarea__text-box-clone Sans-13px-black-70%"><span></span><br></pre>
+    <textarea name="replyContent"  id="TXTRPL{{ comment.id }}"  data-reply  onkeyup="DISPLAYPUBLIERREPLY(this, {{ comment.id }}); resizeBoxReply(this, {{ comment.id }})" rows="1" placeholder="Ajouter Un Commentaire…"  class="Sans-13px-black-70% feed-shared-comment-textarea__text-box textareaReply{{ comment.id }}"></textarea>
+
+  </div>
+        <input type="hidden" comment="{{ comment.id }}" value="{{ comment.id }}" name="comment" />
+
+</div>
+
+  <div id="ember3164" class="ember-view"><!----></div>
+</div>            <div id="ember3165" class="feed-shared-comment-box__camera-icon button sharing-share-action-media tap-target ember-view"><label for="ember3165-upload-photo" class="sharing-share-action-media__upload-input-label
+  ">
+
+        <span class="svg-icon-wrap"><label style="margin: 0" class="StatutFileSelect"><li-icon aria-hidden="true" type="camera-icon" class="sharing-share-action-media__upload-camera-icon" size="large"><input type="file" accept="image/*" onchange="DISPLAYIMGREPLY(this)" comment="{{ comment.id }}" id="imagereply{{ comment.id }}" name="image" style="display: none;" /><svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false"><path d="M21,6H18L16.5,3h-9L6,6H3A1,1,0,0,0,2,7V19a1,1,0,0,0,1,1H21a1,1,0,0,0,1-1V7A1,1,0,0,0,21,6ZM7.36,8l1.5-3h6.28l1.5,3H20v2H16.58a5,5,0,0,0-9.16,0H4V8H7.36Zm7.76,4A3.13,3.13,0,1,1,12,8.88,3.13,3.13,0,0,1,15.13,12ZM4,18V11H7.1a5,5,0,1,0,9.8,0H20v7H4Z" class="large-icon" style="fill: currentColor"></path></svg></li-icon></label></span>
+
+  <span class="sharing-subaction-bar__button-text">
+    Images
+  </span>
+
+</label>
+</div>
+
+</div>
+<!---->
+                <div style="text-align: center; display: none;" id="CLEARINTUSERREPLY{{ comment.id }}"><i onclick="clearUserInputReply({{ comment.id }})" style="font-style: normal;color: #0073b1;cursor:pointer;font-size: 24px;" class="fa fa-window-close-o" aria-hidden="true"></i></div>
+
+                        <div class="form-group text-center" id="PHOTOREPLY{{ comment.id }}" style="display: none">
+                                    <img id='IMAGEREPLY{{ comment.id }}' name="image" src="" style="max-width: 70%;max-height: 400px;"/>
+                                </div>
+<!----><input type="submit" id="publishbtreply{{ comment.id }}" class="btSubmitComment fw--400" value="Publier" style="display: none;margin-top: 4px;">
+<!---->  </form>
+
+</div>
+
+</div>
+
+</div>
+
+    {% if comment.reply_set.all.count > 0 and not replies %}
+        <div style="display: inline-block;" id="first_load_more_div_replies{{ comment.id }}" class="feed-shared-comments-list__show-previous-container" >
+      <button id="show_prev" data-control-name="more_replies" class="hoverable-link-text button feed-shared-comments-list__show-previous-button Sans-13px-black-55%" data-ember-action="" data-ember-action-3134="3134">
+        <span aria-hidden="true" page="1" onclick="getMoreReplies(this)" commentId="{{ comment.id }}">Afficher plus de commentaires</span>
+<!---->      </button>
+    </div>
+
+        <div>
+            <img id="loadingImage" style="display: none; width: 20%;height: 4%; object-fit: contain;" class="img-rounded"  src="{% static 'SocialMedia/img/YX5xG_s-200x150.gif' %}" />
+        </div>
+
+
+
+{% endif %}
+
+</article>
+
+
+
+
+{% endfor %}
+
+
+{% if comments.has_next %}
+        <div style="display: inline-block;" id="load_more_div{{ statutid }}" class="feed-shared-comments-list__show-previous-container">
+      <button id="show_prev" data-control-name="more_comments" class="hoverable-link-text button feed-shared-comments-list__show-previous-button Sans-13px-black-55%" data-ember-action="" data-ember-action-3134="3134">
+        <span aria-hidden="true" page="{{ comments.next_page_number }}" onclick="getMoreComments(this)" statutid="{{ statutid }}">Afficher plus de commentaires</span>
+<!---->      </button>
+    </div>
+
+
+{% endif %}
+
+

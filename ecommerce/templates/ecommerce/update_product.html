@@ -1,0 +1,501 @@
+{% extends 'ecommerce/base.html' %}
+{% load static %}
+{% block style %}
+    <style>
+        div#cke_id_description {
+            width: 100% !important;
+        }
+        select[multiple] {
+            height: 361px;
+        }
+        .submit-button button, #cancel-btn {
+            width: 100%;
+            padding: 11px;
+            text-transform: uppercase;
+            margin: 10px 0 30px;
+        }
+        #btn-tags{
+            background: transparent;
+            border: 0;
+            padding: 0 10px;
+            color: #4CAF50;
+            transition: .3s all;
+        }
+        #btn-tags:hover {
+            background: #4CAF50;
+            color: #FFF;
+            border-radius: 3px;
+        }
+        .submit-button .col-md-9 .btn-warning:last-child {
+            background: #ea4c0f;
+            border-color: #ea4c0f;
+            transition: .3s all;
+        }
+        .submit-button .col-md-9 .btn-warning:last-child:hover {
+            background: #fff;
+            border-color: #ea4c0f;
+            color: #ea4c0f;
+        }
+        #span-dh {
+            position: absolute;
+            top: 7px;
+            right: 10px;
+            opacity: 0.7;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+<div class="container">
+    <ul class="breadcrumb">
+        <li><a href="{% url 'e_commerce:index' %}">Accueil</a></li>
+        <li><a href="{% url 'e_commerce:products' %}">Produits</a></li>
+        <li><a href="{% url 'e_commerce:product' product.id %}">#{{ product.id }}</a></li>
+        <li><a href="{% url 'e_commerce:add_product' %}"><b>Modifier Produit</b></a></li>
+    </ul>
+    <h1>MODIFIER PRODUIT</h1>
+    <form action="" enctype="multipart/form-data" method="post">
+        {% if form.errors %}
+            <div class="alert alert-danger">
+                <p style="font-size: 18px; font-weight: bold;">Veuillez corriger les erreurs ci dessous :</p>
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <p style="padding-left: 40px"><strong>{{ field.name }} : </strong>{{ error|escape }}</p>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% csrf_token %}
+        {{ form.media }}
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group required">
+                    <label for="" class="control-label">Nom du produit</label>
+                    {{ form.name }}
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group required">
+                    <label for="" class="control-label">Catégorie du produit</label>
+                    {{ form.category }}
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="">Marque du produit</label>
+                    {{ form.brand }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group required">
+                    <label for="" class="control-label">Prix</label>
+                    {{ form.price }}
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="">Ancien Prix</label>
+                    {{ form.old_price }}
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group required">
+                    <label for="" class="control-label">Quatité minimal d'achat</label>
+                    {{ form.min_quantity }}
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group required">
+                    <label for="" class="control-label">Unité de vente</label>
+                    {{ form.unit }}
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group required">
+                    <label for="" class="control-label">Prix fix</label><br>
+                    <div style="padding-top: 5px;">
+                        <input type="radio" name="price_from" value="yes" checked> Oui
+                        <input type="radio" name="price_from" value="no" style="margin-left: 14px"> Non
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 required">
+                <label for="" class="control-label">Image principale du produit</label><br>
+                <label class="btn btn-default" for="id_image" id="upload-file-label" style="width:100%; border-radius:4px;overflow:hidden;">
+                    {{ form.image }}
+                    <span id="upload-file-info">{{ product.image.name }}</span>
+                </label>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group required">
+                    <label for="" class="control-label">Emballage du produit</label>
+                    {{ form.packaging }}
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group required">
+                    <label for="" class="control-label">Livraison du produit</label>
+                    {{ form.delivery }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <!-- DIV IMPORT MULTIPLE IMAGE -->
+                <div class="well text-muted text-center" style="padding-top: 4rem; margin-bottom: 0;" id="drop-zone-multiple">
+                    <span class="glyphicon glyphicon-arrow-down" style="font-size: 4rem;"></span>
+                    <h3>Glisser vos images secondaires ici pour les importer</h3>
+                </div>
+
+                {# 1. BUTTON TO TRIGGER THE ACTION #}
+                <button type="button" class="btn btn-dark js-upload-photos" style="width: 100%; margin-bottom: 15px">
+                    <span class="glyphicon glyphicon-cloud-upload"></span> Importer images
+                </button>
+
+                {# 2. FILE INPUT TO BE USED BY THE PLUG-IN #}
+                <input id="fileupload" type="file" name="image" multiple
+                       style="display: none;" accept="image/*"
+                       data-url="{% url 'e_commerce:up_product_upload_image' product.id %}"
+                       data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
+
+            </div>
+            <div class="col-md-6" style="height: 190px; overflow-y: auto;">
+                {# 3. TABLE TO DISPLAY THE UPLOADED PHOTOS #}
+                <table id="gallery" class="table table-bordered table-responsive col-md-6">
+                    <thead>
+                        <tr><th>Images</th></tr>
+                    </thead>
+                    <tbody>
+                        {% for image in images %}
+                            <tr id="tr{{ image.id }}">
+                                <td>
+                                    <a href="{{ image.image.url }}">{{ image.image.name }}</a>
+                                    <form action="" class="form-delete-image" style="display: inline;"
+                                          data-submit-url="{% url 'e_commerce:up_product_delete_image' product.id image.id %}">
+                                        <button type="submit" class="btn btn-danger pull-right" style="padding: 0px 12px;height: 20px;">
+                                            <i class="fa fa-trash-o"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <div class="form-group required">
+                    <label for="" class="control-label">Description du produit</label>
+                    {{ form.description }}
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="" class="control-label">Tags du produit
+                        <button type="button" id="btn-tags" data-toggle="modal" data-target="#modal-tag">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </label>
+                    <select name="tags" class="selectpicker form-control" multiple="multiple" title="Sélectionnez des Tags..." id="id_tags" style="height: 360px;">
+                    {% for tag in tags_form %}
+                        {% if tag in tags %}
+                            <option value="{{ tag.id }}" selected>{{ tag }}</option>
+                        {% else %}
+                            <option value="{{ tag.id }}">{{ tag }}</option>
+                        {% endif %}
+                    {% endfor %}
+                    </select>
+                    {{ form.tags }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group required">
+                    <label for="" class="control-label">C'est une annonce Professionnel :</label>
+                    {{ form.professional }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <table id="gallery" class="table table-bordered table-responsive col-md-6" style="margin-bottom: 0">
+                    <thead>
+                        <tr><th>Stocks</th></tr>
+                    </thead>
+                    <tbody id="stock_t">
+                        {% for stock in stocks %}
+                            <tr id="tr_stock{{ stock.id }}"><td class="text-center">
+                                Stock {{ stock.id }}, quantité: {{ stock.quantity }}, couleur: {{ stock.color }}
+                                <form action="" class="form-delete-image" style="display: inline;"
+                                      data-submit-url="{% url 'e_commerce:up_product_delete_stock' product.id stock.id %}">
+                                    <button type="submit" class="btn btn-danger pull-right" style="padding: 0px 12px;height: 20px;">
+                                        <i class="fa fa-trash-o"></i>
+                                    </button>
+                                </form>
+                            </td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <button class="btn btn-default" type="button" data-toggle="modal" data-target="#modal-stock"
+                        style="margin-bottom: 5px; padding: 6px 50px; width: 100%; background: #FBE9E7">Ajouter Stock Produit</button>
+            </div>
+            <div class="col-md-4">
+                <table id="gallery" class="table table-bordered table-responsive col-md-6" style="margin-bottom: 0">
+                    <thead>
+                        <tr><th>Spécification</th></tr>
+                    </thead>
+                    <tbody id="spec_t">
+                        {% for s in specifications %}
+                            <tr id="tr_spec{{ s.id }}"><td class="text-center">
+                                Spécification {{ s.id }}, nom: {{ s.quantity }}, contenu: {{ s.value }}
+                                <form action="" class="form-delete-image" style="display: inline;"
+                                      data-submit-url="{% url 'e_commerce:up_product_delete_spec' product.id s.id %}">
+                                    <button type="submit" class="btn btn-danger pull-right" style="padding: 0px 12px;height: 20px;">
+                                        <i class="fa fa-trash-o"></i>
+                                    </button>
+                                </form>
+                            </td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <button class="btn btn-default" type="button" data-toggle="modal" data-target="#modal-specification"
+                            style="margin-bottom: 5px; padding: 6px 50px; width: 100%; background: #FBE9E7">Ajouter Spécification Produit</button>
+            </div>
+            <div class="col-md-4">
+                <table id="gallery" class="table table-bordered table-responsive col-md-6" style="margin-bottom: 0">
+                    <thead>
+                        <tr><th>Dètails</th></tr>
+                    </thead>
+                    <tbody id="detail_t">
+                        {% for d in details %}
+                            <tr id="tr_detail{{ d.id }}"><td class="text-center">
+                                Détail {{ d.id }}, nom: {{ d.name }}, valeur: {{ d.value }}
+                                <form action="" class="form-delete-image" style="display: inline;"
+                                      data-submit-url="{% url 'e_commerce:up_product_delete_detail' product.id d.id %}">
+                                    <button type="submit" class="btn btn-danger pull-right" style="padding: 0px 12px;height: 20px;">
+                                        <i class="fa fa-trash-o"></i>
+                                    </button>
+                                </form>
+                            </td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <button class="btn btn-default" type="button"  data-toggle="modal" data-target="#modal-details"
+                            style="margin-bottom: 5px; padding: 6px 50px; width: 100%; background: #FBE9E7">Ajouter Details Produit</button>
+            </div>
+        </div>
+        <div class="row submit-button">
+            <div class="col-md-3">
+                <a class="btn btn-warning" id="cancel-btn" href="{% url 'e_commerce:your_products' %}">Annuler</a>
+            </div>
+            <div class="col-md-9">
+                <button class="btn btn-warning" type="submit">Modifier Produit</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+    <!-- MODAL PROGRESS IMAGES -->
+    <div class="modal fade" id="modal-progress" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Téléchargement...</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width:0;">0%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /MODAL PROGRESS IMAGES -->
+    <!-- MODAL ADD STOCK -->
+        <div class="modal fade" id="modal-stock" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Ajouter stock de Produit</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert alert-success alert-dismissible" role="alert" id="stock-modal-success">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                            Stock Ajouté avec succès
+                        </div>
+                        <div class="alert alert-danger alert-dismissible" role="alert" id="stock-modal-danger">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                            Veuillez entrer des données valides
+                        </div>
+                        <form action="{% url 'e_commerce:up_product_add_stock' product.id %}"
+                              id="form-stock" data-submit-url="{% url 'e_commerce:up_product_add_stock' product.id %}">
+                            <div class="form-group">
+                                <label for="">Quatité de stock</label>
+                                {{ stock_form.quantity }}
+                            </div>
+                            <div class="form-group">
+                                <label for="">Différence de prix par rapport au prix normal</label>
+                                <div style="position: relative">
+                                    {{ stock_form.price_sup }}
+                                    <span id="span-dh">DH</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Couleur</label>
+                                {{ stock_form.color }}
+                            </div>
+                            <input type="submit" id="stock-form-submit" class="hidden">
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="stock-modal-submit">Ajouter Stock</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /MODAL ADD STOCK -->
+        <!-- MODAL ADD SPECIFICATION -->
+        <div class="modal fade" id="modal-specification" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Ajouter spécification de Produit</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert alert-success alert-dismissible" role="alert" id="specification-modal-success">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                            Spécification Ajouté avec succès
+                        </div>
+                        <div class="alert alert-danger alert-dismissible" role="alert" id="specification-modal-danger">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                            Veuillez entrer des données valides
+                        </div>
+                        <form action="{% url 'e_commerce:up_product_add_specification' product.id %}"
+                              id="form-specification" data-submit-url="{% url 'e_commerce:up_product_add_specification' product.id %}">
+                            <div class="form-group">
+                                <label for="">Nom de spécification</label>
+                                {{ specification_form.name }}
+                            </div>
+                            <div class="form-group">
+                                <label for="">Contenu de spécification</label>
+                                {{ specification_form.content }}
+                            </div>
+                            <input type="submit" id="specification-form-submit" class="hidden">
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="specification-modal-submit">Ajouter Spécification</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /MODAL ADD SPECIFICATION -->
+        <!-- MODAL ADD DETAILS -->
+        <div class="modal fade" id="modal-details" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Ajouter détails de Produit</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert alert-success alert-dismissible" role="alert" id="details-modal-success">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                            Détails Ajouté avec succès
+                        </div>
+                        <div class="alert alert-danger alert-dismissible" role="alert" id="details-modal-danger">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                            Veuillez entrer des données valides
+                        </div>
+                        <form id="form-details" data-submit-url="{% url 'e_commerce:up_product_add_detail' product.id %}">
+                            <div class="form-group">
+                                <label for="">Titre du détail</label>
+                                {{ detail_form.name }}
+                            </div>
+                            <div class="form-group">
+                                <label for="">Contenu du détail</label>
+                                {{ detail_form.value }}
+                            </div>
+                            <input type="submit" id="details-form-submit" class="hidden">
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="details-modal-submit">Ajouter Détail</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /MODAL ADD DETAILS -->
+        <!-- MODAL ADD TAG -->
+        <div class="modal fade" id="modal-tag" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Ajouter un nouveau Tag</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert alert-success alert-dismissible" role="alert" id="tag-modal-success">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                            Tag Ajouté avec succès
+                        </div>
+                        <div class="alert alert-danger alert-dismissible" role="alert" id="tag-modal-danger">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                            Veuillez entrer des données valides
+                        </div>
+                        <form id="form-tag" data-submit-url="{% url 'e_commerce:up_product_add_tag' product.id %}">
+                            <div class="form-group">
+                                <label for="">Nom du Tag</label>
+                                <input type="text" name="name" class="form-control" required>
+                            </div>
+                            <input type="submit" id="tag-form-submit" class="hidden">
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="tag-modal-submit">Ajouter Tag</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /MODAL ADD TAG -->
+
+{% endblock %}
+
+{% block script %}
+
+    <script src="{% static 'ecommerce/js/product/jquery.fileupload.js' %}"></script>
+    <script src="{% static 'ecommerce/js/product/jquery.iframe-transport.js' %}"></script>
+    <script src="{% static 'ecommerce/js/product/basic-upload.js' %}"></script>
+    <script src="{% static 'ecommerce/js/product/product-create.js' %}"></script>
+    <script>
+        $("#id_professional").addClass("list-inline");
+        $( document ).ready(function() {
+            $(".django-ckeditor-widget").attr('style', 'display:block');
+            $("#id_professional_0").attr('checked', 'checked');
+        });
+    </script>
+
+{% endblock %}

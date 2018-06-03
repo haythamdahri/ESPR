@@ -1,0 +1,71 @@
+{% extends 'SocialMedia/base_socialmedia.html' %}
+{% load staticfiles %}
+
+{% block stylesheets %}
+    {{ block.super }}
+    <style>
+        body {
+            background: url("{% static 'Socialmedia/img/background-emploi.jpg' %}") no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        .outer-wrapper {
+            display: table;
+            width: 100%;
+            height: 100%;
+        }
+
+        .inner-wrapper {
+            display: table-cell;
+            vertical-align: middle;
+            padding: 15px;
+        }
+    </style>
+
+    <link rel="stylesheet" href="{% static 'Socialmedia/awesomecomplete/awesomplete.css' %}"/>
+    <link rel="stylesheet" href="{% static 'Socialmedia/awesomecomplete/awesomplete.base.css' %}"/>
+
+    <script src="{% static "Socialmedia/awesomecomplete/awesomplete.min.js" %}" async></script>
+{% endblock stylesheets %}
+
+{% block content %}
+
+    <section id="loginform" class="">
+
+        <div class="inner-wrapper">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-4 col-sm-offset-4">
+                        <div class="" id="squareAjouterEntreprise" style="padding-top:0px; padding-left:0px;" >
+                            <div class="modal-dialog" style="width: 420px; margin-top: 0px;">
+                                <div class="modal-content" style="border-radius:0px;" id="formAjouterEntreprise">
+
+                                    <div class="modal-header">
+                                        <h3 class="modal-title" id="lineModalLabel">Créer une offre d'emploi</h3>
+                                    </div>
+
+                                    <div id="actualized_form_modifier_langue">
+
+                                        {% include 'SocialMedia/offre_emploi/forms/form_creer_offre_emploi.html' %}
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+
+
+{% endblock content %}
+
+{% block scripts %}
+{{ block.super }}
+    <script>
+        $('.poste_suggestions').attr("data-list", "{{ nom_postes }}")
+    </script>
+{% endblock scripts %}

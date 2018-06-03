@@ -1,0 +1,175 @@
+{% extends "SocialMedia/myprofil/base_myprofil.html" %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% block title %}{{ user.username }}{% endblock %}
+{% block content %}
+
+
+
+
+        <!-- Page Wrapper Start -->
+        <section class="page--wrapper pb--20">
+            <div class="container-fluid">
+                <div class="row ">
+
+
+
+                    <div class="row main--content" style="box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);width:95%;margin-left:auto;margin-right:auto;">
+				<!-- Cover Header Start -->
+				<div class="cover--header text-center responsive"  class="cover--header text-center" data-bg-img="{% static 'SocialMedia/img/edit2.png' %}" data-overlay="0.6" data-overlay-color="white"  style="width: 70%;    margin-left: auto;    margin-right: auto;padding-top:60px;" >
+		                <h3 class="h3 text-center responsive" style="margin-top:18%;">{{ nom }} De {{ user.username }}</h3>
+                   <div class="myform">
+
+                            {% block form %}{% endblock %}
+
+                   </div>
+				</div>
+			<!-- Cover Header End -->
+
+				</div>
+
+				    </div>
+
+
+
+                </div>
+
+
+            </div>
+        </section>
+        <!-- Page Wrapper End -->
+
+
+
+{% endblock %}
+
+
+
+
+{% block scripts %}
+    {{ block.super }}
+    <script>
+
+$("#photoform").on( "submit", function(event) {
+     console.log($('#photoprofilform .input-group').find(':text').val());
+    if( $('#photoform .input-group').find(':text').val().length == 0 ){
+        swal({
+          type: 'error',
+          title: 'Aucune Photo Selectionnée',
+          text: 'Veuillez Selectionner Une Photo',
+          type: 'error'
+        });
+        return false;
+    }else if( $('#photoform .input-group').find(':text').val().length > 100 )
+    {
+        swal({
+          type: 'error',
+          title: 'Nombre De Caractere Depasse la limite',
+          text: 'Veuillez Changer Le Nom de la photo Ou Selectionner Une Autre'
+        });
+        return false;
+    }
+	event.preventDefault();
+    $('.modal-footer').slideToggle(1500);
+	setTimeout(function(){
+       $(".uploadprogress").removeClass('hidden');
+    }, 1000);
+    var form_data = new FormData($(this)[0]);
+    $.ajax({
+        xhr: function () {
+        var xhr = new window.XMLHttpRequest();
+        xhr.upload.addEventListener("progress", function (e) {
+            var progress = parseInt(e.loaded / e.total * 100, 10);
+            var strProgress = progress + "%";
+            var strProgress = progress + "%";
+            $(".progress-bar").css({"width": strProgress});
+            $(".progress-bar").text(strProgress);
+        }, false);
+        xhr.addEventListener("progress", function (evt) {
+
+        }, false);
+        return xhr;
+    },
+        url: '{% url "SocialMedia:changephotocouverture" %}',
+        type: $(this).attr('method'),
+        processData: false,
+        contentType: false,
+        data : form_data,
+        success: function(data) {
+            $("#squarespaceModal").modal("hide");
+            swal("Photo De Couverture A Ete Changée Avec Succé", "{{ user.username }}", "success");
+            $("#coverpic").css("background-image", "url("+data.url+")");
+        },
+        error: function() { },
+        stop: function (e) {  /* 3. WHEN THE UPLOADING PROCESS FINALIZE, HIDE THE MODAL */
+          $("#squarespaceModal").modal("hide");
+            swal("Veuiller Verifier Votre Connexion Reseau Puis Ressayer", "Erreur Fatale", "error");
+        }
+    });
+
+});
+
+$("#photoprofilform").on( "submit", function(event) {
+    if( $('#photoprofilform .input-group').find(':text').val().length == 0 ){
+        swal({
+          type: 'error',
+          title: 'Aucune Photo Selectionnée',
+          text: 'Veuillez Selectionner Une Photo'
+        });
+        return false;
+    }else if( $('#photoprofilform .input-group').find(':text').val().length > 100 )
+    {
+        swal({
+          type: 'error',
+          title: 'Nombre De Caractere Depasse la limite',
+          text: 'Veuillez Changer Le Nom de la photo Ou Selectionner Une Autre'
+        });
+        return false;
+    }
+	event.preventDefault();
+    $('.modal-footer').slideToggle(1500);
+	setTimeout(function(){
+       $(".uploadp").removeClass('hidden');
+    }, 1000);
+    var form_data = new FormData($(this)[0]);
+    $.ajax({
+        xhr: function () {
+        var xhr = new window.XMLHttpRequest();
+        xhr.upload.addEventListener("progress", function (e) {
+            var progress = parseInt(e.loaded / e.total * 100, 10);
+            var strProgress = progress + "%";
+            var strProgress = progress + "%";
+            $(".prog").css({"width": strProgress});
+            $(".prog").text(strProgress);
+        }, false);
+        xhr.addEventListener("progress", function (evt) {
+
+        }, false);
+        return xhr;
+    },
+        url: '{% url "SocialMedia:changephotoprofil" %}',
+        type: $(this).attr('method'),
+        processData: false,
+        contentType: false,
+        data : form_data,
+        success: function(data) {
+            $("#squarespaceModalprofil").modal("hide");
+            swal("Photo De Profil A Ete Changée Avec Succé", "{{ user.username }}", "success");
+            $("#profilpic").attr("src", data.url);
+        },
+        error: function() { },
+        stop: function (e) {  /* 3. WHEN THE UPLOADING PROCESS FINALIZE, HIDE THE MODAL */
+          $("#squarespaceModalprofil").modal("hide");
+            swal("Veuiller Verifier Votre Connexion Reseau Puis Ressayer", "Erreur Fatale", "error");
+        }
+    });
+
+});
+
+    </script>
+
+{% endblock %}
+
+
+
+

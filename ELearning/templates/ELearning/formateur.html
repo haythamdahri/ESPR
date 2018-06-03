@@ -1,0 +1,513 @@
+{%load static %}
+<!--DOCTYPE html-->
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Udema a modern educational site template">
+    <meta name="author" content="Ansonika">
+    <title>BTP-Learn | Modern Educational site template</title>
+
+   <!-- Favicons-->
+    <link rel="shortcut icon" href="{% static 'ELearning/img/favicon-1.ico' %}" type="image/x-icon">
+
+
+    <!-- BASE CSS -->
+    <link href="{% static 'ELearning/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'ELearning/css/style.css' %}" rel="stylesheet">
+	<link href="{% static 'ELearning/css/vendors.css' %}" rel="stylesheet">
+	<link href="{% static 'ELearning/css/icon_fonts/css/all_icons.min.css' %}" rel="stylesheet">
+
+    <!-- YOUR CUSTOM CSS -->
+    <link href="{% static 'ELearning/css/custom.css' %}" rel="stylesheet">
+<style>
+
+	.main-timeline-section{
+  position: relative;
+  width: 100%;
+  margin:auto;
+  height:300px;
+}
+.main-timeline-section .timeline-start,
+.main-timeline-section .timeline-end{
+  position: absolute;
+  background:#7028e3;
+  border-radius:100px;
+  top:50%;
+  transform: translateY(-50%);
+  width:30px;
+  height:30px;
+}
+.main-timeline-section .timeline-end{
+  right:0px;
+}
+.main-timeline-section .conference-center-line{
+  position: absolute;
+  width:100%;
+  height:5px;
+  top:50%;
+  transform: translateY(-50%);
+  background:#7028e3;
+}
+.timeline-article{
+    width: 20%;
+    position: relative;
+    min-height: 300px;
+    float:right;
+}
+.timeline-article .content-date{
+    position: absolute;
+    top: 35%;
+    left: -30px;
+    font-size:18px;
+}
+.timeline-article .meta-date{
+    position: absolute;
+    top: 50%;
+    left: 0px;
+    transform: translateY(-50%);
+    width:20px;
+    height:20px;
+    border-radius: 100%;
+    background:#fff;
+    border:1px solid #7028e3;
+}
+.timeline-article .content-box{
+  box-shadow: 2px 2px 4px 0px #c1c1c1;
+  border:1px solid #7028e3;
+  border-radius: 5px;
+  background-color: #fff;
+  width: 180px;
+  position: absolute;
+  top: 60%;
+  left: -80px;
+  padding:10px;
+}
+.timeline-article-top .content-box:before{
+  content: " ";
+  position:absolute;
+  left:50%;
+  transform: translateX(-50%);
+  top:-20px;
+  border:10px solid transparent;
+  border-bottom-color: #7028e3;
+}
+.timeline-article-bottom .content-date{
+  top: 59%;
+}
+.timeline-article-bottom .content-box{
+  top: 0%;
+}
+.timeline-article-bottom .content-box:before{
+  content: " ";
+  position:absolute;
+  left:50%;
+  transform: translateX(-50%);
+  bottom:-20px;
+  border:10px solid transparent;
+  border-top-color:#7028e3;
+}
+
+
+@media (max-width:460px){
+  body{
+    display: none;
+  }
+}
+</style>
+</head>
+
+<body>
+
+	<div id="preloader">
+		<div data-loader="circle-side"></div>
+	</div>
+	<!-- End Preload -->
+
+	<header class="header fadeInDown">
+		<div id="logo">
+			<a href="index.html"><img src="{% static 'ELearning/img/logo.png' %}" data-retina="true" alt="" width="163" height="45"></a>
+		</div>
+		<ul id="top_menu">
+			<li><a href="login.html" class="login">Se connecter</a></li>
+			<li><a href="#0" class="search-overlay-menu-btn">Rechercher</a></li>
+			<li><div class="dropdown">
+  <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Catégories</a> <!-- lien -->
+  <div class="dropdown-menu">
+	 {% for t in themes%}
+    <a class="dropdown-item" href="/E-learning/cours-list/{{t.id}}" style="color:black;font-size:12px;font-family:'Poppins'"><img src="{{t.theme_picture.url}}" alt="" width="20" height="20">&nbsp;{{t.libelle}}</a>
+	  {%endfor%}
+
+  </div>
+</div></li>
+			<li class="hidden_tablet"><a href="#formateur" class="btn_1 rounded">Devenir formateur</a></li>
+			<li>
+				<div class="hamburger hamburger--spin">
+					<div class="hamburger-box">
+						<div class="hamburger-inner"></div>
+					</div>
+				</div>
+			</li>
+		</ul>
+		<!-- /top_menu -->
+	</header>
+	<!-- /header -->
+
+	<div id="main_menu">
+		<div class="container">
+		<nav class="version_2">
+				<div class="row">
+					<div class="col-md-6">
+						<h3>Accueil</h3>
+						<ul>
+							<li><a href="/E-learning/index2">Accueil vesrion 1</a></li>
+							<li><a href="/E-learning/index2">Accueil vesrion 2</a></li>
+							<li><a href="/E-learning/index1">Accueil vesrion 3</a></li>
+						</ul>
+					</div>
+					<div class="col-md-5">
+						<h3>Cours</h3>
+						<ul>
+							<li><a href="/E-learning/cours-list">Liste des cours</a></li>
+
+
+						</ul>
+					</div>
+					<div class="col-md-3">
+						<h3>Pages</h3>
+						<ul>
+
+							<li><a href="about.html">A propos</a></li>
+
+						</ul>
+					</div>
+
+				</div>
+				<!-- /row -->
+			</nav>
+			<div class="follow_us">
+				<ul>
+					<li>Follow us</li>
+					<li><a href="#0"><i class="ti-facebook"></i></a></li>
+					<li><a href="#0"><i class="ti-twitter-alt"></i></a></li>
+					<li><a href="#0"><i class="ti-google"></i></a></li>
+					<li><a href="#0"><i class="ti-pinterest"></i></a></li>
+					<li><a href="#0"><i class="ti-instagram"></i></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- /main_menu -->
+
+	<main>
+		<section id="hero_in" class="general" style="background: url({% static 'ELearning/img/teach1.jpg' %}) center center no-repeat;">
+			<div class="wrapper">
+				<div class="container">
+					<h1 class="fadeInUp"><span></span>Espace:Devenez formateur</h1>
+				</div>
+			</div>
+		</section>
+		<!--/hero_in-->
+
+		<div class="container margin_120_95">
+			<div class="main_title_2">
+				<span><em></em></span>
+				<h2>Devenez formateur</h2>
+				<p>Paratgez vos connaissances avec des millions de participants.</p>
+			</div>
+			<div class="row">
+				<div class="col-lg-4 col-md-6">
+					<a class="box_feat" href="#">
+						<i class="pe-7s-bookmarks"></i>
+						<h3>Transmettez vos connaissances</h3>
+						<p>BTP-Learn permets à nos enseigants de partager leurs expériences avec leurs apprenants</p>
+					</a>
+				</div>
+				<div class="col-lg-4 col-md-6">
+					<a class="box_feat" href="#">
+						<i class="pe-7s-glasses"></i>
+						<h3>Accompagnez les participants</h3>
+						<p>BTP-Learn vous offre l'occasion d'accompagner les participants dans la progression de leurs carrières.</p>
+					</a>
+
+				</div>
+				<div class="col-lg-4 col-md-6">
+					<a class="box_feat" href="#">
+						<i class="pe-7s-portfolio"></i>
+						<h3>Profitez du soutien de la communauté</h3>
+						<p>Bénéficiez des ressources et des outils de BTP-Learn pour vous aider à créer vos cours.</p>
+					</a>
+				</div>
+
+
+
+			</div>
+			<!--/row-->
+		</div>
+		<!-- /container -->
+
+<div class="call_section" id="" style="background: url({% static 'ELearning/img/world.jpeg' %}) center center no-repeat fixed;">
+	<h1 style="text-align:center;color:white;font-size:50px">Un dynamisme exceptionnel</h1>
+			<div class="container clearfix">
+				<div class="col-lg-4 col-md-5 float-right wow" data-wow-offset="250">
+					<div class="block-reveal">
+						<div class="block-vertical"></div>
+						<div class="box_1">
+							<h3 style="font-family:arial"><i class="pe-7s-users">&nbsp;Participants</i></h3>
+							<p style="font-size:20px;font-family:arial">+ de 20 millions de participants intéressés par le secteur du BTP.</p>
+
+						</div>
+					</div>
+				</div>
+					<div class="col-lg-4 col-md-5 float-right wow" data-wow-offset="250">
+					<div class="block-reveal">
+						<div class="block-vertical"></div>
+						<div class="box_1">
+							<h3><i class="pe-7s-folder">&nbsp;Cours</i></h3>
+							<p style="font-size:20px;font-family:arial">Plusieurs cours concernant le secteur des bâtiments et des trvaux publics.</p>
+
+						</div>
+					</div>
+				</div>
+					<div class="col-lg-4 col-md-5 float-right wow" data-wow-offset="250">
+					<div class="block-reveal">
+						<div class="block-vertical"></div>
+						<div class="box_1">
+							<h3><i class="pe-7s-culture">&nbsp;Formateurs</i></h3>
+							<p style="font-size:20px;font-family:arial">+ de 30 000 formateurs passionnés et engagés dans la communauté.</p>
+
+						</div>
+					</div>
+				</div>
+			</div>
+</div><br/>
+
+<div class="container"><div class="main_title_2">
+				<span><em></em></span>
+<h2>Comment ça marche</h2>
+
+			</div>
+
+	<div class="row">
+		<div class="col-md-12 col-sm-12 col-xs-12">
+			<section class="main-timeline-section">
+
+			    <div class="conference-center-line"></div>
+			    <div class="conference-timeline-content">
+
+					<div class="timeline-article timeline-article-bottom">
+				        <div class="content-date">
+			          		<span>Etape 5</span>
+				        </div>
+				        <div class="meta-date"></div>
+				        <div class="content-box">
+				        	<p style="font-size:12px">Pour que vos apprenants puissent suivre leurs cours,il faut utiliser un contenu simple et clair</p>
+				        </div>
+				    </div>
+				    <div class="timeline-article timeline-article-top">
+				        <div class="content-date">
+			          		<span>Etape4</span>
+				        </div>
+				        <div class="meta-date"></div>
+				        <div class="content-box">
+				        	<p style="font-size:12px">BTP-Learn offre l'opportunité de partager vos idées et vos compétences avec vos participants</p>
+				        </div>
+				    </div>
+
+				    <div class="timeline-article timeline-article-bottom">
+				        <div class="content-date">
+			          		<span>Etape 3</span>
+				        </div>
+				        <div class="meta-date"></div>
+				        <div class="content-box">
+				        	<p style="font-size:12px">Nos cours sont illustrés par de nombreux exemples pour faciliter l'apprentissage.</p>
+				        </div>
+				    </div>
+			      	 <div class="timeline-article timeline-article-top">
+				        <div class="content-date">
+			          		<span>Etape 2</span>
+				        </div>
+				        <div class="meta-date"></div>
+				        <div class="content-box">
+				        	<p style="font-size:12px">BTP-Learn vous propose différents formats de cours adaptés à votre style et à votre sujet</p>
+				        </div>
+				    </div>
+
+				    <div class="timeline-article timeline-article-bottom">
+				        <div class="content-date">
+
+			          		<span>Etape 1</span>
+				        </div>
+				        <div class="meta-date"></div>
+				        <div class="content-box">
+				        	<p style="font-size:12px">Vous avez la possibilité de créer des cours sur un nombre infini de sujets concernant le secteur BTP.</p>
+				        </div>
+				    </div>
+			   	</div>
+
+		  	</section>
+		</div>
+	</div>
+</div><br/><br/>
+			<!--/row-->
+
+		<div class="call_section"  style="background: url({% static 'ELearning/img/work.jpeg' %}) center center no-repeat ;">
+	<h1 style="text-align:center;color:white;font-size:40px">Nous sommes là pour vous aider</h1>
+<p style="text-align:center;color:white;font-size:30px">Notre équipe de support aux formateurs est disponible 24 h/24 et 7 j/7 pour vous accompagner à chaque étape de la création de votre cours.Alors dès maintenant,devenez membre de notre communauté et contribuez à l'apprentissage des milliers de participants</p>
+</div>
+
+		<!--/bg_color_1-->
+<div class="container margin_120_95">
+			<div class="main_title_2">
+				<span><em></em></span>
+				<h2>Elargissez votre audience</h2>
+				<p>Comment utiliser l’intégralité du potentiel de vos outils auteurs eLearning ?</p>
+			</div>
+			<div class="row">
+				<div class="col-lg-4 col-md-6">
+					<a class="box_feat" href="#">
+						<i class="pe-7s-users"></i>
+						<h3>Définissez l’audience que vous ciblez.</h3>
+						<p>Dans un premier temps, vous devez définir la cible : à qui va s’adresser votre prochaine formation eLearning ?Cela peut paraitre très basique et simple.mais vous aurez aussi beaucoup de mal à cibler votre audience.Alors il faut offrir à vos apprenants une formation dans laquelle ils vont pouvoir se retrouver, s’identifier et surtout s’engager.</p><br/>
+					</a>
+				</div>
+				<div class="col-lg-4 col-md-6">
+					<a class="box_feat" href="#">
+						<i class="pe-7s-magic-wand"></i>
+						<h3>Identifiez vos objectifs pédagogiques.</h3>
+						<p>Grâce à l’étape précédente, vous avez pu identifier des objectifs pédagogiques. C’est-à-dire des axes d’analyses, ou des compétences particulières sur lesquelles vous souhaitez que vos apprenants travaillent. Ils doivent être précis pour vous, afin d’utiliser au mieux vos outils auteurs eLearning, mais surtout pour vos apprenants afin que la formation dégage une réelle valeur ajoutée.</p>
+					</a>
+
+				</div>
+				<div class="col-lg-4 col-md-6">
+					<a class="box_feat" href="#">
+						<i class="pe-7s-portfolio"></i>
+						<h3>Mettez de la forme à votre contenu pédagogique.</h3>
+						<p>Avoir un bon contenu pédagogique, c’est bien, savoir le transmettre, c’est beaucoup mieux ! Si votre contenu est au point mais que vous le transmettez mal, alors il ne pourra pas apporter de bons résultats.Il faut mettre les formes, la manière et donner envie à vos apprenants de s’intéresser.</p><br/><br/>
+					</a>
+				</div>
+				<div class="col-lg-4 col-md-6">
+					<a class="box_feat" href="#">
+						<i class="pe-7s-world"></i>
+						<h3>Échangez sur vos contenus avec des experts.</h3>
+						<p>Partager votre travail avec des experts ou même avec des collègues peut être extrêmement bénéfique. Vous aurez un avis extérieur et vous pourrez recueillir des critiques constructives.Cette étape est importante car vous pourrez prendre du recul et vérifier que vous suivez toujours la même voie.</p>
+					</a>
+				</div>
+					<div class="col-lg-4 col-md-6">
+					<a class="box_feat" href="#">
+						<i class="pe-7s-light"></i>
+						<h3>Exprimez vos idées les plus complexes de manière très simple.</h3>
+						<p>Un des avantages importants d’un outil-auteur de eLearning, est le fait de pouvoir présenter des idées complexes d’une manière simple et efficace.</p><br/><br/><br/>
+					</a>
+				</div>
+				<div class="col-lg-4 col-md-6">
+					<a class="box_feat" href="#">
+						<i class="pe-7s-call"></i>
+						<h3>Repoussez les limites de la communication avec les participants.</h3>
+						<p>Savoir communiquer est une ressource importante lorsque l’on présente des formations. Beaucoup de formateurs oublient l’importance de la communication.</p><br/><br/>
+					</a>
+				</div>
+			</div>
+	</div>
+
+
+<div class="call_section" id="formateur" style="background: url({% static 'ELearning/img/btp.jpeg' %}) center center no-repeat fixed;">
+			<div class="container clearfix">
+				<div class="col-lg-5 col-md-6 float-right wow" data-wow-offset="250">
+					<div class="block-reveal">
+						<div class="block-vertical"></div>
+						<div class="box_1">
+							<h3>Enseignez le monde entier en ligne</h3>
+							<p> Transformez vos connaissances en véritable opportunité et enseignez votre passion.<br/>BTP-Learn vous donne l'occasion et les outils pour créer un cours en ligne</p>
+							<a href="dashboard" class="btn_1 rounded">Devenir formateur</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--/container-->
+	</main>
+	<!--/main-->
+
+	<footer>
+		<div class="container margin_120_95">
+			<div class="row">
+				<div class="col-lg-5 col-md-12 p-r-5">
+					<p><img src="{% static 'ELearning/img/logo.png' %}" width="149" height="42" data-retina="true" alt=""></p>
+					<p>BTP-Learn est une plateforme de formation en E-Learning dédiée au secteur du BTP.<br/>BTP-Learn permet à des étudiants ayant un niveau BAC ou plus,à des professionnels du BTP de se former et d'obtenir un titre professionnel.</p>
+					<div class="follow_us">
+						<ul>
+							<li>Suivez nous</li>
+							<li><a href="#0"><i class="ti-facebook"></i></a></li>
+							<li><a href="#0"><i class="ti-twitter-alt"></i></a></li>
+							<li><a href="#0"><i class="ti-google"></i></a></li>
+							<li><a href="#0"><i class="ti-pinterest"></i></a></li>
+							<li><a href="#0"><i class="ti-instagram"></i></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6 ml-lg-auto">
+					<h5>Liens utiles</h5>
+					<ul class="links">
+						<li><a href="#0">Devenir formateur</a></li>
+						<li><a href="#0">A propos</a></li>
+						<li><a href="#0">Se connecter</a></li>
+						<li><a href="#0">Inscription</a></li>
+						<li><a href="#0">Contact</a></li>
+					</ul>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<h5>Contactez-nous</h5>
+					<ul class="contacts">
+						<li><a href="tel://61280932400"><i class="ti-mobile"></i> (+212) 661 43 96 9</a></li>
+						<li><a href="mailto:info@udema.com"><i class="ti-email"></i> contact@espr.ma</a></li>
+					</ul>
+					<div id="newsletter">
+					<h6>Newsletter</h6>
+					<div id="message-newsletter"></div>
+					<form method="post" action="assets/newsletter.php" name="newsletter_form" id="newsletter_form">
+						<div class="form-group">
+							<input type="email" name="email_newsletter" id="email_newsletter" class="form-control" placeholder="Your email">
+							<input type="submit" value="Submit" id="submit-newsletter">
+						</div>
+					</form>
+					</div>
+				</div>
+			</div>
+			<!--/row-->
+			<hr>
+			<div class="row">
+				<div class="col-md-8">
+					<ul id="additional_links">
+						<li><a href="#0">Terms and conditions</a></li>
+						<li><a href="#0">Privacy</a></li>
+					</ul>
+				</div>
+				<div class="col-md-4">
+					<div id="copy">© 2017 Udema</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!--/footer-->
+
+	<!-- Search Menu -->
+	<div class="search-overlay-menu">
+		<span class="search-overlay-close"><span class="closebt"><i class="ti-close"></i></span></span>
+		<form role="search" id="searchform" method="get">
+			<input value="" name="q" type="search" placeholder="Search..." />
+			<button type="submit"><i class="icon_search"></i>
+			</button>
+		</form>
+	</div><!-- End Search Menu -->
+
+	<!-- COMMON SCRIPTS -->
+    <script src="{% static 'ELearning/js/jquery-2.2.4.min.js' %}"></script>
+    <script src="{% static 'ELearning/js/common_scripts.js' %}"></script>
+    <script src="{% static 'ELearning/js/main.js' %}"></script>
+	<script src="{% static 'ELearning/assets/validate.js' %}"></script>
+
+</body>
+</html>

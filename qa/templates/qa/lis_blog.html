@@ -1,0 +1,160 @@
+{% extends 'base_qa.html' %}
+ {% load static %}
+{% load i18n %}
+
+{% block style %}
+<style type="text/css">
+  body { background-color:#ddd; }
+.blog-row {margin-top:50px; }
+.margin_bottom30 { margin-bottom:30px; }
+.margin_left10 {margin-left:10px; }
+.blog-content {padding:20px; }
+.bg-white {background-color:#fff;}
+
+.q_text
+{
+    white-space: nowrap; 
+    max-height: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+</style>
+{% endblock style %}
+
+
+ {% block content %}
+<!-- =-=-=-=-=-=-= Main Area =-=-=-=-=-=-= -->
+
+  <!-- =-=-=-=-=-=-= Main Area =-=-=-=-=-=-= -->
+  <div class="main-content-area">
+
+    <!-- =-=-=-=-=-=-= Page Breadcrumb =-=-=-=-=-=-= -->
+
+   
+
+    <!-- =-=-=-=-=-=-= Page Breadcrumb End =-=-=-=-=-=-= -->
+ 
+
+    <section id="blog" class="custom-padding white">
+      <div class="container">
+        <!-- Row -->
+        <div class="row">
+
+          <!-- Blog Masonry Grid -->
+          <div id="posts-masonry" class="posts-masonry" style="position: relative; height: 1988px;">
+            <div class="">
+
+                      <!-- <div class="col-md-4 col-sm-4 col-xs-12 margin_bottom30" >
+              <a href="/qa/blog/{{ blog.id }}" style="box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.3);">
+                {% if  blog.photo.image.url %}
+                <img class="center-block" src="{{ blog.photo.image.url }}" height="250" width="100%" style="box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.3);">
+                {% else %}
+                <img class="center-block" src='{% static "qa/images/blog.jpg" %}' height="250" width="100%">
+                {% endif %}
+                </a>
+                <div class="blog-content bg-white" style="box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.3); padding: 10px;">
+                
+                <h3 style="color: black;" >{{ blog.blog_title }}</h3>
+                <hr>
+                <p>Category : <a href="/qa/blog/{{ blog.id }}" style="color: blue;">{{ blog.categorie.title_categorie }}</a></p>
+                <p>{{ blog.blog_text|truncatechars_html:50| safe }}<a href="/qa/blog/{{ blog.id }}"  class="heading_color" style="color: blue;">  Continue Reading</a></p>
+                <hr>
+                <p><span>
+                  <a href="/qa/blog/{{ blog.id }}" style="color: black;">{{ blog.pub_date }}</a>
+                 </span> 
+                <span class="pull-right" >By : <strong>{{ blog.user_data.user.username }}</strong></span> </p>
+                </div>
+              </div> -->
+
+              {% for blog in blogs %}
+      
+
+
+              <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+              <div class="blog-grid">
+                <div class="blog-image"> 
+                  <a href="/qa/blog/{{ blog.id }}">
+                  {% if  blog.photo.image.url %}
+                  <img alt="blog-image1" class="" src="{{ blog.photo.image.url }}" height="250" width="100%"> 
+                  {% else %}
+                <img  src='{% static "qa/images/blog.jpg" %}' height="250" width="100%">
+                {% endif %}
+              </a>
+                </div>
+                <div class="blog-content" style="max-height: 200px;">
+                  <h5><a href="/qa/blog/{{ blog.id }}">{{ blog.blog_title }}</a></h5>
+                  <ul class="post-meta">
+                    <li>{% trans "Par" %} {{ blog.user_data.user.username }}</li>
+                    <li>{{ blog.categorie.title_categorie }}</li>
+                    <li>{{ blog.pub_date }}</li>
+                  </ul>
+                  <div class="q_text" ><p>{{ blog.blog_text| safe|truncatechars_html:20 }}</p></div>
+                </div>
+                <div class="blog-footer">
+                  <ul class="like-comment">
+                    <li><a href="/qa#"><i class="icon-heart"></i>{{ blog.voteblog.count }}</a>
+                    </li>
+                    <li><a href="/qa#"><i class="icon-chat"></i>{{ blog.answer_blog_set.count }}</a>
+                    </li>
+                  </ul>
+                  
+                  <a href="/qa/blog/{{ blog.id }}" class="more-btn pull-right"><i class="fa fa-long-arrow-right"></i> {% trans "PLUS" %}</a> </div>
+              </div>
+            </div>
+
+
+
+              <!-- grid blog  -->
+              {% endfor %}
+
+               <!-- Pagination View More -->
+                    <div class="text-center clearfix " style="margin-top: -20px; margin-bottom: 20px;">
+                      <!-- <button class="btn btn-primary btn-lg">View All Question</button> -->
+                      <div class="pagination center-block">
+                                <span class="step-links">
+                                 <div class="clearfix"></div>
+                                  <nav aria-label="">
+                                    <ul class="pager">
+                                      {% if blogs.has_previous %}
+                                          <li><a href="?page={{ blogs.previous_page_number }}">Précédent</a></li>
+                                      {% endif %}
+
+                                       <span class="current">
+                                         {{ blogs.number }} / {{ blogs.paginator.num_pages }}
+                                      </span>
+
+                                      {% if blogs.has_next %}
+                                          <li><a href="?page={{ blogs.next_page_number }}">Suivant</a></li>
+                                      {% endif %}
+                                    </ul>
+                                  </nav>
+                                </span>
+                      </div>
+                    </div>
+                    <!-- Pagination View More End -->
+
+            </div>
+
+            
+             
+
+
+          </div>
+          <br>
+          <!-- Blog Masonry Grid -->
+          <!-- <div class="clearfix"></div>
+          <div class="text-center clearfix section-padding-40"> <a href="/qajavascript:void(0)" class="btn btn-lg btn-primary">View more post</a> </div>
+          <div class="clearfix"></div> -->
+        </div>
+        <!-- Row End -->
+      </div>
+      <!-- end container -->
+    </section>
+
+    <!-- =-=-=-=-=-=-= Blog & News end =-=-=-=-=-=-= -->
+
+
+  </div>
+  <!-- =-=-=-=-=-=-= Main Area End =-=-=-=-=-=-= -->
+<!-- =-=-=-=-=-=-= Main Area End =-=-=-=-=-=-= -->
+  {% endblock content %}

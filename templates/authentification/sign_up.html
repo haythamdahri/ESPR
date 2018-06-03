@@ -1,0 +1,135 @@
+{% extends 'authentification/base_authentification.html' %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+
+{% block title} {{ block.super }} S'inscrire{% endblock title}
+
+{% block form %}
+
+    <form class="login100-form validate-form" method="POST" action="/main/signup/">
+        {% csrf_token %}
+
+        <span class="login100-form-title"> Inscription 	</span>
+
+        {% include "messages.html" %}
+
+        {% for error in form.non_field_errors %}
+            {{ error }}
+        {% endfor %}
+
+
+
+         {% if form.errors %}
+             <div class="alert alert-danger" style="padding: 10px;font-size:12px;font-weight:bold;width: 100%;"  role="alert">
+                <i class="fa fa-exclamation" aria-hidden="true"></i> Veuiller corriger vos erreurs:
+             </div>
+         {% endif %}
+                         <ul style="list-style-type:  none; color: #721c24;">
+                         {% for champ in form %}
+                             {% if champ.errors %}
+                                 <span class="error-block" style="color: red; font-weight: 700;">{{ champ.errors }}</span>
+                             {% endif %}
+                         {% endfor %}
+                         </ul>
+        <div class="wrap-input100 validate-input">
+            {% render_field form_inscription.username class="input100" placeholder="Nom d utilisateur" %}
+            <span class="focus-input100"></span>
+            <span class="symbol-input100">
+            <i class="fa fa-user" aria-hidden="true"></i>
+        </span>
+
+        </div>
+
+        {% for error in form_inscription.password.errors %}
+            <span class="error-block">{{ error | safe }}</span>
+        {% endfor %}
+        <div class="wrap-input100 validate-input">
+            {% render_field form_inscription.password class="input100" placeholder="Mot de passe" %}
+            <span class="focus-input100"></span>
+            <span class="symbol-input100">
+            <i class="fa fa-key" aria-hidden="true"></i>
+        </span>
+
+        </div>
+
+        {% for error in form_inscription.confirmer_votre_mot_de_passe.errors %}
+            <span class="error-block">{{ error }}</span>
+        {% endfor %}
+        <div class="wrap-input100 validate-input">
+            {% render_field form_inscription.confirmer_votre_mot_de_passe class="input100" placeholder="Confirmez votre mot de passe" %}
+            <span class="focus-input100"></span>
+            <span class="symbol-input100">
+            <i class="fa fa-key" aria-hidden="true"></i>
+        </span>
+
+        </div>
+
+        {% for error in form_inscription.email.errors %}
+            <span class="error-block">{{ error }}</span>
+        {% endfor %}
+        <div class="wrap-input100 validate-input">
+            {% render_field form_inscription.email class="input100" placeholder="Email" %}
+            <span class="focus-input100"></span>
+            <span class="symbol-input100">
+            <i class="fa fa-envelope" aria-hidden="true"></i>
+        </span>
+
+        </div>
+
+        {% for error in form_inscription.first_name.errors %}
+            <span class="error-block">{{ error }}</span>
+        {% endfor %}
+        <div class="wrap-input100 validate-input">
+            {% render_field form_inscription.first_name class="input100" placeholder="Prénom" %}
+            <span class="focus-input100"></span>
+            <span class="symbol-input100">
+            <i class="fa fa-address-card-o" aria-hidden="true"></i>
+        </span>
+
+        </div>
+
+        {% for error in form_inscription.last_name.errors %}
+            <span class="error-block">{{ error }}</span>
+        {% endfor %}
+        <div class="wrap-input100 validate-input">
+            {% render_field form_inscription.last_name class="input100" placeholder="Nom" %}
+            <span class="focus-input100"></span>
+            <span class="symbol-input100">
+                <i class="fa fa-address-card" aria-hidden="true"></i>
+            </span>
+
+        </div>
+
+
+        <table>
+            <tr>
+                <td> <span class="genre">Genre :</span></td>
+                <td >
+                    {% for radio in form_inscription.genre %}
+                        <span class="genre" style="padding-left: 50px;" style="padding-top:10px;">
+                        {% render_field radio  %}
+                        </span>
+                    {% endfor %}
+
+                </td>
+            </tr>
+        </table>
+
+
+        <div class="container-login100-form-btn">
+            <button class="login100-form-btn">
+                S'inscrire
+            </button>
+        </div>
+
+        <div class="text-center p-t-12">
+						<span class="txt1">
+							Déjà membre ?
+						</span>
+            <a class="txt2" href="/main/login">
+                Se connecter
+            </a>
+        </div>
+    </form>
+
+{% endblock form %}

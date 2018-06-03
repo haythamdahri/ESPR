@@ -1,0 +1,309 @@
+{% extends 'base_main.html' %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+
+
+{% block stylesheets %}
+    {{ block.super }}
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- ==== Document Title ==== -->
+    <title>{% block title %}Réseau social - {% endblock title %}</title>
+
+    <!-- ==== Document Meta ==== -->
+    <meta name="author" content="ThemeLooks">
+    <meta name="description" content="Multipurpose Facebook Network HTML5 Template">
+    <meta name="keywords"
+          content="Facebook media, Facebook network, forum, shop, bootstrap, html5, css3, template, responsive, retina ready">
+
+    <!-- ==== Favicon ==== -->
+    <link rel="icon" href="{% static 'SocialMedia/favicon.png' %}" type="image/png">
+
+    <!-- ==== Google Font ==== -->
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Raleway:400,500,600,700%7CRoboto:300,400,400i,500,700">
+
+    <!-- ==== Plugins Bundle ==== -->
+    <link rel="stylesheet" href="{% static 'SocialMedia/css/plugins.min.css' %}">
+
+    <!-- ==== Main Stylesheet ==== -->
+    <link rel="stylesheet" href="{% static 'SocialMedia/style.css' %}">
+
+    <!-- ==== Responsive Stylesheet ==== -->
+    <link rel="stylesheet" href="{% static 'SocialMedia/css/responsive-style.css' %}">
+
+    <!-- ==== Color Scheme Stylesheet ==== -->
+    <link rel="stylesheet" href="{% static 'SocialMedia/css/colors/color-1.css' %}" id="changeColorScheme">
+
+
+    <!-- ==== Linkedin Stylesheet ==== -->
+    <link rel="stylesheet" href="{% static 'SocialMedia/css/mur/style1.css' %}" type="text/css"/>
+    <link rel="stylesheet" href="{% static 'SocialMedia/css/mur/style2.css' %}" type="text/css"/>
+
+    <!-- ==== Custom Stylesheet ==== -->
+    <link rel="stylesheet" href="{% static 'SocialMedia/css/lightbox.css' %}">
+
+    <!-- ==== Custom Stylesheet ==== -->
+    <link rel="stylesheet" href="{% static 'SocialMedia/css/custom.css' %}">
+
+
+    <!-- ==== HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries ==== -->
+    <!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+
+{% endblock stylesheets %}
+
+
+{% block menu %}
+
+    <!-- Header Navbar Start -->
+    <div class="header--navbar navbar bg-black" data-trigger="sticky" style=" background-color: white; color: #333;">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle style--1 collapsed" data-toggle="collapse"
+                        data-target="#headerNav">
+                    <span class="sr-only">Toggle Navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                <div class="widget search-menu-little" style="width: 200px;position: absolute;top: 10px;left: 100px;">
+                    <!-- Newsletter Widget Start -->
+                    <div class="newsletter--widget style--1" data-form="validate">
+                        <form action="/reseausocial/search/" name="search-form" novalidate="novalidate">
+                            <div class="input-group">
+                                <input type="text" name="keywords" placeholder=" " class="form-control"
+                                       autocomplete="off" required="" style="background-color: antiquewhite; color: #333; font-weight: 500;">
+
+                                <div class=" input-group-addon text-default search-icon-menu"
+                                     onclick="javascript:document.forms['search-form'].submit(); "
+                                     style="   background-color: transparent;  padding: 0px 0px; border: 0px solid #ccc;">
+                                    <button type="submit" class="btn-link" style="    background-color: antiquewhite;color:#333"><i class="fa fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- Newsletter Widget End -->
+                </div>
+
+                <!-- Header Navbar Logo Start -->
+                <div class="header--navbar-logo navbar-brand">
+                    <a href="{% url 'SocialMedia:home' %}" >
+                        <h2 class="menu-title" style="width: 40px;height:30px;margin-top: 13px;">
+                            {% include 'SocialMedia/svg_btp.html' %}
+                        </h2>
+                    </a>
+                </div>
+                <!-- Header Navbar Logo End -->
+            </div>
+
+            {% if user.is_authenticated %}
+
+                <div id="headerNav" class="navbar-collapse collapse float--right navbar-menu-custom">
+
+
+                    <!-- Header Nav Links Start -->
+                    <ul class="header--nav-links style--1 nav ff--primary">
+                        <li class="li-search-menu text-center-menu "
+                            style="    position: absolute; left: 100px; ">
+
+                            <div class="widget search-menu-grand" style="width:300px;">
+                                <!-- Newsletter Widget Start -->
+                                <div class="newsletter--widget style--1" data-form="validate">
+                                    <form action="/reseausocial/search/" name="search-form">
+                                        <div class="input-group">
+                                            <input type="text" name="keywords" placeholder=" " class="form-control" style="background-color: antiquewhite; color: #333; font-weight: 500;"
+                                                   autocomplete="off" required>
+
+                                            <div class=" input-group-addon text-default search-icon-menu"
+                                                 onclick="javascript:document.forms['search-form'].submit(); "
+                                                 style=" background-color: transparent;  padding: 0px 0px; border: 0px solid #ccc;">
+                                                <button type="submit" class="btn-link" style="background-color: antiquewhite; color: #333;"><i class="fa fa-search"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- Newsletter Widget End -->
+                            </div>
+                            <!-- Widget End -->
+                        </li>
+
+                        {% if user.is_authenticated %}
+                            <li>
+                                <a href="{% url 'SocialMedia:myprofil' %}" class="btn-link text-center-menu"
+                                   style=" padding-bottom: 0px; padding-top: 8px; ">
+                                    <img src="{{ user.profil.photo_profil.image.url }}"
+                                         style="width: 25px;    height: 25px;" class="img-circle" width="25" height="25"
+                                         alt=""><br>
+                                    <span style="font-size:10px;">{{ user.first_name | title | default:"User" }} </span>
+                                </a>
+                            </li>
+                        {% endif %}
+                        <li style=" height: 50px;  line-height: 15px;">
+                            <a href="#" class="text-center-menu">
+                                <span style=" font-size: 10px;"><i class="fa fa-users"
+                                                                   style=" font-size: 20px;"></i><br>Réseau</span>
+                            </a>
+
+                        </li>
+                        <li style=" height: 50px;  line-height: 15px;">
+                            <a href="http://127.0.0.1:8000/reseausocial/search_offers/?keywords=all&duree=toutes"
+                               class="text-center-menu">
+                                <span style=" font-size: 10px;"><i class="fa fa-briefcase "
+                                                                   style=" font-size: 20px;"></i><br>Offres d'emploi</span>
+                            </a>
+                        </li>
+
+                        <li style=" height: 50px;  line-height: 15px;">
+                            <a href="#" class=" text-center-menu">
+                                <span style=" font-size: 10px;"><i class="fa fa-envelope "
+                                                                   style=" font-size: 20px;"></i><br>Messagerie</span>
+                            </a>
+                        </li>
+
+                        <li style=" height: 50px;  line-height: 15px;">
+                            <a href="{% url 'SocialMedia:notifications' %}" class=" text-center-menu">
+                                <span style=" font-size: 10px;"><i class="fa fa-bell "
+                                                                   style=" font-size: 20px;"></i><br>Notifications</span>
+                            </a>
+                        </li>
+
+                        <li style=" height: 50px;  line-height: 15px;">
+                            <a href="/reseausocial/creer_offre/" class=" text-center-menu">
+                                <span style=" font-size: 10px;"><i class="fa fa-bullhorn"
+                                                                   style=" font-size: 20px;"></i><br>Publier une offre d'emploi</span>
+                            </a>
+                        </li>
+
+
+                    </ul>
+                    <!-- Header Nav Links End -->
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <!-- Header Navbar End -->
+    </header>
+    <!-- Header Section End -->
+    </div>
+{% endblock menu %}
+
+{% block banner %}
+{% endblock banner %}
+
+
+{% block content %}
+{% endblock content %}
+
+{% block footer %}
+    {{ block.super }}
+{% endblock footer %}
+
+{% block scripts %}
+    {{ block.super }}
+    <div id="backToTop">
+        <a href="#" class="btn"><i class="fa fa-caret-up"></i></a>
+    </div>
+    <!-- Back To Top Button End -->
+
+    <!-- ==== Plugins Bundle ==== -->
+    <script src="{% static 'SocialMedia/js/plugins.min.js' %}"></script>
+
+
+    <!-- ==== Main Script ==== -->
+    <script src="{% static 'SocialMedia/js/main.js' %}"></script>
+
+    <!-- ==== SweetJs Script ==== -->
+    <script src="{% static 'SocialMedia/js/sweetalert2.js' %}"></script>
+
+
+    <!-- ==== WayPoint Script ==== -->
+    <script src="{% static 'SocialMedia/js/jquery.waypoints.min.js' %}"></script>
+
+    <!-- ==== infinite Script ==== -->
+    <script src="{% static 'SocialMedia/js/infinite.min.js' %}"></script>
+
+
+
+    <!-- ==== Video Js Script ==== -->
+    <script src="{% static 'SocialMedia/js/lightbox.js' %}"></script>
+
+
+    <!-- ==== Custom Script ==== -->
+    <script src="{% static 'SocialMedia/js/custom.js' %}"></script>
+
+    <script>
+        lightbox.option({
+            'resizeDuration': 100,
+            'wrapAround': true
+        })
+    </script>
+
+    <script>
+
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie != '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                        cookieValue = decodeURIComponent(
+                            cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        function csrfSafeMethod(method) {
+            // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+    </script>
+    <script>
+        $("#linkReseauSocial").addClass("active");
+        $("#linkReseauSocial1").addClass("active");
+        $("#linkReseauSocial2").addClass("active");
+
+        $("#coverpic")
+            .mouseover(function () {
+                $('button.btchangepic').css("background-color", "#333")
+                $('button.btchangepic').css("border", "1px solid white")
+                $('button.btchangepic').css("opacity", "0.9")
+                $('button.btchangepic').html("<i class=\"fa fa-camera\" aria-hidden=\"true\"></i> Actualiser la photo de couverture")
+            })
+            .mouseout(function () {
+                $('button.btchangepic').css("background-color", "transparent")
+                $('button.btchangepic').css("border", "0px solid white")
+                $('button.btchangepic').html('<i class="fa fa-camera" aria-hidden="true"></i>', "")
+            });
+
+
+        $("#btcoverchange")
+            .mouseover(function () {
+                $('button.btchangepic').css("background-color", "#333")
+                $('button.btchangepic').css("border", "1px solid white")
+                $('button.btchangepic').css("opacity", "0.9")
+                $('button.btchangepic').html("<i class=\"fa fa-camera\" aria-hidden=\"true\"></i> Actualiser la photo de couverture")
+            })
+            .mouseout(function () {
+                $('button.btchangepic').css("background-color", "transparent")
+                $('button.btchangepic').html('<i class="fa fa-camera" aria-hidden="true"></i>', "")
+            });
+
+
+    </script>
+
+{% endblock scripts %}

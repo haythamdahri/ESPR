@@ -1,0 +1,150 @@
+{% extends "SocialMedia/search/base_search.html" %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% load humanize %}
+{% block title %}{{ block.super }} Recherche : {{ keywords }}{% endblock %}
+
+{% block searchcontent %}
+
+    <!-- Main Content Start -->
+    <div class="main--content col-md-8 pb--60" data-trigger="stickyScroll">
+        <div class="main--content-inner">
+
+            <!-- Title  Start -->
+            <div class="filter--nav pb--30 clearfix titre-search-custom">
+                <div class="filter--link float--left">
+                    <h2 class="h4">Offres d'emploi trouvés : {{ offres.paginator.count }}</h2>
+                </div>
+
+            </div>
+            <!-- Title  End -->
+        <div id="offres">
+            {% if offres %}
+            <!-- Offres Items Start -->
+            <div class="member--items border-light-custom" style="background-color:white;">
+                <div class="row gutter--15 AdjustRow">
+
+                    {% for offre in offres %}
+                        <div class="col-md-3 col-xs-6 col-xxs-12">
+                            <!-- Member Item Start -->
+                            <div class="member--item online">
+                                <div class="img">
+                                    <a href="{% url 'SocialMedia:getProfil' offre.id %}" class="btn-link">
+                                        <img src="{{ offre.entreprise.logo.url }}" alt=""
+                                             style="  height: 55px;  ">
+                                    </a>
+                                </div>
+
+                                <div class="name">
+                                    <h3 class="h6 fs--12">
+                                        <a href="{% url 'SocialMedia:getProfil' offre.id %}"
+                                           class="btn-link">{{ offre.nom_poste }}</a>
+                                    </h3>
+                                </div>
+
+                                <div class="activity"> {{ offre.entreprise.nom }}
+                                </div>
+                                <div class="activity">
+                                    <p><i class="fa mr--8 fa-map-marker"></i>{{ offre.ville }},{{ offre.pays }}</p>
+                                </div>
+
+                                <div class="activity">
+                                    <p><i class="fa mr--8 fa-clock-o"></i>{{ offre.date_publication | naturalday }}
+                                    </p>
+                                </div>
+
+                                <div class="actions">
+                                    <a href="ss">Voir les détails</a>
+                                </div>
+                            </div>
+                            <!-- Member Item End -->
+                        </div>
+                    {% endfor %}
+
+                    <!-- Member Item End -->
+                </div>
+
+            </div>
+
+            {% if offres.paginator.count is not 0 %}
+
+<!-- Page Count Start -->
+            <div class="page--count pt--30  text-center">
+                <label class="ff--primary fs--14 fw--500 text-darker">
+                    {% if offres.has_previous %}
+                        <button id="btfirst" href="?page=1" class="btn-link"><i class="fa fa-caret-left {% if not offres.has_previous %}hidden{% endif %}"></i><i class="fa fa-caret-left"></i></button>
+                        <button id="btprevious" page="{{ offres.previous_page_number }}" class="btn-link {% if not offres.has_previous %}hidden{% endif %}"><i class="fa fa-caret-left"></i></button>
+                    {% else %}
+                        <button id="btfirst" href="1" class="btn-link"><i class="fa fa-caret-left {% if offres.has_previous %}hidden{% endif %}"></i><i class="fa fa-caret-left"></i></button>
+                        <button id="btprevious" page="1" class="btn-link"><i class="fa fa-caret-left {% if offres.has_previous %}hidden{% endif %}"></i></button>
+                    {% endif %}
+                        <input id="RequestsPageNum" readonly type="number" name="page-count" value="{{ offres.number }}" class="form-control form-sm">
+                        /
+                        <span id="numPages">{{ offres.paginator.num_pages }}</span>
+                    {% if offres.has_next %}
+                        <button id="btnext" page="{{ offres.next_page_number }}" class="btn-link {% if not offres.has_next %}hidden{% endif %}"><i class="fa fa-caret-right"></i></button>
+                        <button id="btlast" page="{{ offres.paginator.num_pages }}" class="btn-link {% if not offres.has_next %}hidden{% endif %}"><i class="fa fa-caret-right"></i><i class="fa fa-caret-right"></i></button>
+                    {% else %}
+                        <button id="btnext" page="{{ offres.paginator.num_pages }}" class="btn-link {% if offres.has_next %}hidden{% endif %}"><i class="fa fa-caret-right"></i></button>
+                        <button id="btlast" page="{{ offres.paginator.num_pages }}" class="btn-link {% if offres.has_next %}hidden{% endif %}"><i class="fa fa-caret-right"></i><i class="fa fa-caret-right"></i></button>
+                    {% endif %}
+
+                </label>
+            </div>
+            <!-- Page Count End -->
+
+        {% endif %}
+        {% endif %}
+        </div>
+            <!-- Offre Items End -->
+        </div>
+        <!-- Member Items End -->
+    </div>
+    <!-- Main Content End -->
+
+
+{% endblock searchcontent %}
+
+
+{% block scripts %}
+    {{ block.super }}
+    <script>
+        function nextOffres(page)
+        {
+            nextp = page;
+            offresURL = "{% url 'SocialMedia:getNextOffres' %}";
+            $.ajax({
+                        url: offresURL,
+                        type: 'GET',
+                        data: {
+                            'page': nextp, 'keywords': '{{ keywords }}','duree':'{{ duree }}'
+                            },
+                            beforeSend: function (xhr, settings) {
+
+                            },
+                            success: function (response) {
+                                    $("#offres").html(response).fadeOut(300).fadeIn(300);
+                            },
+                            error: function () {
+                            },
+                            complete: function () {
+                            },
+                            stop: function (e) {
+                                swal("Veuiller Verifier Votre Connexion Reseau Puis Ressayer", "Erreur Fatale", "error");
+                            }
+                        });
+        }
+
+
+        $("body").on('click', '#btfirst, #btprevious, #btnext, #btlast', function(event){
+        event.preventDefault();
+        pagenum=$(this).attr('page');
+        nextOffres(pagenum);
+    });
+    </script>
+{% endblock %}
+
+
+
+
+

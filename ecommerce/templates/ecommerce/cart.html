@@ -1,0 +1,153 @@
+{% extends 'ecommerce/base.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+<div class="main-container container">
+    <ul class="breadcrumb">
+        <li><a href="{% url 'e_commerce:index' %}">Acceuil</a></li>
+        <li><a href="{% url 'e_commerce:my_account' %}">Mon compte</a></li>
+        <li><a href="#"><b>Chariot</b></a></li>
+    </ul>
+    <div class="row">
+        <!--Middle Part Start-->
+        {% if message_error %}
+        <div class="alert alert-danger" role="alert" style="margin: 14px 14px 0;">
+            <strong>Oups !</strong> {{ message_error }}
+        </div>
+        {% endif %}
+        {% if message_success and not message_error %}
+            <div id="success" class="alert alert-success" role="alert" style="margin: 14px 14px 0;">
+              <strong>Succès !</strong> {{ message_success }}
+            </div>
+        {% endif %}
+        <div id="content" class="col-sm-12">
+            {# ---------------------------- Cart ---------------------------------- #}
+            <h2 class="title">Chariot</h2>
+            <div class="table-responsive form-group" style="margin-bottom: 0;margin-top: 25px;">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <td class="text-center col-md-1">Image</td>
+                            <td class="text-center col-md-3">Nom de Produit</td>
+                            <td class="text-center col-md-1">Marque</td>
+                            <td class="text-center col-md-1">Couleur</td>
+                            <td class="text-center col-md-2">Quantité</td>
+                            <td class="text-center">Prix unitaire</td>
+                            <td class="text-center">Total</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for el in cart %}
+                        <tr>
+                            <td class="text-center">
+                                <a href="{% url 'e_commerce:product' el.product.pk %}">
+                                    <img width="50px" height="50px" style="border: 0" src="{{ el.product.image.url }}" alt="Image {{ el.product.name }}" title="{{ el.product.name }}" class="img-thumbnail" />
+                                </a>
+                            </td>
+                            <td class="text-center" style="padding-top: 12px;">
+                                <a href="{% url 'e_commerce:product' el.product.pk %}">{{ el.product.name }}</a><br />
+                            </td>
+                            <td class="text-center" style="padding-top: 12px;">
+                                {{ el.product.brand.name }}
+                            </td>
+                            <td class="text-center" style="padding-top: 12px;">
+                                {% if el.product.stock_set.exists %}
+                                    {% if el.product.stock_set.count == 1 and el.product.stock_set.first.color.name == "None" %}
+                                        <input type="hidden" name="option[231]" value="0">
+                                        Original
+                                    {% else %}
+                                        <form method="post" action="{% url 'e_commerce:update_color_cart' %}">
+                                        {% csrf_token %}
+                                            <input type="hidden" name="next"     value="{{ request.path }}" style="display: inline-block;">
+                                            <input type="hidden" name="cart"     value="{{ el.pk }}" style="display: inline-block;">
+                                            <div class="image_option_type form-group required"  style="display: inline-block">
+                                                <ul class="product-options clearfix" id="input-option231">
+                                                    {% for stock in el.product.stock_set.all %}
+                                                        {% if stock.color.name == "None"%}
+                                                        <li class="radio">
+                                                            <label>{{ el.produt.stock_set.0.color.name  }}
+                                                                <input class="image_radio" type="radio" name="option[231]" value="{{ stock.color.pk }}"> <img width="30px" height="30px" src="{% static 'ecommerce/image/none.png' %}" data-original-title="Original" class="icon icon-color">
+                                                                <i class="fa fa-check"></i>
+                                                                <label></label>
+                                                            </label>
+                                                        </li>
+                                                        {% else %}
+                                                            {% if el.color.name == stock.color.name %}
+                                                                <li class="radio active">
+                                                                    <label>
+                                                                        <input class="image_radio" type="radio" name="option[231]" value="{{ stock.color.pk }}"> <img width="30px" height="30px" style="background-color: {{ stock.color.code_hex }}" data-original-title="{{ stock.color.name }} +{{ stock.price_sup|intcomma }} Dh" class="icon icon-color">
+                                                                        <i style="margin-left: 3.5px" class="fa fa-check"></i>
+                                                                        <label></label>
+                                                                    </label>
+                                                                </li>
+                                                            {% else %}
+                                                                <li class="radio">
+                                                                    <label class="text-center">
+                                                                        <input class="image_radio" type="radio" name="option[231]" value="{{ stock.color.pk }}"> <img width="30px" height="30px" style="background-color: {{ stock.color.code_hex }}" data-original-title="{{ stock.color.name }} +{{ stock.price_sup|intcomma }} Dh" class="icon icon-color">
+                                                                        <i style="margin-left: 3.5px" class="fa fa-check"></i>
+                                                                        <label></label>
+                                                                    </label>
+                                                                </li>
+                                                            {% endif %}
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                    <li class="selected-option">
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <button style="display: inline-block" type="submit" data-toggle="tooltip" title="Modifier" class="btn btn-primary">
+                                                <i class="fa fa-clone"></i>
+                                            </button>
+                                        </form>
+                                    {% endif %}
+                                {% endif %}
+                            </td>
+                            <td class="text-left" style="padding-top: 12px;">
+                                <div class="input-group btn-block quantity">
+                                    <form style="display: inline-block; width: 80%" action="{% url 'e_commerce:update_cart' %}" method="post">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="next"     value="{{ request.path }}" style="display: inline-block;">
+                                        <input type="hidden" name="cart"     value="{{ el.pk }}" style="display: inline-block;">
+                                        <input type="number" name="quantity" value="{{ el.quantity }}" style="width:74%; display: inline-block;" size="1" class="form-control" />
+                                        <span class="input-group-btn" style="display: inline-block;min-width: 39px;" >
+                                            <button type="submit" data-toggle="tooltip" title="Modifier" class="btn btn-primary">
+                                                <i class="fa fa-clone"></i>
+                                            </button>
+                                        </span>
+                                    </form>
+                                    <form style="display: inline-block; width: 20%" action="{% url 'e_commerce:remove_from_page_cart' %}" method="post">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="next"     value="{{ request.path }}" style="display: inline-block;">
+                                        <input type="hidden" name="cart"     value="{{ el.pk }}" style="display: inline-block;">
+                                        <span class="input-group-btn" style="display: inline-block;min-width: 40px;">
+                                            <button type="submit" data-toggle="tooltip" title="Retirer" class="btn btn-danger">
+                                                <i class="fa fa-times-circle"></i>
+                                            </button>
+                                        </span>
+                                    </form>
+                                </div>
+                            </td>
+                            <td class="text-center" style="padding-top: 12px;">{{ el.product.price|intcomma }} Dh</td>
+                            <td class="text-center" style="padding-top: 12px;">{{ el.total|intcomma }} Dh</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {# -------------------------------------------------------------------- #}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="buttons pull-right" style="text-transform: uppercase;">
+                        <a href="{% url 'e_commerce:index' %}" style="background-color: #ea4c0f; color:white;" class="btn"><strong>Continuer l'Achat</strong></a>
+                        <a href="{% url 'e_commerce:checkout' %}" style="background-color: #ea4c0f; color:white;" class="btn"><strong>Check-out</strong></a>
+                    </div>
+                    <div class="pull-right"
+                         style="padding: 5px 40px; margin-right: 30px; border: 1px solid #ec971f; background: #ec971f; color: #FFF;">
+                        <strong>Total : &nbsp;</strong>{{ total_price_in_cart|intcomma }} Dh</div>
+                </div>
+            </div>
+        </div>
+        <!--Middle Part End -->
+    </div>
+</div>
+{% endblock %}

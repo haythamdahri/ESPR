@@ -1,0 +1,106 @@
+{% extends 'ELearning/about.html' %}
+{%load static%}
+{% block content %}
+	<!-- /main_menu -->
+	
+	<main>
+		<section id="hero_in" class="courses" style="background: url({% static 'ELearning/img/cours6.jpg' %}) center center no-repeat fixed;">
+			<div class="wrapper">
+				<div class="container">
+					<h1 class="fadeInUp"><span></span>Cours en ligne</h1>
+				</div>
+			</div>
+		</section>
+		<!--/hero_in-->
+
+		<div class="filters_listing sticky_horizontal">
+			<div class="container">
+				<ul class="clearfix">
+					<li>
+						<div class="switch-field">
+							<input type="radio" id="all" name="listing_filter" value="all" checked>
+							<label for="all">Tous</label>
+							<input type="radio" id="popular" name="listing_filter" value="popular">
+							<label for="popular">Populaires</label>
+							<input type="radio" id="latest" name="listing_filter" value="latest">
+							<label for="latest">Derniers ajoutés</label>
+						</div>
+					</li>
+					<li>
+						<div class="layout_view">
+							<a href="courses-grid.html"><i class="icon-th"></i></a>
+							<a href="#0" class="active"><i class="icon-th-list"></i></a>
+						</div>
+					</li>
+
+				</ul>
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /filters -->
+
+		<div class="container margin_60_35">
+			{% for data in cours %}
+			<div class="box_list wow">
+				<div class="row no-gutters">
+					<div class="col-lg-5">
+						<figure class="block-reveal">
+							<div class="block-horizzontal"></div>
+							<a href="/E-Learning/course-detail/{{data.id}}"><img src="{{data.course_picture.url}}" class="img-fluid" alt=""></a>
+							<div class="preview"><span>Poursuivre cours</span></div>
+						</figure>
+					</div>
+					<div class="col-lg-7">
+						<div class="wrapper">
+							<a href="#0" class="wish_bt"></a>
+							<div class="price">{{data.course_price}}$</div>
+							<h3>{{data.course_title}}</h3>
+							<p>{{data.course_resume}}</p>
+							<div class="rating"><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i><i class="icon_star"></i> <small>(145)</small></div>
+						</div>
+						<ul>
+							<li><i class="icon_clock_alt"></i> de {{data.course_start}} à {{data.course_expire}}</li>
+							<li><a href="/E-Learning/course-detail/{{data.id}}">Poursuivre </a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			{%endfor%}
+			<!-- /box_list -->
+			<p class="text-center add_top_60"><a href="#0" class="btn_1">Téléchargez plus</a></p>
+		</div>
+		<!-- /container -->
+		<div class="bg_color_1">
+			<div class="container margin_60_35">
+				<div class="row">
+					<div class="col-md-4">
+						<a href="#0" class="boxed_list">
+							<i class="pe-7s-help2"></i>
+							<h4>Besoin de l'aide?Contactez-nous</h4>
+							<p>BTP-Learn est toujours à votre service.Notre équipe est prêt pour accueillir vos questions.</p>
+						</a>
+					</div>
+					<div class="col-md-4">
+						<a href="#0" class="boxed_list">
+							<i class="pe-7s-wallet"></i>
+							<h4>Paiements et remboursements<br/><br/></h4>
+							<p>Notre plateforme vous offre la possiblité de payer vos cours,pour une meilleure formation </p>
+						</a>
+					</div>
+					<div class="col-md-4">
+						<a href="#0" class="boxed_list">
+							<i class="pe-7s-note2"></i>
+							<h4>Normes de qualités</h4>
+							<p>Notre plateforme essaye toujours à créer des cours de bonnes qualités ,pour une meilleure formation</p><br/>
+						</a>
+					</div>
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /bg_color_1 -->
+	</main>
+	<!--/main-->
+	
+{%endblock content%}

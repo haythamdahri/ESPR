@@ -1,0 +1,88 @@
+{% if profils %}
+                <!-- Member Items Start -->
+                <div class="member--items border-light-custom" style="background-color:white;">
+                    <div class="row gutter--15 AdjustRow">
+
+                        {% for profil in profils %}
+                            <div class="col-md-3 col-xs-6 col-xxs-12">
+                                <!-- Member Item Start -->
+                                <div class="member--item online">
+                                    <div class="img img-circle">
+                                        <a href="{% url 'SocialMedia:getProfil' profil.id %}" class="btn-link">
+                                            <img src="{{ profil.photo_profil.image.url }}" alt=""
+                                                 style="  height: 55px;  ">
+                                        </a>
+                                    </div>
+
+                                    <div class="name">
+                                        <h3 class="h6 fs--12">
+                                            <a href="{% url 'SocialMedia:getProfil' profil.id %}"
+                                               class="btn-link">{{ profil.user.first_name | title }} {{ profil.user.last_name | upper }}</a>
+                                        </h3>
+                                    </div>
+
+                                    <div class="activity">
+                                        <p><i class="fa mr--8 fa-clock-o"></i>Dernière activité :
+                                            <br>{% if profil.user.last_login %} {{ profil.user.last_login | date }} {% else %} - {% endif %}</p>
+                                    </div>
+
+                                    <div class="actions">
+                                        <ul class="nav">
+                                            <li>
+                                                {% if profil in friends %}
+                                                <form id="addFriend" style="float: left;padding-right: 5px;" class="" method="POST">
+                                                <input type="hidden" name="csrfmiddlewaretoken" value="bCrnsa7YEHmX48HGRBUYrNF4S9sK01iFTXZiijiNrUBfw4T9OY0xhLtfvMZFvzU3">
+                                                    <input type="hidden" name="rep" value="0">
+                                                    <button id="btFriend" class="btJoinGroupe fw--400" style="font-size: 12px;padding: 0px 10px;font-weight: normal;">
+                                                        <i class="fa fa-user-plus" aria-hidden="true"></i> Se
+                                                        connecter
+                                                    </button>
+                                                </form>
+                                                {% else %}
+                                                        <a target="_blank" href="{% url 'SocialMedia:getProfil' profil.id %}">
+                                                    <button id="btFriend" class="btJoinGroupe fw--400" style="font-size: 12px;padding: 0px 10px;font-weight: normal;"><i class="fa fa-user" aria-hidden="true"></i> Voir le profil</button>
+                                                        </a>
+
+                                                {% endif %}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- Member Item End -->
+                            </div>
+                        {% endfor %}
+
+                        <!-- Member Item End -->
+                    </div>
+
+                </div>
+            {% endif %}
+
+{% if profils.paginator.count is not 0 %}
+
+            <!-- Page Count Start -->
+                            <div class="page--count pt--30  text-center">
+                                <label class="ff--primary fs--14 fw--500 text-darker">
+                                    {% if profils.has_previous %}
+                                        <button id="btfirst" href="?page=1" class="btn-link"><i class="fa fa-caret-left {% if not profils.has_previous %}hidden{% endif %}"></i><i class="fa fa-caret-left"></i></button>
+                                        <button id="btprevious" page="{{ profils.previous_page_number }}" class="btn-link {% if not profils.has_previous %}hidden{% endif %}"><i class="fa fa-caret-left"></i></button>
+                                    {% else %}
+                                        <button id="btfirst" href="1" class="btn-link"><i class="fa fa-caret-left {% if profils.has_previous %}hidden{% endif %}"></i><i class="fa fa-caret-left"></i></button>
+                                        <button id="btprevious" page="1" class="btn-link"><i class="fa fa-caret-left {% if profils.has_previous %}hidden{% endif %}"></i></button>
+                                    {% endif %}
+                                        <input id="RequestsPageNum" readonly type="number" name="page-count" value="{{ profils.number }}" class="form-control form-sm">
+                                        /
+                                        <span id="numPages">{{ profils.paginator.num_pages }}</span>
+                                    {% if profils.has_next %}
+                                        <button id="btnext" page="{{ profils.next_page_number }}" class="btn-link {% if not profils.has_next %}hidden{% endif %}"><i class="fa fa-caret-right"></i></button>
+                                        <button id="btlast" page="{{ profils.paginator.num_pages }}" class="btn-link {% if not profils.has_next %}hidden{% endif %}"><i class="fa fa-caret-right"></i><i class="fa fa-caret-right"></i></button>
+                                    {% else %}
+                                        <button id="btnext" page="{{ profils.paginator.num_pages }}" class="btn-link {% if profils.has_next %}hidden{% endif %}"><i class="fa fa-caret-right"></i></button>
+                                        <button id="btlast" page="{{ profils.paginator.num_pages }}" class="btn-link {% if profils.has_next %}hidden{% endif %}"><i class="fa fa-caret-right"></i><i class="fa fa-caret-right"></i></button>
+                                    {% endif %}
+
+                                </label>
+                            </div>
+                            <!-- Page Count End -->
+
+        {% endif %}

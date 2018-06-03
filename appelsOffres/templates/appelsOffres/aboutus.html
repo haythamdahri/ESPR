@@ -1,0 +1,423 @@
+{% extends 'base_main.html' %}
+{% load static %}
+
+
+{% block title %}
+    {{ block.super }}
+    À PROPOS DE NOUS
+{% endblock title %}
+
+{% block stylesheets %}
+    {{ block.super }}
+
+    <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>À PROPOS DE NOUS </title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="{% static "appelsOffres/assets/images/aa.png" %}">
+
+        <!--<link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,600,700' rel='stylesheet' type='text/css'>-->
+        <link rel="stylesheet" href="{% static "appelsOffres/assets/css/fonticons.css" %} ">
+        <link rel="stylesheet" href="{% static "appelsOffres/assets/fonts/stylesheet.css" %} ">
+        <link rel="stylesheet" href="{% static "appelsOffres/assets/css/font-awesome.min.css" %} ">
+        <link rel="stylesheet" href="{% static "appelsOffres/assets/css/bootstrap.min.css" %} ">
+        <!--        <link rel="stylesheet" href="assets/css/bootstrap-theme.min.css">-->
+
+
+        <!--For Plugins external css-->
+        <link rel="stylesheet" href="{% static "appelsOffres/assets/css/plugins.css" %} " />
+
+        <!--Theme custom css -->
+        <link rel="stylesheet" href="{% static "appelsOffres/assets/css/style.css" %} ">
+
+        <!--Theme Responsive css-->
+        <link rel="stylesheet" href="{% static "appelsOffres/assets/css/responsive.css" %} " />
+
+        <style>
+            a:hover,a:focus{
+                text-decoration: none;
+                outline: none;
+            }
+            #accordion .panel{
+                border: none;
+                box-shadow: none;
+                border-radius: 0;
+                margin-bottom: 6px;
+            }
+            #accordion .panel-heading{
+                padding: 0;
+            }
+            #accordion .panel-title a{
+                display: block;
+                padding: 25px 40px;
+                background: #fff;
+                font-size: 15px;
+                font-weight: bold;
+                color: rgb(240, 142, 134);
+                text-transform: uppercase;
+                border: 1px solid #eaeaea;
+                border-left: 3px solid rgb(240, 142, 134);
+                position: relative;
+                transition: all 0.3s ease 0s;
+            }
+            #accordion .panel-title a.collapsed{
+                color: #333;
+            }
+            #accordion .panel-title a:before,
+            #accordion .panel-title a.collapsed:before{
+                content: "\f107";
+                font-family: FontAwesome;
+                font-size: 14px;
+                color: #333;
+                line-height: 24px;
+                position: absolute;
+                top: 23px;
+                right: 25px;
+            }
+            #accordion .panel-title a.collapsed:before{
+                content: "\f106";
+            }
+            #accordion .panel-title a:hover,
+            #accordion .panel-title a.collapsed:hover,
+            #accordion .panel-title a:before,
+            #accordion .panel-title a:hover:before{
+                color: rgb(240, 142, 134);
+            }
+            #accordion .panel-body{
+                padding: 15px 27px;
+                font-size: 14px;
+                color: #808080;
+                line-height: 23px;
+                border: 1px solid #eaeaea;
+                border-top: none;
+                border-left: 3px solid #eaeaea;
+            }
+            #accordion .panel-body p{
+                margin-bottom: 0;
+            }
+
+            .flotte{
+                float: center;
+            }
+
+
+        </style>
+
+{% endblock stylesheets %}
+
+
+{% block content %}
+    {{ block.super }}
+
+    <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+		<div class='preloader'><div class='loaded'>&nbsp;</div></div>
+        <!--Home page style-->
+        <header id="main_menu" class="header">
+            <div class="main_menu_bg navbar-fixed-top" style="background-color: white;">
+                <div class="container" >
+                    <div class="row">
+                        <div class="nave_menu wow fadeInUp" data-wow-duration="1s" >
+                            <nav class="navbar navbar-default" id="navmenu" >
+                                <div class="container-fluid" >
+                                    <!-- Brand and toggle get grouped for better mobile display -->
+                                    <div class="navbar-header">
+                                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                                            <span class="sr-only">Toggle navigation</span>
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                        </button>
+                                    </div>
+
+                                    <!-- Collect the nav links, forms, and other content for toggling -->
+                                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+                                        <ul class="nav navbar-nav navbar-right" >
+                                            <li><a href="/appelsOffres/Accueil">Accueil</a></li>
+                                            <li><a href="/appelsOffres/aploffre">NOS APPELS D'OFFRES</a></li>
+                                            <li class="active"><a href="/appelsOffres/aboutus">À PROPOS DE NOUS</a></li>
+                                            <!-- <li><a href="/appelsOffres/contactus">CONTACTEZ NOUS</a></li>
+                                            <li><a href="/appelsOffres/login">LOGIN/REGISTER</a></li> -->
+                                        </ul>
+                                    </div>
+                                </div>
+                            </nav>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </header> <!--End of header -->
+
+        <section id="home" class="home" style="background: url('{% static 'assets/images/pricingbg.jpg' %}')">
+            <div class="home-overlay-fluid" style="padding-top:10px;">
+                <div class="container" >
+                    <div class="row" >
+                        <div class="main_slider_area" >
+                            <div class="slider" >
+                                <div class="single_slider wow fadeIn" data-wow-duration="2s" >
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section><!-- End of Banner Section -->
+
+        <section id="domain" class="domainsearce" style="padding: 25px 0px;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingOne">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                            <h4><i class="fa fa-lightbulb-o"></i> &nbsp; NOTRE SAVOIR FAIRE </h4>
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseOne" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingOne">
+                                    <div class="panel-body">
+
+                                        <blockquote>
+                                            Réalité Augementée & Impression Interfactive
+                                        </blockquote>
+                                        <div class="in">
+                                            <p style="text-align: justify;">
+                                                L’ère est à l’hybridation, où les canaux réels et virtuels se croisent!! Nous proposons ainsi, à travers notre filiale ADN 212
+                                                &nbsp;représent officiel de Blippar au Maroc, des services innovants de marketing hybride permettant d’augmenter vos
+                                                supports physiques de toute nature avec du contenu digital. Nous apportons des «&nbsp;Call-to-Action&nbsp;» pour une
+                                                meilleure conversion de vos prospects. Nous développons également des applications mobiles personnalisées à réalité
+                                                augmentée pour des besoins plus spécifiques.
+                                            </p>
+                                        </div>
+
+                                        <br>
+
+                                        <blockquote>
+                                            Evénements et Salons Virtuels 3D Intéractifs
+                                        </blockquote>
+                                        <div class="in">
+                                            <p style="text-align: justify;">
+                                                Une nouvelle forme de « face-à-face » 100% dématérialisée, pouvant même accompagner une manifestation physique, pour des
+                                                échanges réels dans un cadre virtuel !! Nous proposons des halls d’exposition avec des stands virtuels, une salle de
+                                                conférences, une marketplace, une bibliothèque, une galerie d’exposition, et un espace de networking, le tout à travers
+                                                une application web immersive en 3D, accessible depuis tout terminal connecté, dans un confort de visite hors pair.
+                                            </p>
+                                        </div>
+
+                                        <br>
+
+                                        <blockquote>
+                                            Growth Hacking & Transition Digitale
+                                        </blockquote>
+                                        <div class="in">
+                                            <p style="text-align: justify;">
+                                                Votre Product/Market fit est vérifié !! A travers notre filiale ADN 212, nous vous accompagnons dans votre « Traction
+                                                Building », en mettant à votre disposition notre savoir faire incontesté dans le marketing de l’innovation technologique.
+                                                Nous mobilisons les meilleures pratiques et outils des technologies de l’information afin d’atteindre vos objectifs de
+                                                scalabilité durable. Notre expertise en transformation numérique vous permettra de mener à terme une transition effective
+                                                dans votre révolution digitale.
+                                            </p>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingTwo">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                            <h4><i class="fa fa-thumbs-up"></i> &nbsp; NOS SERVICES </h4>
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                    <div class="panel-body">
+                                        <blockquote>
+                                            &nbsp; SALONS/ÉVÉNEMENTS VIRTUELS EN 3D
+                                        </blockquote>
+
+                                        <blockquote>
+                                            &nbsp;IMPRESSION & PUBLICITÉ AUGMENTÉE (SMART PRINT)
+                                        </blockquote>
+
+                                        <blockquote>
+                                            &nbsp;RÉALITÉ VIRTUELLE & RÉALITÉ AUGMENTÉE
+                                        </blockquote>
+
+                                        <blockquote>
+                                            &nbsp;MARKETING DIGITAL & GROWTH HACKING
+                                        </blockquote>
+
+                                        <blockquote>
+                                            &nbsp;JEUX CONCOURS SUR FACEBOOK
+                                        </blockquote>
+
+                                        <blockquote>
+                                            &nbsp;CANAUX DIGITAUX CHINOIS
+                                        </blockquote>
+
+                                        <blockquote>
+                                            &nbsp;VEILLE STRATÉGIQUE SUR LE WEB & E-REPUTATION
+                                        </blockquote>
+
+                                        <blockquote>
+                                            &nbsp;DÉVELOPPEMENT WEB & MOBILE
+                                        </blockquote>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingThree">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                            <h4><i class="fa fa-users"></i> &nbsp; NOS PARTENAIRES</h4>
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                                    <div class="panel-body">
+
+                                        <div class="">
+                                            <p class="">
+                                                <blockquote>
+                                                    <a href="http://www.directprint.ma">
+                                                        <img src="{% static "appelsOffres/assets/images/directprint.png" %}" width="120" height="70">
+                                                    </a>
+                                                </blockquote>
+
+                                                <blockquote>
+                                                    <a href="http://www.nesprint.ma">
+                                                        <img src="{% static "appelsOffres/assets/images/nesprint.PNG" %}" width="120" height="70">
+                                                    </a>
+                                                </blockquote>
+
+                                                <blockquote>
+                                                    <a href="http://www.digimind.com">
+                                                        <img src="{% static "appelsOffres/assets/images/digimint.PNG" %}" width="120" height="70">
+                                                    </a>
+                                                </blockquote>
+                                            </p>
+                                        </div>
+
+                                        <br>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingF">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseF" aria-expanded="false" aria-controls="collapseF">
+                                            <h4><i class="fa fa-info"></i> &nbsp; &nbsp; AUTRES INFORMATIONS</h4>
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseF" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingF">
+                                    <div class="panel-body">
+                                        <center>
+                                        <h5>
+                                            <i class="fa fa-map-marker"></i>
+                                            &nbsp; ELECTRONIC SERVICE PROVIDERS (ESPR) 114, Secteur 3 Riad Oulad Mtaa, TEMARA - RABAT
+                                        </h5>
+
+                                        <h5>
+                                            <i class="fa fa-phone"></i>
+                                            &nbsp; (+212) 537 62 92 23 / &nbsp; (+212) 661 43 96 94
+                                        </h5>
+
+                                        <h5>
+                                            <i class="fa fa-envelope-o"></i>
+                                            &nbsp; a.ouaza@espr.ma / &nbsp; contact@espr.ma
+                                        </h5>
+
+                                        </center>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="scrollup">
+            <a href="#"><i class="fa fa-chevron-up"></i></a>
+        </div>
+
+
+{% endblock content %}
+
+
+
+{% block footer %}
+    {{ block.super }}
+        <section id="footer" class="footer sections">
+            <div class="container" style="padding-bottom: 0px">
+
+                <div class="row">
+                    <div class="footer_bottom_area">
+                        <div class="col-sm-9 col-xs-12">
+                            <div class="fo_bottom_right">
+                                <div class="row">
+                                    <div class="col-sm-6 col-xs-12">
+                                        <div class="single_right_footer wow fadeIn" data-wow-duration="1s">
+                                            <img src="{% static "appelsOffres/assets/images/aa.png" %}" width="130" height="130" >
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3 col-xs-6">
+                                        <div class="single_right_footer wow fadeIn" data-wow-duration="1.5s">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3 col-xs-6">
+                                        <div class="single_right_footer wow fadeIn" data-wow-duration="2s">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 col-xs-12">
+                            <div class="fo_bottom_socail wow fadeIn" data-wow-duration="2.3s">
+                                <a href="#"><i class="fa fa-phone"> +212 (0) 537 62 92 23</i></a>
+                                <a href="#"><i class="fa fa-fax"> +212 (0) 537 62 92 23</i></a>
+                                <a href="#"><i class="fa fa-envelope"></i> espr.maroc@gmail.com</a>
+                                <a href="#"><i class="fa fa-map-marker"></i> 114, SECTEUR 3, RIAD OULAD MTAA – TEMARA – RABAT</a>
+                                <a href="#"><i class="fa fa fa-globe"></i> http://www.btpexpo3d.ma</a>
+                                <a href="https://www.facebook.com/ESPROV"><i class="fa fa-facebook-official"></i> facebook/ESPROV</a>
+                                <a href="https://www.linkedin.com/company/electronic-service-providers-espr-/?originalSubdomain=fr"><i class="fa fa-linkedin-square"></i> Linkin/ESPR</a>
+                                <a href="https://twitter.com/ESPROVID"><i class="fa fa-twitter-square"></i> Twitter/ESPROVID</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section><!-- End of footer3 section -->
+{% endblock footer %}
+
+
+{% block scripts %}
+    {{ block.super }}
+        <script src="{% static "appelsOffres/assets/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js" %} "></script>
+        <script src="{% static "appelsOffres/assets/js/vendor/jquery-1.11.2.min.js" %} "></script>
+        <script src="{% static "appelsOffres/assets/js/vendor/bootstrap.min.js" %} "></script>
+        <script src="{% static "appelsOffres/assets/js/jquery.easypiechart.min.js" %} "></script>
+
+        <script src="{% static "appelsOffres/assets/js/plugins.js" %} "></script>
+        <script src="{% static "appelsOffres/assets/js/main.js " %} "></script>
+{% endblock scripts %}
+
+
+

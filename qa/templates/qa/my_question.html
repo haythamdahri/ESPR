@@ -1,0 +1,239 @@
+{% extends 'base_qa.html' %}
+{% load django_markdown %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+
+
+
+{% block content %}
+<!-- =-=-=-=-=-=-= Main Area =-=-=-=-=-=-= -->
+<div class="main-content-area">
+
+    <!-- =-=-=-=-=-=-= Page Breadcrumb =-=-=-=-=-=-= -->
+    <section class="page-title">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 col-sm-7 col-xs-12 text-left">
+            <h1>{{ user.username }}</h1>
+          </div>
+          <!-- end col -->
+          <div class="col-md-6 col-sm-5 col-xs-12 text-right">
+            <div class="bread">
+              <ol class="breadcrumb">
+                <li><a href="/qa#">Home</a>
+                </li>
+                <li><a href="/qa#">Pages</a>
+                </li>
+                <li class="active">Profile</li>
+              </ol>
+            </div>
+            <!-- end bread -->
+          </div>
+          <!-- end col -->
+        </div>
+        <!-- end row -->
+      </div>
+      <!-- end container -->
+    </section>
+
+    <!-- =-=-=-=-=-=-= Page Breadcrumb End =-=-=-=-=-=-= -->
+    
+ <!-- =-=-=-=-=-=-= User Form Settings =-=-=-=-=-=-= -->
+    <section class="section-padding-80" id="login">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-md-12"> 
+
+            <div class="box-panel" >
+            <h1><i class="fa fa-question-circle"></i> Mes Questions </h1>
+
+             <hr>
+                     <table class="col-md-12" border="1" width="100%">
+                        <thead>
+                            <th data-field="id">Titre</th>
+                          <th data-field="salary" data-sortable="true">Date de publication</th>
+                          <th data-field="country" data-sortable="true">Status</th>
+                          <th data-field="city">Actions</th>
+                        </thead>
+                        <tbody>
+                          {% for q in  mesQusetion %}
+                            <tr>
+                              <td style="padding: 5px;" >{{ q.question_title|truncatechars_html:50 }}</td>
+                              <td style="padding: 5px;">{{ q.pub_date }}</td>
+                              <td style="padding: 5px;">
+                                {% if q.closed == False %}
+                                <span class="label-success label label-default">Ouverte</span>
+                                {% else %}
+                                <span class="label-warning label label-default">Fermer</span>
+                                {% endif %}
+                              </td>
+
+                              <td style="padding: 5px;">
+                                <form action="/qa/q/{{ q.id }}"/>
+                                <button class="btn btn-success btn-sm"  >
+                                    <i class="glyphicon glyphicon-zoom-in icon-white"></i>
+                                    View
+                                </button>
+                                </form>
+                                <a class="btn btn-info btn-sm" href="/qa/updateq/{{ q.id }}" style="margin-bottom: 5px; margin-top: 5px;">
+                                    <i class="glyphicon glyphicon-edit icon-white"></i>
+                                    Edit
+                                </a>
+                                <br>
+                                <form method="post" action="/qa/closequestion/">
+                                  {% csrf_token %} 
+                                  <input type="hidden" name="question_id" value="{{ q.id }}">
+                                <button class="btn btn-danger btn-sm" >
+                                {% if q.closed == False %}
+                                    <input type="hidden" name="closequestion" value="True">
+
+                                    <i class=" glyphicon glyphicon-remove icon-white"></i>
+                                    Fermer
+                       
+                                    {% else %}
+                                   <input type="hidden" name="closequestion" value="False">
+                                    <i class="glyphicon glyphicon-ok icon-white"></i>
+                                    Open
+                               
+                                    {% endif %}
+                                   </button>
+                                 </form> 
+                                <!-- <a rel="tooltip" title="Like" class="table-action like" href="/qajavascript:void(0)"><i class="fa fa-heart"></i></a>
+                                <br>
+                                <a rel="tooltip" title="Edit" class="table-action edit" href="/qajavascript:void(0)"><i class="fa fa-edit"></i></a>
+                                <br>
+                                <a rel="tooltip" title="Remove" class="table-action remove" href="/qajavascript:void(0)"><i class="fa fa-remove"></i></a> -->
+                              </td>
+                            </tr>
+                          {% endfor %}  
+                        </tbody>
+                    </table>
+                    
+                    <!-- Pagination View More -->
+                    <div class="text-center clearfix">
+                      <!-- <button class="btn btn-primary btn-lg">View All Question</button> -->
+                      <div class="pagination center-block">
+                                <span class="step-links">
+                                 <div class="clearfix"></div>
+                                  <nav aria-label="">
+                                    <ul class="pager">
+                                      {% if mesQusetion.has_previous %}
+                                          <li><a href="/qa?page={{ mesQusetion.previous_page_number }}">Précédent</a></li>
+                                      {% endif %}
+
+                                       <span class="current">
+                                         {{ mesQusetion.number }} / {{ mesQusetion.paginator.num_pages }}
+                                      </span>
+
+                                      {% if mesQusetion.has_next %}
+                                          <li><a href="/qa?page={{ mesQusetion.next_page_number }}">Suivant</a></li>
+                                      {% endif %}
+                                    </ul>
+                                  </nav>
+                                </span>
+                      </div>
+                    </div>
+                    <!-- Pagination View More End -->
+              </div>        
+          </div>
+
+          <div class="clearfix"></div>
+        </div>
+      </div>
+      <!-- end container -->
+    </section>
+ <!-- =-=-=-=-=-=-= User Form Settings End =-=-=-=-=-=-= -->
+ 
+    <!-- =-=-=-=-=-=-= Our Clients =-=-=-=-=-=-= -->
+    <section class="custom-padding white" id="clients">
+      <div class="container">
+
+        <!-- Row -->
+        <div class="row">
+
+          <!-- col-md-2 client-block -->
+          <div class="col-md-2 col-xs-6 col-sm-4 client-block">
+
+            <!-- client-item client-item-style-2 -->
+            <div class="client-item client-item-style-2">
+              <a title="Client Logo" href="/qa#"> <img alt="Clients Logo" src="images/clients/client_5.png"> </a>
+            </div>
+            <!-- /client-item client-item-style-2 -->
+
+          </div>
+          <!-- /col-md-2 client-block -->
+
+          <!-- col-md-2 client-block -->
+          <div class="col-md-2 col-xs-6 col-sm-4 client-block">
+
+            <!-- client-item client-item-style-2 -->
+            <div class="client-item client-item-style-2">
+              <a title="Client Logo" href="/qa#"> <img alt="Clients Logo" src="images/clients/client_6.png"> </a>
+            </div>
+            <!-- /client-item client-item-style-2 -->
+
+          </div>
+          <!-- /col-md-2 client-block -->
+
+          <!-- col-md-2 client-block -->
+          <div class="col-md-2 col-xs-6 col-sm-4 client-block">
+
+            <!-- client-item client-item-style-2 -->
+            <div class="client-item client-item-style-2">
+              <a title="Client Logo" href="/qa#"> <img alt="Clients Logo" src="images/clients/client_7.png"> </a>
+            </div>
+            <!-- /client-item client-item-style-2 -->
+
+          </div>
+          <!-- /col-md-2 client-block -->
+
+          <!-- col-md-2 client-block -->
+          <div class="col-md-2 col-xs-6 col-sm-4 client-block">
+
+            <!-- client-item client-item-style-2 -->
+            <div class="client-item client-item-style-2">
+              <a title="Client Logo" href="/qa#"> <img alt="Clients Logo" src="images/clients/client_8.png"> </a>
+            </div>
+            <!-- /client-item client-item-style-2 -->
+
+          </div>
+          <!-- /col-md-2 client-block -->
+
+          <!-- col-md-2 client-block -->
+          <div class="col-md-2 col-xs-6 col-sm-4 client-block">
+
+            <!-- client-item client-item-style-2 -->
+            <div class="client-item client-item-style-2">
+              <a title="Client Logo" href="/qa#"> <img alt="Clients Logo" src="images/clients/client_9.png"> </a>
+            </div>
+            <!-- /client-item client-item-style-2 -->
+
+          </div>
+          <!-- /col-md-2 client-block -->
+
+          <!-- col-md-2 client-block -->
+          <div class="col-md-2 col-xs-6 col-sm-4 client-block">
+
+            <!-- client-item client-item-style-2 -->
+            <div class="client-item client-item-style-2">
+              <a title="Client Logo" href="/qa#"> <img alt="Clients Logo" src="images/clients/client_10.png"> </a>
+            </div>
+            <!-- /client-item client-item-style-2 -->
+
+          </div>
+          <!-- /col-md-2 client-block -->
+
+        </div>
+        <!-- Row End -->
+
+      </div>
+      <!-- end container -->
+    </section>
+    <!-- =-=-=-=-=-=-= Our Clients -end =-=-=-=-=-=-= -->
+
+  </div>
+<!-- =-=-=-=-=-=-= Main Area End =-=-=-=-=-=-= -->              
+
+{% endblock content %}

@@ -1,0 +1,161 @@
+
+
+#header #nav-header {
+    margin-bottom: 0;
+    box-shadow: 0 0 0;
+}
+
+.video {
+    background: #222;
+}
+
+.video h2 {
+    color: #FFF;
+}
+
+.article-breadcrumb {
+    margin-top: 0;
+}
+
+.article-breadcrumb a {
+    color: #FFF;
+}
+
+.video .row .list-inline .publisher a:hover {
+    color: #f46320;
+}
+
+a.tag:hover {
+    color: #FFF;
+    padding: 7px;
+    font-size: 13px;
+}
+
+.tag {
+    color: #FFF;
+    padding: 4px;
+    font-size: 11px;
+    display: inline-block;
+    transition: .3s all;
+}
+
+.video .row .list-inline {
+    margin-top: 10px;
+    margin-left: 1px;
+}
+.video .row .list-inline ,.video .row .list-inline a {
+    color: #FFF;
+}
+
+.img-ad img {
+    padding-top: 15px;
+}
+
+.social {
+    text-align: center;
+}
+
+.social li {
+    margin-top: 10px;
+    background: darkslategrey;
+    padding: 7px 20px 10px;
+    border-radius: 3px;
+    margin-right: 2px;
+    transition: .3s all;
+}
+
+.social li:hover{
+    padding-left: 30px;
+    padding-right: 30Px;
+}
+
+.social li.facebook{
+    background: #3b5998;;
+}
+
+.social li.twitter {
+    background: #1da1f2;
+}
+
+.social li.google {
+    background: #db4437;
+}
+
+.social li.instagram {
+    background: #c32aa3;
+}
+
+.social i {
+    padding-right: 10px;
+    font-size: 13px;
+}
+
+.social span {
+    font-size: 12px;
+    border-left: 1px #BDBDBD solid;
+    padding-left: 10px;
+}
+
+.more-author {
+    background: #1d1d1d;
+}
+
+.more-author h3 {
+    color: #FFF;
+    font-size: 20px;
+    padding: 12px 0;
+}
+
+.more-author .article .article-img > a {
+
+}
+
+.more-author .article .article-img img {
+    height: 160px;
+}
+
+.more-author .article .article-img .article-info {
+
+}
+
+.more-author .article .article-title > a {
+    color: #FFF;
+}
+
+.more-author .article .article-meta li {
+    color: #FFF;
+}
+
+.more-author .article .article-meta li a {
+    color: #FFF;
+    font-weight: bold;
+}
+
+.more-author .col-md-3 .article .article-img .article-info {
+    position: absolute;
+    bottom: 32%;
+    left: 40%;
+    z-index: 22
+}
+
+.more-author .col-md-3 .article .article-info .article-type {
+    width: 60px;
+    height: 60px;
+    color: #FFF;
+    font-size: 30px;
+    border: 3px solid;
+    padding: 12px 19px 15px 18px;
+    border-radius: 50%;
+    background: transparent;
+}
+
+.more-author .col-md-3 .article .article-info .article-type a {
+    color: #FFF;
+}
+
+.more-author .article a:hover ,
+.more-author .article .article-meta li a:hover,
+.more-author .col-md-3 .article .article-info .article-type a:hover,
+.more-author .col-md-3 .article .article-info .article-type:hover {
+    color: #f46320;
+}

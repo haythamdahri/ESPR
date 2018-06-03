@@ -1,0 +1,350 @@
+{% extends 'base_qa.html' %}
+ {% load static %}
+
+
+{% block style %}
+<style type="text/css">
+	
+.q_text
+{
+    white-space: nowrap; 
+    max-height: 50px;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+
+/* .qtext
+{
+
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+}
+*/
+
+.q-tag {
+    border: 1px solid #d9dfe9;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background-color: #f3f5f9;
+    text-decoration: none;
+    color: #6f7d95;
+    line-height: 20px;
+    display: inline-block;
+    padding: 0 10px;
+    margin-right: 5px;
+    color: #6f7d95;
+}
+
+.character {
+    font-size: 26px;
+    font-weight: 700;
+    color: #6f7d95;
+    margin-left: 35px;
+}
+
+</style>
+{% endblock style %}
+
+
+ {% block content %}
+
+	<!-- =-=-=-=-=-=-= Main Area =-=-=-=-=-=-= -->
+	<div class="main-content-area" style="    background: #fafafa;">
+		<!-- =-=-=-=-=-=-= Latest Questions  =-=-=-=-=-=-= -->
+<!-- 		<section class="white question-tabs padding-bottom-80" id="latest-post"> -->
+			<div class="container ">
+
+				<!-- title-section -->
+
+				<div class="main-heading text-center">
+
+		        </div>
+
+				<!-- End title-section -->
+				
+				<div class="row">
+					<!-- Content Area Bar -->
+
+					<div class="col-sm-3 col-md-2">
+					            <div class="panel-group" id="accordion">
+					            	<div class="panel panel-default">
+					                    <div class="panel-heading" style="background-color: #ffffff;border: 1px solid #efefef;">
+					                        <h4 class="panel-title">
+					                            <a href="/qa/quora"><span class="glyphicon glyphicon-file">
+					                            </span>|Questions </a>
+					                        </h4>
+					                    </div>
+					                </div>
+					                <div class="panel panel-default">
+					                    <div class="panel-heading" style="background-color: #ffffff;border: 1px solid #efefef;">
+					                        <h4 class="panel-title">
+					                            <a  href="/qa/list_cat"><span class="glyphicon glyphicon-th">
+					                            </span>|Categories</a>
+					                        </h4>
+					                    </div>
+	
+					                </div>
+					                <div class="panel panel-default">
+					                    <div class="panel-heading" style="background-color: #ffffff;border: 1px solid #efefef;">
+					                        <h4 class="panel-title">
+					                            <a href="/qa/list_tags"><span class="fa fa-tags">
+					                            </span>|Tags</a>
+					                        </h4>
+					                    </div>
+
+					                </div>
+					                
+					            </div>
+					        </div>
+
+
+
+					<div class="white  col-md-9 col-sm-12 col-xs-12" style="border: 1px solid #efefef;">
+						<div class="panel-body">
+							<div class="tab-content">
+								<!-- <div id="tab1" class="tab-pane active"> -->
+											<!-- <div class="row"> -->
+
+										          <!-- <div class="col-md-12"> -->
+										          	<center><h1 style="color: black;"> Tags</h1></center>
+										            <div class="">
+
+										              
+
+										              <hr>
+										              <h2 class="character" >A</h2>
+										              <ul>
+										              	{% for t in tag_a %}
+										              	<li class="col-md-4" ><a href="/qa/tag/{{ t.slug|slugify }}/" class="q-tag">#{{ t.slug }}</a></li>
+										              	{% endfor %}
+										              </ul>
+														              <br>
+										              <hr>
+										               <h2 class="character" >B</h2>
+										              <ul >
+										              	{% for t in tag_b %}
+										              	<li class="col-md-4 " ><a href="/qa/tag/{{ t.slug|slugify }}/" class="q-tag">#{{ t.slug }}</a></li>
+										              	{% endfor %}
+										              </ul>
+														              <br>
+										              <hr>
+										               <h2 class="character" >C</h2>
+										              <ul>
+										              	{% for t in tag_c %}
+										              	<li class="col-md-4" ><a href="/qa/tag/{{ t.slug|slugify }}/" class="q-tag">#{{ t.slug }}</a></li>
+										              	{% endfor %}
+										              </ul>
+														              <br>
+										              <hr>
+										               <h2 class="character" >D</h2>
+										              <ul>
+										                {% for t in tag_d %}
+										                <li class="col-md-4" ><a href="/qa/tag/{{ t.slug|slugify }}/" class="q-tag">#{{ t.slug }}</a></li>
+										                {% endfor %}
+										              </ul>
+										                      <br>
+										              <hr>
+										               <h2 class="character" >E</h2>
+										              <ul>
+										                {% for t in tag_e %}
+										                <li class="col-md-4" ><a href="/qa/tag/{{ t.slug|slugify }}/" class="q-tag">#{{ t.slug }}</a></li>
+										                {% endfor %}
+										              </ul>
+										                      <br>
+										              <hr>
+										               <h2 class="character" >F</h2>
+										              <ul>
+										                {% for t in tag_f %}
+										                <li class="col-md-4" ><a href="/qa/tag/{{ t.slug|slugify }}/" class="q-tag">#{{ t.slug }}</a></li>
+										                {% endfor %}
+										              </ul>
+										                      <br>
+										              <hr>
+										               <h2 class="character" >G</h2>
+										              <ul>
+										                {% for t in tag_g %}
+										                <li class="col-md-4" ><a href="/qa/tag/{{ t.slug|slugify }}/" class="q-tag">#{{ t.slug }}</a></li>
+										                {% endfor %}
+										              </ul>
+										                      <br>
+										              <hr>
+										               <h2 class="character" >H</h2>
+										              <ul>
+										                {% for t in tag_h %}
+										                <li class="col-md-4" ><a href="/qa/tag/{{ t.slug|slugify }}/" class="q-tag">#{{ t.slug }}</a></li>
+										                {% endfor %}
+										              </ul>
+										                      <br>
+										              <hr>
+										               <h2 class="character" >I</h2>
+										              <ul>
+										                {% for t in tag_i %}
+										                <li class="col-md-4" ><a href="/qa/tag/{{ t.slug|slugify }}/" class="q-tag">#{{ t.slug }}</a></li>
+										                {% endfor %}
+										              </ul>
+										                      <br>
+										              <hr>
+										               <h2 class="character" >J</h2>
+										              <ul>
+										                {% for t in tag_j %}
+										                <li class="col-md-4" ><a href="/qa/tag/{{ t.slug|slugify }}/" class="q-tag">#{{ t.slug }}</a></li>
+										                {% endfor %}
+										              </ul>
+										                      <br>
+										              <hr>
+										               <h2 class="character" >K</h2>
+										              <ul>
+										                {% for t in tag_k %}
+										                <li class="col-md-4" ><a href="/qa/tag/{{ t.slug|slugify }}/" class="q-tag">#{{ t.slug }}</a></li>
+										                {% endfor %}
+										              </ul>
+										                      <br>
+										              <hr>
+										               <h2 class="character" >L</h2>
+										              <ul>
+										                {% for t in tag_l %}
+										                <li class="col-md-4" ><a href="/qa/tag/{{ t.slug|slugify }}/" class="q-tag">#{{ t.slug }}</a></li>
+										                {% endfor %}
+										              </ul>
+										                      <br>
+										              <hr>
+										               <h2 class="character" >M</h2>
+										              <ul>
+										                {% for t in tag_m %}
+										                <li class="col-md-4" ><a href="/qa/tag/{{ t.slug|slugify }}/" class="q-tag">#{{ t.slug }}</a></li>
+										                {% endfor %}
+										              </ul>
+										                      <br>
+										              <hr>
+										               <h2 class="character" >N</h2>
+										              <ul>
+										                {% for t in tag_n %}
+										                <li class="col-md-4" ><a href="/qa/tag/{{ t.slug|slugify }}/" class="q-tag">#{{ t.slug }}</a></li>
+										                {% endfor %}
+										              </ul>
+										                      <br>
+										              <hr>
+										               <h2 class="character" >O</h2>
+										              <ul>
+										                {% for t in tag_o %}
+										                <li class="col-md-4" ><a href="/qa/tag/{{ t.slug|slugify }}/" class="q-tag">#{{ t.slug }}</a></li>
+										                {% endfor %}
+										              </ul>
+										                      <br>
+										              <hr>
+										               <h2 class="character" >P</h2>
+										              <ul>
+										                {% for t in tag_p %}
+										                <li class="col-md-4" ><a href="/qa/tag/{{ t.slug|slugify }}/" class="q-tag">#{{ t.slug }}</a></li>
+										                {% endfor %}
+										              </ul>
+										                      <br>
+										              <hr>
+										               <h2 class="character" >Q</h2>
+										              <ul>
+										                {% for t in tag_q %}
+										                <li class="col-md-4" ><a href="/qa/tag/{{ t.slug|slugify }}/" class="q-tag">#{{ t.slug }}</a></li>
+										                {% endfor %}
+										              </ul>
+										                      <br>
+										              <hr>
+										               <h2 class="character" >R</h2>
+										              <ul>
+										                {% for t in tag_r %}
+										                <li class="col-md-4" ><a href="/qa/tag/{{ t.slug|slugify }}/" class="q-tag">#{{ t.slug }}</a></li>
+										                {% endfor %}
+										              </ul>
+										                      <br>
+										              <hr>
+										               <h2 class="character" >S</h2>
+										              <ul>
+										                {% for t in tag_s %}
+										                <li class="col-md-4" ><a href="/qa/tag/{{ t.slug|slugify }}/" class="q-tag">#{{ t.slug }}</a></li>
+										                {% endfor %}
+										              </ul>
+										                      <br>
+										              <hr>
+										               <h2 class="character" >T</h2>
+										              <ul>
+										                {% for t in tag_t %}
+										                <li class="col-md-4" ><a href="/qa/tag/{{ t.slug|slugify }}/" class="q-tag">#{{ t.slug }}</a></li>
+										                {% endfor %}
+										              </ul>
+										                      <br>
+										              <hr>
+										               <h2 class="character" >V</h2>
+										              <ul>
+										                {% for t in tag_v %}
+										                <li class="col-md-4" ><a href="/qa/tag/{{ t.slug|slugify }}/" class="q-tag">#{{ t.slug }}</a></li>
+										                {% endfor %}
+										              </ul>
+										                      <br>
+										              <hr>
+										               <h2 class="character" >W</h2>
+										              <ul>
+										                {% for t in tag_w %}
+										                <li class="col-md-4" ><a href="/qa/tag/{{ t.slug|slugify }}/" class="q-tag">#{{ t.slug }}</a></li>
+										                {% endfor %}
+										              </ul>
+										                      <br>
+										              <hr>
+										               <h2 class="character" >X</h2>
+										              <ul>
+										                {% for t in tag_x %}
+										                <li class="col-md-4" ><a href="/qa/tag/{{ t.slug|slugify }}/" class="q-tag">#{{ t.slug }}</a></li>
+										                {% endfor %}
+										              </ul>
+										                      <br>
+										              <hr>
+										               <h2 class="character" >Y</h2>
+										              <ul>
+										                {% for t in tag_y %}
+										                <li class="col-md-4" ><a href="/qa/tag/{{ t.slug|slugify }}/" class="q-tag">#{{ t.slug }}</a></li>
+										                {% endfor %}
+										              </ul>
+										                      <br>
+										              <hr>
+										               <h2 class="character" >Z</h2>
+										              <ul>
+										                {% for t in tag_z %}
+										                <li class="col-md-4" ><a href="/qa/tag/{{ t.slug|slugify }}/" class="q-tag">#{{ t.slug }}</a></li>
+										                {% endfor %}
+										              </ul>
+										                      <br>
+										              <hr>
+										              <hr>
+
+										            </div>
+										          <!-- </div> -->
+
+										          <div class="clearfix"></div>
+										        <!-- </div> -->
+									<!-- </div> -->
+										
+		
+							</div>
+						</div>
+					</div>
+					
+					<!-- ************************** -->
+
+					<!-- Right Sidebar -->
+					<!-- Right Sidebar End -->
+
+					<div class="clearfix"></div>
+				</div>
+			</div>
+			<!-- end container -->
+		<!-- </section> -->
+		<!-- =-=-=-=-=-=-= Latest Questions  End =-=-=-=-=-=-= -->
+
+
+        
+
+        
+	</div>
+	<!-- =-=-=-=-=-=-= Main Area End =-=-=-=-=-=-= -->
+
+  {% endblock content %}

@@ -1,0 +1,52 @@
+{% load static %}
+<html>
+    <head>
+        <!-- Bootstrap -->
+		<link type="text/css" rel="stylesheet" href="{% static 'ecommerce/css/bootstrap/css/bootstrap.min.css' %}"/>
+
+		<!-- Font Awesome Icon -->
+		<link type="text/css" rel="stylesheet" href="{% static 'ecommerce/css/font-awesome/css/font-awesome.min.css' %}"/>
+
+		<!-- Custom stlylesheet -->
+		<link type="text/css" rel="stylesheet" href="{% static 'ecommerce/css/theme.css' %}"/>
+        <title>Server erreur</title>
+        <style>
+        .p404 i.fa {
+            font-size: 200px;
+            color: #000;
+            margin-top: 75px;
+        }
+        .p404 h1 {
+            font-size: 80px;
+            margin-top: 0;
+        }
+        .p404 h3 {
+            font-size: 24px;
+        }
+        .p404 p {
+            font-size: 20px;
+            max-width: 70%;
+            margin: auto;
+            margin-bottom: 13px;
+        }
+        .p404>a {
+            border-radius: 0;
+            padding: 8px 30px;
+            font-size: 18px;
+            margin-bottom: 20px;
+            background-color: #f46320;
+            text-transform: uppercase;
+        }
+        </style>
+    </head>
+    <body>
+        <div class="container text-center p404">
+            <i class="fa fa-meh-o fa-4x" aria-hidden="true"></i>
+            <h1>500</h1>
+            <h3>Ooops!!!</h3>
+            <p>Une erreur inattendue semble avoir eu lieu. Pourquoi ne pas essayer de rafraîchir votre page? Ou vous pouvez nous
+                <a href="{% url 'e_commerce:contact-us' %}">contacter</a> si le problème persiste</p>
+            <a href="{% url 'e_commerce:index' %}" class="btn btn-danger">Acceuil</a>
+        </div>
+    </body>
+</html>

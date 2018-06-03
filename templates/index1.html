@@ -1,0 +1,399 @@
+{% extends 'base_ESPR.html' %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% block stylesheet %}{{ block.super }}{% endblock %}
+{% block title %}{{ block.super }}{% endblock %}
+{% block header %}{{ block.super }}{% endblock %}
+{% block content %}
+
+    <section id="home" class="slider-reg">
+            <!-- Swiper -->
+            <div class="swiper-container swiper-fullwidth">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <img src="{% static 'main_app/img/bg-1.jpg' %}" alt="" class="img-fluid">
+                        <div class="swiper-overlay">
+                            <div class="container text-center">
+                                <div class="row">
+                                    <div class="col-lg-8 slider-text col-md-10 col-12 mr-auto ml-auto">
+                                        <h4 class="swiper-title">
+                                            Easy customization theme
+                                        </h4>
+                                        <p>
+                                            Bizwrap theme built with modern and easy to use frameworks
+                                        </p>
+                                        <a href="#!" class="btn btn-white btn-lg">Purchase Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="{% static 'main_app/img/bg-2.jpg' %}" alt="" class="img-fluid">
+                        <div class="swiper-overlay">
+                            <div class="container text-center">
+                                <div class="row">
+                                    <div class="col-lg-10 slider-text col-md-10 col-12 mr-auto ml-auto">
+                                        <h4 class="swiper-title">
+                                            Perfect for Small Projects
+                                        </h4>
+                                        <p>
+                                            Bizwrap theme built with modern and easy to use frameworks
+                                        </p>
+                                        <a href="#!" class="btn btn-white btn-lg">Purchase Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="{% static 'main_app/img/bg-3.jpg' %}" alt="" class="img-fluid">
+                        <div class="swiper-overlay">
+                            <div class="container text-center">
+                                <div class="row">
+                                    <div class="col-lg-8 slider-text col-md-10 col-12 mr-auto ml-auto">
+                                        <h4 class="swiper-title">
+                                            Easy customization theme
+                                        </h4>
+                                        <p>
+                                            Bizwrap theme built with modern and easy to use frameworks
+                                        </p>
+                                        <a href="#!" class="btn btn-white btn-lg">Purchase Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add Arrows -->
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+
+        </section><!--main flex slider end-->
+
+        <section class="padd-section" id="about">
+            <div class="container">
+                <div class="row intro-row">
+                    <div class="col-md-12 text-center wow animated fadeInUp">
+                        <h2>Bizwrap built for Minimal business Projects</h2>
+                        <h3 class="subtitle">With Clean and Modern Design</h3>
+                    </div>
+                    <div class="space-70"></div>
+                    <div class=" col-md-4">
+                        <div class="services-box">
+                            <i class="ion-laptop"></i>
+                            <h4>Responsive design</h4>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque nisl risus, porta sit amet dui eget...
+                            </p>
+                        </div>
+                    </div><!--services box-->
+                    <div class=" col-md-4">
+                        <div class="services-box">
+                            <i class="ion-ios-color-wand-outline"></i>
+                            <h4>Creative ideas</h4>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque nisl risus, porta sit amet dui eget...
+                            </p>
+                        </div>
+                    </div><!--services box-->
+                    <div class="col-md-4">
+                        <div class="services-box">
+                            <i class="ion-social-twitter-outline"></i>
+                            <h4>Bootstrap4</h4>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque nisl risus, porta sit amet dui eget...
+                            </p>
+                        </div>
+                    </div><!--services box-->
+                </div><!--row end-->
+            </div><!--intro with services end-->
+        </section><!--about section end-->
+
+        <section id="work" class="padd-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3 class="heading-sec">Nos applications</h3>
+                    </div>
+                </div><!--row-->
+            </div>
+
+            <div id="js-grid-mosaic-flat" class="cbp cbp-l-grid-mosaic-flat">
+                <div class="row">
+                        <div class="cbp-item web-design graphic">
+                                <a href="/reseausocial" target="_blank" class="cbp-caption" >
+                                    <div class="cbp-caption-defaultWrap">
+                                        <img src="{% static 'main_app/img/social-network-1-810x452.jpg' %}" alt="">
+                                    </div>
+                                    <div class="cbp-caption-activeWrap">
+                                        <div class="cbp-l-caption-alignCenter">
+                                            <div class="cbp-l-caption-body">
+                                                <div class="cbp-l-caption-title">ESPR Reseau Social</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        <div class="cbp-item print motion">
+                            <a href="/e_commerce" target="_blank" class="cbp-caption">
+                                <div class="cbp-caption-defaultWrap">
+                                    <img src="{% static 'main_app/img/magento-2-multi-vendor-marketplace.jpg' %}" alt="">
+                                </div>
+                                <div class="cbp-caption-activeWrap">
+                                    <div class="cbp-l-caption-alignCenter">
+                                        <div class="cbp-l-caption-body">
+                                            <div class="cbp-l-caption-title">ESPR E-commerce</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="cbp-item print motion">
+                        <a href="/journal" target="_blank" class="cbp-caption">
+                            <div class="cbp-caption-defaultWrap">
+                                <img src="{% static 'main_app/img/1494861031751.png' %}" alt="">
+                            </div>
+                            <div class="cbp-caption-activeWrap">
+                                <div class="cbp-l-caption-alignCenter">
+                                    <div class="cbp-l-caption-body">
+                                        <div class="cbp-l-caption-title">ESPR News</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                        <div class="cbp-item motion graphic">
+                            <a target="_blank" href="/appelsOffres" class="cbp-caption">
+                                <div class="cbp-caption-defaultWrap">
+                                    <img src="{% static 'main_app/img/appel_offre-01.png' %}" alt="">
+                                </div>
+                                <div class="cbp-caption-activeWrap">
+                                    <div class="cbp-l-caption-alignCenter">
+                                        <div class="cbp-l-caption-body">
+                                            <div class="cbp-l-caption-title">ESPR Appels d'offres</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="cbp-item web-design print">
+                            <a href="/qa" target="_blank" class="cbp-caption">
+                                <div class="cbp-caption-defaultWrap">
+                                    <img src="{% static 'main_app/img/qa.png' %}" alt="">
+                                </div>
+                                <div class="cbp-caption-activeWrap">
+                                    <div class="cbp-l-caption-alignCenter">
+                                        <div class="cbp-l-caption-body">
+                                            <div class="cbp-l-caption-title">ESPR Q&A</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="cbp-item print motion">
+                        <a href="#e-learning" target="_blank" class="cbp-caption">
+                            <div class="cbp-caption-defaultWrap">
+                                <img src="{% static 'main_app/img/work/mosaic-hor3.jpg' %}" alt="">
+                            </div>
+                            <div class="cbp-caption-activeWrap">
+                                <div class="cbp-l-caption-alignCenter">
+                                    <div class="cbp-l-caption-body">
+                                        <div class="cbp-l-caption-title">ESPR E-learning</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </section>
+
+        <div class="clearfix"></div>
+
+        <div class="padd-section" id="services">
+            <section id="content-region-1" class="padding-40">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-7 features text-xs-center">
+                            <h3>Our services</h3>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut ipsum mauris. Fusce condimentum mollis eros vitae facilisis. Praesent gravida dignissim felis, id sagittis mauris rutrum non. Nullam pretium id sem ut hendrerit.
+                            </p>
+                            <div class="space-30"></div>
+                            <div class="row">
+                                <div class="col-md-3 services-icon">
+                                    <i class="ion-laptop"></i>
+                                </div>
+                                <div class="col-md-9 services-text">
+                                    <h4 class="heading-mini">100% Responsive layout</h4>
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut ipsum mauris. Fusce condimentum mollis eros vitae facilisis.
+                                    </p>
+                                </div>
+                            </div><!--services list-->
+                            <div class="space-30"></div>
+                            <div class="row">
+                                <div class="col-md-3 services-icon">
+                                    <i class="ion-ios-barcode-outline"></i>
+                                </div>
+                                <div class="col-md-9 services-text">
+                                    <h4 class="heading-mini">Clean code</h4>
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut ipsum mauris. Fusce condimentum mollis eros vitae facilisis.
+                                    </p>
+                                </div>
+                            </div><!--services list-->
+                            <div class="space-30"></div>
+                            <div class="row">
+                                <div class="col-md-3 services-icon">
+                                    <i class="ion-compose"></i>
+                                </div>
+                                <div class="col-md-9 services-text">
+                                    <h4 class="heading-mini">Easy customization</h4>
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut ipsum mauris. Fusce condimentum mollis eros vitae facilisis.
+                                    </p>
+                                </div>
+                            </div><!--services list-->
+
+
+                        </div>
+                        <div class="col-md-5">
+                            <img src="{% static 'main_app/img/ipad.png' %}" class="img-fluid" alt="">
+                        </div>
+                    </div>
+
+                </div><!--container-->
+            </section><!--features end-->
+        </div>
+
+        <section id="content-region-2" class="slider-testimonials ">
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 mr-auto ml-auto text-center">
+                        <i class="ion-quote display-4 margin-btm-40 text-primary"></i>
+                        <div class="swiper-container swiper-text">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <p class="lead">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut ipsum mauris. Fusce condimentum mollis eros vitae facilisis.
+                                    </p>
+                                    <img src="{% static 'main_app/img/team/team-1.jpg' %}" alt="" class="img-fluid rounded-circle" width="60">
+                                    <h6>John Doe - <small>Bizwrap User</small></h6>
+                                </div>
+                                <div class="swiper-slide">
+                                    <p class="lead">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut ipsum mauris. Fusce condimentum mollis eros vitae facilisis.
+                                    </p>
+                                    <img src="{% static 'main_app/img/team/team-2.jpg' %}" alt="" class="img-fluid rounded-circle" width="60">
+                                    <h6>John Doe - <small>Bizwrap User</small></h6>
+                                </div>
+                                <div class="swiper-slide">
+                                    <p class="lead">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut ipsum mauris. Fusce condimentum mollis eros vitae facilisis.
+                                    </p>
+                                    <img src="{% static 'main_app/img/team/team-3.jpg' %}" alt="" class="img-fluid rounded-circle" width="60">
+                                    <h6>John Doe - <small>Bizwrap User</small></h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section> <!--testimonials section end here-->
+        <div class="newsletter-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 ml-auto mr-auto">
+                        <h3>Get latest news from us</h3>
+                        <p>
+                            Subscribe to our newsletter
+                        </p>
+                    </div>
+                </div><!--row-->
+
+                <div class="row">
+                    <div class="col-md-4 ml-auto mr-auto text-center">
+                        <form method="post" action="#" class="form-subscribe">
+                            <input type="text" name="email" placeholder="Email Id..." class="form-control">
+                            <button type="submit" name="submit" class="btn theme-btn-color btn-block">Subscribe Now</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cta-bg">
+            <div class="container text-center">
+                <h3>Simple and Minimal Design
+                    <a href="#" class="btn btn-lg btn-white btn-radius">Purchase Now</a>
+                </h3>
+            </div>
+        </div>
+        <div class="space-70"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="heading-sec">Latest news</h3>
+                </div>
+            </div><!--row-->
+            <div class="row">
+                <div class="col-md-4 col-sm-6 margin-btm-20">
+                    <div class="news-sec">
+                        <div class="news-thumnail">
+                            <a href="blog-post.html">
+                                <img src="{% static 'main_app/img/blog/blog-1.jpg' %}" class="img-fluid" alt="">
+                            </a>
+                        </div>
+                        <div class="news-desc">
+                            <h3 class="blog-post-title"><a href="blog-post.html" class="hover-color">Lorem ipsum dollor sit amet</a></h3>
+                            <span class="news-post-cat">On 26 may 2014 | sports</span>
+                            <p>
+                                aliqua.adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna..
+                            </p>
+                        </div>
+                    </div>
+                </div><!--latest news items-->
+                <div class="col-md-4 col-sm-6 margin-btm-20">
+                    <div class="news-sec">
+                        <div class="news-thumnail">
+                            <a href="blog-post.html">
+                                <img src="{% static 'main_app/img/blog/blog-2.jpg' %}" class="img-fluid" alt="">
+                            </a>
+                        </div>
+                        <div class="news-desc">
+                            <h3 class="blog-post-title"><a href="blog-post.html" class="hover-color">Lorem ipsum dollor sit amet</a></h3>
+                            <span class="news-post-cat">On 26 may 2014 | sports</span>
+                            <p>
+                                aliqua.adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna..
+                            </p>
+                        </div>
+                    </div>
+                </div><!--latest news items-->
+                <div class="col-md-4 col-sm-6 margin-btm-20">
+                    <div class="news-sec">
+                        <div class="news-thumnail">
+                            <a href="blog-post.html">
+                                <img src="{% static 'main_app/img/blog/blog-4.jpg' %}" class="img-fluid" alt="">
+                            </a>
+                        </div>
+                        <div class="news-desc">
+                            <h3 class="blog-post-title"><a href="blog-post.html" class="hover-color">Lorem ipsum dollor sit amet</a></h3>
+                            <span class="news-post-cat">On 26 may 2014 | sports</span>
+                            <p>
+                                aliqua.adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna..
+                            </p>
+                        </div>
+                    </div>
+                </div><!--latest news items-->
+            </div><!--row end-->
+        </div><!--container recent news end-->
+{% endblock %}
+{% block scripts %}
+    {{ block.super }}
+{% endblock %}

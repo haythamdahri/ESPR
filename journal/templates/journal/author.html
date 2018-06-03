@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+    {{ author }}, Journaliste à Newspaper
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'journal/css/author.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="section">
+        <div class="container">
+            <!-- breadcrumb -->
+            <ul class="article-breadcrumb">
+                <li><a href="{% url 'index' %}">Accueil</a></li>
+                <li>Journalistes</li>
+                <li><a href="{% url 'author' author.id %}">{{ author }}</a></li>
+            </ul>
+            <!-- /breadcrumb -->
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="author row">
+                        <div class="col-md-2">
+                            <img src="{{ author.profile_picture.image.url }}" alt="{{ author.profile_picture.description }}">
+                        </div>
+                        <div class="col-md-10">
+                            <h3>{{ author }}
+                                <span class="badge badge-secondary">{{ author.news_set.count }} articles</span>
+                                <span class="badge badge-secondary">{{ comment_number }} commentaires</span>
+                            </h3>
+                            <ul class="list-inline">
+                                <li><a href="{{ author.link }}" title="Link"><i class="fa fa-link"></i></a></li>
+								<li><a href="{{ author.facebook }}" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+								<li><a href="{{ author.twitter }}" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+								<li><a href="{{ author.google }}" title="Google Plus"><i class="fa fa-google-plus"></i></a></li>
+								<li><a href="{{ author.instagram }}" title="Instagram"><i class="fa fa-instagram"></i></a></li>
+								<li><a href="{{ author.youtube }}" title="Youtube"><i class="fa fa-youtube"></i></a></li>
+								<li><a href="{{ author.linkedin }}" title="LinkedIn"><i class="fa fa-linkedin"></i><br></a></li>
+							</ul>
+                            <p>{{ author.description }}</p>
+                        </div>
+                    </div>
+                    <div class="section articles">
+                        <div class="title">
+                            <h2>Article du journaliste</h2>
+                        </div>
+                        {% for n in articles %}
+                            {% if forloop.first or forloop.counter == 3 or forloop.counter == 5 or forloop.counter == 7 or forloop.counter == 9 or forloop.counter == 11 or forloop.counter == 13 %}
+                                <div class="row">
+                            {% endif %}
+                            <div class="col-md-6">
+                                <!-- ARTICLE -->
+                                <article class="article">
+                                    <div class="article-img">
+                                        <a href="{% url 'post' n.category.name n.id %}">
+                                            <img src="{{ n.primary_image.image.url }}" alt="{{ n.primary_image.description }}">
+                                        </a>
+                                        <ul class="article-info">
+                                            <li class="article-category"><a href="{% url 'category' n.category.name %}">{{ n.category.name }}</a></li>
+                                            <li class="article-type"><i class="fa {{ n.category.icon }}"></i></li>
+                                        </ul>
+                                    </div>
+                                    <div class="article-body">
+                                        <h3 class="article-title">
+                                            <a href="{% url 'post' n.category.name n.id %}">{{ n.small_title|truncatechars:62 }}</a>
+                                        </h3>
+                                        <ul class="article-meta">
+                                            <li><i class="fa fa-clock-o"></i> {{ n.date_publication }}</li>
+                                            <li><i class="fa fa-comments"></i> {{ n.comment_set.count }}</li>
+                                        </ul>
+                                        <p>{{ n.resume|truncatechars:155 }}</p>
+                                    </div>
+                                </article>
+                                <!-- /ARTICLE -->
+                            </div>
+                            {% if forloop.last or forloop.counter == 2 or forloop.counter == 4 or forloop.counter == 6 or forloop.counter == 8 or forloop.counter == 10 or forloop.counter == 12 %}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                        <div class="row">
+                            {% if articles.has_other_pages %}
+                                <ul class="pagination">
+                                    {% if articles.has_previous %}
+                                        <li><a href="?page={{ articles.previous_page_number }}">&laquo;</a></li>
+                                    {% else %}
+                                        <li class="disabled"><span>&laquo;</span></li>
+                                    {% endif %}
+                                    {% for i in articles.paginator.page_range %}
+                                        {% if articles.number == i %}
+                                            <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                                        {% else %}
+                                            <li><a href="?page={{ i }}">{{ i }}</a></li>
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% if articles.has_next %}
+                                        <li><a href="?page={{ articles.next_page_number }}">&raquo;</a></li>
+                                    {% else %}
+                                        <li class="disabled"><span>&raquo;</span></li>
+                                    {% endif %}
+                                </ul>
+                                <p class="paginatorIndex">page {{ articles.number }} sur {{ articles.paginator.num_pages }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="authors widget">
+                        <div class="widget-title">
+								<h2 class="title">Meilleur Journalistes</h2>
+                        </div>
+                        {% for author in authors %}
+                            <!-- ARTICLE -->
+                            <article class="article widget-article">
+                                <div class="article-img">
+                                    <a href="{% url 'author' author.id %}">
+                                        <img src="{{ author.profile_picture.image.url }}"
+                                             alt="{{ author.profile_picture.description }}">
+                                    </a>
+                                </div>
+                                <div class="article-body">
+                                    <h4 class="article-title"><a href="{% url 'author' author.id %}">
+                                        {{ author }}</a></h4>
+                                    <ul class="article-meta">
+                                        <li><span class="badge badge-secondary">{{ author.news_count }} articles</span></li>
+                                        <li class="link"><a href="{{ author.link }}">{{ author.link }}</a></li>
+                                    </ul>
+                                </div>
+                            </article>
+                            <!-- /ARTICLE -->
+                        {% endfor %}
+
+                    </div>
+                    {% include 'journal/includes/aside.html' %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

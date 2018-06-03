@@ -1,0 +1,123 @@
+{% load widget_tweaks %}
+<form class=" form-horizontal" id="formAjouterLangue" method="post" action=""
+      style="background-color:inherit" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="modal-body DivToScroll DivWithScroll "
+         style=" margin-left: 1px; background-color:white;padding:30px;">
+
+
+        <div class="form-group">
+            <label class="col-md-12" style="font-weight:bold;">Poste *</label>
+            <div class="col-md-12 inputGroupContainer">
+                {% render_field formCreerOffreEmploi.nom_poste class="form-control poste_suggestions awesomplete" data-minChars="1" %}
+            </div>
+            {% for error in formCreerOffreEmploi.nom_poste.errors %}
+                <span class="error-block" style="padding-left: 15px;font-weight:bold;">{{ error }}</span><br>
+            {% endfor %}
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-12" style="font-weight:bold;">Profil recherchhé *</label>
+            <div class="col-md-12 inputGroupContainer">
+                {% render_field formCreerOffreEmploi.profil_recherche class="form-control" %}
+            </div>
+            {% for error in formCreerOffreEmploi.profil_recherche.errors %}
+                <span class="error-block" style="padding-left: 15px;font-weight:bold;">{{ error }}</span><br>
+            {% endfor %}
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-12" style="font-weight:bold;">Diplome requis *</label>
+            <div class="col-md-12 inputGroupContainer">
+                {% render_field formCreerOffreEmploi.diplome_requis class="form-control" %}
+            </div>
+            {% for error in formCreerOffreEmploi.diplome_requis.errors %}
+                <span class="error-block" style="padding-left: 15px;font-weight:bold;">{{ error }}</span><br>
+            {% endfor %}
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-12" style="font-weight:bold;">Description du poste *</label>
+            <div class="col-md-12 inputGroupContainer">
+                {% render_field formCreerOffreEmploi.description_poste class="form-control" %}
+            </div>
+            {% for error in formCreerOffreEmploi.description_poste.errors %}
+                <span class="error-block" style="padding-left: 15px;font-weight:bold;">{{ error }}</span><br>
+            {% endfor %}
+        </div>
+
+
+        <div class="form-group">
+            <label class="col-md-12" style="font-weight:bold;">Type d'emploi *</label>
+            <div class="col-md-12 inputGroupContainer">
+                {% render_field formCreerOffreEmploi.type_emploi class="form-control" %}
+            </div>
+            {% for error in formCreerOffreEmploi.type_emploi.errors %}
+                <span class="error-block" style="padding-left: 15px;font-weight:bold;">{{ error }}</span><br>
+            {% endfor %}
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-12 " style="font-weight:bold;">Type de contrat *</label>
+            <div class="col-md-12 inputGroupContainer">
+                {% render_field formCreerOffreEmploi.type_contrat class="form-control required" %}
+            </div>
+            {% for error in formCreerOffreEmploi.type_contrat.errors %}
+                <span class="error-block" style="padding-left: 15px;font-weight:bold;">{{ error }}</span><br>
+            {% endfor %}
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-12" style="font-weight:bold;">Téléphone *</label>
+            <div class="col-md-12 inputGroupContainer">
+                {% render_field formCreerOffreEmploi.tel class="form-control" rows="1" %}
+            </div>
+            {% for error in formCreerOffreEmploi.tel.errors %}
+                <span class="error-block" style="padding-left: 15px;font-weight:bold;">{{ error }}</span><br>
+            {% endfor %}
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-12" style="font-weight:bold;">E-mail *</label>
+            <div class="col-md-12 inputGroupContainer">
+                {% render_field formCreerOffreEmploi.email class="form-control" rows="1" %}
+            </div>
+            {% for error in formCreerOffreEmploi.email.errors %}
+                <span class="error-block" style="padding-left: 15px;font-weight:bold;">{{ error }}</span><br>
+            {% endfor %}
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-12" style="font-weight:bold;">Ville *</label>
+            <div class="col-md-12 inputGroupContainer">
+                {% render_field formCreerOffreEmploi.ville class="form-control" rows="1" %}
+            </div>
+            {% for error in formCreerOffreEmploi.ville.errors %}
+                <span class="error-block" style="padding-left: 15px;font-weight:bold;">{{ error }}</span><br>
+            {% endfor %}
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-12" style="font-weight:bold;">Pays *</label>
+            <div class="col-md-12 inputGroupContainer">
+                {% render_field formCreerOffreEmploi.pays class="form-control" rows="1" %}
+            </div>
+            {% for error in formCreerOffreEmploi.pays.errors %}
+                <span class="error-block" style="padding-left: 15px;font-weight:bold;">{{ error }}</span><br>
+            {% endfor %}
+        </div>
+    </div> <!-- End Div with scroll modal body -->
+
+    <!-- Button -->
+    <div class="form-group">
+        <div class="col-md-12">
+            <button type="submit" class="btn btn-info float--right" id="btnAjouterLangue"
+                    style="margin-right:25px;margin-top:15px; background-color: #202020;"><span
+                    id="mySpinner" style="position:relative; top: -2px;left: -15px;"></span>Enregistrer
+            </button>
+        </div>
+
+        <label class="col-md-12 "></label>
+    </div>
+
+</form>

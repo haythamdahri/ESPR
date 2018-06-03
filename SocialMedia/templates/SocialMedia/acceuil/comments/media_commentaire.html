@@ -1,0 +1,15 @@
+{% for img in comment.image.all %}
+    <div style="width: 45%;">
+<div class="feed-shared-image ember-view">  <div style="padding-top: 56%;" class="feed-shared-image__container">
+    <a href="{{ img.fichier.url }}" data-lightbox="{{ img.fichier.url }}" data-title="{{ img.date_telechargement }}" class="feed-shared-image__image-link">
+      <div id="ember4564" class="ivm-image-view-model ember-view">
+          <div id="ember4565" class="display-flex ivm-view-attr__img-wrapper--expanded ember-view"><!---->    <div id="ember4566" class="ivm-view-attr__img--centered feed-shared-image__image ember-view" style="background-image: url('{{ img.fichier.url }}');background-repeat: no-repeat;background-position: center;background-attachment: scroll;"><!----></div>
+</div>
+</div>
+    </a>
+  </div>
+
+<div id="ember4567" class="ember-view"><!----></div></div>
+    </div>
+{% endfor %}
+

@@ -1,0 +1,107 @@
+{% extends 'base_qa.html' %}
+{% load django_markdown %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% load i18n %}
+
+
+{% block content %}
+
+<!-- =-=-=-=-=-=-= Main Area =-=-=-=-=-=-= -->
+
+<div class="main-content-area">
+
+    <!-- =-=-=-=-=-=-= Page Breadcrumb =-=-=-=-=-=-= -->
+
+    <!-- =-=-=-=-=-=-= Page Breadcrumb End =-=-=-=-=-=-= -->
+
+    <!-- =-=-=-=-=-=-= Post Question  =-=-=-=-=-=-= -->
+    <section class="section-padding-80 white" id="post-question">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 col-md-8 ">
+
+            <div class="box-panel">
+
+              <h2>{% trans "Modifier question" %}</h2>
+              <p> </p>
+              <hr>
+              <!-- form login -->
+              <form class="margin-top-40" method="post" action="/qa/updateq/{{ question.id }}/">
+                 {% csrf_token %}
+                <div class="form-group">
+                  <label>{% trans "Titre de Question" %}</label>
+                  <input name="titre" type="text" placeholder="Bootstrap Not Working" class="form-control" value="{{ question.question_title }}">
+                </div>
+                <div class="form-group">
+                  <label>{% trans "Catégorie" %}</label>
+                  <!-- <select name="categorie" class="questions-category form-control chosen-container chosen-container-single">
+                    <option value="0" disabled select>All Categories</option>
+                    <option value="36">Php</option>
+                  </select> -->
+                  <!-- <select name="categorie" class="questions-category form-control chosen-container chosen-container-single">
+                    <option value="0" disabled >select Categories</option>
+                    {% for cat in categories %}
+                      {% if  cat ==  question.categorie %}
+                      <option value="{{ cat.id }}" selected>{{ cat.title_categorie }}</option>
+                      {% else %}
+                      <option value="{{ cat.id }}" >{{ cat.title_categorie }}</option>
+                      {% endif %}
+                    {% endfor %}
+                  </select> -->
+
+                  {{ form.categorie }}
+
+
+                </div>
+
+                <input type="hidden" value="{{ user.id }}" name="user" />
+
+                <div class="form-group">
+                  <label>Tags</label>
+
+                  <input name="tags" type="text" id="tags" value="{% for tag in list_tags %}{{ tag.slug }},{% endfor %}" class="form-control" data-role="tagsinput">
+                </div>
+
+
+                <div class="form-group " >
+                  <label>{% trans "Détails de la question" %}</label>
+                  <div>
+                  {{ form.media }}
+                  {{ form.question_text }}
+                </div>
+                </div>
+
+                <button class="btn btn-primary pull-right">{% trans "Modifier" %}</button>
+
+              </form>
+              <!-- form login -->
+
+            </div>
+          </div>
+
+          <!-- Blog Right Sidebar -->
+          <div class="col-sm-12 col-xs-12 col-md-4">
+
+            <!-- sidebar -->
+             <div class="side-bar">
+            {% include 'qa/right_sidebar.html' %}
+              </div>
+            <!-- sidebar end -->
+
+          </div>
+          <!-- Blog Right Sidebar End -->
+          <div class="clearfix"></div>
+        </div>
+      </div>
+      <!-- end container -->
+    </section>
+    <!-- =-=-=-=-=-=-= Post QuestionEnd =-=-=-=-=-=-= -->
+
+
+  </div>
+
+<!-- =-=-=-=-=-=-= Main Area End =-=-=-=-=-=-= -->
+
+{% endblock content %}

@@ -1,0 +1,68 @@
+{% extends 'ecommerce/base.html' %}
+{% load static %}
+{% block content %}
+<div class="main-container container">
+    <ul class="breadcrumb">
+        <li><a href="{% url 'e_commerce:index' %}">Accueil</a></li>
+        <li><a href="#"><b>Carte du Site</b></a></li>
+
+    </ul>
+    <div class="row">
+        <div id="content" class="col-sm-12">
+            <h2 class="title">Carte du Site</h2>
+            <div class="row">
+                <div class="col-md-4 col-sm-6">
+                    <ul class="simple-list arrow-list bold-list">
+                        {% for category in categories %}
+                        <li>
+                            <a href="{% url 'e_commerce:products' 'category' category.pk %}">{{ category.name }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <ul class="simple-list arrow-list bold-list">
+                        <li><a href="{% url 'e_commerce:my_account' %}">My Account</a>
+                            <ul>
+                                <li><a href="{% url 'e_commerce:order_history' %}">Historique des Commandes</a></li>
+                                <li><a href="{% url 'e_commerce:order_history' %}">Informations des Commandes</a></li>
+                                <li><a href="{% url 'e_commerce:cart' %}">Chariot</a></li>
+                                <li><a href="{% url 'e_commerce:wish_list' %}">Liste des Souhaits</a></li>
+                                <li><a href="{% url 'e_commerce:compare' %}">Comparer les Produits</a></li>
+                                <li><a href="{% url 'e_commerce:checkout' %}">Check-out</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#sosearchpro">Search</a>
+                        </li>
+                        <li><a>Information</a>
+                            <ul class="sitemap">
+                                <li><a href="{% url 'e_commerce:about-us' %}">About Us</a>
+                                </li>
+                                <li><a href="{% url 'e_commerce:faq' %}">Faq</a>
+                                </li>
+                                <li><a href="{% url 'e_commerce:about-us' %}">404</a>
+                                </li>
+                                <li><a href="{% url 'e_commerce:contact-us' %}">Contact Us</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><a href="#popular_tags">Tags Populaires</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <ul class="simple-list arrow-list bold-list">
+                        <li><a>Marque</a>
+                            <ul class="sitemap">
+                                {% for brand in brands %}
+                                <li><a href="{% url 'e_commerce:products' 'brand' brand.pk %}">{{ brand.name }}</a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

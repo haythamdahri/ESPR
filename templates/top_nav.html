@@ -1,0 +1,44 @@
+{% load staticfiles %}
+<div class="topnav" id="myTopnav">
+    <div class="container">
+        <a href="/" class="f-left nav-acceuil nava" id="acceuil"> Acceuil</a>
+        <a href="/qa" class="border-left-beige f-left nav-qa nava" id="">Q&A</a>
+        <a href="/journal"class="border-left-beige f-left nav-news nava" id="">News</a>
+        <a href="e_commerce" class="border-left-beige f-left nav-market nava" id="linkMarketPlace">Market Place</a>
+        <a href="/E-Learning/index2" class="border-left-beige f-left .linkELearning nav-learning nava"  id="linkELearning">E-learning</a>
+        <a href="/reseausocial" class="border-left-beige f-left nava" id="linkReseauSocial">Réseau social</a>
+        <a href="/appelsOffres" class="border-left-beige f-left nava" id="linkAppelsOffres">Appels d'offres</a>
+
+        <div class="dropdowncss" id="dropdown1" >
+            <button class="dropbtn">Plus
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+                <a href="/reseausocial" class="border-left-beige f-left nav-social nava" id="linkReseauSocial1">Réseau social</a>
+                <a href="/appelsOffres" class="border-left-beige f-left nav-offres nava">Appels d'offres</a>
+            </div>
+        </div>
+
+        <div class="dropdowncss" id="dropdown2" >
+            <button class="dropbtn">Plus
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+                <a href="/e_commerce" class="border-left-beige f-left nav-market nava">Market Place</a>
+                <a href="/E-Learning/index2" class="border-left-beige f-left nav-learning nava">E-learning</a>
+                <a href="/reseausocial" class="border-left-beige f-left nav-social nava" id="linkReseauSocial2">Réseau social</a>
+                <a href="/appelsOffres" class="border-left-beige f-left nav-offres nava">Appels d'offres</a>
+            </div>
+        </div>
+
+        {% if user.is_authenticated %}
+            <a href="/logout" class=" border-right f-right nava"><i class="fa fa-sign-out "></i> Se deconnecter</a>
+            <a href="#" class="f-right  nava" style="text-transform: none; color: white; background-color: #ea4c0f;">Bonjour {{ user.first_name }}</a>
+        {% else %}
+            <a href="/contactus" class=" border-right f-right nava"><i class="fa fa-envelope"></i></a>
+            <a href="/login" class="f-right  border-right nava"><i class="fa fa-sign-in"></i> Se connecter</a>
+            <a href="/signup" class="border-left border-right f-right nava" >S'inscrire</a>
+        {% endif %}
+        <a href="javascript:void(0);" class="icon nava" onclick="myFunction()">&#9776;</a>
+    </div>
+</div>

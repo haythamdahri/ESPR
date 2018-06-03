@@ -1,0 +1,1347 @@
+{% extends "SocialMedia/myprofil/base_myprofil.html" %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% load nbsp %}
+{% block title %}{{ user.username }}{% endblock %}
+
+{% block stylesheets %}
+    {{ block.super }}
+    <link href="//cdn.bootcss.com/bootstrap-datetimepicker/4.17.44/css/bootstrap-datetimepicker.min.css"
+          rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'Socialmedia/awesomecomplete/awesomplete.css' %}"/>
+    <link rel="stylesheet" href="{% static 'Socialmedia/awesomecomplete/awesomplete.base.css' %}"/>
+
+    <script src="{% static "Socialmedia/awesomecomplete/awesomplete.min.js" %}" async></script>
+{% endblock stylesheets %}
+
+
+{% block contentProfil %}
+
+
+    <!-- Activity List Start -->
+
+  <div class="row" style="    max-width:  100%;    margin-left: auto;    margin-right: auto;">
+      <div class="well well-sm well-social-post">
+
+        <form onsubmit="addStatut(event, this)" novalidate enctype="multipart/form-data">
+            <p style="width: 100%;"><button onclick="displayStatut(this)" class="btstatutHIDESHOW" type="button" style='font-size: 16px; text-align: -webkit-left; font-weight: 400;width: 100%;padding: 10px;border: none;background-color: transparent;box-sizing: border-box; font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell, "Droid Sans", "Lucida Grande", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; '>Partagez une photo, un article, une vidéo ou une idée</button></p>
+            {% render_field statutForm.contenu_statut id="statut" onblur="hideStatut(this)" data-statut=""   onkeyup='checkLinkPreview(this)' style="display: none;box-sizing: border-box;resize: none;font-family: -apple-system,system-ui,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Fira Sans,Ubuntu,Oxygen,Oxygen Sans,Cantarell,Droid Sans,Lucida Grande,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Emoji,Segoe UI Symbol;resize: none;transition: all 0.6s;" class="form-control" id="statutTextArea" placeholder="Écrivez ici vos statuts." %}
+
+            <div style="text-align: center; display: none;" id="CLEARINTUSER"><i onclick="clearUserInput()" style="font-style: normal;color: #0073b1;cursor:pointer;font-size: 24px;" class="fa fa-window-close-o" aria-hidden="true"></i></div>
+
+
+
+            <div  id="statuts" class="LinkPreview">
+
+                <div id="LinkPreview" style="max-width: 80%;display: none; width: 80%; margin-left: auto; margin-right: auto" class="sharing-url-preview ember-view">
+  <span class="sharing-url-preview__preview-icon svg-icon-wrap"><span class="visually-hidden">Fermer l’aperçu du lien</span><li-icon style="cursor: pointer;" onclick="document.getElementById('LinkPreview').style.display = 'none';is_link_preview_displayed = false;" aria-hidden="true" type="cancel-icon" size="medium"><svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false"><path d="M20,5.32L13.32,12,20,18.68,18.66,20,12,13.33,5.34,20,4,18.68,10.68,12,4,5.32,5.32,4,12,10.69,18.68,4Z" class="large-icon" style="fill: currentColor"></path></svg></li-icon></span>
+
+
+    <div class="sharing-url-preview__hero-entity sharing-url-preview__image-container">
+      <div  id="ember3778" class="sharing-url-preview__image ember-view linkpreviewphoto" style="background-image: url('');">  <span class="visually-hidden linkpreviewText"></span>
+</div>
+    </div>
+  <a href="#" target="_blank" rel="noopener" class="tap-target linkpreviewhref">
+    <article class="sharing-url-preview__image-description pv2">
+      <h2 class="sharing-url-preview__image-headline Sans-15px-black-85%-semibold mh3"></h2>
+      <h3 class="sharing-url-preview__image-byline Sans-13px-black-55% mh3 linkpreviewText">google.com</h3>
+<!---->    </article>
+  </a>
+</div>
+                        <div  id="chargementPreview" style="display: none;padding-bottom: 30" class="sharing-create-share-view__warning-feedback" >
+                              <span class="sharing-create-share-view__url-preview-feedback-text spinner">Chargement de l'apercu du lien ...</span>
+                            </div>
+            </div>
+
+
+
+
+                                <div class="form-group text-center" id="PHOTOPOST" style="display: none" >
+                                    <img id='IMAGESTATUT' src="" style="max-width: 70%;max-height: 400px;"/>
+                                </div>
+
+                                <div class="form-group text-center" id="VIDEOPOST" style="display: none">
+                                    <VIDEO id='VIDEOSTATUT' controls src="" style="max-width: 70%;"/>
+                                </div>
+
+                                <div class="form-group ml--15" id="DOCPOST" style="display: none">
+                                    <a href="javascript:void(0)"><span class="h4 fw--600" style="color: #1da1f2;max-height: 400px;" id="DOCSTATUT"></span></a>
+                                </div>
+
+            <ul class='list-inline post-actions' style="    font-size: 18px;      padding-top: 10px;">
+              <li>
+                  <label class="StatutFileSelect">
+                      <i class="fa fa-camera" aria-hidden="true"> <span class="h6 fs--15 fw--300">Image</span>
+                          {%  render_field statutForm.image accept="image/*" multiple="True" id="IMGST" style="display: none;max-height: 400px;"%}
+                      </i>
+                  </label>
+              </li>
+            <li>
+                  <label class="StatutFileSelect">
+                      <i class="fa fa-video-camera" aria-hidden="true"> <span class="h6 fs--15 fw--300">Video</span>
+                          {% render_field statutForm.video accept="video/*" id="VIDST" style="display: none;"%}
+                    </i>
+                  </label>
+            </li>
+            <li>
+                  <label class="StatutFileSelect">
+                    <i class="fa fa-file" aria-hidden="true"> <span class="h6 fs--15 fw--300">Document/Fichier</span>
+                          {% render_field statutForm.document id="DOCST" style="display: none;" accept=".doc,.pdf,.rar,.zip,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"%}
+                    </i>
+                  </label>
+            </li>
+            <li class='pull-right'><button id="btAddPost" class="btSubmitComment fw--400" style="font-size: 15px;padding: 0 25px;">Publier</button></li>
+          </ul>
+        </form>
+      </div>
+  </div>
+
+                            <div class="activity--list">
+
+                                <!-- Activity Items Start -->
+
+<div id="likers">
+</div>
+
+                                <ul class="activity--items nav  infinite-container">
+
+
+                                        {% for statut in statuts %}
+
+
+                                        {% include "SocialMedia/groupe/statuts/statuts_groupe.html" %}
+
+
+                                        {% endfor %}
+                                </ul>
+                                            <div class="row text-center">
+                                                <img id="loadingImageMoreComments" style="display: none; width: 40%;" class="img-rounded"  src="{% static 'SocialMedia/loading.gif' %}" />
+                                            </div>
+                            </div>
+                            <!-- Activity List End -->
+
+
+                        <!-- Load More Button Start -->
+                            {% if statuts.has_next %}
+                            <div class="load-more--btn pt--30 text-center hidden">
+                                <a href="?page={{ statuts.next_page_number }}" class="btn btn-animate infinite-more-link">
+                                    <span><i class="fa ml--10 fa-caret-right"></i></span>
+                                </a>
+                            </div>
+                            {% endif %}
+                        <!-- Load More Button End -->
+
+{% endblock %}
+
+
+
+{% block scripts %}
+
+    {{ block.super }}
+    <script>
+    $('.profil_links_menu li').removeClass('active');
+    $('.profil_links_menu li:eq(1)').addClass('active');
+        {% for statut in statuts %}
+            {% if statut.images.all.count == 0 and statut.videos.all.count == 0 and statut.files.all.count == 0 %}
+
+        content = "{{ statut.contenu_statut|linebreaks|nbsp_Link }}";
+        words = content.split(" ");
+		for(var i=0; i<words.length; i++){
+            var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+              '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name and extension
+              '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+              '(\\:\\d+)?'+ // port
+              '(\\/[-a-z\\d%@_.~+&:]*)*'+ // path
+              '(\\?[;&a-z\\d%@_.,~+&:=-]*)?'+ // query string
+              '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+            textcontent = words[i].replace(/<(?:.|\n)*?>/gm, '');
+            if( pattern.test(textcontent)){
+                var target = textcontent;
+                var key = "5b01f41ec84ddd62e4f397395281275035b2f6d67c5b4";
+
+                $.ajax({
+                    url: "https://api.linkpreview.net",
+                    dataType: "jsonp",
+                    data: {q: target, key: key},
+                    beforeSend: function(){
+                    },
+                    success: function (response) {
+                        if( !response.error ) {
+                            $("#LinkPreview{{ statut.id }}").fadeIn();
+                            $("#image{{ statut.id }}").css("background-image", "url("+response.image+")");
+                            $("#title{{ statut.id }}").html(response.title);
+                            if( response.url == "" ){
+                                $("#url{{ statut.id }}").attr("href", "{% static 'SocialMedia/no-image-available.png' %}");
+                            }else {
+                                $("#url{{ statut.id }}").attr("href", response.url);
+                            }
+                            $("#description{{ statut.id }}").html(response.title);
+                            $("#urlst{{ statut.id }}").attr("href", response.url);
+                            i = words.length;
+                        }
+                    },
+                    complete: function(){
+                    }
+                });
+            }
+        }
+            {% endif %}
+
+        {% endfor %}
+    </script>
+
+    <script>
+    var infinite = new Waypoint.Infinite({
+      element: $('.infinite-container')[0],
+      onBeforePageLoad: function () {
+        $('#loadingImageMoreComments').fadeIn(250);
+      },
+      onAfterPageLoad: function ($items) {
+        $('#loadingImageMoreComments').fadeOut(250);
+      }
+    });
+
+    function clearUserInput(){
+        $("#IMAGESTATUT").attr('src', '');
+        $("#VIDEOSTATUT").attr('src', '');
+        $("#DOCSTATUT").text('');
+
+
+        $("#IMGST").val('');
+        $("#VIDST").val('');
+        $("#DOCST").val('');
+
+        $("#PHOTOPOST").fadeOut('fast');
+        $("#VIDEOPOST").fadeOut('fast');
+        $("#DOCPOST").fadeOut('fast');
+        $("#CLEARINTUSER").fadeOut();
+    }
+
+    var is_link_preview_displayed = false;
+
+    function checkLinkPreview(area){
+        setTimeout(function(){
+        if( is_link_preview_displayed == false ){
+            words = area.value.split(' ');
+            var trv = false;
+		for(var i=0; i<words.length; i++){
+            var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+              '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name and extension
+              '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+              '(\\:\\d+)?'+ // port
+              '(\\/[-a-z\\d%@_.~+&:]*)*'+ // path
+              '(\\?[;&a-z\\d%@_.,~+&:=-]*)?'+ // query string
+              '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+            textcontent = words[i].replace(/<(?:.|\n)*?>/gm, '');
+            if( pattern.test(textcontent)){
+                trv = true;
+                break;
+            }
+        }
+            if( trv == true ) {
+                $("#chargementPreview").fadeIn();
+                var target = words[i];
+                var key = "5b01f41ec84ddd62e4f397395281275035b2f6d67c5b4";
+
+                $.ajax({
+                    url: "https://api.linkpreview.net",
+                    dataType: "jsonp",
+                    data: {q: target, key: key},
+                    beforeSend: function(){
+                        $("#chargementPreview").fadeIn();
+                    },
+                    success: function (response) {
+                        console.log(response);
+                        setTimeout(function(){
+                        if( !response.error ) {
+                            $(".linkpreviewphoto").css("background-image", "url("+response.image+")");
+                            $(".linkpreviewText").html(response.title);
+                            $(".linkpreviewhref").attr("href", response.url);
+                            is_link_preview_displayed = true;
+                            $("#LinkPreview").fadeIn();
+                            $("#chargementPreview").fadeOut();
+                        }else{
+                            setTimeout(function(){
+                            $("#chargementPreview").html('<div aria-live="assertive" aria-atomic="true" class="sharing-create-share-view__warning-feedback" >'+
+                              '<li-icon aria-hidden="true" type="denied-pebble-icon" class="sharing-create-share-view__message-icon sharing-create-share-view__url-preview-icon"><svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false"><path d="M7,11H17v2H7V11Zm15,1A10,10,0,1,1,12,2,10,10,0,0,1,22,12Zm-1.87,0A8.13,8.13,0,1,0,12,20.13,8.13,8.13,0,0,0,20.13,12Z" class="large-icon" style="fill: currentColor"></path></svg></li-icon>'+
+                              '<span class="sharing-create-share-view__url-preview-feedback-text">Impossible d’afficher l’aperçu du lien. Vous pouvez le publier tel quel ou essayer un autre lien.</span>'+
+                            '</div>');
+                            }, 2500);
+                            setTimeout(function(){
+                                $("#chargementPreview").fadeOut();
+                            }, 5500);
+                        }
+
+                        }, 2000);
+                    },
+                    complete: function(){
+                    }
+                });
+            }
+        }
+        }, 1500);
+
+    }
+
+
+    function showEditComment(e, cm){
+        e.preventDefault();
+        editCommentModalURL = "{% url 'SocialMedia:editCommentMyProfil' %}";
+        $.ajax({
+                    url: editCommentModalURL,
+                    type: 'GET',
+                    data: { 'comment': cm },
+                    success: function (response) {
+                        $("#editComment").html(response);
+                        $('#editCommentModal'+cm).modal('show');
+                    },
+                    error: function () {
+                    },
+                    complete:function(){
+                        $("#dropdown-comment-"+cm).fadeOut();
+                    },
+                    stop: function (e) {
+                        swal("Veuiller Verifier Votre Connexion Reseau Puis Ressayer", "Erreur Fatale", "error");
+                    }
+                });
+    }
+
+    function showEditReply(e, rp){
+        e.preventDefault();
+        editReplyModalURL = "{% url 'SocialMedia:editReplyMyProfil' %}";
+        $.ajax({
+                    url: editReplyModalURL,
+                    type: 'GET',
+                    data: { 'reply': rp },
+                    success: function (response) {
+                        $("#editReply").html(response);
+                        $('#editReplyModal'+rp).modal('show');
+                    },
+                    error: function () {
+                    },
+                    complete:function(){
+                        $("#dropdown-reply-"+rp).fadeOut();
+                    },
+                    stop: function (e) {
+                        swal("Veuiller Verifier Votre Connexion Reseau Puis Ressayer", "Erreur Fatale", "error");
+                    }
+                });
+    }
+
+    function editreply(event, frm){
+        event.preventDefault();
+
+        form_data = new FormData(frm);
+        replyID = frm.getAttribute("val");
+        $("#dropdown-reply-"+replyID).fadeOut();
+        $("#btsaveEditReply"+replyID).css('cursor', 'no-drop');
+        $('#textareaEditStReply'+replyID).attr('disabled', 'True');
+        $("#btsaveEditReply"+replyID).html('<img src="{% static "SocialMedia/img/YX5xG_s-200x150.gif" %}" width=30 height=30 />');
+
+        editReplyURL = "{% url 'SocialMedia:editReplyMyProfil' %}";
+        $.ajax({
+                    url: editReplyURL,
+                    type: 'POST',
+                    processData: false,
+                    contentType: false,
+                    data: form_data,
+                    beforeSend: function (xhr, settings) {
+                        var csrftoken = getCookie('csrftoken');
+                        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                        }
+                    },
+                    success: function (data) {
+                        if( data.status == true) {
+                            $("#ContenuReply" + replyID).html(data.NewContent);
+                            swal(
+                                  'Operation effectuée',
+                                  'votre commentaire a été modifié avec succé',
+                                  'success'
+                                );
+                            $('#editReplyModal'+replyID).modal('toggle');
+                            console.log(data);
+                        }
+                    },
+                    error: function () {
+                    },
+                    complete:function(){
+                        $("#btsaveEditReply"+replyID).css('cursor', 'pointer');
+                        $('#textareaEditStReply'+replyID).removeAttr('disabled');
+                        $("#btsaveEditReply"+replyID).html('Enregistrer');
+                    },
+                    stop: function (e) {
+                        swal("Veuiller Verifier Votre Connexion Reseau Puis Ressayer", "Erreur Fatale", "error");
+                    }
+                });
+    }
+
+
+    function editstatut(event, frm){
+        event.preventDefault();
+
+        form_data = new FormData(frm);
+        statutID = frm.getAttribute("val");
+        $("#dropdown-"+statutID).fadeOut();
+        $("#btsaveEdit"+statutID).css('cursor', 'no-drop');
+        $('#textareaEditSt'+statutID).attr('disabled', 'True');
+        $("#btsaveEdit"+statutID).html('<img src="{% static "SocialMedia/img/YX5xG_s-200x150.gif" %}" width=30 height=30 />');
+
+        editStatutURL = "{% url 'SocialMedia:editStatut' %}";
+        $.ajax({
+                    url: editStatutURL,
+                    type: 'POST',
+                    processData: false,
+                    contentType: false,
+                    data: form_data,
+                    beforeSend: function (xhr, settings) {
+                        var csrftoken = getCookie('csrftoken');
+                        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                        }
+                    },
+                    success: function (data) {
+                        if( data.status == true) {
+                            $("#ContenuStatut" + statutID).html(data.NewContent);
+                            console.log(data.NewContent);
+                            swal(
+                                  'Operation effectuée',
+                                  'votre statut a été modifié avec succé',
+                                  'success'
+                                );
+                            $('#editStatutModal'+statutID).modal('toggle');
+                            console.log(data);
+                        }
+                    },
+                    error: function () {
+                    },
+                    complete:function(){
+                        $("#btsaveEdit"+statutID).css('cursor', 'pointer');
+                        $('#textareaEditSt'+statutID).removeAttr('disabled');
+                        $("#btsaveEdit"+statutID).html('Enregistrer');
+                    },
+                    stop: function (e) {
+                        swal("Veuiller Verifier Votre Connexion Reseau Puis Ressayer", "Erreur Fatale", "error");
+                    }
+                });
+    }
+
+    function editcomment(event, frm){
+        event.preventDefault();
+
+        form_data = new FormData(frm);
+        commentID = frm.getAttribute("val");
+        $("#dropdown-comment-"+commentID).fadeOut();
+        $("#btsaveEditComment"+commentID).css('cursor', 'no-drop');
+        $('#textareaEditStComment'+commentID).attr('disabled', 'True');
+        $("#btsaveEditComment"+commentID).html('<img src="{% static "SocialMedia/img/YX5xG_s-200x150.gif" %}" width=30 height=30 />');
+
+        editCommentURL = "{% url 'SocialMedia:editCommentMyProfil' %}";
+        $.ajax({
+                    url: editCommentURL,
+                    type: 'POST',
+                    processData: false,
+                    contentType: false,
+                    data: form_data,
+                    beforeSend: function (xhr, settings) {
+                        var csrftoken = getCookie('csrftoken');
+                        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                        }
+                    },
+                    success: function (data) {
+                        if( data.status == true) {
+                            $("#ContenuComment" + commentID).html(data.NewContent);
+                            swal(
+                                  'Operation effectuée',
+                                  'votre commentaire a été modifié avec succé',
+                                  'success'
+                                );
+                            $('#editCommentModal'+commentID).modal('toggle');
+                            console.log(data);
+                        }
+                    },
+                    error: function () {
+                    },
+                    complete:function(){
+                        $("#btsaveEditComment"+commentID).css('cursor', 'pointer');
+                        $('#textareaEditStComment'+commentID).removeAttr('disabled');
+                        $("#btsaveEditComment"+commentID).html('Enregistrer');
+                    },
+                    stop: function (e) {
+                        swal("Veuiller Verifier Votre Connexion Reseau Puis Ressayer", "Erreur Fatale", "error");
+                    }
+                });
+    }
+
+    function deleteStatut(event, frm){
+              event.preventDefault();
+              statutID = frm.getAttribute("val");
+            $("#dropdown-"+statutID).fadeOut();
+        swal({
+          title: 'Supprimer le post ?',
+          text: "Êtes-vous sûr(e) de vouloir supprimer définitivement ce post de ESPR Reseau Social ?",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Supprimer',
+          cancelButtonText: 'Annuler',
+        }).then((result) => {
+          if (result.value) {
+                form_data = new FormData(frm);
+                deleteStatutURL = "{% url 'SocialMedia:deleteStatut' %}";
+            $.ajax({
+                    url: deleteStatutURL,
+                    type: 'POST',
+                    processData: false,
+                    contentType: false,
+                    data: form_data,
+                    beforeSend: function (xhr, settings) {
+                        var csrftoken = getCookie('csrftoken');
+                        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                        }
+                    },
+                    success: function (data) {
+                        if( data.status == true) {
+                            $(".StatutCONTENT" + statutID).remove();
+                            swal(
+                                'Operation effectuée',
+                                'votre statut a été supprimé avec succé',
+                                'success'
+                            )
+                            console.log(data);
+                        }
+                    },
+                    error: function () {
+                    },
+                    complete:function(){
+                    },
+                    stop: function (e) {
+                        swal("Veuiller Verifier Votre Connexion Reseau Puis Ressayer", "Erreur Fatale", "error");
+                    }
+                });
+          }else{
+                $("#dropdown-"+statutID).fadeOut();
+            }
+        });
+    }
+
+    function deleteComment(event, frm, st){
+              event.preventDefault();
+              commentID = frm.getAttribute("val");
+            $("#dropdown-comment-"+commentID).fadeOut();
+        swal({
+          title: 'Voulez-vous vraiment supprimer votre commentaire?',
+          text: "Tous les j’aime et toutes les réponses à ce commentaire seront également supprimés.",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Supprimer',
+          cancelButtonText: 'Annuler',
+        }).then((result) => {
+          if (result.value) {
+                form_data = new FormData(frm);
+                deleteCommentURL = "{% url 'SocialMedia:deleteComment' %}";
+            $.ajax({
+                    url: deleteCommentURL,
+                    type: 'POST',
+                    processData: false,
+                    contentType: false,
+                    data: form_data,
+                    beforeSend: function (xhr, settings) {
+                        var csrftoken = getCookie('csrftoken');
+                        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                        }
+                    },
+                    success: function (data) {
+                        if( data.status == true) {
+                            $(".CommentCONTENT" + commentID).remove();
+                            var nbcomments =
+                            $("#NbComments"+st).text(data.NbComments+'  commentaires');
+                            swal(
+                                'Operation effectuée',
+                                'votre commentaire a été supprimé avec succé',
+                                'success'
+                            )
+                            console.log(data);
+                        }
+                    },
+                    error: function () {
+                    },
+                    complete:function(){
+                    },
+                    stop: function (e) {
+                        swal("Veuiller Verifier Votre Connexion Reseau Puis Ressayer", "Erreur Fatale", "error");
+                    }
+                });
+          }else{
+                $("#dropdown-"+commentID).fadeOut();
+            }
+        });
+    }
+
+    function deleteReply(event, frm, cm){
+              event.preventDefault();
+              replyID = frm.getAttribute("val");
+            $("#dropdown-reply-"+replyID).fadeOut();
+        swal({
+          title: 'Voulez-vous vraiment supprimer votre commentaire?',
+          text: "Tous les j’aime et toutes les réponses à ce commentaire seront également supprimés.",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Supprimer',
+          cancelButtonText: 'Annuler',
+        }).then((result) => {
+          if (result.value) {
+                form_data = new FormData(frm);
+                deleteReplyURL = "{% url 'SocialMedia:deleteReply' %}";
+            $.ajax({
+                    url: deleteReplyURL,
+                    type: 'POST',
+                    processData: false,
+                    contentType: false,
+                    data: form_data,
+                    beforeSend: function (xhr, settings) {
+                        var csrftoken = getCookie('csrftoken');
+                        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                        }
+                    },
+                    success: function (data) {
+                        if( data.status == true) {
+                            $(".ReplyCONTENT" + replyID).remove();
+                            var nbcomments =
+                            $("#NbReplies"+cm).text(data.NbReplies+'  commentaires');
+                            swal(
+                                'Operation effectuée',
+                                'votre commentaire a été supprimé avec succé',
+                                'success'
+                            )
+                            console.log(data);
+                        }
+                    },
+                    error: function () {
+                    },
+                    complete:function(){
+                    },
+                    stop: function (e) {
+                        swal("Veuiller Verifier Votre Connexion Reseau Puis Ressayer", "Erreur Fatale", "error");
+                    }
+                });
+          }else{
+                $("#dropdown-reply-"+replyID).fadeOut();
+            }
+        });
+    }
+
+    function toggleOptions(st){
+       $(".infinite-container #dropdown-"+st).fadeToggle(0);
+    }
+
+    function toggleOptionsComment(cm){
+       $(".infinite-container #dropdown-comment-"+cm).fadeToggle(0);
+    }
+
+    function toggleOptionsReply(rep){
+       $(".infinite-container #dropdown-reply-"+rep).fadeToggle(0);
+    }
+
+   /* $(document).ready(function()
+        {
+
+            $('#options_page_entreprise').hover(function(){
+                mouse_is_inside=true;
+            }, function(){
+                mouse_is_inside=false;
+            });
+
+            $("body").on('click', function(e){
+                if(! mouse_is_inside ){
+                    if(e.target.id == "options_plus"  && $("#options_page_entreprise").css("display")==  "block")
+                    {
+                        $('#options_page_entreprise').css("display", "none");
+                    }
+                    else if ( e.target.id == "options_plus" && $("#options_page_entreprise").css("display") == "none")
+                    {
+                        $("#options_page_entreprise").css("display","block")
+                    }
+                    else if($("#options_page_entreprise").css("display")==  "block")
+                    {
+                        $('#options_page_entreprise').css("display", "none");
+                    }
+                }
+
+            });
+        });*/
+
+    function clearUserInputReply(cmid){
+        $("#IMAGEREPLY"+cmid).attr('src', '');
+        $("#imagereply"+cmid).val('');
+        $("#PHOTOREPLY"+cmid).fadeOut();
+        $("#CLEARINTUSERREPLY"+cmid).fadeOut();
+        $("#publishbtreply"+cmid).hide();
+    }
+
+    function clearUserInputComment(stid){
+        $("#IMAGECOMMENT"+stid).attr('src', '');
+        $("#image"+stid).val('');
+        $("#PHOTOCOMMENT"+stid).fadeOut();
+        $("#CLEARINTUSERCOMMENT"+stid).fadeOut();
+        $("#publishbtcomment"+stid).hide();
+    }
+
+
+		function readURLCOMMENTIMG(input, nbst) {
+		    if (input.files && input.files[0]) {
+		        var reader = new FileReader();
+		        reader.onload = function (e) {
+		            $('#IMAGECOMMENT'+nbst).addClass('img-thumbnail');
+		            $('#IMAGECOMMENT'+nbst).attr('src', e.target.result);
+		            $('#PHOTOCOMMENT'+nbst).fadeIn(1500);
+		        }
+
+		        reader.readAsDataURL(input.files[0]);
+		    }
+		}
+
+		function readURLREPLYIMG(input, nbcmt) {
+		    console.log(nbcmt);
+		    if (input.files && input.files[0]) {
+		        var reader = new FileReader();
+		        reader.onload = function (e) {
+		            $('#IMAGEREPLY'+nbcmt).addClass('img-thumbnail');
+		            $('#IMAGEREPLY'+nbcmt).attr('src', e.target.result);
+		            $('#PHOTOREPLY'+nbcmt).fadeIn(1500);
+		        }
+
+		        reader.readAsDataURL(input.files[0]);
+		    }
+		}
+
+		var is_image = false;
+		var is_image_reply = false;
+
+		function DISPLAYPUBLIERREPLY(area, cm){
+		    if( is_image_reply == false ){
+		        if( area.value == "" ){
+			        $("#publishbtreply"+cm).hide();
+                }else{
+			        $("#publishbtreply"+cm).show();
+                }
+            }
+        }
+
+		function DISPLAYPUBLIER(area, st){
+		    if( is_image == false ){
+		        if( area.value == "" ){
+			        $("#publishbtcomment"+st).hide();
+                }else{
+			        $("#publishbtcomment"+st).show();
+                }
+            }
+        }
+
+        function DISPLAYIMGREPLY(image){
+			nbcmt = image.getAttribute('comment');
+			is_image = true;
+			$("#publishbtreply"+nbcmt).show();
+		    readURLREPLYIMG(image, nbcmt);
+		    $("#CLEARINTUSERREPLY"+nbcmt).fadeIn();
+		}
+
+
+		function DISPLAYIMG(image){
+			nbst = image.getAttribute('statut');
+			is_image = true;
+			$("#publishbtcomment"+nbst).show();
+		    readURLCOMMENTIMG(image, nbst);
+		    $("#CLEARINTUSERCOMMENT"+nbst).fadeIn();
+		}
+
+
+
+    function getMoreComments(bt)
+    {
+
+        statutid = bt.getAttribute('statutid');
+        nextp = bt.getAttribute('page');
+        commentsURL = "{% url 'SocialMedia:getMoreCommentsMyProfil' %}";
+        $.ajax({
+                    url: commentsURL,
+                    type: 'GET',
+                    data: {'page':nextp, 'statutid':statutid},
+                    beforeSend: function (xhr, settings) {
+                      $("#loadingImage").show();
+                    },
+                    success: function (data) {
+                            $("#first_load_more_div" + statutid + ", #load_more_div" + statutid).remove();
+                            $(".comments" + statutid).append(data);
+                            console.log(data);
+                    },
+                    error: function () {
+                    },
+                    complete:function(){
+                      $("#loadingImage").fadeOut(250);
+                    },
+                    stop: function (e) {
+                        swal("Veuiller Verifier Votre Connexion Reseau Puis Ressayer", "Erreur Fatale", "error");
+                    }
+                });
+    }
+
+    function getMoreReplies(bt)
+    {
+
+        commentId = bt.getAttribute('commentId');
+        nextp = bt.getAttribute('page');
+        replyURL = "{% url 'SocialMedia:getMoreRepliesMyProfil' %}";
+        $.ajax({
+                    url: replyURL,
+                    type: 'GET',
+                    data: {'page':nextp, 'commentId':commentId},
+                    success: function (data) {
+                        $("#first_load_more_div_replies"+commentId+", #load_more_div_replies"+commentId).remove();
+                        $("#AddedReply"+commentId).append(data);
+                        console.log(data);
+                    },
+                    error: function () {
+                    },
+                    complete:function(){
+                    },
+                    stop: function (e) {
+                        swal("Veuiller Verifier Votre Connexion Reseau Puis Ressayer", "Erreur Fatale", "error");
+                    }
+                });
+    }
+
+    function focusComment(bt)
+    {
+        statutID = bt.getAttribute("statut");
+        $(".textareaComment"+statutID).focus();
+    }
+    function focusReply(bt)
+    {
+        commentID = bt.getAttribute("comment");
+        $(".textareaReply"+commentID).focus();
+    }
+
+    function addComment(e, frm){
+        e.preventDefault();
+        statutID = $(frm).attr('val');
+        $("#publishbtcomment"+statutID).hide('fast');
+            form_data = new FormData(frm);
+                addCommentURL = "{% url 'SocialMedia:addCommentMyProfil' %}";
+                $.ajax({
+                    url: addCommentURL,
+                    type: 'POST',
+                    processData: false,
+                    contentType: false,
+                    data: form_data,
+                    beforeSend: function (xhr, settings) {
+                        var csrftoken = getCookie('csrftoken');
+                        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                        }
+                    },
+                    success: function (data) {
+                        $("#NewCommentAdded"+statutID).prepend(data);
+                        $(".textareaComment"+statutID).css('height','');
+                        $("#TXTCMT"+statutID).css('height','');
+                        is_image = false;
+                    },
+                    error: function () {
+                    },
+                    complete:function(){
+                        frm.elements[0].value = "";
+                        $("#IMAGECOMMENT"+statutID).attr('src', '');
+                        $("#image"+statutID).val('');
+                        $("#PHOTOCOMMENT"+statutID).fadeOut('fast');
+                        $("#CLEARINTUSERCOMMENT"+statutID).fadeOut();
+                    },
+                    stop: function (e) {
+                        swal("Veuiller Verifier Votre Connexion Reseau Puis Ressayer", "Erreur Fatale", "error");
+                    }
+                });
+    }
+
+    function addReply(e, frm){
+        e.preventDefault();
+        commentID = $(frm).attr('val');
+        $("#publishbtreply"+commentID).hide('fast');
+            form_data = new FormData(frm);
+                addReplyURL = "{% url 'SocialMedia:addReplyMyProfil' %}";
+                $.ajax({
+                    url: addReplyURL,
+                    type: 'POST',
+                    processData: false,
+                    contentType: false,
+                    data: form_data,
+                    beforeSend: function (xhr, settings) {
+                        var csrftoken = getCookie('csrftoken');
+                        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                        }
+                    },
+                    success: function (data) {
+                        $("#AddedReply"+commentID).prepend(data);
+                        $(".textareaReply"+commentID).css('height','');
+                        $("#TXTRPL"+commentID).css('height','');
+                        is_image_reply = false;
+                    },
+                    error: function () {
+                    },
+                    complete:function(){
+                        frm.elements[0].value = "";
+                        $("#IMAGEREPLY"+commentID).attr('src', '');
+                        $("#imagereply"+commentID).val('');
+                        $("#PHOTOREPLY"+commentID).fadeOut('fast');
+                        $("#CLEARINTUSERREPLY"+commentID).fadeOut();
+                    },
+                    stop: function (e) {
+                        swal("Veuiller Verifier Votre Connexion Reseau Puis Ressayer", "Erreur Fatale", "error");
+                    }
+                });
+    }
+
+
+    function updateNbComments(stid, nbcomments){
+        $("#NbComments"+stid).text(nbcomments+" commentaires");
+    }
+    function updateNbReplies(cmid, nbReplies){
+        $("#NbReplies"+cmid).text(nbReplies+" commentaires");
+    }
+
+    $('body').on("click","#like, #unlike", function(e){
+        statutid = $(this).attr('statut');
+        like = $(this).attr('lk');
+        data = { 'lk':like, 'statut':statutid }
+        commentsURL = "{% url 'SocialMedia:likeUnlikeStatut' %}";
+        $.ajax({
+                    url: commentsURL,
+                    type: 'POST',
+                    data: {'lk':like, 'statut':statutid},
+                    dataType: 'JSON',
+                    beforeSend: function (xhr, settings) {
+                        var csrftoken = getCookie('csrftoken');
+                        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                        }
+                    },
+                    success: function (data) {
+                        if (data.statut) {
+                                if (like == 1){
+                                    $("#likediv"+statutid).addClass('hidden');
+                                    $("#unlikediv"+statutid).removeClass('hidden');
+                                    $("#likes"+statutid).text(data.nblikes+" j'aimes")
+                            } else {
+                                    $("#unlikediv"+statutid).addClass('hidden');
+                                    $("#likediv"+statutid).removeClass('hidden');
+                                    $("#likes"+statutid).text(data.nblikes+" j'aimes")
+                            }
+                        }
+                    },
+                    error: function () {
+                    },
+                    complete:function(){
+                        $("#loadingImage").fadeOut(150);
+                    },
+                    stop: function (e) {  /* 3. WHEN THE UPLOADING PROCESS FINALIZE, HIDE THE MODAL */
+                        $("#squarespaceModal").modal("hide");
+                        swal("Veuiller Verifier Votre Connexion Reseau Puis Ressayer", "Erreur Fatale", "error");
+                    }
+                });
+    });
+
+
+    function addStatut(e, frm){
+        e.preventDefault();
+        if( $("#statut").val() == "" && $(frm).find("#IMGST").get(0).files.length === 0  && $(frm).find("#VIDST").get(0).files.length === 0 && $(frm).find("#DOCST").get(0).files.length === 0  ){
+            swal("Veuiller ajouter un statut");
+            return;
+        }
+        $("#btAddPost").css('cursor', 'no-drop');
+        $("#btAddPost").html('<img src="{% static "SocialMedia/img/YX5xG_s-200x150.gif" %}" width=30 height=30 />');
+        var form_data = new FormData($(frm)[0]);
+        addStatutURL = "{% url 'SocialMedia:addStatutMyProfil' %}";
+        $.ajax({
+                    url: addStatutURL,
+                    type: 'POST',
+                    processData: false,
+                    contentType: false,
+                    data: form_data,
+                    beforeSend: function (xhr, settings) {
+                        var csrftoken = getCookie('csrftoken');
+                        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                        }
+                    },
+                    success: function (data) {
+                        $("#statut").val('');
+                        {% if not statuts %}location.reload();{% endif %}
+                        $("#AddedStatut").prepend(data);
+                        $(".LinkPreview").hide();
+                        $("#chargementPreview").hide();
+                        $("#IMAGESTATUT").attr('src','');
+                        $("#IMGST").val('');
+                        $("#VIDEOSTATUT").attr('src','');
+                        $("#VIDST").val('');
+                        $("#DOCSTATUT").text('');
+                        $("#DOCST").val('');
+                        $("#PHOTOPOST").fadeOut(150);
+                        $("#VIDEOPOST").fadeOut(150);
+                        $("#DOCPOST").fadeOut(150);
+                        $("#statut").slideUp(350);
+                        $(".btstatutHIDESHOW").slideDown(350);
+                    },
+                    error: function () {
+                    },
+                    complete:function(){
+                        $("#btAddPost").html('Publier');
+                        $("#btAddPost").css('cursor', 'pointer');
+                        $("#CLEARINTUSER").fadeOut();
+                        $(".LinkPreview").hide();
+                    },
+                    stop: function (e) {
+                        swal("Veuiller Verifier Votre Connexion Reseau Puis Ressayer", "Erreur Fatale", "error");
+                    }
+                });
+    }
+
+    function likeUnlikeComment(bt){
+        comment = bt.getAttribute('comment');
+        lk = bt.getAttribute('lk');
+        likeUnlikeCommentURL = "{% url 'SocialMedia:likeUnlikeComment' %}";
+        $.ajax({
+                    url: likeUnlikeCommentURL,
+                    type: 'POST',
+                    data: {comment:comment, lk:lk},
+                    beforeSend: function (xhr, settings) {
+                        var csrftoken = getCookie('csrftoken');
+                        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                        }
+                    },
+                    success: function (data) {
+                        if( lk == 1 ){
+                            bt.setAttribute('lk','-1');
+                            bt.classList.add("active");
+                            $("#NbLikesComment"+comment).html(data.nblikes+" j'aime");
+                        }else{
+                            bt.setAttribute('lk','1');
+                            bt.classList.remove("active");
+                            $("#NbLikesComment"+comment).html(data.nblikes+" j'aime");
+                        }
+                    },
+                    error: function () {
+                    },
+                    complete:function(){
+                    },
+                    stop: function (e) {
+                        swal("Veuiller Verifier Votre Connexion Reseau Puis Ressayer", "Erreur Fatale", "error");
+                    }
+                });
+    }
+
+    function likeUnlikeReply(bt){
+        reply = bt.getAttribute('reply');
+        lk = bt.getAttribute('lk');
+        likeUnlikeReplyURL = "{% url 'SocialMedia:likeUnlikeReply' %}";
+        $.ajax({
+                    url: likeUnlikeReplyURL,
+                    type: 'POST',
+                    data: {reply:reply, lk:lk},
+                    beforeSend: function (xhr, settings) {
+                        var csrftoken = getCookie('csrftoken');
+                        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                        }
+                    },
+                    success: function (data) {
+                        if( lk == 1 ){
+                            bt.setAttribute('lk','-1');
+                            bt.classList.add("active");
+                            $("#NbLikesReply"+reply).html(data.nblikes+" j'aime");
+                        }else{
+                            bt.setAttribute('lk','1');
+                            bt.classList.remove("active");
+                            $("#NbLikesReply"+reply).html(data.nblikes+" j'aime");
+                        }
+                    },
+                    error: function () {
+                    },
+                    complete:function(){
+                    },
+                    stop: function (e) {
+                        swal("Veuiller Verifier Votre Connexion Reseau Puis Ressayer", "Erreur Fatale", "error");
+                    }
+                });
+    }
+
+
+    function showLikers(dt, type){
+        likersURL = "{% url 'SocialMedia:getStatutLikers' %}";
+        $.ajax({
+                    url: likersURL,
+                    type: 'GET',
+                    data: {'data': dt, 'type': type},
+                    success: function (data) {
+                        $("#likers").html(data);
+                        console.log(data);
+                    },
+                    error: function () {
+                    },
+                    complete:function(){
+                        $('#likersModal').modal('show');
+                    },
+                    stop: function (e) {
+                        swal("Veuiller Verifier Votre Connexion Reseau Puis Ressayer", "Erreur Fatale", "error");
+                    }
+                });
+    }
+
+    function SignalerStatut(st){
+         swal({
+          title: 'Voulez-vous vraiment signaler le statut?',
+          text: "les statuts signalés ne seront plus affichés pour vous.",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Signaler',
+          cancelButtonText: 'Annuler',
+        }).then((result) => {
+          if (result.value) {
+                statut = st;
+                SignalerStatutURL = "{% url 'SocialMedia:SignalerStatut' %}";
+                $.ajax({
+                    url: SignalerStatutURL,
+                    type: 'POST',
+                    data: {'statut':statut},
+                    beforeSend: function (xhr, settings) {
+                        var csrftoken = getCookie('csrftoken');
+                        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                        }
+                    },
+                    success: function (data) {
+                        if( data.signale ){
+                            swal(
+                                'Operation effectuée',
+                                'le statut à été signalé',
+                                'success'
+                            );
+                            $(".StatutCONTENT"+statut).remove();
+                        }
+                    },
+                    error: function () {
+                    },
+                    complete:function(){
+                    },
+                    stop: function (e) {
+                        swal("Veuiller Verifier Votre Connexion Reseau Puis Ressayer", "Erreur Fatale", "error");
+                    }
+                });
+    }});
+    }
+
+    function SignalerCommentaire(cm){
+         swal({
+          title: 'Voulez-vous vraiment signaler le commentaire?',
+          text: "les commentaires signalés ne seront plus affichés pour vous.",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Signaler',
+          cancelButtonText: 'Annuler',
+        }).then((result) => {
+          if (result.value) {
+                comment = cm;
+                SignalerCommentaireURL = "{% url 'SocialMedia:SignalerCommentaire' %}";
+                $.ajax({
+                    url: SignalerCommentaireURL,
+                    type: 'POST',
+                    data: {'comment':comment},
+                    beforeSend: function (xhr, settings) {
+                        var csrftoken = getCookie('csrftoken');
+                        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                        }
+                    },
+                    success: function (data) {
+                        if( data.signale ){
+                            swal(
+                                'Operation effectuée',
+                                'le statut à été signalé',
+                                'success'
+                            );
+                            $(".CommentCONTENT"+cm).remove();
+                        }
+                    },
+                    error: function () {
+                    },
+                    complete:function(){
+                    },
+                    stop: function (e) {
+                        swal("Veuiller Verifier Votre Connexion Reseau Puis Ressayer", "Erreur Fatale", "error");
+                    }
+                });
+    }});
+    }
+
+    function SignalerReply(rp){
+         swal({
+          title: 'Voulez-vous vraiment signaler le statut?',
+          text: "les statuts signalés ne seront plus affichés pour vous.",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Signaler',
+          cancelButtonText: 'Annuler',
+        }).then((result) => {
+          if (result.value) {
+                reply = rp;
+                SignalerReplyURL = "{% url 'SocialMedia:SignalerReply' %}";
+                $.ajax({
+                    url: SignalerReplyURL,
+                    type: 'POST',
+                    data: {'reply':reply},
+                    beforeSend: function (xhr, settings) {
+                        var csrftoken = getCookie('csrftoken');
+                        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                        }
+                    },
+                    success: function (data) {
+                        if( data.signale ){
+                            swal(
+                                'Operation effectuée',
+                                'le statut à été signalé',
+                                'success'
+                            );
+                            $(".ReplyCONTENT"+rp).remove();
+                        }
+                    },
+                    error: function () {
+                    },
+                    complete:function(){
+                    },
+                    stop: function (e) {
+                        swal("Veuiller Verifier Votre Connexion Reseau Puis Ressayer", "Erreur Fatale", "error");
+                    }
+                });
+    }});
+    }
+
+
+    function copyPostLink(st) {
+        /* Get the text field */
+        url = "{% url 'SocialMedia:Statut' 999999 %}".replace(999999, st);
+        var $temp = $("<input>");
+        $("body").append($temp);
+        value = "{{ request.META.HTTP_HOST }}"+url;
+        $temp.val(value).select();
+
+        /* Select the text field */
+        $temp.select();
+
+        /* Copy the text inside the text field */
+        document.execCommand("copy");
+        toggleOptions(st);
+        const toast = swal.mixin({
+          toast: true,
+          position: 'bottom-right',
+          showConfirmButton: false,
+          timer: 3000
+        });
+
+        toast({
+          type: 'success',
+          title: 'Le lien du post a été copié avec succé'
+        })
+
+    }
+
+
+    function showShare(e, st){
+        e.preventDefault();
+        shareModalURL = "{% url 'SocialMedia:shareStatut' %}";
+        $.ajax({
+                    url: shareModalURL,
+                    type: 'GET',
+                    data: { 'statut': st },
+                    success: function (response) {
+                        $("#shareST").html(response);
+                        $('#shareModal'+st).modal('show');
+                    },
+                    error: function () {
+                    },
+                    complete:function(){
+                    },
+                    stop: function (e) {
+                        swal("Veuiller Verifier Votre Connexion Reseau Puis Ressayer", "Erreur Fatale", "error");
+                    }
+                });
+    }
+
+
+    function shareStatut(event, frm){
+        event.preventDefault();
+
+        form_data = new FormData(frm);
+        statutID = frm.getAttribute("val");
+        $("#btshareStatut"+statutID).css('cursor', 'no-drop');
+        $("#btshareStatut"+statutID).html('<img src="{% static "SocialMedia/img/YX5xG_s-200x150.gif" %}" width=30 height=30 />');
+
+        shareStatutURL = "{% url 'SocialMedia:shareStatut' %}";
+        $.ajax({
+                    url: shareStatutURL,
+                    type: 'POST',
+                    processData: false,
+                    contentType: false,
+                    data: form_data,
+                    beforeSend: function (xhr, settings) {
+                        var csrftoken = getCookie('csrftoken');
+                        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                        }
+                    },
+                    success: function (data) {
+                        if( data.status == true) {
+                            $('#shareModal'+statutID).modal('toggle');
+                            const toast = swal.mixin({
+                              toast: true,
+                              position: 'bottom-right',
+                              showConfirmButton: false,
+                              timer: 3000
+                            });
+
+                            toast({
+                              type: 'success',
+                              title: 'Le statut à été partagé avec succé'
+                            })
+                        }
+                    },
+                    error: function () {
+                    },
+                    complete:function(){
+                    },
+                    stop: function (e) {
+                        swal("Veuiller Verifier Votre Connexion Reseau Puis Ressayer", "Erreur Fatale", "error");
+                    }
+                });
+    }
+
+  </script>
+
+{% endblock %}
+
+
+

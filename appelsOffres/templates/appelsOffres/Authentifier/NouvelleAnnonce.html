@@ -1,0 +1,268 @@
+{% extends 'base_main.html' %}
+{% load static %}
+
+
+{% block title %}
+{{ block.super }}
+    Nouvelle Annonce
+{% endblock title %}
+
+
+{% block stylesheets %}
+    {{ block.super }}
+
+      <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title> Accueil</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="{% static "appelsOffres/assets/images/aa.png" %}">
+
+        <!--<link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,600,700' rel='stylesheet' type='text/css'>-->
+        <link rel="stylesheet" href="{% static "appelsOffres/assets/css/fonticons.css" %} ">
+        <link rel="stylesheet" href="{% static "appelsOffres/assets/fonts/stylesheet.css" %} ">
+        <link rel="stylesheet" href="{% static "appelsOffres/assets/css/font-awesome.min.css" %} ">
+        <link rel="stylesheet" href="{% static "appelsOffres/assets/css/bootstrap.min.css" %} ">
+        <!--        <link rel="stylesheet" href="assets/css/bootstrap-theme.min.css">-->
+
+
+        <!--For Plugins external css-->
+        <link rel="stylesheet" href="{% static "appelsOffres/assets/css/plugins.css" %} " />
+
+        <!--Theme custom css -->
+        <link rel="stylesheet" href="{% static "appelsOffres/assets/css/style.css" %} ">
+
+        <!--Theme Responsive css-->
+        <link rel="stylesheet" href="{% static "appelsOffres/assets/css/responsive.css" %} " />
+
+        <style>
+        blockquote {
+            margin: 0 0 20px;
+            font-size: 17.5px;
+            border: 1px solid darkorange;
+            border-radius: 10px;
+            box-shadow: 5px 15px 15px darkgrey;
+        }
+
+        .bor {
+            border: 1px solid darkgrey;
+            padding-bottom: 2%;
+            border-radius: 10px;
+        }
+        </style>
+
+
+
+{% endblock stylesheets %}
+
+
+
+{% block content %}
+        {{ block.super }}
+        <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+		<div class='preloader'><div class='loaded'>&nbsp;</div></div>
+        <!--Home page style-->
+        <header id="main_menu" class="header">
+            <div class="main_menu_bg navbar-fixed-top" style="background-color: white;">
+                <div class="container" >
+                    <div class="row">
+                        <div class="nave_menu wow fadeInUp" data-wow-duration="1s" >
+                            <nav class="navbar navbar-default" id="navmenu" >
+                                <div class="container-fluid" >
+                                    <!-- Brand and toggle get grouped for better mobile display -->
+                                    <div class="navbar-header">
+                                        <a class="navbar-brand" href=""><img src="{% static "appelsOffres/assets/images/logo_apo.png" %}" width="250px"></a>
+                                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                                            <span class="sr-only">Toggle navigation</span>
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                        </button>
+                                    </div>
+
+                                    <!-- Collect the nav links, forms, and other content for toggling -->
+                                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+                                        <ul class="nav navbar-nav navbar-right" >
+                                            <li><a href="/appelsOffres">LES APPELS D'OFFRES</a></li>
+
+                                            <li class="active">
+                                                  <a href="#" class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">ANNONCES <span class="caret"></span></a>
+                                                  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                                        <li><a href="/appelsOffres/NouvelleAnnonce">NOUVELLE ANNONCE</a></li>
+                                                        <li role="separator" class="divider"></li>
+                                                        <li><a href="/appelsOffres/MesAnnonces">MES ANNONCES</a></li>
+                                                  </ul>
+                                            </li>
+
+                                            <li>
+                                                  <a href="#" class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">PROJETS <span class="caret"></span></a>
+                                                  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                                        <li><a href="/appelsOffres/NouveauProjet">NOUVEAU PROJET</a></li>
+                                                        <li role="separator" class="divider"></li>
+                                                        <li><a href="/appelsOffres/MesProjets">MES PROJETS</a></li>
+                                                  </ul>
+                                            </li>
+
+                                            <li><a href="/appelsOffres/MonProfile">MON PROFILE</a></li>
+
+                                            <li><a href="/appelsOffres/MESFAVORIS">MES FAVORIS</a></li>
+
+                                            {% if user.is_staff or user.is_superuser %}
+                                            <li><a href="/admin">GESTION</a></li>
+                                        {% endif %}
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </nav>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </header> <!--End of header -->
+
+        <section id="scrolimage" >
+                        <div class="w3-content w3-section" >
+                          <img class="mySlides" src="{% static "appelsOffres/assets/images/sl1.jpeg" %}" style="width:100%">
+                          <img class="mySlides" src="{% static "appelsOffres/assets/images/sl2.jpeg" %}" style="width:100%">
+                          <img class="mySlides" src="{% static "appelsOffres/assets/images/sl3.jpeg" %}" style="width:100%">
+                          <img class="mySlides" src="{% static "appelsOffres/assets/images/sl4.jpeg" %}" style="width:100%">
+                          <img class="mySlides" src="{% static "appelsOffres/assets/images/sl5.jpeg" %}" style="width:100%">
+                        </div>
+
+                        <script>
+                        var myIndex = 0;
+                        carousel();
+
+                        function carousel() {
+                            var i;
+                            var x = document.getElementsByClassName("mySlides");
+                            for (i = 0; i < x.length; i++) {
+                               x[i].style.display = "none";
+                            }
+                            myIndex++;
+                            if (myIndex > x.length) {myIndex = 1}
+                            x[myIndex-1].style.display = "block";
+                            setTimeout(carousel, 5000); // Change image every 2 seconds
+                        }
+                        </script>
+
+        </section>
+
+
+
+        <section id="domain" class="domainsearce" style="padding: 20px 0px;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-10 col-sm-offset-1">
+						<div class="main_somainsearrce">
+							<div class="head_title text-center wow fadeInDown" data-wow-duration="1s">
+
+                                {% if messages %}
+                                    {% for message in messages %}
+                                        <div class="alert alert-{{message.tags}} alert-dismissible" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            {{ message }}
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+
+							</div>
+
+                            <div class="form-group col-md-12">
+                                <form action="/appelsOffres/addAnnonce" method="POST" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                        <blockquote>
+
+                                            <div class="form-row">
+                                                <div class="form-group col-md-6" id="titre">
+                                                    <label for="">Titre *</label>
+                                                    <input type="text" name="titre" id="titreInput" class="form-control" placeholder="Titre">
+                                                </div>
+
+                                                <div class="form-group col-md-6" id="titre">
+                                                    <label for=""> date fin *</label>
+                                                    <input type="date" name="time" id="timeInput" class="form-control" placeholder="Titre"
+                                                </div>
+
+                                                </div>
+
+                                                <div class="form-group col-md-12" id="Status">
+                                                    <label for="" >Status *</label>
+                                                    <select class="form-control" name="Status" id="StatusInput">
+                                                            <option value="">----- </option>
+                                                            <option value="ouvert">Ouvert </option>
+                                                            <option value="fermé">Fermé  </option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group col-md-12 bor" id="description">
+                                                    <label for="" >Description * </label>
+                                                    <textarea type="text" name="description" id="descriptionInput" class="form-control" placeholder="Description" rows="5"></textarea>
+                                                </div>
+
+                                                <div class="form-group col-md-12" id="lots">
+                                                    <label for="" >Lots *</label>
+                                                        {% for it in lot  %}
+                                                            <p><input type="checkbox" class="checkbox-inline" name="lots" value="{{ it.titre }}"/> {{ it.titre }}</p>
+                                                        {% endfor %}
+                                                </div>
+                                                &nbsp;
+                                            </div>
+
+                                        </blockquote>
+
+                                        <center>
+                                            <button class="btn btn-default"  id="envoyer"> Ajouter </button>
+                                        </center>
+
+                                </form>
+
+                            </div>
+
+
+
+						</div>
+					</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- STRAT SCROLL TO TOP -->
+
+        <div class="scrollup">
+            <a href="#"><i class="fa fa-chevron-up"></i></a>
+        </div>
+
+{% endblock content %}
+
+
+{% block scripts %}
+    {{ block.super }}
+        <script src="{% static "appelsOffres/assets/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js" %} "></script>
+        <script src="{% static "appelsOffres/assets/js/vendor/jquery-1.11.2.min.js" %} "></script>
+        <script src="{% static "appelsOffres/assets/js/vendor/bootstrap.min.js" %} "></script>
+        <script src="{% static "appelsOffres/assets/js/jquery.easypiechart.min.js" %} "></script>
+
+        <script src="{% static "appelsOffres/assets/js/plugins.js" %} "></script>
+        <script src="{% static "appelsOffres/assets/js/main.js " %} "></script>
+
+        <script src="http://cdn.jsdelivr.net/webshim/1.12.4/extras/modernizr-custom.js"></script>
+            <!-- polyfiller file to detect and load polyfills -->
+            <script src="http://cdn.jsdelivr.net/webshim/1.12.4/polyfiller.js"></script>
+            <script>
+              webshims.setOptions('waitReady', false);
+              webshims.setOptions('forms-ext', {types: 'date'});
+              webshims.polyfill('forms forms-ext');
+            </script>
+
+{% endblock scripts %}
+
+

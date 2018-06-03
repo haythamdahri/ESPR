@@ -1,0 +1,240 @@
+{% extends 'base_qa.html' %}
+ {% load static %}
+{% load i18n %}
+
+{% block style %}
+
+{% endblock style %}
+
+
+ {% block content %}
+
+ <section id="blog" class="custom-padding white">
+      <div class="container">
+
+        <!-- Row -->
+        <div class="row">
+
+          <!-- Left Side Content -->
+          <div class="col-sm-12 col-xs-12 col-md-8">
+
+            <!-- Blog Grid -->
+
+            <div class="blog-detial">
+              <div class="blog-image"> 
+
+               {% if  blog.photo.image.url %}
+                  <img alt="blog-image1" class="img-responsive" src="{{ blog.photo.image.url }}" style="min-width: 100%;" > 
+                  {% else %}
+                <img  src='{% static "qa/images/blog.jpg" %}' class="img-responsive" style="min-width: 100%;">
+                {% endif %}
+
+              </div>
+              <div class="blog-content">
+                <h5><a href="/qablog-detail.html">{{ blog.blog_title }}</a></h5>
+                <ul class="post-meta">
+                  <li></li>
+                  <li>{{ blog.categorie.title_categorie }}</li>
+                  <li>{{ blog.pub_date }}</li>
+                </ul>
+
+              </div>
+
+              <div>
+                {{ blog.blog_text| safe }}
+              </div>
+
+              <div class="clearfix"></div>
+
+              <div class="entry-footer">
+                <div class="post-admin">
+                  <i class="icon-profile-male"></i>Posted by<a href="/qa#">{{ blog.user_data.user.username }}</a>
+                </div>
+                <div class="tags">
+                  <i class="fa fa-tags"></i>
+                  {% for tag in blog.tags.all %}
+                    <a href="/qa/tag/{{ tag.slug|slugify }}/">{{ tag.slug }}</a>
+                  {% endfor %} |&nbsp;&nbsp;   &nbsp;&nbsp;&nbsp;
+                  <a data-toggle="tooltip" data-placement="bottom" data-original-title="Like This Answer" href="/qa/voteblog/{{ user.id }}/{{ blog.id }}/0/"><i class="fa fa-thumbs-up"></i>
+                                  </a>
+
+                  <a  href="/qa/voteblog/{{ user.id }}/{{ blog.id }}/1/" data-original-title="Spam" data-placement="bottom" data-toggle="tooltip"><i class="fa fa-thumbs-down"></i></a>
+                  ( {{ blog.reward  }} )
+
+                </div>
+              </div>
+
+              <div class="clearfix"></div>
+
+
+
+              <div class="clearfix"></div>
+
+              <div class="blog-section">
+                <div class="blog-heading">
+                  <h2>Laisse Votre commentaire </h2>
+                  <hr>
+                </div>
+                <div class="commentform">
+                    
+                    <div>
+                      <br>
+            {% if user.is_authenticated %}
+            {% if answers %}
+            {% for answer in answers %}
+            <div class="thread-reply">
+              
+
+              <!-- Reply Grid -->
+              <div class="media-block card-box ribbon-content">
+
+                <div class="media-left">
+                  <a data-toggle="tooltip" data-placement="bottom" data-original-title="Martina Jaz" href="/qa#">
+                    {% if answer.user_data.photo_profil.image.url %}
+                      <img class="img-sm" alt="Profile Picture" src="{{ answer.user_data.photo_profil.image.url }}">
+                    {% else %}
+                      <img class="img-sm"  src='{% static "qa/images/p1.png" %}'>
+                    {% endif %}
+                  </a>
+
+                </div>
+                <div class="media-body">
+                  <div class="mar-btm">
+
+                    <h4><a href="/qa#" class="btn-link text-semibold media-heading box-inline">{{ answer.user_data.user.username }}</a></h4>
+                    <p class="text-muted text-sm"><i class="fa fa-calendar fa-lg"></i> {{ answer.pub_date }}</p>
+
+                  </div>
+                  <p class="qtext">
+                    {{ answer.answer_text| safe }}
+                  </p>
+
+                </div>
+
+
+
+                
+
+              </div>
+              <!-- Reply Grid End -->
+              
+
+              <div class="clearfix"></div>
+
+
+
+
+            </div>
+            {% endfor %}
+            {% endif %}
+
+
+             
+
+            {% endif %}
+
+
+
+                    </div>
+                    <div class="row">
+
+                    <div class="col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <label>Commenter <span class="required">*</span>
+                        </label>
+                        {% if user.is_authenticated %}
+
+                         <form method="POST" action="/qa/answer_blog/">
+                             {% csrf_token %}
+                            <div class="form-group">
+                                <div>
+                                  {{ form_a.media }}
+                                  {{ form_a.answer_text }}
+                              </div>
+                          </div>
+                            <input type="hidden" name="blog" value="{{ blog.id }}">
+                            <input type="hidden" name="user" value="{{ user.id }}">
+                            <button class="btn btn-primary">{% trans "Postez votre Commentaire" %}</button>
+
+                          </form>
+ 
+                          {% else %}
+                          <h2 style="  background: #E5E5E5; height: 40px;"><center>
+                          <a style="color: #15a4fa; font-size: 25px;" href="/qa/main/login">{% trans "Connectez-vous ou inscrivez-vous pour voir et répondre" %}</a></center></h2>
+                         {% endif %} 
+                      </div>
+                    </div>
+
+                    </div> 
+
+                  
+                </div>
+              </div>
+            </div>
+
+            <!-- Blog Grid -->
+
+
+
+            <div class="clearfix"></div>
+            <!-- Pagination End -->
+          </div>
+          <!-- Left Content End -->
+
+          <!-- Blog Right Sidebar -->
+          <div class="col-sm-12 col-xs-12 col-md-4">
+
+            <!-- sidebar -->
+            <div class="side-bar">
+
+              <!-- widget -->
+              <div class="widget">
+                <div class="latest-news">
+                  <h2>Dernières nouvelles</h2>
+                  <hr class="widget-separator no-margin">
+
+                  <div class="news-post">
+
+                    {% for blog in dernier_blogs %}
+                    <div class="post">
+                      <figure class="post-thumb"><img alt="" src="{{ blog.photo.image.url }}">
+                      </figure>
+                      <h4><a href="/qa#">{{ blog.blog_title }} </a></h4>
+                      <!-- <div class="post-info">1 hour ago</div> -->
+                    </div>
+                    <hr>
+                    {% endfor %}
+                  </div>
+
+                </div>
+              </div>
+              <!-- widget end -->
+
+              <!-- widget -->
+              <div class="widget">
+                <div class="widget_tag_cloud">
+                  <h2>Tags </h2>
+                  <hr class="widget-separator no-margin">
+                  <div class="tag_cloud">
+                    {% for tag in tags|slice:":10" %}
+                        <a href="/qa/tag/{{ tag.slug|slugify }}/" >{{ tag.slug }}</a>
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+              <!-- widget end -->
+
+            </div>
+            <!-- sidebar end -->
+
+          </div>
+          <!-- Blog Right Sidebar End -->
+
+        </div>
+
+        <!-- Row End -->
+      </div>
+      <!-- end container -->
+    </section>
+
+ {% endblock content %}    

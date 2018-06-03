@@ -1,0 +1,24 @@
+{% load widget_tweaks %}
+{% load staticfiles %}
+<div id="modal_modifier_profill_entreprise">
+
+    <div class="modal fade" id="squarespace_modifier_profil_entreprise" tabindex="-1" role="dialog"
+         aria-labelledby="modalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span
+                            aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                    <h3 class="modal-title" id="lineModalLabel">Modifier les informations</h3>
+                </div>
+
+                <div class="actualized_form_modifier_experience">
+                    {% include 'SocialMedia/entreprise/forms/form_modifier_infos_entreprise.html' %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
